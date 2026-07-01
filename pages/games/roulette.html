@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🎡 Рулетка</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #0a0a1a;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse at 20% 30%, rgba(255, 50, 50, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(247, 212, 74, 0.04) 0%, transparent 50%);
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .back-btn {
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: none;
+            font-size: 14px;
+            padding: 6px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.02);
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .back-btn:active {
+            transform: scale(0.94);
+        }
+
+        .header h2 {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6b6b, #ffd93d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2px;
+        }
+        .header .sub {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.2);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .balance {
+            font-size: 24px;
+            font-weight: 600;
+            color: #f7e3a0;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            padding: 10px 28px;
+            border-radius: 60px;
+            display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            margin-bottom: 16px;
+        }
+
+        /* ===== КОЛЕСО ===== */
+        .wheel-container {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin: 10px auto;
+        }
+
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: relative;
+            border: 4px solid rgba(255, 215, 100, 0.15);
+            overflow: hidden;
+            transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+            box-shadow: 0 0 60px rgba(255, 50, 50, 0.05);
+        }
+        .wheel.spinning {
+            transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+        }
+
+        .wheel-segment {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            top: 0;
+            left: 50%;
+            transform-origin: 0% 100%;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .wheel-segment .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            margin-left: 22px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+        }
+        .wheel-segment.red .dot {
+            background: rgba(255, 255, 255, 0.35);
+        }
+        .wheel-segment.black .dot {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .wheel-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 55px;
+            height: 55px;
+            background: radial-gradient(circle, #f7d44a, #b8860b);
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.08);
+            z-index: 10;
+            box-shadow: 0 0 40px rgba(247, 212, 74, 0.1);
+        }
+        .wheel-center::after {
+            content: '★';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 22px;
+            color: #1a1a2e;
+        }
+
+        .wheel-arrow {
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 40px;
+            color: #f7d44a;
+            z-index: 20;
+            filter: drop-shadow(0 0 30px rgba(247, 212, 74, 0.15));
+            animation: arrowPulse 2s ease-in-out infinite;
+        }
+        @keyframes arrowPulse {
+            0%,
+            100% {
+                transform: translateX(-50%) scale(1);
+            }
+            50% {
+                transform: translateX(-50%) scale(1.05);
+            }
+        }
+
+        /* ===== РЕЗУЛЬТАТ ===== */
+        .result {
+            font-size: 26px;
+            font-weight: 700;
+            margin: 12px 0;
+            min-height: 50px;
+        }
+        .result .color-text.red {
+            color: #e74c3c;
+            text-shadow: 0 0 40px rgba(231, 76, 60, 0.15);
+        }
+        .result .color-text.black {
+            color: #bdc3c7;
+            text-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
+        }
+        .result .win-amount {
+            font-size: 18px;
+            color: #f7d44a;
+            margin-top: 4px;
+        }
+
+        .bet-settings {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+        .bet-settings label {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .bet-settings input {
+            width: 120px;
+            padding: 10px 8px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.02);
+            color: #f0e8d0;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 12px 0;
+        }
+        button {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 60px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            flex: 1;
+            min-width: 80px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        button:active {
+            transform: scale(0.94);
+        }
+        button:disabled {
+            opacity: 0.2;
+            cursor: not-allowed;
+        }
+        .btn-red {
+            background: linear-gradient(145deg, #e74c3c, #c0392b);
+            color: #fff;
+        }
+        .btn-black {
+            background: linear-gradient(145deg, #2c3e50, #1a252f);
+            color: #fff;
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(12, 14, 28, 0.92);
+            backdrop-filter: blur(16px);
+            color: #f0eee0;
+            padding: 12px 24px;
+            border-radius: 60px;
+            display: none;
+            z-index: 999;
+            max-width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 15px;
+            font-weight: 500;
+            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.3);
+        }
+        .toast.show {
+            display: block;
+            animation: slideDown 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) scale(0.8);
+                top: -60px;
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) scale(1);
+                top: 20px;
+            }
+        }
+
+        .footer {
+            margin-top: 12px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.04);
+            letter-spacing: 2px;
+        }
+
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            overflow: hidden;
+        }
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            opacity: 0;
+            animation: confettiFall linear forwards;
+        }
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-20px) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg) scale(0.3);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .wheel-container {
+                width: 220px;
+                height: 220px;
+            }
+            .wheel-center {
+                width: 45px;
+                height: 45px;
+            }
+            .wheel-center::after {
+                font-size: 18px;
+            }
+            button {
+                font-size: 14px;
+                padding: 12px 16px;
+                min-width: 60px;
+            }
+            .wheel-arrow {
+                font-size: 32px;
+                top: -14px;
+            }
+            .wheel-segment .dot {
+                width: 8px;
+                height: 8px;
+                margin-left: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg"></div>
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <div class="container">
+        <a href="games.html" class="back-btn">← Назад</a>
+
+        <div class="header">
+            <h2>🎡 Рулетка</h2>
+            <div class="sub">Красное или Чёрное</div>
+        </div>
+
+        <div class="balance" id="balanceDisplay">💰 1000</div>
+
+        <div class="wheel-container">
+            <div class="wheel-arrow">▼</div>
+            <div class="wheel" id="wheel"></div>
+            <div class="wheel-center"></div>
+        </div>
+
+        <div class="result" id="rouletteResult">
+            <div class="color-text">Сделай ставку</div>
+        </div>
+
+        <div class="bet-settings">
+            <label>💰 Ставка</label>
+            <input type="number" id="betInput" value="50" min="10" step="10">
+        </div>
+
+        <div class="buttons">
+            <button class="btn-red" onclick="spinRoulette('red')" id="btnRed">🔴 Красное</button>
+            <button class="btn-black" onclick="spinRoulette('black')" id="btnBlack">⚫ Чёрное</button>
+        </div>
+
+        <div class="footer">Красное/Чёрное = x2</div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ============================
+        // 1. БАЛАНС
+        // ============================
+        let balance = parseInt(localStorage.getItem('casinoBalance')) || 1000;
+        updateBalanceDisplay();
+
+        function updateBalanceDisplay() {
+            document.getElementById('balanceDisplay').textContent = '💰 ' + balance;
+            localStorage.setItem('casinoBalance', balance);
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            clearTimeout(t._timeout);
+            t._timeout = setTimeout(() => t.classList.remove('show'), 2500);
+        }
+
+        // ============================
+        // 2. ЗВУКИ
+        // ============================
+        function playWinSound() {
+            try {
+                const ctx = new(window.AudioContext || window.webkitAudioContext)();
+                [523, 659, 784, 1047].forEach((freq, i) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.frequency.value = freq;
+                    osc.type = 'sine';
+                    gain.gain.value = 0.08;
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2 + i * 0.1);
+                    osc.start(ctx.currentTime + i * 0.1);
+                    osc.stop(ctx.currentTime + 0.35 + i * 0.1);
+                });
+            } catch (_) {}
+        }
+
+        function playLoseSound() {
+            try {
+                const ctx = new(window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.frequency.value = 340;
+                osc.type = 'sine';
+                gain.gain.value = 0.08;
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + 0.6);
+                const osc2 = ctx.createOscillator();
+                const gain2 = ctx.createGain();
+                osc2.connect(gain2);
+                gain2.connect(ctx.destination);
+                osc2.frequency.value = 240;
+                osc2.type = 'sine';
+                gain2.gain.value = 0.06;
+                gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.7);
+                osc2.start(ctx.currentTime + 0.15);
+                osc2.stop(ctx.currentTime + 0.7);
+            } catch (_) {}
+        }
+
+        // ============================
+        // 3. КОНФЕТТИ
+        // ============================
+        function launchConfetti() {
+            const container = document.getElementById('confettiContainer');
+            const colors = ['#f7d44a', '#ff6b6b', '#2ecc71', '#3498db', '#9b59b6', '#e74c3c', '#f39c12'];
+            for (let i = 0; i < 50; i++) {
+                const el = document.createElement('div');
+                el.className = 'confetti';
+                el.style.left = Math.random() * 100 + '%';
+                el.style.top = '-10px';
+                el.style.background = colors[Math.floor(Math.random() * colors.length)];
+                el.style.width = (Math.random() * 6 + 4) + 'px';
+                el.style.height = (Math.random() * 6 + 4) + 'px';
+                el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                el.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+                el.style.animationDelay = (Math.random() * 0.6) + 's';
+                el.style.boxShadow = '0 0 15px ' + colors[Math.floor(Math.random() * colors.length)] + '33';
+                container.appendChild(el);
+                setTimeout(() => el.remove(), 4000);
+            }
+        }
+
+        // ============================
+        // 4. КОЛЕСО (ЧЕРЕДОВАНИЕ КРАСНЫЙ/ЧЁРНЫЙ)
+        // ============================
+        const colors = [];
+        const segments = 37;
+        for (let i = 0; i < segments; i++) {
+            if (i === 0) {
+                colors.push('green'); // Зеро (можно добавить, но пока просто зелёный)
+            } else {
+                colors.push(i % 2 === 0 ? 'red' : 'black');
+            }
+        }
+
+        const wheel = document.getElementById('wheel');
+        const segmentCount = colors.length;
+        const angleStep = 360 / segmentCount;
+
+        colors.forEach((color, i) => {
+            const seg = document.createElement('div');
+            seg.className = `wheel-segment ${color}`;
+            if (color === 'red') {
+                seg.style.background = '#e74c3c';
+            } else if (color === 'black') {
+                seg.style.background = '#1a1a2e';
+            } else {
+                seg.style.background = '#2ecc71';
+            }
+            seg.style.transform = `rotate(${i * angleStep}deg)`;
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            if (color === 'red') {
+                dot.style.background = 'rgba(255,255,255,0.3)';
+            } else if (color === 'black') {
+                dot.style.background = 'rgba(255,255,255,0.08)';
+            } else {
+                dot.style.background = 'rgba(255,255,255,0.5)';
+            }
+            seg.appendChild(dot);
+            wheel.appendChild(seg);
+        });
+
+        // ============================
+        // 5. ИГРА
+        // ============================
+        let isSpinning = false;
+        let currentRotation = 0;
+
+        function spinRoulette(betType) {
+            if (isSpinning) return;
+            const bet = parseInt(document.getElementById('betInput').value) || 50;
+            if (balance < bet) {
+                showToast('❌ Недостаточно монет!');
+                return;
+            }
+
+            isSpinning = true;
+            document.getElementById('btnRed').disabled = true;
+            document.getElementById('btnBlack').disabled = true;
+
+            balance -= bet;
+            updateBalanceDisplay();
+
+            // Выбираем случайный цвет (красный или чёрный)
+            const colorIndex = Math.floor(Math.random() * (segmentCount - 1)) + 1;
+            const color = colors[colorIndex];
+
+            const isWin = (betType === color);
+
+            const winAngle = colorIndex * angleStep + angleStep / 2;
+            const extraSpins = 5 + Math.floor(Math.random() * 5);
+            const targetRotation = 360 * extraSpins + (360 - winAngle);
+
+            currentRotation += targetRotation;
+            wheel.classList.add('spinning');
+            wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+            setTimeout(() => {
+                wheel.classList.remove('spinning');
+
+                const colorName = color === 'red' ? 'КРАСНОЕ' : (color === 'black' ? 'ЧЁРНОЕ' : 'ЗЕЛЁНОЕ');
+                const colorEmoji = color === 'red' ? '🔴' : (color === 'black' ? '⚫' : '🟢');
+                const colorClass = color === 'red' ? 'red' : (color === 'black' ? 'black' : 'green');
+
+                let resultHTML = `<div class="color-text ${colorClass}">${colorEmoji} ${colorName}</div>`;
+
+                if (isWin) {
+                    const winAmount = bet * 2;
+                    balance += winAmount;
+                    updateBalanceDisplay();
+                    resultHTML += `<div class="win-amount">+${winAmount} 🪙</div>`;
+                    showToast('🎉 Выиграл ' + winAmount + ' монет!');
+                    playWinSound();
+                    launchConfetti();
+                } else {
+                    showToast('😢 Проиграл ' + bet + ' монет');
+                    playLoseSound();
+                }
+
+                document.getElementById('rouletteResult').innerHTML = resultHTML;
+
+                isSpinning = false;
+                document.getElementById('btnRed').disabled = false;
+                document.getElementById('btnBlack').disabled = false;
+            }, 4200);
+        }
+
+        // ============================
+        // 6. СТАРТ
+        // ============================
+        document.getElementById('rouletteResult').innerHTML = `<div class="color-text">Сделай ставку</div>`;
+        if (balance === 1000) {
+            setTimeout(() => showToast('🎡 Добро пожаловать в рулетку!'), 400);
+        }
+
+        console.log('🎡 Рулетка загружена!');
+        console.log('💰 Баланс:', balance);
+    </script>
+</body>
+</html>
