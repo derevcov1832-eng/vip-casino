@@ -688,34 +688,20 @@
         </button>
     </div>
 
-    <div class="deposit-overlay" id="depositOverlay">
-        <div class="deposit-card">
-            <div class="title">⭐ Пополнить баланс</div>
-            <div class="sub">Купи монеты за Telegram Stars</div>
-            <div class="balance-show"><span>💰</span> <span id="depositBalance">1000</span></div>
-            <div class="deposit-options">
-                <div class="option" onclick="buyCoins(10, 100)">
-                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">10 Stars</div><div class="desc">+100 монет</div></div></div>
-                    <div class="right">+100</div>
-                </div>
-                <div class="option" onclick="buyCoins(25, 300)">
-                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">25 Stars</div><div class="desc">+300 монет</div></div></div>
-                    <div class="right">+300</div>
-                </div>
-                <div class="option" onclick="buyCoins(50, 700)" style="border-color: rgba(247,212,74,0.15); background: rgba(247,212,74,0.04);">
-                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">50 Stars</div><div class="desc">+700 монет</div></div></div>
-                    <div class="right" style="color:#f7d44a;">🔥 +700</div>
-                </div>
-                <div class="option" onclick="buyCoins(100, 1500)">
-                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">100 Stars</div><div class="desc">+1500 монет</div></div></div>
-                    <div class="right">+1500</div>
-                </div>
-            </div>
-            <button class="deposit-close" onclick="closeDeposit()">✕ Закрыть</button>
-        </div>
-    </div>
-
-    <script>
+    <div class="bottom-nav" id="bottomNav">
+    <button class="nav-item active" data-index="0">
+        <span class="icon">🏠</span> Главная
+    </button>
+    <button class="nav-item" data-index="1" onclick="window.location.href='../games/games2.html'">
+        <span class="icon">🎮</span> Игры
+    </button>
+    <button class="nav-item" data-index="2">
+        <span class="icon">💎</span> Хранилище
+    </button>
+    <button class="nav-item" data-index="3">
+        <span class="icon">👤</span> Профиль
+    </button>
+</div>
         // ============================================================
         // 1. СВАЙП И НАВИГАЦИЯ
         // ============================================================
