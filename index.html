@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>🎰 VIP Казино</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', system-ui, sans-serif;
             min-height: 100vh;
@@ -23,65 +19,41 @@
         }
         .bg-animation {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: 0;
-            background:
-                radial-gradient(ellipse at 20% 50%, rgba(74, 71, 163, 0.4) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 50%, rgba(231, 76, 60, 0.3) 0%, transparent 60%),
-                radial-gradient(ellipse at 50% 100%, rgba(247, 212, 74, 0.15) 0%, transparent 50%);
+            background: radial-gradient(ellipse at 20% 50%, rgba(74,71,163,0.4) 0%, transparent 60%),
+                        radial-gradient(ellipse at 80% 50%, rgba(231,76,60,0.3) 0%, transparent 60%),
+                        radial-gradient(ellipse at 50% 100%, rgba(247,212,74,0.15) 0%, transparent 50%);
         }
         .particles {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: 0;
             pointer-events: none;
             overflow: hidden;
         }
         .particle {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(247, 212, 74, 0.3);
+            width: 4px; height: 4px;
+            background: rgba(247,212,74,0.3);
             border-radius: 50%;
             animation: floatParticle linear infinite;
         }
-        .particle:nth-child(1) { left: 10%;
-            animation-duration: 12s; }
-        .particle:nth-child(2) { left: 25%;
-            animation-duration: 15s;
-            animation-delay: 2s; }
-        .particle:nth-child(3) { left: 40%;
-            animation-duration: 10s;
-            animation-delay: 4s; }
-        .particle:nth-child(4) { left: 55%;
-            animation-duration: 14s;
-            animation-delay: 1s; }
-        .particle:nth-child(5) { left: 70%;
-            animation-duration: 11s;
-            animation-delay: 3s; }
-        .particle:nth-child(6) { left: 85%;
-            animation-duration: 16s;
-            animation-delay: 5s; }
-        .particle:nth-child(7) { left: 50%;
-            animation-duration: 13s;
-            animation-delay: 2.5s; }
-        .particle:nth-child(8) { left: 15%;
-            animation-duration: 18s;
-            animation-delay: 1.5s; }
-
+        .particle:nth-child(1) { left: 10%; animation-duration: 12s; }
+        .particle:nth-child(2) { left: 25%; animation-duration: 15s; animation-delay: 2s; }
+        .particle:nth-child(3) { left: 40%; animation-duration: 10s; animation-delay: 4s; }
+        .particle:nth-child(4) { left: 55%; animation-duration: 14s; animation-delay: 1s; }
+        .particle:nth-child(5) { left: 70%; animation-duration: 11s; animation-delay: 3s; }
+        .particle:nth-child(6) { left: 85%; animation-duration: 16s; animation-delay: 5s; }
+        .particle:nth-child(7) { left: 50%; animation-duration: 13s; animation-delay: 2.5s; }
+        .particle:nth-child(8) { left: 15%; animation-duration: 18s; animation-delay: 1.5s; }
         @keyframes floatParticle {
-            0% { transform: translateY(100vh) scale(0);
-                opacity: 0; }
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
             10% { opacity: 1; }
             90% { opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1);
-                opacity: 0; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
         }
         .container {
             position: relative;
@@ -94,11 +66,10 @@
             font-size: 80px;
             display: inline-block;
             animation: logoFloat 3s ease-in-out infinite;
-            filter: drop-shadow(0 0 40px rgba(247, 212, 74, 0.2));
+            filter: drop-shadow(0 0 40px rgba(247,212,74,0.2));
         }
         @keyframes logoFloat {
-            0%,
-            100% { transform: translateY(0px) scale(1); }
+            0%, 100% { transform: translateY(0px) scale(1); }
             50% { transform: translateY(-10px) scale(1.05); }
         }
         .title {
@@ -112,23 +83,23 @@
         }
         .subtitle {
             font-size: 14px;
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255,255,255,0.4);
             margin-bottom: 30px;
             letter-spacing: 4px;
             text-transform: uppercase;
         }
         .balance-card {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255,255,255,0.05);
             backdrop-filter: blur(20px);
             border-radius: 24px;
             padding: 20px 25px;
             margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
         }
         .balance-card .label {
             font-size: 11px;
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255,255,255,0.4);
             text-transform: uppercase;
             letter-spacing: 3px;
         }
@@ -136,39 +107,31 @@
             font-size: 52px;
             font-weight: 800;
             color: #f7d44a;
-            text-shadow: 0 0 40px rgba(247, 212, 74, 0.15);
+            text-shadow: 0 0 40px rgba(247,212,74,0.15);
             letter-spacing: 2px;
         }
-
-        /* ===== NFT КАРТОЧКА НА ГЛАВНОЙ ===== */
         .nft-preview {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255,255,255,0.03);
             backdrop-filter: blur(16px);
             border-radius: 18px;
             padding: 14px 20px;
             margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255,255,255,0.06);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
             cursor: pointer;
             transition: 0.2s;
         }
-        .nft-preview:active {
-            transform: scale(0.96);
-        }
+        .nft-preview:active { transform: scale(0.96); }
         .nft-preview .left {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-        .nft-preview .left .icon {
-            font-size: 28px;
-        }
-        .nft-preview .left .info {
-            text-align: left;
-        }
+        .nft-preview .left .icon { font-size: 28px; }
+        .nft-preview .left .info { text-align: left; }
         .nft-preview .left .info .title {
             font-size: 15px;
             font-weight: 600;
@@ -178,7 +141,7 @@
         }
         .nft-preview .left .info .desc {
             font-size: 12px;
-            color: rgba(255, 255, 255, 0.35);
+            color: rgba(255,255,255,0.35);
         }
         .nft-preview .count {
             font-size: 22px;
@@ -188,38 +151,34 @@
             -webkit-text-fill-color: transparent;
             padding: 4px 12px;
             border-radius: 40px;
-            background-color: rgba(123, 77, 255, 0.1);
+            background-color: rgba(123,77,255,0.1);
         }
         .nft-preview .arrow {
             font-size: 20px;
-            color: rgba(255, 255, 255, 0.2);
+            color: rgba(255,255,255,0.2);
         }
-
         .menu {
             display: flex;
             flex-direction: column;
             gap: 14px;
         }
         .menu-item {
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255,255,255,0.04);
             backdrop-filter: blur(16px);
             border-radius: 18px;
             padding: 20px 24px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255,255,255,0.06);
             text-decoration: none;
             color: white;
             display: flex;
             align-items: center;
             gap: 18px;
             transition: transform 0.2s;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
         }
-        .menu-item:active {
-            transform: scale(0.96);
-        }
+        .menu-item:active { transform: scale(0.96); }
         .menu-item .icon-wrapper {
-            width: 52px;
-            height: 52px;
+            width: 52px; height: 52px;
             border-radius: 14px;
             display: flex;
             align-items: center;
@@ -228,21 +187,18 @@
             flex-shrink: 0;
         }
         .menu-item.coin .icon-wrapper {
-            background: rgba(247, 212, 74, 0.15);
-            border: 1px solid rgba(247, 212, 74, 0.15);
+            background: rgba(247,212,74,0.15);
+            border: 1px solid rgba(247,212,74,0.15);
         }
         .menu-item.blackjack .icon-wrapper {
-            background: rgba(46, 204, 113, 0.15);
-            border: 1px solid rgba(46, 204, 113, 0.15);
+            background: rgba(46,204,113,0.15);
+            border: 1px solid rgba(46,204,113,0.15);
         }
         .menu-item.roulette .icon-wrapper {
-            background: rgba(231, 76, 60, 0.15);
-            border: 1px solid rgba(231, 76, 60, 0.15);
+            background: rgba(231,76,60,0.15);
+            border: 1px solid rgba(231,76,60,0.15);
         }
-        .menu-item .info {
-            flex: 1;
-            text-align: left;
-        }
+        .menu-item .info { flex: 1; text-align: left; }
         .menu-item .info .title {
             font-size: 18px;
             font-weight: 700;
@@ -250,11 +206,11 @@
         }
         .menu-item .info .desc {
             font-size: 13px;
-            color: rgba(255, 255, 255, 0.35);
+            color: rgba(255,255,255,0.35);
         }
         .menu-item .arrow {
             font-size: 22px;
-            color: rgba(255, 255, 255, 0.2);
+            color: rgba(255,255,255,0.2);
         }
         .stats {
             display: flex;
@@ -262,45 +218,36 @@
             gap: 30px;
             margin-top: 25px;
             padding: 15px;
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255,255,255,0.03);
             border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255,255,255,0.04);
         }
-        .stats-item {
-            text-align: center;
-        }
+        .stats-item { text-align: center; }
         .stats-item .number {
             font-size: 18px;
             font-weight: 700;
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255,255,255,0.6);
         }
         .stats-item .label {
             font-size: 10px;
-            color: rgba(255, 255, 255, 0.2);
+            color: rgba(255,255,255,0.2);
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         .footer {
             margin-top: 25px;
             font-size: 11px;
-            color: rgba(255, 255, 255, 0.12);
+            color: rgba(255,255,255,0.12);
             letter-spacing: 2px;
         }
         @media (max-width: 400px) {
-            .title {
-                font-size: 30px;
-            }
-            .balance-card .amount {
-                font-size: 40px;
-            }
-            .menu-item {
-                padding: 16px 18px;
-            }
+            .title { font-size: 30px; }
+            .balance-card .amount { font-size: 40px; }
+            .menu-item { padding: 16px 18px; }
         }
     </style>
 </head>
 <body>
-
     <div class="bg-animation"></div>
     <div class="particles">
         <div class="particle"></div>
@@ -312,18 +259,14 @@
         <div class="particle"></div>
         <div class="particle"></div>
     </div>
-
     <div class="container">
         <div class="logo">🎰</div>
         <div class="title">VIP CASINO</div>
         <div class="subtitle">✦ Играй и выигрывай ✦</div>
-
         <div class="balance-card">
             <div class="label">💰 Твой баланс</div>
             <div class="amount" id="balanceDisplay">1000</div>
         </div>
-
-        <!-- ===== NFT ПРЕВЬЮ НА ГЛАВНОЙ ===== -->
         <div class="nft-preview" onclick="window.location.href='coin.html'">
             <div class="left">
                 <div class="icon">💎</div>
@@ -335,7 +278,6 @@
             <div class="count" id="nftCountMain">0</div>
             <div class="arrow">›</div>
         </div>
-
         <div class="menu">
             <a href="coin.html" class="menu-item coin">
                 <div class="icon-wrapper">🪙</div>
@@ -362,7 +304,6 @@
                 <div class="arrow">›</div>
             </a>
         </div>
-
         <div class="stats">
             <div class="stats-item">
                 <div class="number" id="gamesPlayed">0</div>
@@ -377,30 +318,22 @@
                 <div class="label">Лучший выигрыш</div>
             </div>
         </div>
-
         <div class="footer">Сделано с ❤️ в Telegram Mini App</div>
     </div>
-
     <script>
-        // ===== БАЛАНС =====
         let balance = parseInt(localStorage.getItem('casinoBalance')) || 1000;
         document.getElementById('balanceDisplay').textContent = balance;
-
         window.addEventListener('focus', () => {
             balance = parseInt(localStorage.getItem('casinoBalance')) || 1000;
             document.getElementById('balanceDisplay').textContent = balance;
             updateNFTcount();
         });
-
-        // ===== СТАТИСТИКА =====
         const games = parseInt(localStorage.getItem('totalGames')) || 0;
         const wins = parseInt(localStorage.getItem('totalWins')) || 0;
         const best = parseInt(localStorage.getItem('bestWin')) || 0;
         document.getElementById('gamesPlayed').textContent = games;
         document.getElementById('totalWins').textContent = wins;
         document.getElementById('bestWin').textContent = best;
-
-        // ===== NFT СЧЁТЧИК НА ГЛАВНОЙ =====
         function updateNFTcount() {
             try {
                 const nfts = JSON.parse(localStorage.getItem('userNFTs')) || [];
