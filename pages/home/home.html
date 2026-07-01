@@ -3,411 +3,737 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🎰 VIP Casino</title>
+    <title>🐰 Rabbits</title>
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Segoe UI',system-ui,sans-serif;background:#0a0a1a;color:#fff;min-height:100vh;overflow:hidden;user-select:none;-webkit-tap-highlight-color:transparent}
-        .bg{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse at 20% 30%,rgba(247,212,74,.04)0,transparent 50%),radial-gradient(ellipse at 80% 70%,rgba(180,80,255,.04)0,transparent 50%)}
-        .app-wrapper{position:relative;z-index:1;max-width:480px;width:100%;height:100vh;margin:0 auto;overflow:hidden}
-        .slider{display:flex;height:100vh;transition:transform .4s cubic-bezier(.25,.8,.25,1);will-change:transform}
-        .page{min-width:100%;height:100vh;padding:16px 16px 80px;overflow-y:auto}
-        .header{display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.03);margin-bottom:6px}
-        .header .logo{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:800;color:#f7d44a;cursor:pointer;text-decoration:none}
-        .header .logo img{width:36px;height:36px;border-radius:50%;object-fit:cover;box-shadow:0 0 20px rgba(247,212,74,.15)}
-        .header .right{display:flex;align-items:center;gap:6px}
-        .header .coins{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.04);backdrop-filter:blur(12px);padding:4px 12px;border-radius:40px;border:1px solid rgba(255,255,255,.04);cursor:pointer;transition:transform .15s}
-        .header .coins:active{transform:scale(.94)}
-        .header .coins img{width:20px;height:20px;object-fit:contain}
-        .header .coins span{font-size:14px;font-weight:700;color:#f7d44a}
-        .balance{font-size:22px;font-weight:600;color:#f7e3a0;background:rgba(255,255,255,.03);backdrop-filter:blur(12px);padding:8px 24px;border-radius:60px;display:inline-block;border:1px solid rgba(255,255,255,.04);margin:0 auto 12px;text-align:center}
-        .balance-wrap{text-align:center}
-        .profile-header{text-align:center;padding:8px 0 12px}
-        .profile-header .avatar{font-size:56px}
-        .profile-header .name{font-size:22px;font-weight:700;margin-top:4px;color:rgba(255,255,255,.9)}
-        .profile-header .id{font-size:13px;color:rgba(255,255,255,.15);margin-top:2px;font-family:monospace}
-        .stats,.referral-stats{display:flex;gap:10px;margin:8px 0 14px}
-        .stats .stat,.referral-stats .item{flex:1;background:rgba(255,255,255,.02);border-radius:14px;padding:12px 8px;text-align:center;border:1px solid rgba(255,255,255,.03)}
-        .stats .stat .num,.referral-stats .item .num{font-size:24px;font-weight:700;color:#f7d44a}
-        .stats .stat .lbl,.referral-stats .item .lbl{font-size:10px;color:rgba(255,255,255,.15);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
-        .deposit-section{display:flex;gap:8px;margin:10px 0 12px;flex-wrap:wrap}
-        .deposit-btn{flex:1;padding:12px 10px;border:1px solid rgba(255,255,255,.04);border-radius:14px;background:rgba(255,255,255,.02);color:rgba(255,255,255,.5);font-size:13px;font-weight:600;cursor:pointer;text-align:center;transition:.3s;min-width:60px}
-        .deposit-btn:active{transform:scale(.94)}
-        .deposit-btn .icon{font-size:18px;display:block;margin-bottom:2px}
-        .referral-block{background:rgba(255,255,255,.02);border-radius:14px;padding:14px;border:1px solid rgba(255,255,255,.03);margin:8px 0 10px}
-        .referral-block .title{font-size:14px;font-weight:600;color:rgba(255,255,255,.3);text-align:center;margin-bottom:4px}
-        .referral-link{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.02);border-radius:10px;padding:8px 12px;border:1px solid rgba(255,255,255,.03)}
-        .referral-link .link{flex:1;font-size:11px;color:rgba(255,255,255,.2);font-family:monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-        .referral-link .copy-btn{padding:4px 14px;border:none;border-radius:40px;background:linear-gradient(145deg,#f7d44a,#dbb84a);color:#1a1a2e;font-size:12px;font-weight:700;cursor:pointer}
-        .referral-link .copy-btn:active{transform:scale(.94)}
-        .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(10,10,26,.92);backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,.03);display:flex;justify-content:space-around;padding:8px 0 12px;max-width:480px;margin:0 auto;z-index:100}
-        .bottom-nav .nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;color:rgba(255,255,255,.15);font-size:9px;font-weight:500;letter-spacing:.5px;transition:.3s;background:0 0;border:none;cursor:pointer;padding:4px 16px;text-decoration:none}
-        .bottom-nav .nav-item img{width:28px;height:28px;object-fit:contain;opacity:.5;transition:.3s}
-        .bottom-nav .nav-item.active img{opacity:1;filter:drop-shadow(0 0 10px rgba(247,212,74,.2))}
-        .bottom-nav .nav-item .label{font-size:9px;color:rgba(255,255,255,.15);transition:.3s}
-        .bottom-nav .nav-item.active .label{color:#f7d44a}
-        .bottom-nav .nav-item:active{transform:scale(.9)}
-        .deposit-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(20px);z-index:300;justify-content:center;align-items:center;padding:20px}
-        .deposit-overlay.show{display:flex;animation:fadeIn .3s ease-out}
-        @keyframes fadeIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
-        .deposit-card{max-width:400px;width:100%;background:linear-gradient(145deg,#1a1f35,#0d1225);border-radius:24px;padding:28px 24px;border:1px solid rgba(255,255,255,.04);box-shadow:0 20px 80px rgba(0,0,0,.5);text-align:center}
-        .deposit-card .title{font-size:24px;font-weight:700;color:#f7d44a;margin-bottom:4px}
-        .deposit-card .sub{font-size:14px;color:rgba(255,255,255,.2);margin-bottom:20px}
-        .deposit-card .balance-show{font-size:36px;font-weight:800;color:#f7d44a;margin-bottom:16px;padding:12px;background:rgba(255,255,255,.02);border-radius:16px;border:1px solid rgba(255,255,255,.03)}
-        .deposit-options{display:flex;flex-direction:column;gap:10px;margin:16px 0}
-        .deposit-options .option{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:rgba(255,255,255,.02);border-radius:14px;border:1px solid rgba(255,255,255,.03);cursor:pointer;transition:transform .15s}
-        .deposit-options .option:active{transform:scale(.96)}
-        .deposit-options .option .left{display:flex;align-items:center;gap:12px}
-        .deposit-options .option .left .icon{font-size:28px}
-        .deposit-options .option .left .info .name{font-size:15px;font-weight:600}
-        .deposit-options .option .left .info .desc{font-size:11px;color:rgba(255,255,255,.2)}
-        .deposit-options .option .right{font-size:16px;font-weight:700;color:#f7d44a}
-        .deposit-close{margin-top:16px;padding:12px;border:none;border-radius:40px;background:rgba(255,255,255,.03);color:rgba(255,255,255,.2);font-size:14px;cursor:pointer;width:100%;border:1px solid rgba(255,255,255,.03)}
-        .deposit-close:active{transform:scale(.94)}
-        .toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:rgba(12,14,28,.92);backdrop-filter:blur(16px);color:#f0eee0;padding:10px 22px;border-radius:60px;display:none;z-index:999;max-width:90%;border:1px solid rgba(255,255,255,.03);font-size:14px;font-weight:500;box-shadow:0 16px 50px rgba(0,0,0,.2)}
-        .toast.show{display:block;animation:slideDown .3s ease}
-        @keyframes slideDown{from{opacity:0;transform:translateX(-50%) scale(.9);top:-40px}to{opacity:1;transform:translateX(-50%) scale(1);top:20px}}
-        .btn-main{flex:1;padding:16px;border:none;border-radius:16px;font-size:18px;font-weight:800;letter-spacing:2px;cursor:pointer;transition:transform .15s}
-        .btn-main:active{transform:scale(.96)}
-        @media(max-width:450px){.profile-header .avatar{font-size:44px}.profile-header .name{font-size:18px}.stats .stat .num{font-size:20px}.deposit-btn{font-size:11px;padding:10px 8px}.balance{font-size:19px;padding:6px 20px}.bottom-nav .nav-item img{width:24px;height:24px}.header .logo img{width:30px;height:30px}.header .logo{font-size:15px}}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+            background: #0f0f1a;
+            color: #fff;
+            min-height: 100vh;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .app {
+            max-width: 430px;
+            width: 100%;
+            height: 100vh;
+            margin: 0 auto;
+            background: radial-gradient(ellipse at 50% 0%, #1a1a2e 0%, #0f0f1a 70%);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header {
+            padding: 16px 20px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .header .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .header .logo img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+        }
+        .header .logo span {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header .actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header .coins {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            padding: 6px 14px 6px 10px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .header .coins:active {
+            transform: scale(0.94);
+        }
+        .header .coins img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+        }
+        .header .coins .value {
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffd700;
+        }
+
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 20px 80px;
+            scroll-behavior: smooth;
+        }
+        .content::-webkit-scrollbar {
+            width: 0;
+        }
+
+        .referral-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            margin: 8px 0 16px;
+            backdrop-filter: blur(12px);
+        }
+        .referral-card .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 4px;
+        }
+        .referral-card .title .percent {
+            color: #4caf50;
+            font-weight: 800;
+            font-size: 18px;
+        }
+        .referral-card .title .percent i {
+            margin-right: 4px;
+        }
+        .referral-card .sub {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.3);
+            margin-bottom: 16px;
+        }
+        .referral-card .invite-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            color: #1a1a2e;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.15s;
+            margin-bottom: 16px;
+        }
+        .referral-card .invite-btn:active {
+            transform: scale(0.96);
+        }
+        .referral-card .invite-btn img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        .stats-row .stat {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            padding: 12px 8px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .stats-row .stat .num {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffd700;
+        }
+        .stats-row .stat .num.green {
+            color: #4caf50;
+        }
+        .stats-row .stat .lbl {
+            font-size: 9px;
+            color: rgba(255, 255, 255, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+        .stats-row .stat .lbl i {
+            margin-right: 3px;
+        }
+
+        .withdraw-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: rgba(76, 175, 80, 0.15);
+            color: #4caf50;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 12px;
+            border: 1px solid rgba(76, 175, 80, 0.15);
+        }
+        .withdraw-btn:active {
+            transform: scale(0.96);
+            background: rgba(76, 175, 80, 0.25);
+        }
+        .withdraw-btn img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+        }
+
+        .tasks-section {
+            margin: 16px 0 12px;
+        }
+        .tasks-section .tasks-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 0 8px;
+        }
+        .tasks-section .tasks-header .title {
+            font-size: 16px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        .tasks-section .tasks-header .title i {
+            margin-right: 8px;
+            color: #ffd700;
+        }
+        .tasks-section .tasks-header .count {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.2);
+        }
+        .tasks-section .tasks-header .count span {
+            color: #4caf50;
+            font-weight: 700;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 14px;
+            padding: 14px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            margin-bottom: 8px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .task-item:active {
+            transform: scale(0.98);
+        }
+        .task-item .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.04);
+        }
+        .task-item .icon img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+        .task-item .info {
+            flex: 1;
+        }
+        .task-item .info .name {
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        .task-item .info .desc {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.2);
+            margin-top: 2px;
+        }
+        .task-item .status {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 40px;
+            background: rgba(76, 175, 80, 0.15);
+            color: #4caf50;
+            flex-shrink: 0;
+        }
+        .task-item .status.done {
+            background: rgba(76, 175, 80, 0.08);
+            color: rgba(76, 175, 80, 0.4);
+        }
+
+        .promo-section {
+            margin: 12px 0 16px;
+        }
+        .promo-input {
+            display: flex;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 14px;
+            padding: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .promo-input input {
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            outline: none;
+        }
+        .promo-input input::placeholder {
+            color: rgba(255, 255, 255, 0.15);
+        }
+        .promo-input button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            color: #1a1a2e;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+        .promo-input button:active {
+            transform: scale(0.94);
+        }
+        .promo-input button i {
+            margin-right: 6px;
+        }
+
+        .nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 26, 0.95);
+            backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0 12px;
+            max-width: 430px;
+            margin: 0 auto;
+            z-index: 100;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 9px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px 16px;
+            text-decoration: none;
+            transition: 0.3s;
+            position: relative;
+        }
+        .nav-item img {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+            opacity: 0.4;
+            transition: 0.3s;
+        }
+        .nav-item.active img {
+            opacity: 1;
+        }
+        .nav-item .label {
+            font-size: 9px;
+            color: rgba(255, 255, 255, 0.15);
+            transition: 0.3s;
+        }
+        .nav-item.active .label {
+            color: #ffd700;
+        }
+        .nav-item:active {
+            transform: scale(0.9);
+        }
+        .nav-item .badge {
+            position: absolute;
+            top: -2px;
+            right: 6px;
+            background: #ff4444;
+            color: #fff;
+            font-size: 8px;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: 40px;
+            min-width: 16px;
+            text-align: center;
+        }
+        .nav-item.rabbit img {
+            width: 44px;
+            height: 44px;
+            margin-top: -12px;
+            opacity: 1;
+            filter: drop-shadow(0 4px 20px rgba(247, 212, 74, 0.2));
+        }
+        .nav-item.rabbit.active img {
+            filter: drop-shadow(0 4px 30px rgba(247, 212, 74, 0.4));
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(12, 14, 28, 0.92);
+            backdrop-filter: blur(16px);
+            color: #f0eee0;
+            padding: 10px 22px;
+            border-radius: 60px;
+            display: none;
+            z-index: 999;
+            max-width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.2);
+        }
+        .toast.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) scale(0.9);
+                top: -40px;
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) scale(1);
+                top: 20px;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 0;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 12px 0;
+        }
+        .game-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            color: #fff;
+        }
+        .game-card:active {
+            transform: scale(0.95);
+        }
+        .game-card img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            margin-bottom: 8px;
+        }
+        .game-card .name {
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .game-card .desc {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.2);
+            margin-top: 2px;
+        }
     </style>
 </head>
 <body>
-    <div class="bg"></div>
-    <div class="app-wrapper">
-        <div class="slider" id="slider">
-            <!-- ГЛАВНАЯ -->
-            <div class="page" id="pageHome">
-                <div class="header">
-                    <a class="logo" onclick="goToPage(0)">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1045/1045485.png" alt="Логотип">VIP CASINO
-                    </a>
-                    <div class="right">
-                        <div class="coins" onclick="openDeposit()">
-                            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Звезда">
-                            <span id="headerStars1">100</span>
-                        </div>
+
+    <div class="app">
+        <!-- HEADER -->
+        <div class="header">
+            <a class="logo" href="#">
+                <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Логотип">
+                <span>Rabbits</span>
+            </a>
+            <div class="actions">
+                <div class="coins" onclick="showToast('💰 Баланс: 0.00 ₽')">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Монеты">
+                    <span class="value">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+
+            <!-- ИГРЫ -->
+            <div style="margin: 8px 0 12px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+                    <div style="font-size:16px;font-weight:600;color:rgba(255,255,255,0.9);">
+                        <i class="fas fa-gamepad" style="color:#ffd700;margin-right:8px;"></i>Игры
                     </div>
                 </div>
-                <div class="balance-wrap"><div class="balance" id="balanceDisplay1">💰 1000</div></div>
-                <div style="text-align:center;padding:20px 0;">
-                    <div style="font-size:28px;font-weight:700;color:#f7d44a;">🏠 Главная</div>
-                    <div style="font-size:13px;color:rgba(255,255,255,.15);margin-top:4px;letter-spacing:2px;text-transform:uppercase;">Добро пожаловать в VIP Casino!</div>
+                <div class="game-grid">
+                    <a href="pages/games/coin.html" class="game-card">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Монетка">
+                        <div class="name">🎯 Монетка</div>
+                        <div class="desc">Орёл или решка</div>
+                    </a>
+                    <a href="pages/games/roulette.html" class="game-card">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1045/1045516.png" alt="Рулетка">
+                        <div class="name">🎡 Рулетка</div>
+                        <div class="desc">Крути колесо</div>
+                    </a>
+                    <a href="pages/games/blackjack.html" class="game-card">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1045/1045485.png" alt="Блэкджек">
+                        <div class="name">🃏 Блэкджек</div>
+                        <div class="desc">21 очко</div>
+                    </a>
+                    <a href="pages/games/games.html" class="game-card" style="border-color:rgba(247,212,74,0.1);background:rgba(247,212,74,0.03);">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1045/1045534.png" alt="Все игры">
+                        <div class="name" style="color:#ffd700;">🎮 Все игры</div>
+                        <div class="desc">Смотреть всё</div>
+                    </a>
                 </div>
-                <div style="display:flex;gap:12px;margin:12px 0;">
-                    <button class="btn-main" style="background:linear-gradient(145deg,#f7d44a,#dbb84a);color:#1a1a2e;box-shadow:0 6px 30px rgba(247,212,74,.08);" onclick="window.location.href='../games/games.html'">🎮 ИГРАТЬ! →</button>
-                </div>
-                <div style="display:flex;gap:12px;margin:8px 0;">
-                    <button class="btn-main" style="background:rgba(255,255,255,.03);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.04);color:#fff;" onclick="goToPage(1)">💎 ХРАНИЛИЩЕ →</button>
-                </div>
-                <div style="display:flex;gap:12px;margin:8px 0;">
-                    <button class="btn-main" style="background:rgba(255,255,255,.03);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.04);color:#fff;" onclick="goToPage(2)">👤 ПРОФИЛЬ →</button>
-                </div>
-                <div style="text-align:center;margin-top:16px;font-size:11px;color:rgba(255,255,255,.04);letter-spacing:2px;">VIP Casino v2.0</div>
             </div>
 
-            <!-- ХРАНИЛИЩЕ -->
-            <div class="page" id="pageNFT">
-                <div class="header">
-                    <a class="logo" onclick="goToPage(0)">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1045/1045485.png" alt="Логотип">VIP CASINO
-                    </a>
-                    <div class="right">
-                        <div class="coins" onclick="openDeposit()">
-                            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Звезда">
-                            <span id="headerStars2">100</span>
-                        </div>
+            <!-- REFERRAL CARD -->
+            <div class="referral-card">
+                <div class="title">
+                    <span><i class="fas fa-users" style="color:#ffd700;margin-right:8px;"></i>Пригласить друзей</span>
+                    <span class="percent"><i class="fas fa-percent"></i>10%</span>
+                </div>
+                <div class="sub">
+                    <i class="fas fa-gift" style="color:rgba(255,255,255,0.15);margin-right:6px;"></i>
+                    Приглашай рефералов и получай 10% от их депозитов
+                </div>
+                <button class="invite-btn" onclick="copyReferralLink()">
+                    <img src="https://cdn-icons-png.flaticon.com/512/722/722174.png" alt="Пригласить">
+                    Пригласить друзей
+                </button>
+
+                <div class="stats-row">
+                    <div class="stat">
+                        <div class="num">0.00 ₽</div>
+                        <div class="lbl"><i class="fas fa-arrow-up"></i>Доступно к выводу</div>
+                    </div>
+                    <div class="stat">
+                        <div class="num">0</div>
+                        <div class="lbl"><i class="fas fa-user-plus"></i>Приглашено</div>
+                    </div>
+                    <div class="stat">
+                        <div class="num green">0.00 ₽</div>
+                        <div class="lbl"><i class="fas fa-arrow-down"></i>Всего выведено</div>
                     </div>
                 </div>
-                <div class="balance-wrap"><div class="balance" id="balanceDisplay2">💰 1000</div></div>
-                <div style="text-align:center;padding:12px 0;">
-                    <div style="font-size:24px;font-weight:700;background:linear-gradient(135deg,#b388ff,#7c4dff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">💎 Хранилище</div>
-                    <div style="font-size:12px;color:rgba(255,255,255,.15);letter-spacing:2px;text-transform:uppercase;margin-top:2px;">Твои коллекционные карточки</div>
-                </div>
-                <div style="display:flex;gap:10px;margin:8px 0 14px;">
-                    <div style="flex:1;background:rgba(255,255,255,.02);border-radius:14px;padding:12px 8px;text-align:center;border:1px solid rgba(255,255,255,.03);">
-                        <div style="font-size:24px;font-weight:700;color:#b388ff;" id="totalNFT">0</div>
-                        <div style="font-size:10px;color:rgba(255,255,255,.15);text-transform:uppercase;letter-spacing:1px;margin-top:2px;">Всего NFT</div>
-                    </div>
-                    <div style="flex:1;background:rgba(255,255,255,.02);border-radius:14px;padding:12px 8px;text-align:center;border:1px solid rgba(255,255,255,.03);">
-                        <div style="font-size:24px;font-weight:700;color:#b388ff;" id="rarestNFT">—</div>
-                        <div style="font-size:10px;color:rgba(255,255,255,.15);text-transform:uppercase;letter-spacing:1px;margin-top:2px;">Редчайший</div>
-                    </div>
-                </div>
-                <div id="nftList"></div>
-                <div style="text-align:center;margin-top:16px;font-size:11px;color:rgba(255,255,255,.04);letter-spacing:2px;">NFT выпадают при победе в монетке</div>
+
+                <button class="withdraw-btn" onclick="showToast('💸 Вывод средств (в разработке)')">
+                    <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Вывод">
+                    Забрать
+                </button>
             </div>
 
-            <!-- ПРОФИЛЬ -->
-            <div class="page" id="pageProfile">
-                <div class="header">
-                    <a class="logo" onclick="goToPage(0)">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1045/1045485.png" alt="Логотип">VIP CASINO
-                    </a>
-                    <div class="right">
-                        <div class="coins" onclick="openDeposit()">
-                            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Звезда">
-                            <span id="headerStars3">100</span>
-                        </div>
+            <!-- TASKS -->
+            <div class="tasks-section">
+                <div class="tasks-header">
+                    <div class="title">
+                        <i class="fas fa-tasks"></i>Задания
                     </div>
+                    <div class="count"><span>3</span>/3</div>
                 </div>
-                <div class="balance-wrap"><div class="balance" id="balanceDisplay3">💰 1000</div></div>
-                <div class="profile-header">
-                    <div class="avatar">👤</div>
-                    <div class="name" id="profileName">Игрок</div>
-                    <div class="id" id="profileId">ID: 123456</div>
-                </div>
-                <div class="stats">
-                    <div class="stat"><div class="num" id="profileGames">0</div><div class="lbl">Игр</div></div>
-                    <div class="stat"><div class="num" id="profileWins">0</div><div class="lbl">Побед</div></div>
-                    <div class="stat"><div class="num" id="profileBest">0</div><div class="lbl">Лучший</div></div>
-                </div>
-                <div class="deposit-section">
-                    <div class="deposit-btn" onclick="showToast('💎 Пополнение TON (в разработке)')"><span class="icon">💎</span>TON</div>
-                    <div class="deposit-btn" onclick="openDeposit()"><span class="icon">⭐</span>Stars</div>
-                    <div class="deposit-btn" onclick="showToast('🎁 Пополнение подарками (в разработке)')"><span class="icon">🎁</span>Подарки</div>
-                </div>
-                <div class="referral-block">
-                    <div class="title">👥 Пригласить друзей</div>
-                    <div class="referral-link">
-                        <div class="link" id="referralLink">https://t.me/My103CoinGameBot?start=ref_123</div>
-                        <button class="copy-btn" onclick="copyReferralLink()">📋</button>
+
+                <div class="task-item" onclick="showToast('✅ Задание выполнено!')">
+                    <div class="icon">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2541/2541987.png" alt="Telegram">
                     </div>
-                    <div class="referral-stats">
-                        <div class="item"><div class="num" id="refCount">0</div><div class="lbl">Приглашено</div></div>
-                        <div class="item"><div class="num" id="refEarned">0</div><div class="lbl">Заработано</div></div>
+                    <div class="info">
+                        <div class="name">Подписаться на канал</div>
+                        <div class="desc">+50 монет</div>
                     </div>
+                    <div class="status"><i class="fas fa-check"></i> Выполнено</div>
                 </div>
-                <div style="text-align:center;padding:12px;color:rgba(255,255,255,.04);font-size:10px;letter-spacing:2px;">VIP Casino v2.0</div>
+
+                <div class="task-item" onclick="showToast('✅ Задание выполнено!')">
+                    <div class="icon">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="Друзья">
+                    </div>
+                    <div class="info">
+                        <div class="name">Пригласить 5 друзей</div>
+                        <div class="desc">+200 монет</div>
+                    </div>
+                    <div class="status"><i class="fas fa-check"></i> Выполнено</div>
+                </div>
+
+                <div class="task-item" onclick="showToast('✅ Задание выполнено!')">
+                    <div class="icon">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2645/2645877.png" alt="Игра">
+                    </div>
+                    <div class="info">
+                        <div class="name">Сыграть 10 игр</div>
+                        <div class="desc">+100 монет</div>
+                    </div>
+                    <div class="status"><i class="fas fa-check"></i> Выполнено</div>
+                </div>
             </div>
+
+            <!-- PROMO -->
+            <div class="promo-section">
+                <div class="promo-input">
+                    <input type="text" placeholder="Ввести промокод" id="promoInput">
+                    <button onclick="applyPromo()">
+                        <i class="fas fa-ticket-alt"></i> Активировать
+                    </button>
+                </div>
+            </div>
+
+            <div style="text-align:center;padding:8px 0 16px;font-size:10px;color:rgba(255,255,255,0.03);letter-spacing:2px;">
+                Rabbits v2.0
+            </div>
+        </div>
+
+        <!-- BOTTOM NAV -->
+        <div class="nav">
+            <button class="nav-item" onclick="showToast('🏆 Топ игроков')">
+                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Топ">
+                <span class="label">Топ</span>
+            </button>
+            <button class="nav-item active" onclick="showToast('🏠 Главная')">
+                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828793.png" alt="Главная">
+                <span class="label">Главная</span>
+            </button>
+            <button class="nav-item rabbit" onclick="showToast('🐰 Rabbit')">
+                <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Rabbit">
+                <span class="label">Rabbit</span>
+                <span class="badge">3</span>
+            </button>
+            <button class="nav-item" onclick="window.location.href='pages/profile/profile.html'">
+                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828478.png" alt="Профиль">
+                <span class="label">Профиль</span>
+            </button>
         </div>
     </div>
 
-    <!-- НАВИГАЦИЯ -->
-    <div class="bottom-nav" id="bottomNav">
-        <a class="nav-item active" onclick="goToPage(0)"><img src="https://cdn-icons-png.flaticon.com/512/1828/1828793.png" alt="Главная"><span class="label">Главная</span></a>
-        <a class="nav-item" onclick="window.location.href='../games/games.html'"><img src="https://cdn-icons-png.flaticon.com/512/1045/1045534.png" alt="Игры"><span class="label">Игры</span></a>
-        <a class="nav-item" onclick="goToPage(1)"><img src="https://cdn-icons-png.flaticon.com/512/1045/1045516.png" alt="Хранилище"><span class="label">Хранилище</span></a>
-        <a class="nav-item" onclick="goToPage(2)"><img src="https://cdn-icons-png.flaticon.com/512/1045/1045478.png" alt="Профиль"><span class="label">Профиль</span></a>
-    </div>
-
-    <!-- ОВЕРЛЕЙ ПОПОЛНЕНИЯ -->
-    <div class="deposit-overlay" id="depositOverlay">
-        <div class="deposit-card">
-            <div class="title">⭐ Пополнить баланс</div>
-            <div class="sub">Купи монеты за Telegram Stars</div>
-            <div class="balance-show">💰 <span id="depositBalance">1000</span></div>
-            <div class="deposit-options">
-                <div class="option" onclick="buyCoins(10,100)"><div class="left"><div class="icon">⭐</div><div class="info"><div class="name">10 Stars</div><div class="desc">+100 монет</div></div></div><div class="right">+100</div></div>
-                <div class="option" onclick="buyCoins(25,300)"><div class="left"><div class="icon">⭐</div><div class="info"><div class="name">25 Stars</div><div class="desc">+300 монет</div></div></div><div class="right">+300</div></div>
-                <div class="option" onclick="buyCoins(50,700)" style="border-color:rgba(247,212,74,.15);background:rgba(247,212,74,.04);"><div class="left"><div class="icon">⭐</div><div class="info"><div class="name">50 Stars</div><div class="desc">+700 монет</div></div></div><div class="right" style="color:#f7d44a;">🔥 +700</div></div>
-                <div class="option" onclick="buyCoins(100,1500)"><div class="left"><div class="icon">⭐</div><div class="info"><div class="name">100 Stars</div><div class="desc">+1500 монет</div></div></div><div class="right">+1500</div></div>
-            </div>
-            <button class="deposit-close" onclick="closeDeposit()">✕ Закрыть</button>
-        </div>
-    </div>
-
+    <!-- TOAST -->
     <div class="toast" id="toast"></div>
 
     <script>
-        // ============================================================
-        // КЭШИРОВАНИЕ DOM
-        // ============================================================
-        const $ = id => document.getElementById(id);
-        const slider = $('slider');
-        const navItems = document.querySelectorAll('.bottom-nav .nav-item');
-        const balanceEls = () => document.querySelectorAll('[id^="balanceDisplay"]');
-        const starsEls = () => document.querySelectorAll('[id^="headerStars"]');
-        const nftList = $('nftList');
-        const toast = $('toast');
-        const overlay = $('depositOverlay');
-        const depBalance = $('depositBalance');
-
-        // ============================================================
-        // СОСТОЯНИЕ
-        // ============================================================
-        const TOTAL_PAGES = 3;
-        let currentIndex = 0;
-        let startX = 0;
+        // ===== TOAST =====
         let toastTimer = null;
 
-        // ============================================================
-        // БАЛАНС
-        // ============================================================
-        function getBalance() {
-            return parseInt(localStorage.getItem('casinoBalance')) || 1000;
-        }
-
-        function setBalance(val) {
-            localStorage.setItem('casinoBalance', val);
-            updateBalances();
-        }
-
-        function updateBalances() {
-            const bal = getBalance();
-            balanceEls().forEach(el => el.textContent = '💰 ' + bal);
-            starsEls().forEach(el => el.textContent = Math.floor(bal / 10));
-            if (depBalance) depBalance.textContent = bal;
-        }
-
-        // ============================================================
-        // НАВИГАЦИЯ
-        // ============================================================
-        function goToPage(index) {
-            currentIndex = Math.max(0, Math.min(index, TOTAL_PAGES - 1));
-            slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-            navItems.forEach((item, i) => {
-                const active = (i === 0 && currentIndex === 0) ||
-                              (i === 2 && currentIndex === 1) ||
-                              (i === 3 && currentIndex === 2);
-                item.classList.toggle('active', active);
-            });
-            if (currentIndex === 1) renderNFTs();
-        }
-
-        // Свайп
-        slider.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-        slider.addEventListener('touchmove', e => {
-            const diff = startX - e.touches[0].clientX;
-            if (Math.abs(diff) > 50) {
-                goToPage(currentIndex + (diff > 0 ? 1 : -1));
-                startX = e.touches[0].clientX; // сброс для предотвращения спама
-            }
-        });
-
-        // ============================================================
-        // ПОПОЛНЕНИЕ
-        // ============================================================
-        function openDeposit() { overlay.classList.add('show'); depBalance.textContent = getBalance(); }
-        function closeDeposit() { overlay.classList.remove('show'); }
-
-        function buyCoins(stars, coins) {
-            if (window.Telegram?.WebApp) {
-                Telegram.WebApp.sendData(JSON.stringify({ action: 'buy_coins', stars, coins }));
-                showToast(`⏳ Запрос на ${coins} монет за ${stars} Stars...`);
-            } else {
-                setBalance(getBalance() + coins);
-                closeDeposit();
-                showToast(`✅ +${coins} монет (демо)`);
-            }
-        }
-
-        // ============================================================
-        // РЕФЕРАЛКА
-        // ============================================================
-        function getUserId() {
-            try { return Telegram?.WebApp?.initDataUnsafe?.user?.id || Math.floor(Math.random() * 1000000); } 
-            catch { return Math.floor(Math.random() * 1000000); }
-        }
-
-        function getReferralLink() { return `https://t.me/My103CoinGameBot?start=ref_${getUserId()}`; }
-
-        function copyReferralLink() {
-            const link = $('referralLink').textContent;
-            if (navigator.clipboard?.writeText) {
-                navigator.clipboard.writeText(link).then(() => showToast('📋 Ссылка скопирована!'));
-            } else {
-                showToast('📋 Ссылка: ' + link);
-            }
-        }
-
-        function loadReferralStats() {
-            $('refCount').textContent = parseInt(localStorage.getItem('refCount')) || 0;
-            $('refEarned').textContent = parseInt(localStorage.getItem('refEarned')) || 0;
-        }
-
-        // ============================================================
-        // NFT (оптимизированный рендеринг)
-        // ============================================================
-        const NFT_RARITY = { common: 0, rare: 1, epic: 2, legendary: 3, mythic: 4 };
-        const NFT_COLORS = { common: '#b0b0b0', rare: '#4CAF50', epic: '#2196F3', legendary: '#9C27B0', mythic: '#FF5722' };
-        const NFT_NAMES = { common: 'Обычный', rare: 'Редкий', epic: 'Эпический', legendary: 'Легендарный', mythic: 'Мифический' };
-
-        function getUserNFTs() {
-            try { return JSON.parse(localStorage.getItem('userNFTs')) || []; } 
-            catch { return []; }
-        }
-
-        function renderNFTs() {
-            const nfts = getUserNFTs();
-            $('totalNFT').textContent = nfts.length;
-
-            if (!nfts.length) {
-                nftList.innerHTML = `
-                    <div style="text-align:center;padding:40px 20px;color:rgba(255,255,255,.08);">
-                        <span style="font-size:56px;display:block;margin-bottom:8px;opacity:.3;">📭</span>
-                        <div style="font-size:16px;color:rgba(255,255,255,.15);">У тебя пока нет NFT</div>
-                        <div style="font-size:12px;margin-top:4px;color:rgba(255,255,255,.06);">Играй в монетку, чтобы получить NFT!</div>
-                    </div>
-                `;
-                $('rarestNFT').textContent = '—';
-                return;
-            }
-
-            const sorted = [...nfts].sort((a, b) => NFT_RARITY[b.rarity] - NFT_RARITY[a.rarity]);
-            const rarest = sorted[0];
-            $('rarestNFT').textContent = rarest.emoji + ' ' + rarest.name;
-
-            nftList.innerHTML = sorted.map(nft => `
-                <div style="background:rgba(255,255,255,.02);backdrop-filter:blur(12px);border-radius:14px;padding:14px 16px;border:1px solid rgba(255,255,255,.03);display:flex;align-items:center;gap:14px;margin-bottom:8px;">
-                    <div style="font-size:34px;width:50px;text-align:center;flex-shrink:0;">${nft.emoji}</div>
-                    <div style="flex:1;text-align:left;">
-                        <div style="font-size:16px;font-weight:600;color:${NFT_COLORS[nft.rarity]};">${nft.name}</div>
-                        <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-top:1px;color:${NFT_COLORS[nft.rarity]};">${NFT_NAMES[nft.rarity]}</div>
-                    </div>
-                    <div style="font-size:11px;color:rgba(255,255,255,.12);flex-shrink:0;">${new Date(nft.obtained).toLocaleDateString()}</div>
-                </div>
-            `).join('');
-        }
-
-        // ============================================================
-        // ПРОФИЛЬ
-        // ============================================================
-        function loadProfile() {
-            $('profileGames').textContent = localStorage.getItem('totalGames') || 0;
-            $('profileWins').textContent = localStorage.getItem('totalWins') || 0;
-            $('profileBest').textContent = localStorage.getItem('bestWin') || 0;
-
-            try {
-                const user = Telegram?.WebApp?.initDataUnsafe?.user;
-                if (user) {
-                    $('profileName').textContent = user.first_name || 'Игрок';
-                    $('profileId').textContent = 'ID: ' + user.id;
-                }
-            } catch {}
-        }
-
-        // ============================================================
-        // TOAST
-        // ============================================================
         function showToast(msg) {
+            const toast = document.getElementById('toast');
             toast.textContent = msg;
             toast.classList.add('show');
             clearTimeout(toastTimer);
             toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
         }
 
-        // ============================================================
-        // ИНИЦИАЛИЗАЦИЯ
-        // ============================================================
-        // Обновляем все балансы
-        updateBalances();
-
-        // Загружаем реферальные данные
-        $('referralLink').textContent = getReferralLink();
-        loadReferralStats();
-
-        // Загружаем профиль
-        loadProfile();
-
-        // Рендерим NFT при старте
-        renderNFTs();
-
-        // Приветствие
-        if (getBalance() === 1000) {
-            setTimeout(() => showToast('💰 Добро пожаловать в VIP Casino!'), 400);
+        // ===== РЕФЕРАЛКА =====
+        function getUserId() {
+            try {
+                if (window.Telegram && window.Telegram.WebApp) {
+                    const user = Telegram.WebApp.initDataUnsafe.user;
+                    if (user) return user.id;
+                }
+            } catch {}
+            return Math.floor(Math.random() * 1000000);
         }
 
-        console.log('🚀 VIP Casino оптимизирован!');
+        function copyReferralLink() {
+            const link = `https://t.me/MyRabbitsBot?start=ref_${getUserId()}`;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(link).then(() => {
+                    showToast('📋 Ссылка скопирована!');
+                }).catch(() => {
+                    showToast('📋 Ссылка: ' + link);
+                });
+            } else {
+                showToast('📋 Ссылка: ' + link);
+            }
+        }
+
+        // ===== ПРОМОКОД =====
+        function applyPromo() {
+            const input = document.getElementById('promoInput');
+            const code = input.value.trim();
+            if (!code) {
+                showToast('⚠️ Введите промокод');
+                return;
+            }
+            showToast(`🎉 Промокод "${code}" активирован!`);
+            input.value = '';
+        }
+
+        // ===== НАВИГАЦИЯ =====
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // ===== СТАРТ =====
+        setTimeout(() => showToast('🐰 Добро пожаловать в Rabbits!'), 400);
+
+        console.log('🐰 Rabbits загружен!');
+        console.log('📁 Структура:', {
+            games: 'pages/games/',
+            profile: 'pages/profile/profile.html'
+        });
     </script>
+
 </body>
 </html>
