@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>💎 Хранилище NFT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(145deg, #0b0e1a 0%, #1a1f35 50%, #0d1225 100%);
+            color: white;
+            padding: 20px;
+            position: relative;
+        }
+        .back-btn {
+            display: inline-block;
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            font-size: 15px;
+            padding: 8px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(8px);
+            transition: 0.25s;
+            margin-bottom: 20px;
+        }
+        .back-btn:active {
+            transform: scale(0.94);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .header h1 {
+            font-size: 34px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #b388ff, #7c4dff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+        .header .sub {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.35);
+            letter-spacing: 2px;
+            margin-top: 4px;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 16px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .stats-bar .item {
+            text-align: center;
+        }
+        .stats-bar .item .num {
+            font-size: 28px;
+            font-weight: 700;
+            color: #f0e0b0;
+        }
+        .stats-bar .item .lbl {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.25);
+            margin-top: 2px;
+        }
+
+        .nft-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .nft-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border-radius: 18px;
+            padding: 16px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: 0.2s;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        .nft-card:active {
+            transform: scale(0.97);
+        }
+        .nft-card .icon {
+            font-size: 40px;
+            width: 60px;
+            text-align: center;
+        }
+        .nft-card .info {
+            flex: 1;
+            text-align: left;
+        }
+        .nft-card .info .name {
+            font-size: 17px;
+            font-weight: 600;
+        }
+        .nft-card .info .rarity {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 2px;
+            opacity: 0.6;
+        }
+        .nft-card .date {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.25);
+            text-align: right;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+        .empty-state .emoji {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+        .empty-state .text {
+            font-size: 18px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        .empty-state .sub {
+            font-size: 14px;
+            margin-top: 6px;
+        }
+
+        .rarity-common {
+            border-left: 4px solid #b0b0b0;
+        }
+        .rarity-rare {
+            border-left: 4px solid #4CAF50;
+        }
+        .rarity-epic {
+            border-left: 4px solid #2196F3;
+        }
+        .rarity-legendary {
+            border-left: 4px solid #9C27B0;
+        }
+        .rarity-mythic {
+            border-left: 4px solid #FF5722;
+        }
+
+        .rarity-label {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 40px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .rarity-common .rarity-label {
+            background: rgba(176, 176, 176, 0.15);
+            color: #b0b0b0;
+        }
+        .rarity-rare .rarity-label {
+            background: rgba(76, 175, 80, 0.15);
+            color: #4CAF50;
+        }
+        .rarity-epic .rarity-label {
+            background: rgba(33, 150, 243, 0.15);
+            color: #2196F3;
+        }
+        .rarity-legendary .rarity-label {
+            background: rgba(156, 39, 176, 0.15);
+            color: #9C27B0;
+        }
+        .rarity-mythic .rarity-label {
+            background: rgba(255, 87, 34, 0.15);
+            color: #FF5722;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.08);
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-btn">← Назад</a>
+
+    <div class="header">
+        <h1>💎 Хранилище NFT</h1>
+        <div class="sub">Твои уникальные коллекционные карточки</div>
+    </div>
+
+    <div class="stats-bar">
+        <div class="item">
+            <div class="num" id="totalNFT">0</div>
+            <div class="lbl">Всего NFT</div>
+        </div>
+        <div class="item">
+            <div class="num" id="rarestNFT">—</div>
+            <div class="lbl">Редчайший</div>
+        </div>
+    </div>
+
+    <div class="nft-grid" id="nftGrid">
+        <!-- NFT будут вставляться сюда через JS -->
+    </div>
+
+    <div class="footer">Сделано с ❤️ в Telegram Mini App</div>
+
+    <script>
+        // ============================
+        // 1. ПОЛУЧАЕМ NFT ИЗ ХРАНИЛИЩА
+        // ============================
+        function getUserNFTs() {
+            try {
+                return JSON.parse(localStorage.getItem('userNFTs')) || [];
+            } catch {
+                return [];
+            }
+        }
+
+        // ============================
+        // 2. РЕДКОСТИ
+        // ============================
+        const rarityOrder = {
+            common: 0,
+            rare: 1,
+            epic: 2,
+            legendary: 3,
+            mythic: 4
+        };
+
+        const rarityNames = {
+            common: 'Обычный',
+            rare: 'Редкий',
+            epic: 'Эпический',
+            legendary: 'Легендарный',
+            mythic: 'Мифический'
+        };
+
+        const rarityColors = {
+            common: '#b0b0b0',
+            rare: '#4CAF50',
+            epic: '#2196F3',
+            legendary: '#9C27B0',
+            mythic: '#FF5722'
+        };
+
+        // ============================
+        // 3. ОТОБРАЖЕНИЕ NFT
+        // ============================
+        function renderNFTs() {
+            const nfts = getUserNFTs();
+            const grid = document.getElementById('nftGrid');
+            const totalEl = document.getElementById('totalNFT');
+            const rarestEl = document.getElementById('rarestNFT');
+
+            totalEl.textContent = nfts.length;
+
+            if (nfts.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="emoji">📭</div>
+                        <div class="text">У тебя пока нет NFT</div>
+                        <div class="sub">Играй в монетку и выигрывай уникальные карточки!</div>
+                    </div>
+                `;
+                rarestEl.textContent = '—';
+                return;
+            }
+
+            // Сортируем по редкости (от мифических к обычным)
+            const sorted = [...nfts].sort((a, b) => {
+                return rarityOrder[b.rarity] - rarityOrder[a.rarity];
+            });
+
+            // Самый редкий NFT
+            const rarest = sorted[0];
+            rarestEl.textContent = rarest.emoji + ' ' + rarest.name;
+
+            // Рендерим карточки
+            grid.innerHTML = sorted.map(nft => `
+                <div class="nft-card rarity-${nft.rarity}">
+                    <div class="icon">${nft.emoji}</div>
+                    <div class="info">
+                        <div class="name" style="color: ${rarityColors[nft.rarity]}">${nft.name}</div>
+                        <div class="rarity">
+                            <span class="rarity-label">${rarityNames[nft.rarity]}</span>
+                        </div>
+                    </div>
+                    <div class="date">${new Date(nft.obtained).toLocaleDateString()}</div>
+                </div>
+            `).join('');
+        }
+
+        // ============================
+        // 4. ЗАПУСК
+        // ============================
+        renderNFTs();
+
+        // Обновляем при возврате на страницу
+        window.addEventListener('focus', renderNFTs);
+    </script>
+</body>
+</html>
