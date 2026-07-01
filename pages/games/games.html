@@ -36,7 +36,6 @@
             overflow: hidden;
         }
 
-        /* ===== HEADER ===== */
         .header {
             padding: 16px 20px 8px;
             display: flex;
@@ -83,7 +82,6 @@
             color: #ffd700;
         }
 
-        /* ===== BACK BUTTON ===== */
         .back-btn {
             display: inline-flex;
             align-items: center;
@@ -100,17 +98,18 @@
             opacity: 0.5;
         }
 
-        /* ===== CONTENT ===== */
         .content {
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             padding: 0 20px 80px;
+            overflow-y: auto;
+        }
+        .content::-webkit-scrollbar {
+            width: 0;
         }
 
-        /* ===== TITLE ===== */
         .page-title {
             font-size: 24px;
             font-weight: 800;
@@ -124,7 +123,6 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* ===== GAME LIST ===== */
         .game-list {
             width: 100%;
             max-width: 320px;
@@ -184,7 +182,6 @@
             font-size: 14px;
         }
 
-        /* ===== NAV ===== */
         .nav {
             position: fixed;
             bottom: 0;
@@ -288,7 +285,7 @@
 <div class="app">
     <!-- HEADER -->
     <div class="header">
-        <a class="logo" onclick="window.location.href='../../index.html'">
+        <a class="logo" onclick="window.location.href='../nft/nft.html'">
             <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Логотип">
             <span>Rabbits</span>
         </a>
@@ -301,7 +298,7 @@
     <!-- CONTENT -->
     <div class="content">
         <!-- BACK -->
-        <button class="back-btn" onclick="window.location.href='../../index.html'">
+        <button class="back-btn" onclick="window.location.href='../nft/nft.html'">
             <i class="fas fa-arrow-left"></i> Назад
         </button>
 
@@ -359,7 +356,7 @@
             <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Топ">
             <span class="label">Топ</span>
         </button>
-        <button class="nav-item" onclick="window.location.href='../../index.html'">
+        <button class="nav-item" onclick="window.location.href='../nft/nft.html'">
             <img src="https://cdn-icons-png.flaticon.com/512/1828/1828793.png" alt="Главная">
             <span class="label">Главная</span>
         </button>
