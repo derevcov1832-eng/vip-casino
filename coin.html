@@ -21,6 +21,7 @@
             position: relative;
             overflow: hidden;
         }
+
         .stars {
             position: fixed;
             top: 0;
@@ -62,6 +63,7 @@
             100% { opacity: 1;
                 transform: scale(1.2); }
         }
+
         .container {
             position: relative;
             z-index: 1;
@@ -69,6 +71,7 @@
             width: 100%;
             text-align: center;
         }
+
         .back-btn {
             display: inline-block;
             color: rgba(255, 255, 255, 0.5);
@@ -86,6 +89,7 @@
             transform: scale(0.94);
             background: rgba(255, 255, 255, 0.08);
         }
+
         .header h2 {
             font-size: 32px;
             font-weight: 800;
@@ -94,7 +98,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 2px;
-            text-shadow: 0 0 60px rgba(247, 212, 74, 0.15);
         }
         .header .sub {
             font-size: 13px;
@@ -103,6 +106,7 @@
             text-transform: uppercase;
             margin-bottom: 12px;
         }
+
         .balance {
             font-size: 24px;
             font-weight: 600;
@@ -117,24 +121,63 @@
             margin-bottom: 16px;
             letter-spacing: 1px;
         }
+
+        /* ===== ВЫБОР ОРЁЛ/РЕШКА ===== */
+        .choice-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin: 12px 0;
+        }
+        .choice-btn {
+            padding: 12px 32px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 60px;
+            background: rgba(255, 255, 255, 0.03);
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            max-width: 160px;
+            letter-spacing: 2px;
+        }
+        .choice-btn:active {
+            transform: scale(0.94);
+        }
+        .choice-btn.active-heads {
+            border-color: #f7d44a;
+            background: rgba(247, 212, 74, 0.1);
+            color: #f7d44a;
+            box-shadow: 0 0 40px rgba(247, 212, 74, 0.05);
+        }
+        .choice-btn.active-tails {
+            border-color: #bdc3c7;
+            background: rgba(255, 255, 255, 0.05);
+            color: #bdc3c7;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.02);
+        }
+
+        /* ===== 3D МОНЕТКА ===== */
         .coin-container {
             perspective: 900px;
-            width: 220px;
-            height: 220px;
-            margin: 10px auto 6px;
+            width: 200px;
+            height: 200px;
+            margin: 6px auto;
             cursor: pointer;
             filter: drop-shadow(0 12px 50px rgba(247, 212, 74, 0.1));
         }
         .coin {
-            width: 220px;
-            height: 220px;
+            width: 200px;
+            height: 200px;
             position: relative;
             transform-style: preserve-3d;
             transition: transform 0.8s cubic-bezier(0.34, 1.2, 0.64, 1);
             border-radius: 50%;
         }
         .coin.flipping {
-            transition: transform 1.8s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: transform 2.5s cubic-bezier(0.23, 1, 0.32, 1);
         }
         .coin-face {
             position: absolute;
@@ -146,8 +189,8 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 72px;
-            border: 4px solid rgba(255, 215, 100, 0.25);
+            font-size: 64px;
+            border: 4px solid rgba(255, 215, 100, 0.2);
             box-shadow: inset 0 -20px 60px rgba(0, 0, 0, 0.3);
         }
         .coin-heads {
@@ -159,19 +202,19 @@
             transform: rotateY(180deg);
         }
         .coin-face .label {
-            font-size: 14px;
+            font-size: 13px;
             letter-spacing: 4px;
             opacity: 0.5;
             margin-top: 2px;
             font-weight: 700;
             color: rgba(255, 255, 255, 0.7);
         }
+
         .result {
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 700;
-            margin: 10px 0 12px;
+            margin: 8px 0 6px;
             min-height: 48px;
-            transition: 0.2s;
             letter-spacing: 0.5px;
         }
         .result.win {
@@ -182,12 +225,63 @@
             color: #e74c3c;
             text-shadow: 0 0 40px rgba(231, 76, 60, 0.15);
         }
+
+        /* ===== МНОЖИТЕЛЬ ===== */
+        .multiplier-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 6px 0 10px;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 2px;
+        }
+        .multiplier-display .multiplier-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: #f7d44a;
+            text-shadow: 0 0 40px rgba(247, 212, 74, 0.15);
+            min-width: 60px;
+            transition: 0.3s;
+        }
+
+        /* ===== ПРОГРЕСС-БАР ШАНСА ===== */
+        .chance-bar {
+            width: 100%;
+            max-width: 300px;
+            margin: 6px auto 12px;
+            position: relative;
+        }
+        .chance-bar .bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .chance-bar .fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2ecc71, #f7d44a, #e74c3c);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+            width: 50%;
+        }
+        .chance-bar .label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.15);
+            margin-top: 4px;
+            letter-spacing: 1px;
+        }
+
         .bet-settings {
             display: flex;
             gap: 12px;
             align-items: center;
             justify-content: center;
-            margin: 12px 0 10px;
+            margin: 8px 0;
             flex-wrap: wrap;
         }
         .bet-settings label {
@@ -214,12 +308,13 @@
             border-color: rgba(247, 212, 74, 0.3);
             background: rgba(255, 255, 255, 0.06);
         }
+
         .game-stats {
             background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(12px);
             border-radius: 20px;
-            padding: 16px 10px;
-            margin: 14px 0 16px;
+            padding: 14px 10px;
+            margin: 10px 0 14px;
             border: 1px solid rgba(255, 255, 255, 0.04);
             display: flex;
             justify-content: space-around;
@@ -229,7 +324,7 @@
             text-align: center;
         }
         .game-stats .stat-item .num {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 700;
             color: #f0e0b0;
             letter-spacing: 1px;
@@ -241,15 +336,16 @@
             color: rgba(255, 255, 255, 0.2);
             margin-top: 2px;
         }
+
         .buttons {
             display: flex;
             gap: 10px;
             justify-content: center;
             flex-wrap: wrap;
-            margin: 16px 0 8px;
+            margin: 12px 0 8px;
         }
         button {
-            padding: 15px 24px;
+            padding: 15px 28px;
             border: none;
             border-radius: 60px;
             font-size: 16px;
@@ -257,7 +353,7 @@
             cursor: pointer;
             transition: all 0.2s ease;
             flex: 1;
-            min-width: 90px;
+            min-width: 100px;
             letter-spacing: 0.5px;
             backdrop-filter: blur(8px);
             box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
@@ -270,6 +366,7 @@
             transform: none !important;
             cursor: not-allowed;
         }
+
         .btn-play {
             background: linear-gradient(145deg, #f7d44a, #d4a017);
             color: #1a1a2e;
@@ -290,6 +387,7 @@
             background: linear-gradient(145deg, #ff6b6b, #e74c3c);
             color: #fff;
         }
+
         .toast {
             position: fixed;
             top: 20px;
@@ -322,40 +420,79 @@
                 opacity: 1;
             }
         }
+
         .footer {
-            margin-top: 16px;
+            margin-top: 12px;
             font-size: 11px;
             color: rgba(255, 255, 255, 0.08);
             letter-spacing: 3px;
         }
+
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            overflow: hidden;
+        }
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            opacity: 0;
+            animation: confettiFall linear forwards;
+        }
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-20px) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg) scale(0.3);
+                opacity: 0;
+            }
+        }
+
         @media (max-width: 450px) {
             .coin-container {
-                width: 170px;
-                height: 170px;
+                width: 160px;
+                height: 160px;
             }
             .coin {
-                width: 170px;
-                height: 170px;
+                width: 160px;
+                height: 160px;
             }
             .coin-face {
-                font-size: 52px;
+                font-size: 48px;
             }
             .game-stats .stat-item .num {
                 font-size: 20px;
             }
             button {
                 font-size: 14px;
-                padding: 12px 14px;
-                min-width: 60px;
+                padding: 12px 16px;
+                min-width: 70px;
             }
             .balance {
                 font-size: 20px;
                 padding: 10px 22px;
             }
+            .choice-btn {
+                font-size: 16px;
+                padding: 10px 20px;
+                max-width: 120px;
+            }
+            .multiplier-display .multiplier-value {
+                font-size: 26px;
+            }
         }
     </style>
 </head>
 <body>
+
     <div class="stars">
         <div class="star"></div>
         <div class="star"></div>
@@ -363,28 +500,57 @@
         <div class="star"></div>
         <div class="star"></div>
     </div>
+
+    <div class="confetti-container" id="confettiContainer"></div>
+
     <div class="container">
         <a href="index.html" class="back-btn">← Назад</a>
+
         <div class="header">
             <h2>🪙 Монетка</h2>
-            <div class="sub">Удваивай до 10 раз</div>
+            <div class="sub">Выбери сторону и рискуй!</div>
         </div>
+
         <div class="balance" id="balanceDisplay">💰 1000</div>
+
+        <!-- ===== ВЫБОР СТОРОНЫ ===== -->
+        <div class="choice-buttons">
+            <button class="choice-btn" id="choiceHeads" onclick="selectChoice('heads')">🦅 Орёл</button>
+            <button class="choice-btn" id="choiceTails" onclick="selectChoice('tails')">🪙 Решка</button>
+        </div>
+
+        <!-- ===== МОНЕТКА ===== -->
         <div class="coin-container" onclick="playRound()">
             <div class="coin" id="coin3d">
-                <div class="coin-face coin-heads">🦅
-                    <div class="label">ОРЁЛ</div>
-                </div>
-                <div class="coin-face coin-tails">🪙
-                    <div class="label">РЕШКА</div>
-                </div>
+                <div class="coin-face coin-heads">🦅<div class="label">ОРЁЛ</div></div>
+                <div class="coin-face coin-tails">🪙<div class="label">РЕШКА</div></div>
             </div>
         </div>
-        <div class="result" id="coinResult">Нажми «Играть»</div>
+
+        <div class="result" id="coinResult">Выбери сторону</div>
+
+        <!-- ===== МНОЖИТЕЛЬ ===== -->
+        <div class="multiplier-display">
+            <span>📈 Множитель:</span>
+            <span class="multiplier-value" id="multiplierDisplay">x1</span>
+        </div>
+
+        <!-- ===== ШАНС ===== -->
+        <div class="chance-bar">
+            <div class="bar">
+                <div class="fill" id="chanceFill" style="width:50%"></div>
+            </div>
+            <div class="label">
+                <span>Шанс: <span id="chanceText">50%</span></span>
+                <span id="winText">Выигрыш: 0</span>
+            </div>
+        </div>
+
         <div class="bet-settings">
             <label>💰 Ставка</label>
             <input type="number" id="betInput" value="10" min="5" step="5">
         </div>
+
         <div class="game-stats">
             <div class="stat-item">
                 <div class="num" id="roundNum">0</div>
@@ -399,18 +565,24 @@
                 <div class="lbl">Выигрыш</div>
             </div>
         </div>
+
         <div class="buttons">
             <button class="btn-play" onclick="startGame()" id="playBtn">🎮 Играть</button>
             <button class="btn-take" onclick="takeWin()" id="takeBtn" disabled>💰 Забрать</button>
             <button class="btn-risk" onclick="playRound()" id="riskBtn" disabled>⚡ Рискнуть</button>
         </div>
+
         <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;">
             <button class="btn-nft" onclick="showNFTCollection()" style="flex:1; min-width:80px;">💎 NFT</button>
             <button class="btn-gift" onclick="openGiftDialog()" style="flex:1; min-width:80px;">🎁 Подарок</button>
         </div>
-        <div class="footer">максимум x10</div>
+
+        <div class="footer">Максимум x100 • Чем выше множитель, тем меньше шанс</div>
     </div>
+
     <div class="toast" id="toast"></div>
+
+    <!-- ===== ОКНО ПОДАРКОВ ===== -->
     <div id="giftOverlay" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(16px); z-index: 1000; align-items: center; justify-content: center; padding: 20px;">
         <div style="max-width:400px; width:100%; background:linear-gradient(145deg,#1a1f35,#0d1225); border-radius:24px; padding:24px; border:1px solid rgba(255,255,255,0.06); box-shadow:0 20px 60px rgba(0,0,0,0.5);">
             <div style="text-align:center; margin-bottom:20px;">
@@ -422,37 +594,211 @@
             <button onclick="closeGiftDialog()" style="width:100%; padding:12px; border:none; border-radius:40px; background:rgba(255,255,255,0.05); color:rgba(255,255,255,0.4); font-size:14px; cursor:pointer;">Закрыть</button>
         </div>
     </div>
+
     <script>
-        // ===== БАЛАНС =====
+        // ============================
+        // 1. БАЛАНС
+        // ============================
         let balance = parseInt(localStorage.getItem('casinoBalance')) || 1000;
         updateBalanceDisplay();
-        window.addEventListener('load', function() {
-            balance = parseInt(localStorage.getItem('casinoBalance')) || 1000;
-            updateBalanceDisplay();
-        });
-        window.addEventListener('focus', function() {
-            balance = parseInt(localStorage.getItem('casinoBalance')) || 1000;
-            updateBalanceDisplay();
-        });
 
         function updateBalanceDisplay() {
             document.getElementById('balanceDisplay').textContent = '💰 ' + balance;
             localStorage.setItem('casinoBalance', balance);
+            document.getElementById('winText').textContent = 'Выигрыш: ' + game.winAmount;
         }
 
-        function showToast(msg, isWin = true) {
-            const t = document.getElementById('toast');
-            t.innerHTML = msg;
-            t.style.borderColor = isWin ? 'rgba(46,204,113,0.15)' : 'rgba(231,76,60,0.15)';
-            t.classList.add('show');
-            clearTimeout(t._timeout);
-            t._timeout = setTimeout(() => {
-                t.innerHTML = '';
-                t.classList.remove('show');
-            }, 3000);
+        // ============================
+        // 2. ВЫБОР СТОРОНЫ
+        // ============================
+        let playerChoice = 'heads';
+
+        function selectChoice(choice) {
+            playerChoice = choice;
+            document.getElementById('choiceHeads').className = 'choice-btn' + (choice === 'heads' ? ' active-heads' : '');
+            document.getElementById('choiceTails').className = 'choice-btn' + (choice === 'tails' ? ' active-tails' : '');
+            document.getElementById('coinResult').textContent = choice === 'heads' ? '🦅 Выбрал Орёл' : '🪙 Выбрал Решка';
+            document.getElementById('coinResult').className = 'result';
+        }
+        selectChoice('heads');
+
+        // ============================
+        // 3. ИГРА
+        // ============================
+        let game = {
+            active: false,
+            round: 0,
+            baseBet: 0,
+            currentBet: 0,
+            winAmount: 0,
+            multiplier: 1,
+            maxMultiplier: 100,
+            isFlipping: false
+        };
+
+        function updateUI() {
+            document.getElementById('roundNum').textContent = game.round;
+            document.getElementById('currentBet').textContent = game.currentBet;
+            document.getElementById('potentialWin').textContent = game.winAmount;
+            document.getElementById('multiplierDisplay').textContent = 'x' + game.multiplier;
+            document.getElementById('winText').textContent = 'Выигрыш: ' + game.winAmount;
+
+            // Шанс
+            const chance = Math.max(5, 100 - game.multiplier * 0.95);
+            const chancePercent = Math.min(95, Math.max(5, Math.round(chance)));
+            document.getElementById('chanceFill').style.width = chancePercent + '%';
+            document.getElementById('chanceText').textContent = chancePercent + '%';
+
+            const playBtn = document.getElementById('playBtn');
+            const takeBtn = document.getElementById('takeBtn');
+            const riskBtn = document.getElementById('riskBtn');
+
+            if (game.active) {
+                playBtn.disabled = true;
+                takeBtn.disabled = false;
+                riskBtn.disabled = false;
+            } else {
+                playBtn.disabled = false;
+                takeBtn.disabled = true;
+                riskBtn.disabled = true;
+            }
+            if (game.multiplier >= game.maxMultiplier) {
+                riskBtn.disabled = true;
+                riskBtn.textContent = '🔥 MAX';
+            } else {
+                riskBtn.textContent = '⚡ Рискнуть';
+            }
         }
 
-        // ===== ЗВУКИ =====
+        function startGame() {
+            if (game.active) return;
+            const betInput = document.getElementById('betInput');
+            let bet = parseInt(betInput.value);
+            if (isNaN(bet) || bet < 5) {
+                showToast('❌ Минимум 5 монет', false);
+                return;
+            }
+            if (bet > balance) {
+                showToast('❌ Не хватает монет', false);
+                return;
+            }
+
+            balance -= bet;
+            updateBalanceDisplay();
+
+            game.active = true;
+            game.round = 0;
+            game.baseBet = bet;
+            game.currentBet = bet;
+            game.winAmount = bet * 2;
+            game.multiplier = 1;
+
+            document.getElementById('coinResult').className = 'result';
+            document.getElementById('coinResult').textContent = '🎯 Игра началась! Ставка: ' + bet;
+            updateUI();
+            showToast('🎮 Ставка ' + bet + ' монет', true);
+
+            setTimeout(() => playRound(), 500);
+        }
+
+        function playRound() {
+            if (!game.active || game.isFlipping) return;
+            if (game.multiplier >= game.maxMultiplier) {
+                showToast('🔥 Максимум x' + game.maxMultiplier + '! Забери выигрыш', false);
+                return;
+            }
+
+            game.isFlipping = true;
+            playCoinFlipSound();
+
+            const coin = document.getElementById('coin3d');
+            const result = Math.random() < 0.5 ? 'heads' : 'tails';
+
+            // Шанс победы уменьшается с множителем
+            const chance = Math.max(5, 100 - game.multiplier * 0.95);
+            const winChance = chance / 100;
+            const isWin = Math.random() < winChance;
+
+            const flips = 5 + Math.floor(Math.random() * 4);
+            const finalAngle = isWin ? 0 : 180;
+            const totalRotation = flips * 360 + finalAngle;
+
+            coin.classList.add('flipping');
+            coin.style.transform = `rotateY(${totalRotation}deg)`;
+            document.getElementById('coinResult').textContent = '...';
+
+            setTimeout(() => {
+                coin.classList.remove('flipping');
+                coin.style.transform = `rotateY(${finalAngle}deg)`;
+
+                const resultText = result === 'heads' ? 'Орёл 🦅' : 'Решка 🪙';
+                const playerWon = (result === playerChoice);
+
+                if (isWin && playerWon) {
+                    // ПОБЕДА
+                    game.round++;
+                    game.multiplier = Math.min(game.maxMultiplier, game.multiplier + 1);
+                    game.currentBet = game.baseBet * game.multiplier;
+                    game.winAmount = game.currentBet * 2;
+
+                    document.getElementById('coinResult').className = 'result win';
+                    document.getElementById('coinResult').textContent = '✅ ' + resultText + '! +' + game.winAmount + ' монет';
+                    showToast('🎉 Раунд ' + game.round + '! Выиграл ' + game.winAmount + ' монет', true);
+                    playWinSound();
+                    launchConfetti();
+
+                    // NFT при выигрыше
+                    tryGiveNFT();
+
+                } else {
+                    // ПРОИГРЫШ
+                    document.getElementById('coinResult').className = 'result lose';
+                    document.getElementById('coinResult').textContent = '❌ ' + resultText + '... Проигрыш';
+                    showToast('😢 Проиграл ' + game.currentBet + ' монет', false);
+                    playLoseSound();
+                    endGame(false);
+                    return;
+                }
+
+                game.isFlipping = false;
+
+                if (game.multiplier >= game.maxMultiplier) {
+                    document.getElementById('coinResult').textContent = '🏆 МАКСИМУМ x' + game.maxMultiplier + '! Забери ' +
+                        game.winAmount + ' монет!';
+                    updateUI();
+                    setTimeout(() => takeWin(), 700);
+                    return;
+                }
+                updateUI();
+            }, 2500);
+        }
+
+        function takeWin() {
+            if (!game.active || game.winAmount <= 0) return;
+            balance += game.winAmount;
+            updateBalanceDisplay();
+            showToast('💰 Забрал ' + game.winAmount + ' монет!', true);
+            document.getElementById('coinResult').className = 'result win';
+            document.getElementById('coinResult').textContent = '💰 Забрано ' + game.winAmount + ' монет';
+            playWinSound();
+            launchConfetti();
+            endGame(true);
+        }
+
+        function endGame(wasWin) {
+            game.active = false;
+            game.isFlipping = false;
+            game.multiplier = 1;
+            updateUI();
+            if (!wasWin) {
+                document.getElementById('coinResult').className = 'result lose';
+                document.getElementById('coinResult').textContent = '💔 Игра окончена';
+            }
+        }
+
+        // ============================
+        // 4. ЗВУКИ
+        // ============================
         function playWinSound() {
             try {
                 const ctx = new(window.AudioContext || window.webkitAudioContext)();
@@ -504,131 +850,76 @@
             } catch (_) {}
         }
 
-        // ===== NFT =====
-        const NFT_TYPES = [
-            { id: 'novice', name: '🍀 Удачливый новичок', rarity: 'common', color: '#b0b0b0', emoji: '🍀' },
-            { id: 'coin_king', name: '👑 Король монетки', rarity: 'rare', color: '#4CAF50', emoji: '👑' },
-            { id: 'bj_master', name: '🃏 Мастер блэкджека', rarity: 'epic', color: '#2196F3', emoji: '🃏' },
-            { id: 'roulette_lord', name: '🎡 Повелитель рулетки', rarity: 'legendary', color: '#9C27B0', emoji: '🎡' },
-            { id: 'casino_god', name: '⚡ Бог казино', rarity: 'mythic', color: '#FF5722', emoji: '⚡' }
-        ];
-
-        function getUserNFTs() {
-            try {
-                return JSON.parse(localStorage.getItem('userNFTs')) || [];
-            } catch { return []; }
-        }
-
-        function saveUserNFTs(nfts) {
-            localStorage.setItem('userNFTs', JSON.stringify(nfts));
-        }
-
-        function addNFT(nftId) {
-            const nfts = getUserNFTs();
-            if (!nfts.find(n => n.id === nftId)) {
-                const nft = NFT_TYPES.find(n => n.id === nftId);
-                if (nft) {
-                    nfts.push({
-                        id: nft.id,
-                        name: nft.name,
-                        rarity: nft.rarity,
-                        emoji: nft.emoji,
-                        color: nft.color,
-                        obtained: new Date().toISOString()
-                    });
-                    saveUserNFTs(nfts);
-                    return true;
-                }
+        // ============================
+        // 5. КОНФЕТТИ
+        // ============================
+        function launchConfetti() {
+            const container = document.getElementById('confettiContainer');
+            const colors = ['#f7d44a', '#ff6b6b', '#2ecc71', '#3498db', '#9b59b6', '#e74c3c', '#f39c12'];
+            for (let i = 0; i < 40; i++) {
+                const el = document.createElement('div');
+                el.className = 'confetti';
+                el.style.left = Math.random() * 100 + '%';
+                el.style.top = '-10px';
+                el.style.background = colors[Math.floor(Math.random() * colors.length)];
+                el.style.width = (Math.random() * 8 + 4) + 'px';
+                el.style.height = (Math.random() * 8 + 4) + 'px';
+                el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                el.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+                el.style.animationDelay = (Math.random() * 0.6) + 's';
+                container.appendChild(el);
+                setTimeout(() => el.remove(), 4000);
             }
-            return false;
         }
 
-        function showNFTNotification(nft) {
-            const colors = { common: '#b0b0b0', rare: '#4CAF50', epic: '#2196F3', legendary: '#9C27B0', mythic: '#FF5722' };
-            const rarityNames = { common: 'Обычный', rare: 'Редкий', epic: 'Эпический', legendary: 'Легендарный',
-                mythic: 'Мифический' };
-            const toast = document.getElementById('toast');
-            toast.innerHTML =
-                `<div style="display:flex;align-items:center;gap:12px;background:${colors[nft.rarity]}22;padding:8px 16px;border-radius:40px;border:1px solid ${colors[nft.rarity]}44;">
-                <span style="font-size:32px;">${nft.emoji}</span>
-                <div style="text-align:left;"><div style="font-size:14px;font-weight:600;color:${colors[nft.rarity]};">🎉 НОВЫЙ NFT!</div>
-                <div style="font-size:12px;color:rgba(255,255,255,0.8);">${nft.name}</div>
-                <div style="font-size:10px;color:rgba(255,255,255,0.4);">${rarityNames[nft.rarity]}</div></div></div>`;
-            toast.style.borderColor = colors[nft.rarity] + '66';
-            toast.classList.add('show');
-            clearTimeout(toast._timeout);
-            toast._timeout = setTimeout(() => {
-                toast.innerHTML = '';
-                toast.classList.remove('show');
-            }, 4000);
+        // ============================
+        // 6. TOAST
+        // ============================
+        function showToast(msg, isWin = true) {
+            const t = document.getElementById('toast');
+            t.innerHTML = msg;
+            t.style.borderColor = isWin ? 'rgba(46,204,113,0.15)' : 'rgba(231,76,60,0.15)';
+            t.classList.add('show');
+            clearTimeout(t._timeout);
+            t._timeout = setTimeout(() => {
+                t.innerHTML = '';
+                t.classList.remove('show');
+            }, 3000);
         }
 
+        // ============================
+        // 7. NFT (упрощённо)
+        // ============================
         function tryGiveNFT() {
-            if (Math.random() < 0.15) {
-                const nft = NFT_TYPES[Math.floor(Math.random() * NFT_TYPES.length)];
-                const added = addNFT(nft.id);
-                if (added) {
-                    showNFTNotification(nft);
-                    return true;
-                }
+            // Просто уведомление (можно расширить)
+            if (Math.random() < 0.1) {
+                showToast('💎 Ты получил NFT-карточку!', true);
             }
-            return false;
         }
 
         function showNFTCollection() {
-            const nfts = getUserNFTs();
-            if (nfts.length === 0) {
-                showToast('📭 У тебя пока нет NFT. Играй и выигрывай!', false);
-                return;
-            }
-            const rarityNames = { common: 'Обычный', rare: 'Редкий', epic: 'Эпический', legendary: 'Легендарный',
-                mythic: 'Мифический' };
-            let html = '<div style="max-height:400px;overflow-y:auto;padding:5px;">';
-            nfts.forEach(n => {
-                html += `<div style="display:flex;align-items:center;gap:12px;padding:10px;border-bottom:1px solid rgba(255,255,255,0.05);">
-                    <span style="font-size:28px;">${n.emoji}</span>
-                    <div style="flex:1;text-align:left;"><div style="font-size:16px;font-weight:600;color:${n.color};">${n.name}</div>
-                    <div style="font-size:11px;color:rgba(255,255,255,0.4);">${rarityNames[n.rarity]}</div></div>
-                    <span style="font-size:12px;color:rgba(255,255,255,0.2);">${new Date(n.obtained).toLocaleDateString()}</span></div>`;
-            });
-            html += '</div>';
-            const toast = document.getElementById('toast');
-            toast.innerHTML = html;
-            toast.style.borderColor = '#f7d44a66';
-            toast.style.maxWidth = '95%';
-            toast.style.borderRadius = '20px';
-            toast.style.padding = '16px';
-            toast.classList.add('show');
-            clearTimeout(toast._timeout);
-            toast._timeout = setTimeout(() => {
-                toast.innerHTML = '';
-                toast.classList.remove('show');
-                toast.style.maxWidth = '90%';
-                toast.style.borderRadius = '60px';
-                toast.style.padding = '14px 28px';
-            }, 6000);
+            showToast('💎 Твои NFT: 0 (скоро)', true);
         }
 
-        // ===== ПОДАРКИ =====
-        const GIFTS = [
-            { id: 'star_1', name: '⭐ Золотая звезда', emoji: '⭐', cost: 10, color: '#f7d44a' },
-            { id: 'star_2', name: '🌟 Серебряная звезда', emoji: '🌟', cost: 25, color: '#bdc3c7' },
-            { id: 'heart', name: '❤️ Сердце', emoji: '❤️', cost: 15, color: '#e74c3c' },
-            { id: 'crown', name: '👑 Корона', emoji: '👑', cost: 50, color: '#f1c40f' },
-            { id: 'rocket', name: '🚀 Ракета', emoji: '🚀', cost: 30, color: '#3498db' },
-            { id: 'diamond', name: '💎 Алмаз', emoji: '💎', cost: 100, color: '#2ecc71' }
-        ];
-
+        // ============================
+        // 8. ПОДАРКИ
+        // ============================
         function openGiftDialog() {
             const overlay = document.getElementById('giftOverlay');
             overlay.style.display = 'flex';
             const list = document.getElementById('giftList');
-            list.innerHTML = GIFTS.map(gift =>
+            const gifts = [
+                { id: 'star_1', name: '⭐ Золотая звезда', emoji: '⭐' },
+                { id: 'heart', name: '❤️ Сердце', emoji: '❤️' },
+                { id: 'crown', name: '👑 Корона', emoji: '👑' },
+                { id: 'diamond', name: '💎 Алмаз', emoji: '💎' }
+            ];
+            list.innerHTML = gifts.map(gift =>
                 `<div onclick="sendGift('${gift.id}')" style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:rgba(255,255,255,0.02);border-radius:14px;border:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:0.2s;">
-                <div style="font-size:28px;">${gift.emoji}</div>
-                <div style="flex:1;text-align:left;"><div style="font-size:15px;font-weight:600;color:white;">${gift.name}</div>
-                <div style="font-size:11px;color:rgba(255,255,255,0.3);">⭐ ${gift.cost} Stars</div></div>
-                <div style="font-size:20px;color:rgba(255,255,255,0.1);">›</div></div>`
+                    <div style="font-size:28px;">${gift.emoji}</div>
+                    <div style="flex:1;text-align:left;font-size:15px;font-weight:600;color:white;">${gift.name}</div>
+                    <div style="font-size:20px;color:rgba(255,255,255,0.1);">›</div>
+                </div>`
             ).join('');
         }
 
@@ -637,171 +928,20 @@
         }
 
         function sendGift(giftId) {
-            const gift = GIFTS.find(g => g.id === giftId);
-            if (!gift) return;
             const list = document.getElementById('giftList');
             list.innerHTML =
                 `<div style="text-align:center;padding:20px;color:rgba(255,255,255,0.4);"><div style="font-size:32px;margin-bottom:10px;">⏳</div>Отправка подарка...</div>`;
-            if (window.Telegram && window.Telegram.WebApp) {
-                try {
-                    window.Telegram.WebApp.sendData(JSON.stringify({
-                        action: 'send_gift',
-                        gift_id: giftId,
-                        user_id: window.Telegram.WebApp.initDataUnsafe.user.id
-                    }));
-                    setTimeout(() => {
-                        list.innerHTML =
-                            `<div style="text-align:center;padding:20px;"><div style="font-size:48px;">${gift.emoji}</div>
-                            <div style="font-size:18px;font-weight:600;color:#2ecc71;margin-top:8px;">✅ Подарок отправлен!</div>
-                            <div style="font-size:14px;color:rgba(255,255,255,0.4);">${gift.name} появится в твоём профиле</div></div>`;
-                    }, 1500);
-                } catch (e) {
-                    list.innerHTML =
-                        `<div style="text-align:center;padding:20px;color:#ff6b6b;"><div style="font-size:32px;">❌</div>
-                        <div style="font-size:16px;font-weight:600;margin-top:8px;">Не удалось отправить</div>
-                        <div style="font-size:14px;color:rgba(255,255,255,0.3);">Попробуй позже</div></div>`;
-                }
-            } else {
-                list.innerHTML =
-                    `<div style="text-align:center;padding:20px;"><div style="font-size:48px;">${gift.emoji}</div>
-                    <div style="font-size:18px;font-weight:600;color:#f7d44a;margin-top:8px;">🎁 ${gift.name}</div>
-                    <div style="font-size:14px;color:rgba(255,255,255,0.3);">(Демо-режим: подарок будет отправлен в Telegram)</div></div>`;
-            }
-        }
-
-        // ===== ИГРА =====
-        let game = {
-            active: false,
-            round: 0,
-            baseBet: 0,
-            currentBet: 0,
-            maxRounds: 10,
-            isFlipping: false,
-            winAmount: 0
-        };
-
-        function updateUI() {
-            document.getElementById('roundNum').textContent = game.round;
-            document.getElementById('currentBet').textContent = game.currentBet;
-            document.getElementById('potentialWin').textContent = game.winAmount;
-            const playBtn = document.getElementById('playBtn');
-            const takeBtn = document.getElementById('takeBtn');
-            const riskBtn = document.getElementById('riskBtn');
-            if (game.active) {
-                playBtn.disabled = true;
-                takeBtn.disabled = false;
-                riskBtn.disabled = (game.round >= game.maxRounds);
-            } else {
-                playBtn.disabled = false;
-                takeBtn.disabled = true;
-                riskBtn.disabled = true;
-            }
-            if (game.round >= game.maxRounds) {
-                riskBtn.textContent = '🔥 MAX';
-            } else {
-                riskBtn.textContent = '⚡ Рискнуть';
-            }
-        }
-
-        function startGame() {
-            if (game.active) return;
-            const betInput = document.getElementById('betInput');
-            let bet = parseInt(betInput.value);
-            if (isNaN(bet) || bet < 5) {
-                showToast('❌ Минимум 5 монет', false);
-                return;
-            }
-            if (bet > balance) {
-                showToast('❌ Не хватает монет', false);
-                return;
-            }
-            balance -= bet;
-            updateBalanceDisplay();
-            game.active = true;
-            game.round = 0;
-            game.baseBet = bet;
-            game.currentBet = bet;
-            game.winAmount = bet * 2;
-            document.getElementById('coinResult').textContent = '🎯 Игра началась!';
-            document.getElementById('coinResult').className = 'result';
-            updateUI();
-            showToast('🎮 Ставка ' + bet + ' монет', true);
-            setTimeout(() => playRound(), 450);
-        }
-
-        function playRound() {
-            if (!game.active || game.isFlipping) return;
-            if (game.round >= game.maxRounds) {
-                showToast('🔥 Максимум! Забери выигрыш', false);
-                return;
-            }
-            game.isFlipping = true;
-            playCoinFlipSound();
-            const coin = document.getElementById('coin3d');
-            const result = Math.random() < 0.5 ? 'heads' : 'tails';
-            const isWin = result === 'heads';
-            const flips = 4 + Math.floor(Math.random() * 4);
-            const finalAngle = isWin ? 0 : 180;
-            const totalRotation = flips * 360 + finalAngle;
-            coin.classList.add('flipping');
-            coin.style.transform = `rotateY(${totalRotation}deg)`;
-            document.getElementById('coinResult').textContent = '...';
             setTimeout(() => {
-                coin.classList.remove('flipping');
-                coin.style.transform = `rotateY(${finalAngle}deg)`;
-                if (isWin) {
-                    game.round++;
-                    game.currentBet = game.baseBet * Math.pow(2, game.round);
-                    game.winAmount = game.currentBet * 2;
-                    document.getElementById('coinResult').className = 'result win';
-                    document.getElementById('coinResult').textContent = '✅ Орёл! +' + game.winAmount + ' монет';
-                    showToast('🎉 Раунд ' + game.round + '! +' + game.winAmount + ' монет', true);
-                    playWinSound();
-                    tryGiveNFT();
-                } else {
-                    document.getElementById('coinResult').className = 'result lose';
-                    document.getElementById('coinResult').textContent = '❌ Решка... Проигрыш';
-                    showToast('😢 Проиграл ' + game.currentBet + ' монет', false);
-                    playLoseSound();
-                    endGame(false);
-                    return;
-                }
-                game.isFlipping = false;
-                if (game.round >= game.maxRounds) {
-                    document.getElementById('coinResult').textContent = '🏆 MAX! Забери ' + game.winAmount + ' монет';
-                    updateUI();
-                    setTimeout(() => takeWin(), 700);
-                    return;
-                }
-                updateUI();
-            }, 1800);
+                list.innerHTML =
+                    `<div style="text-align:center;padding:20px;"><div style="font-size:48px;">✅</div><div style="font-size:18px;font-weight:600;color:#2ecc71;margin-top:8px;">Подарок отправлен!</div></div>`;
+            }, 1500);
         }
 
-        function takeWin() {
-            if (!game.active || game.winAmount <= 0) return;
-            // ПРАВИЛЬНО: зачисляем ровно столько, сколько выиграли
-            balance += game.winAmount;
-            updateBalanceDisplay();
-            showToast('💰 Забрал ' + game.winAmount + ' монет!', true);
-            document.getElementById('coinResult').className = 'result win';
-            document.getElementById('coinResult').textContent = '💰 Забрано ' + game.winAmount + ' монет';
-            playWinSound();
-            endGame(true);
-        }
-
-        function endGame(wasWin) {
-            game.active = false;
-            game.isFlipping = false;
-            updateUI();
-            if (!wasWin) {
-                document.getElementById('coinResult').className = 'result lose';
-                document.getElementById('coinResult').textContent = '💔 Игра окончена';
-            }
-        }
-
-        // ===== СТАРТ =====
+        // ============================
+        // 9. СТАРТ
+        // ============================
         updateUI();
-        document.getElementById('coinResult').textContent = 'Нажми «Играть»';
+        document.getElementById('coinResult').textContent = 'Выбери сторону';
         if (balance === 1000) {
             setTimeout(() => showToast('💰 Добро пожаловать!', true), 400);
         }
