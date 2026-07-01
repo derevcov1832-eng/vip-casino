@@ -347,7 +347,6 @@
             margin-top: 2px;
         }
 
-        /* ===== РЕФЕРАЛЬНЫЙ БЛОК ===== */
         .referral-block {
             background: linear-gradient(145deg, rgba(247, 212, 74, 0.04), rgba(123, 77, 255, 0.04));
             border-radius: 16px;
@@ -1052,7 +1051,7 @@
                     <div class="sub">Получи 50 монет за каждого приглашённого!</div>
 
                     <div class="referral-link">
-                        <div class="link" id="referralLink">https://t.me/ТВОЙ_БОТ?start=ref_123456</div>
+                        <div class="link" id="referralLink">https://t.me/My103CoinGameBot?start=ref_123456</div>
                         <button class="copy-btn" onclick="copyReferralLink()">📋 Копировать</button>
                     </div>
 
@@ -1141,7 +1140,7 @@
         }
 
         // ============================
-        // 3. РЕФЕРАЛЬНАЯ СИСТЕМА
+        // 3. РЕФЕРАЛЬНАЯ СИСТЕМА (ДЛЯ БОТА @My103CoinGameBot)
         // ============================
         function getUserId() {
             if (window.Telegram && window.Telegram.WebApp) {
@@ -1153,8 +1152,7 @@
 
         function getReferralLink() {
             const userId = getUserId();
-            // Замени на ссылку на твоего бота
-            return `https://t.me/ТВОЙ_БОТ?start=ref_${userId}`;
+            return `https://t.me/My103CoinGameBot?start=ref_${userId}`;
         }
 
         function copyReferralLink() {
@@ -1169,6 +1167,9 @@
                 showToast('📋 Ссылка: ' + link, true);
             }
         }
+
+        // Инициализация реферальной ссылки
+        document.getElementById('referralLink').textContent = getReferralLink();
 
         // Загружаем реферальную статистику
         function loadReferralStats() {
@@ -1187,16 +1188,12 @@
             localStorage.setItem('refCount', refCount + 1);
             localStorage.setItem('refEarned', refEarned + 50);
 
-            // Начисляем монеты
             balance += 50;
             updateAllBalances();
             loadReferralStats();
             showToast('🎉 Друг пришёл! +50 монет!', true);
             launchConfetti();
         }
-
-        // Инициализация реферальной ссылки
-        document.getElementById('referralLink').textContent = getReferralLink();
 
         // ============================
         // 4. СВАЙП + НАВИГАЦИЯ
@@ -1375,7 +1372,7 @@
         }
 
         console.log('🎰 VIP Casino загружен!');
-        console.log('👥 Реферальная система активна!');
+        console.log('🤖 Реферальная система для @My103CoinGameBot активна!');
     </script>
 </body>
 </html>
