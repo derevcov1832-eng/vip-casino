@@ -3,431 +3,425 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>💎 Хранилище NFT</title>
+    <title>🐰 Rabbits</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background: #0a0a1a;
-            color: white;
+            font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+            background: #0a0a12;
+            color: #fff;
             min-height: 100vh;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .app {
+            max-width: 430px;
+            width: 100%;
+            height: 100vh;
+            margin: 0 auto;
+            background: radial-gradient(ellipse at 50% 0%, #141428 0%, #0a0a12 70%);
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 16px;
+            flex-direction: column;
             position: relative;
+            overflow: hidden;
         }
 
-        .bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background:
-                radial-gradient(ellipse at 20% 30%, rgba(123, 77, 255, 0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 70%, rgba(247, 212, 74, 0.03) 0%, transparent 50%);
+        /* ===== HEADER ===== */
+        .header {
+            padding: 16px 20px 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
         }
-
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 480px;
-            width: 100%;
-            padding-bottom: 30px;
-        }
-
-        .back-btn {
-            color: rgba(255, 255, 255, 0.3);
-            text-decoration: none;
-            font-size: 14px;
-            padding: 6px 16px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 40px;
-            background: rgba(255, 255, 255, 0.02);
-            display: inline-block;
-            margin-bottom: 8px;
-        }
-        .back-btn:active {
-            transform: scale(0.94);
-        }
-
-        .header h2 {
-            font-size: 30px;
+        .header .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
             font-weight: 800;
-            background: linear-gradient(135deg, #b388ff, #7c4dff);
+            color: #fff;
+            text-decoration: none;
+        }
+        .header .logo img {
+            width: 32px;
+            height: 32px;
+        }
+        .header .logo span {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 2px;
-            text-align: center;
         }
-        .header .sub {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.15);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            text-align: center;
-            margin-bottom: 12px;
-        }
-
-        .balance {
-            font-size: 22px;
-            font-weight: 600;
-            color: #f7e3a0;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            padding: 8px 24px;
-            border-radius: 60px;
-            display: inline-block;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            margin: 0 auto 12px;
-            text-align: center;
-        }
-        .balance-wrap {
-            text-align: center;
-        }
-
-        .stats {
+        .header .coins {
             display: flex;
-            gap: 10px;
-            margin: 8px 0 14px;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 4px 12px 4px 8px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            cursor: pointer;
         }
-        .stats .stat {
+        .header .coins img {
+            width: 16px;
+            height: 16px;
+        }
+        .header .coins .value {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffd700;
+        }
+
+        /* ===== CONTENT ===== */
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px 80px;
+        }
+
+        /* ===== BALANCE ===== */
+        .balance-big {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .balance-big .label {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.15);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+        }
+        .balance-big .amount {
+            font-size: 52px;
+            font-weight: 800;
+            color: #ffd700;
+            text-shadow: 0 0 60px rgba(255, 215, 0, 0.08);
+        }
+        .balance-big .currency {
+            font-size: 22px;
+            color: rgba(255, 215, 0, 0.3);
+        }
+
+        /* ===== LIVE + FREE ===== */
+        .live-free-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+            width: 100%;
+            max-width: 300px;
+        }
+        .live-free-row .item {
             flex: 1;
             background: rgba(255, 255, 255, 0.02);
-            border-radius: 14px;
-            padding: 12px 8px;
+            border-radius: 16px;
+            padding: 14px 10px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.03);
         }
-        .stats .stat .num {
-            font-size: 24px;
-            font-weight: 700;
-            color: #b388ff;
+        .live-free-row .item .top {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 4px;
         }
-        .stats .stat .lbl {
+        .live-free-row .item .top .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
+        .live-free-row .item .top .dot.green {
+            background: #4caf50;
+        }
+        .live-free-row .item .top .dot.red {
+            background: #ff4444;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .live-free-row .item .number {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+        }
+        .live-free-row .item .number .small {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.2);
+        }
+        .live-free-row .item .sub {
             font-size: 10px;
-            color: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.1);
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-top: 2px;
         }
 
-        .nft-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin: 6px 0;
-        }
-
-        .nft-item {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(12px);
-            border-radius: 14px;
-            padding: 14px 16px;
+        /* ===== CASE ===== */
+        .case-box {
+            width: 100%;
+            max-width: 300px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+            border-radius: 16px;
+            padding: 16px;
             border: 1px solid rgba(255, 255, 255, 0.03);
-            display: flex;
-            align-items: center;
-            gap: 14px;
+            text-align: center;
+            margin-bottom: 16px;
+            cursor: pointer;
             transition: 0.2s;
         }
-        .nft-item:active {
+        .case-box:active {
             transform: scale(0.97);
-            background: rgba(255, 255, 255, 0.04);
         }
-
-        .nft-item .icon {
-            font-size: 34px;
-            width: 50px;
-            text-align: center;
-            flex-shrink: 0;
+        .case-box .icon {
+            font-size: 32px;
+            margin-bottom: 4px;
         }
-        .nft-item .info {
-            flex: 1;
-            text-align: left;
-        }
-        .nft-item .info .name {
-            font-size: 16px;
+        .case-box .title {
+            font-size: 15px;
             font-weight: 600;
             color: rgba(255, 255, 255, 0.9);
         }
-        .nft-item .info .rarity {
+        .case-box .desc {
             font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 1px;
-        }
-        .nft-item .info .rarity.common {
-            color: #b0b0b0;
-        }
-        .nft-item .info .rarity.rare {
-            color: #4CAF50;
-        }
-        .nft-item .info .rarity.epic {
-            color: #2196F3;
-        }
-        .nft-item .info .rarity.legendary {
-            color: #9C27B0;
-        }
-        .nft-item .info .rarity.mythic {
-            color: #FF5722;
-        }
-        .nft-item .date {
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.12);
-            flex-shrink: 0;
-        }
-
-        .empty {
-            text-align: center;
-            padding: 40px 20px;
-            color: rgba(255, 255, 255, 0.08);
-        }
-        .empty .icon {
-            font-size: 56px;
-            display: block;
-            margin-bottom: 8px;
-            opacity: 0.3;
-        }
-        .empty .text {
-            font-size: 16px;
             color: rgba(255, 255, 255, 0.15);
-        }
-        .empty .sub {
-            font-size: 12px;
-            margin-top: 4px;
-            color: rgba(255, 255, 255, 0.06);
+            margin-top: 2px;
         }
 
-        .footer {
-            text-align: center;
-            margin-top: 16px;
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.04);
-            letter-spacing: 2px;
+        /* ===== PLAY BUTTON ===== */
+        .play-btn {
+            width: 100%;
+            max-width: 300px;
+            padding: 16px;
+            border: none;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            color: #1a1a2e;
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 8px 40px rgba(247, 212, 74, 0.15);
+        }
+        .play-btn:active {
+            transform: scale(0.96);
         }
 
-        /* ===== НИЖНЯЯ НАВИГАЦИЯ ===== */
-        .bottom-nav {
+        /* ===== NAV ===== */
+        .nav {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(10, 10, 26, 0.92);
+            background: rgba(10, 10, 18, 0.96);
             backdrop-filter: blur(16px);
             border-top: 1px solid rgba(255, 255, 255, 0.03);
             display: flex;
             justify-content: space-around;
-            padding: 8px 0 12px;
-            max-width: 480px;
+            padding: 6px 0 10px;
+            max-width: 430px;
             margin: 0 auto;
             z-index: 100;
         }
-        .bottom-nav .nav-item {
+        .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2px;
-            text-decoration: none;
-            color: rgba(255, 255, 255, 0.15);
-            font-size: 9px;
+            gap: 1px;
+            color: rgba(255, 255, 255, 0.12);
+            font-size: 8px;
             font-weight: 500;
             letter-spacing: 0.5px;
-            transition: 0.3s;
             background: none;
             border: none;
             cursor: pointer;
-            padding: 4px 16px;
+            padding: 4px 12px;
+            transition: 0.3s;
+            position: relative;
         }
-        .bottom-nav .nav-item .icon {
-            font-size: 22px;
+        .nav-item img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            opacity: 0.35;
             transition: 0.3s;
         }
-        .bottom-nav .nav-item.active {
-            color: #f7d44a;
+        .nav-item.active img {
+            opacity: 1;
         }
-        .bottom-nav .nav-item.active .icon {
-            transform: translateY(-2px);
+        .nav-item .label {
+            color: rgba(255, 255, 255, 0.12);
+            transition: 0.3s;
         }
-        .bottom-nav .nav-item:active {
+        .nav-item.active .label {
+            color: #ffd700;
+        }
+        .nav-item:active {
             transform: scale(0.9);
         }
+        .nav-item.rabbit img {
+            width: 40px;
+            height: 40px;
+            margin-top: -10px;
+            opacity: 1;
+            filter: drop-shadow(0 4px 20px rgba(247, 212, 74, 0.15));
+        }
+        .nav-item.rabbit.active img {
+            filter: drop-shadow(0 4px 30px rgba(247, 212, 74, 0.3));
+        }
 
-        @media (max-width: 450px) {
-            .stats .stat .num {
-                font-size: 20px;
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(12, 14, 28, 0.92);
+            backdrop-filter: blur(16px);
+            color: #f0eee0;
+            padding: 10px 22px;
+            border-radius: 60px;
+            display: none;
+            z-index: 999;
+            max-width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.2);
+        }
+        .toast.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) scale(0.9);
+                top: -40px;
             }
-            .nft-item .icon {
-                font-size: 28px;
-                width: 40px;
-            }
-            .nft-item .info .name {
-                font-size: 14px;
-            }
-            .balance {
-                font-size: 19px;
-                padding: 6px 20px;
+            to {
+                opacity: 1;
+                transform: translateX(-50%) scale(1);
+                top: 20px;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg"></div>
-
-    <div class="container">
-        <a href="../home/home.html" class="back-btn">← Назад</a>
-
-        <div class="header">
-            <h2>💎 Хранилище NFT</h2>
-            <div class="sub">Твои коллекционные карточки</div>
+<div class="app">
+    <!-- HEADER -->
+    <div class="header">
+        <a class="logo" href="#">
+            <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Логотип">
+            <span>Rabbits</span>
+        </a>
+        <div class="coins" onclick="showToast('💰 Баланс: 0.00 ₽')">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Монеты">
+            <span class="value">0</span>
         </div>
-
-        <div class="balance-wrap">
-            <div class="balance" id="balanceDisplay">💰 1000</div>
-        </div>
-
-        <div class="stats">
-            <div class="stat">
-                <div class="num" id="totalNFT">0</div>
-                <div class="lbl">Всего NFT</div>
-            </div>
-            <div class="stat">
-                <div class="num" id="rarestNFT">—</div>
-                <div class="lbl">Редчайший</div>
-            </div>
-        </div>
-
-        <div class="nft-list" id="nftList">
-            <div class="empty">
-                <span class="icon">📭</span>
-                <div class="text">У тебя пока нет NFT</div>
-                <div class="sub">Играй в монетку, чтобы получить NFT!</div>
-            </div>
-        </div>
-
-        <div class="footer">NFT выпадают при победе в монетке</div>
     </div>
 
-    <!-- ===== НИЖНЯЯ НАВИГАЦИЯ ===== -->
-    <div class="bottom-nav" id="bottomNav">
-        <button class="nav-item" onclick="window.location.href='../home/home.html'">
-            <span class="icon">🏠</span> Главная
+    <!-- CONTENT -->
+    <div class="content">
+        <!-- BALANCE -->
+        <div class="balance-big">
+            <div class="label">💰 Баланс</div>
+            <div class="amount">0 <span class="currency">₽</span></div>
+        </div>
+
+        <!-- LIVE + FREE -->
+        <div class="live-free-row">
+            <div class="item">
+                <div class="top">
+                    <span class="dot green"></span> LIVE
+                </div>
+                <div class="number">2 <span class="small">/ 4</span></div>
+                <div class="sub">Игроков</div>
+            </div>
+            <div class="item">
+                <div class="top">
+                    <span class="dot red"></span> FREE
+                </div>
+                <div class="number">0.2 <span class="small">₽</span></div>
+                <div class="sub">Бесплатный кейс</div>
+            </div>
+        </div>
+
+        <!-- CASE -->
+        <div class="case-box" onclick="showToast('📦 Кейс за депозит (скоро)')">
+            <div class="icon">📦</div>
+            <div class="title">Кейс за депозит</div>
+            <div class="desc">Пополни баланс и получи бонус</div>
+        </div>
+
+        <!-- PLAY BUTTON -->
+        <button class="play-btn" onclick="window.location.href='../games/games.html'">
+            ИГРАТЬ!
         </button>
-        <button class="nav-item" onclick="window.location.href='../games/games.html'">
-            <span class="icon">🎮</span> Игры
+    </div>
+
+    <!-- NAV -->
+    <div class="nav">
+        <button class="nav-item" onclick="showToast('🏆 Топ игроков')">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Топ">
+            <span class="label">Топ</span>
         </button>
-        <button class="nav-item active" onclick="window.location.href='../nft/nft.html'">
-            <span class="icon">💎</span> Хранилище
+        <button class="nav-item active" onclick="showToast('🏠 Главная')">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828793.png" alt="Главная">
+            <span class="label">Главная</span>
+        </button>
+        <button class="nav-item rabbit" onclick="showToast('🐰 Rabbit')">
+            <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Rabbit">
+            <span class="label">Rabbit</span>
         </button>
         <button class="nav-item" onclick="window.location.href='../profile/profile.html'">
-            <span class="icon">👤</span> Профиль
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828478.png" alt="Профиль">
+            <span class="label">Профиль</span>
         </button>
     </div>
+</div>
 
-    <script>
-        // ============================
-        // 1. БАЛАНС
-        // ============================
-        let balance = parseInt(localStorage.getItem('casinoBalance')) || 1000;
-        document.getElementById('balanceDisplay').textContent = '💰 ' + balance;
+<div class="toast" id="toast"></div>
 
-        // ============================
-        // 2. ПОЛУЧАЕМ NFT ИЗ ХРАНИЛИЩА
-        // ============================
-        function getUserNFTs() {
-            try {
-                return JSON.parse(localStorage.getItem('userNFTs')) || [];
-            } catch {
-                return [];
-            }
-        }
+<script>
+    let toastTimer = null;
 
-        // ============================
-        // 3. РЕДКОСТИ
-        // ============================
-        const rarityOrder = {
-            common: 0,
-            rare: 1,
-            epic: 2,
-            legendary: 3,
-            mythic: 4
-        };
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
+    }
 
-        const rarityNames = {
-            common: 'Обычный',
-            rare: 'Редкий',
-            epic: 'Эпический',
-            legendary: 'Легендарный',
-            mythic: 'Мифический'
-        };
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', function() {
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
 
-        const rarityColors = {
-            common: '#b0b0b0',
-            rare: '#4CAF50',
-            epic: '#2196F3',
-            legendary: '#9C27B0',
-            mythic: '#FF5722'
-        };
+    setTimeout(() => showToast('🐰 Добро пожаловать в Rabbits!'), 400);
+</script>
 
-        // ============================
-        // 4. ОТОБРАЖЕНИЕ NFT
-        // ============================
-        function renderNFTs() {
-            const nfts = getUserNFTs();
-            const list = document.getElementById('nftList');
-            const totalEl = document.getElementById('totalNFT');
-            const rarestEl = document.getElementById('rarestNFT');
-
-            totalEl.textContent = nfts.length;
-
-            if (nfts.length === 0) {
-                list.innerHTML = `
-                    <div class="empty">
-                        <span class="icon">📭</span>
-                        <div class="text">У тебя пока нет NFT</div>
-                        <div class="sub">Играй в монетку, чтобы получить NFT!</div>
-                    </div>
-                `;
-                rarestEl.textContent = '—';
-                return;
-            }
-
-            const sorted = [...nfts].sort((a, b) => {
-                return rarityOrder[b.rarity] - rarityOrder[a.rarity];
-            });
-
-            const rarest = sorted[0];
-            rarestEl.textContent = rarest.emoji + ' ' + rarest.name;
-
-            list.innerHTML = sorted.map(nft => `
-                <div class="nft-item">
-                    <div class="icon">${nft.emoji}</div>
-                    <div class="info">
-                        <div class="name" style="color: ${rarityColors[nft.rarity]}">${nft.name}</div>
-                        <div class="rarity ${nft.rarity}">${rarityNames[nft.rarity]}</div>
-                    </div>
-                    <div class="date">${new Date(nft.obtained).toLocaleDateString()}</div>
-                </div>
-            `).join('');
-        }
-
-        // ============================
-        // 5. ЗАПУСК
-        // ============================
-        renderNFTs();
-
-        // Обновляем при возврате на страницу
-        window.addEventListener('focus', renderNFTs);
-
-        console.log('💎 Хранилище NFT загружено!');
-        console.log('📦 Всего NFT:', getUserNFTs().length);
-    </script>
 </body>
 </html>
