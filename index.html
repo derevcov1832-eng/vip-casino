@@ -10,9 +10,10 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             font-family: 'Segoe UI', system-ui, sans-serif;
-            background: #0a0a1a;
+            background: #07070f;
             color: white;
             min-height: 100vh;
             overflow: hidden;
@@ -20,6 +21,7 @@
             user-select: none;
         }
 
+        /* ===== НЕОНОВЫЙ АНИМИРОВАННЫЙ ФОН ===== */
         .bg {
             position: fixed;
             top: 0;
@@ -27,8 +29,91 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            background: radial-gradient(ellipse at 20% 30%, rgba(120, 80, 255, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 70%, rgba(255, 50, 50, 0.06) 0%, transparent 50%);
+            background:
+                radial-gradient(ellipse at 20% 30%, rgba(180, 80, 255, 0.25) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 70%, rgba(255, 50, 100, 0.20) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(247, 212, 74, 0.08) 0%, transparent 45%);
+            animation: bgPulse 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes bgPulse {
+            0% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+        }
+
+        /* ===== ПАРЯЩИЕ ЧАСТИЦЫ ===== */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(247, 212, 74, 0.3);
+            border-radius: 50%;
+            animation: floatParticle linear infinite;
+            box-shadow: 0 0 10px rgba(247, 212, 74, 0.2);
+        }
+
+        .particle:nth-child(1) { left: 10%;
+            animation-duration: 14s; }
+        .particle:nth-child(2) { left: 25%;
+            animation-duration: 18s;
+            animation-delay: 2s; }
+        .particle:nth-child(3) { left: 40%;
+            animation-duration: 12s;
+            animation-delay: 4s; }
+        .particle:nth-child(4) { left: 55%;
+            animation-duration: 16s;
+            animation-delay: 1s; }
+        .particle:nth-child(5) { left: 70%;
+            animation-duration: 13s;
+            animation-delay: 3s; }
+        .particle:nth-child(6) { left: 85%;
+            animation-duration: 19s;
+            animation-delay: 5s; }
+        .particle:nth-child(7) { left: 50%;
+            animation-duration: 15s;
+            animation-delay: 2.5s; }
+        .particle:nth-child(8) { left: 15%;
+            animation-duration: 20s;
+            animation-delay: 1.5s; }
+        .particle:nth-child(9) { left: 65%;
+            animation-duration: 14s;
+            animation-delay: 4.5s; }
+        .particle:nth-child(10) { left: 35%;
+            animation-duration: 17s;
+            animation-delay: 3.5s; }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0;
+            }
         }
 
         .app-wrapper {
@@ -45,7 +130,7 @@
         .app-slider {
             display: flex;
             height: 100vh;
-            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition: transform 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
             will-change: transform;
         }
 
@@ -67,38 +152,43 @@
             flex-shrink: 0;
         }
         .header .logo {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 800;
-            color: #f7d44a;
+            background: linear-gradient(135deg, #f7d44a, #ff6b6b, #b388ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             letter-spacing: 0.5px;
+            text-shadow: 0 0 40px rgba(247, 212, 74, 0.15);
         }
         .header .coins {
             display: flex;
             align-items: center;
             gap: 6px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 4px 12px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px);
+            padding: 6px 14px;
             border-radius: 40px;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 700;
             color: #f7d44a;
             border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: 0 0 30px rgba(247, 212, 74, 0.05);
         }
         .header .coins span {
-            font-size: 14px;
+            font-size: 16px;
         }
 
         /* ===== БАЛАНС ===== */
         .balance-block {
             text-align: center;
-            padding: 12px 0 8px;
+            padding: 16px 0 8px;
             flex-shrink: 0;
         }
         .balance-block .amount {
-            font-size: 38px;
+            font-size: 44px;
             font-weight: 800;
             color: #f7d44a;
-            text-shadow: 0 0 40px rgba(247, 212, 74, 0.1);
+            text-shadow: 0 0 60px rgba(247, 212, 74, 0.15);
             letter-spacing: 1px;
         }
         .balance-block .label {
@@ -112,70 +202,99 @@
         /* ===== RABBIT (КЛИКЕР) ===== */
         .rabbit-container {
             text-align: center;
-            padding: 10px 0;
+            padding: 12px 0;
             position: relative;
         }
         .rabbit {
-            font-size: 100px;
+            font-size: 110px;
             display: inline-block;
             cursor: pointer;
-            transition: transform 0.15s ease;
-            filter: drop-shadow(0 0 40px rgba(247, 212, 74, 0.1));
+            transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+            filter: drop-shadow(0 0 60px rgba(247, 212, 74, 0.15));
             animation: rabbitFloat 3s ease-in-out infinite;
             user-select: none;
         }
         .rabbit:active {
-            transform: scale(0.85);
+            transform: scale(0.8);
+            filter: drop-shadow(0 0 100px rgba(247, 212, 74, 0.3));
         }
         @keyframes rabbitFloat {
             0%,
-            100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
+            100% { transform: translateY(0px) rotate(-2deg); }
+            50% { transform: translateY(-12px) rotate(2deg); }
         }
 
         .click-effect {
             position: fixed;
             pointer-events: none;
-            font-size: 24px;
-            font-weight: 700;
-            color: #f7d44a;
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f7d44a, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             z-index: 50;
-            animation: floatUp 1s ease-out forwards;
+            animation: floatUp 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            text-shadow: 0 0 40px rgba(247, 212, 74, 0.3);
         }
         @keyframes floatUp {
             0% {
                 opacity: 1;
-                transform: translateY(0) scale(1);
+                transform: translateY(0) scale(0.5);
             }
             100% {
                 opacity: 0;
-                transform: translateY(-80px) scale(1.3);
+                transform: translateY(-100px) scale(1.5);
             }
         }
 
         .rabbit-stats {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 30px;
             margin: 4px 0 10px;
         }
         .rabbit-stats .stat {
             text-align: center;
         }
         .rabbit-stats .stat .num {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
             color: #f7d44a;
+            text-shadow: 0 0 30px rgba(247, 212, 74, 0.1);
         }
         .rabbit-stats .stat .lbl {
             font-size: 9px;
             color: rgba(255, 255, 255, 0.2);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+        }
+
+        /* ===== КНОПКА ИГР ===== */
+        .games-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(247, 212, 74, 0.08), rgba(180, 80, 255, 0.08));
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid rgba(247, 212, 74, 0.08);
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
+            margin: 8px 0 12px;
+        }
+        .games-btn:active {
+            transform: scale(0.96);
+            background: linear-gradient(135deg, rgba(247, 212, 74, 0.15), rgba(180, 80, 255, 0.15));
+        }
+        .games-btn .arrow {
+            display: inline-block;
+            transition: 0.3s;
+        }
+        .games-btn:active .arrow {
+            transform: translateX(5px);
         }
 
         /* ===== ПОПОЛНЕНИЕ ===== */
@@ -187,300 +306,77 @@
         }
         .deposit-btn {
             flex: 1;
-            padding: 8px 12px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.03);
+            padding: 10px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
             color: rgba(255, 255, 255, 0.6);
             font-size: 12px;
             font-weight: 600;
             cursor: pointer;
             text-align: center;
-            transition: 0.2s;
+            transition: 0.3s;
             min-width: 60px;
         }
         .deposit-btn:active {
             transform: scale(0.94);
             background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(247, 212, 74, 0.15);
         }
         .deposit-btn .icon {
-            font-size: 16px;
+            font-size: 18px;
             display: block;
             margin-bottom: 2px;
-        }
-
-        /* ===== ИНВЕНТАРЬ ===== */
-        .inventory-section {
-            margin: 8px 0 4px;
-        }
-        .inventory-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-        .inventory-header .title {
-            font-size: 14px;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.5);
-        }
-        .inventory-header .count {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.2);
-        }
-        .inventory-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-        }
-        .inventory-slot {
-            aspect-ratio: 1/1;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            transition: 0.2s;
-            cursor: pointer;
-        }
-        .inventory-slot:active {
-            transform: scale(0.94);
-            background: rgba(255, 255, 255, 0.06);
-        }
-        .inventory-slot.empty {
-            opacity: 0.2;
-        }
-        .inventory-slot .label {
-            font-size: 8px;
-            color: rgba(255, 255, 255, 0.2);
-            position: absolute;
-            bottom: 4px;
-        }
-
-        .inventory-empty {
-            text-align: center;
-            padding: 16px;
-            color: rgba(255, 255, 255, 0.15);
-            font-size: 13px;
-        }
-        .inventory-empty .icon {
-            font-size: 32px;
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .inventory-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 8px;
-        }
-        .inventory-actions .btn {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.04);
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-        .inventory-actions .btn:active {
-            transform: scale(0.94);
-            background: rgba(255, 255, 255, 0.08);
-        }
-        .inventory-actions .btn.primary {
-            background: linear-gradient(145deg, #f7d44a, #dbb84a);
-            color: #1a1a2e;
-            border: none;
-        }
-
-        /* ===== ЗАДАНИЯ ===== */
-        .tasks-section {
-            margin: 10px 0 6px;
-        }
-        .tasks-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-        }
-        .tasks-header .title {
-            font-size: 14px;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.5);
-        }
-        .tasks-header .progress {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.2);
-        }
-        .task-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 12px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            margin-bottom: 6px;
-        }
-        .task-item .icon {
-            font-size: 24px;
-        }
-        .task-item .info {
-            flex: 1;
-            text-align: left;
-        }
-        .task-item .info .name {
-            font-size: 13px;
-            font-weight: 600;
-        }
-        .task-item .info .desc {
-            font-size: 10px;
-            color: rgba(255, 255, 255, 0.3);
-        }
-        .task-item .status {
-            font-size: 12px;
-            font-weight: 700;
-            padding: 4px 12px;
-            border-radius: 40px;
-            background: rgba(46, 204, 113, 0.1);
-            color: #2ecc71;
-        }
-        .task-item .status.done {
-            background: rgba(46, 204, 113, 0.2);
-            color: #2ecc71;
-        }
-        .task-item .status.pending {
-            background: rgba(231, 76, 60, 0.1);
-            color: #e74c3c;
-        }
-
-        /* ===== ПРОМОКОД ===== */
-        .promo-section {
-            margin: 8px 0 4px;
-        }
-        .promo-input {
-            display: flex;
-            gap: 8px;
-        }
-        .promo-input input {
-            flex: 1;
-            padding: 10px 14px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            background: rgba(255, 255, 255, 0.03);
-            color: white;
-            font-size: 14px;
-            outline: none;
-            transition: 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .promo-input input:focus {
-            border-color: rgba(247, 212, 74, 0.2);
-            background: rgba(255, 255, 255, 0.05);
-        }
-        .promo-input input::placeholder {
-            color: rgba(255, 255, 255, 0.15);
-            letter-spacing: 1px;
-        }
-        .promo-input button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 12px;
-            background: linear-gradient(145deg, #f7d44a, #dbb84a);
-            color: #1a1a2e;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .promo-input button:active {
-            transform: scale(0.94);
-        }
-
-        /* ===== НИЖНЯЯ НАВИГАЦИЯ ===== */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(10, 10, 26, 0.92);
-            backdrop-filter: blur(16px);
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
-            display: flex;
-            justify-content: space-around;
-            padding: 8px 0 10px;
-            max-width: 480px;
-            margin: 0 auto;
-            z-index: 100;
-        }
-        .bottom-nav .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
-            text-decoration: none;
-            color: rgba(255, 255, 255, 0.2);
-            font-size: 9px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            transition: 0.2s;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 4px 16px;
-        }
-        .bottom-nav .nav-item .icon {
-            font-size: 20px;
-        }
-        .bottom-nav .nav-item.active {
-            color: #f7d44a;
-        }
-        .bottom-nav .nav-item:active {
-            transform: scale(0.9);
         }
 
         /* ===== ПРОФИЛЬ ===== */
         .profile-header {
             text-align: center;
-            padding: 8px 0;
+            padding: 8px 0 12px;
         }
         .profile-header .avatar {
-            font-size: 48px;
+            font-size: 56px;
+            filter: drop-shadow(0 0 40px rgba(247, 212, 74, 0.1));
+            animation: avatarFloat 4s ease-in-out infinite;
+        }
+        @keyframes avatarFloat {
+            0%,
+            100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
         }
         .profile-header .name {
-            font-size: 18px;
+            font-size: 22px;
             font-weight: 700;
             margin-top: 2px;
+            background: linear-gradient(135deg, #f7d44a, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         .profile-header .id {
-            font-size: 11px;
+            font-size: 12px;
             color: rgba(255, 255, 255, 0.2);
         }
 
         .profile-stats {
             display: flex;
             gap: 8px;
-            margin: 8px 0;
+            margin: 8px 0 12px;
         }
         .profile-stats .stat {
             flex: 1;
             background: rgba(255, 255, 255, 0.02);
-            border-radius: 12px;
-            padding: 8px;
+            backdrop-filter: blur(10px);
+            border-radius: 14px;
+            padding: 10px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.03);
         }
         .profile-stats .stat .num {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
             color: #f7d44a;
+            text-shadow: 0 0 30px rgba(247, 212, 74, 0.1);
         }
         .profile-stats .stat .lbl {
             font-size: 8px;
@@ -490,16 +386,235 @@
             margin-top: 2px;
         }
 
+        /* ===== ИНВЕНТАРЬ ===== */
+        .inventory-section {
+            margin: 8px 0 12px;
+        }
+        .inventory-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .inventory-header .title {
+            font-size: 15px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 1px;
+        }
+        .inventory-header .count {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.2);
+        }
+        .inventory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+        .inventory-slot {
+            aspect-ratio: 1/1;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            transition: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            position: relative;
+        }
+        .inventory-slot:active {
+            transform: scale(0.85) rotate(10deg);
+        }
+        .inventory-slot.empty {
+            opacity: 0.15;
+        }
+        .inventory-slot .slot-label {
+            position: absolute;
+            bottom: 4px;
+            font-size: 7px;
+            color: rgba(255, 255, 255, 0.1);
+            letter-spacing: 1px;
+        }
+        .inventory-slot.new-item {
+            animation: itemPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes itemPop {
+            0% { transform: scale(0) rotate(-30deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        .inventory-empty {
+            text-align: center;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+        }
+        .inventory-empty .icon {
+            font-size: 36px;
+            display: block;
+            margin-bottom: 4px;
+            opacity: 0.3;
+        }
+
+        .inventory-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .inventory-actions .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .inventory-actions .btn:active {
+            transform: scale(0.94);
+            background: rgba(255, 255, 255, 0.06);
+        }
+        .inventory-actions .btn.primary {
+            background: linear-gradient(135deg, #f7d44a, #dbb84a);
+            color: #1a1a2e;
+            border: none;
+            box-shadow: 0 0 40px rgba(247, 212, 74, 0.1);
+        }
+
+        /* ===== ЗАДАНИЯ ===== */
+        .tasks-section {
+            margin: 8px 0 10px;
+        }
+        .tasks-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .tasks-header .title {
+            font-size: 15px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 1px;
+        }
+        .tasks-header .progress {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.2);
+        }
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            margin-bottom: 6px;
+            transition: 0.3s;
+        }
+        .task-item:active {
+            transform: scale(0.98);
+        }
+        .task-item .icon {
+            font-size: 26px;
+        }
+        .task-item .info {
+            flex: 1;
+            text-align: left;
+        }
+        .task-item .info .name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .task-item .info .desc {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+        .task-item .status {
+            font-size: 13px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 40px;
+            background: rgba(46, 204, 113, 0.1);
+            color: #2ecc71;
+        }
+        .task-item .status.done {
+            background: rgba(46, 204, 113, 0.15);
+            color: #2ecc71;
+        }
+        .task-item .status.pending {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+        }
+
+        /* ===== ПРОМОКОД ===== */
+        .promo-section {
+            margin: 8px 0 10px;
+        }
+        .promo-input {
+            display: flex;
+            gap: 8px;
+        }
+        .promo-input input {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .promo-input input:focus {
+            border-color: rgba(247, 212, 74, 0.15);
+            background: rgba(255, 255, 255, 0.04);
+            box-shadow: 0 0 40px rgba(247, 212, 74, 0.02);
+        }
+        .promo-input input::placeholder {
+            color: rgba(255, 255, 255, 0.1);
+            letter-spacing: 1px;
+        }
+        .promo-input button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #f7d44a, #dbb84a);
+            color: #1a1a2e;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 40px rgba(247, 212, 74, 0.1);
+        }
+        .promo-input button:active {
+            transform: scale(0.94);
+            box-shadow: 0 0 60px rgba(247, 212, 74, 0.15);
+        }
+
         /* ===== РЕФЕРАЛКА ===== */
         .referral-block {
-            background: linear-gradient(145deg, rgba(247, 212, 74, 0.04), rgba(123, 77, 255, 0.04));
+            background: linear-gradient(135deg, rgba(247, 212, 74, 0.04), rgba(180, 80, 255, 0.04));
             border-radius: 16px;
-            padding: 14px;
-            border: 1px solid rgba(247, 212, 74, 0.06);
-            margin: 8px 0;
+            padding: 16px;
+            border: 1px solid rgba(247, 212, 74, 0.04);
+            backdrop-filter: blur(10px);
+            margin: 8px 0 10px;
         }
         .referral-block .title {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 700;
             color: #f7d44a;
             text-align: center;
@@ -507,7 +622,7 @@
         }
         .referral-block .sub {
             font-size: 11px;
-            color: rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.2);
             text-align: center;
             margin-bottom: 8px;
         }
@@ -515,15 +630,16 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
             padding: 8px 12px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.03);
         }
         .referral-link .link {
             flex: 1;
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.3);
             word-break: break-all;
             font-family: monospace;
             overflow: hidden;
@@ -531,16 +647,16 @@
             white-space: nowrap;
         }
         .referral-link .copy-btn {
-            padding: 4px 14px;
+            padding: 6px 16px;
             border: none;
             border-radius: 40px;
-            background: linear-gradient(145deg, #f7d44a, #dbb84a);
+            background: linear-gradient(135deg, #f7d44a, #dbb84a);
             color: #1a1a2e;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 700;
             cursor: pointer;
             flex-shrink: 0;
-            transition: 0.2s;
+            transition: 0.3s;
         }
         .referral-link .copy-btn:active {
             transform: scale(0.94);
@@ -554,15 +670,17 @@
         .referral-stats .item {
             flex: 1;
             text-align: center;
-            padding: 6px;
+            padding: 8px;
             background: rgba(255, 255, 255, 0.02);
-            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.03);
         }
         .referral-stats .item .num {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
             color: #f7d44a;
+            text-shadow: 0 0 30px rgba(247, 212, 74, 0.1);
         }
         .referral-stats .item .lbl {
             font-size: 8px;
@@ -572,12 +690,180 @@
             margin-top: 2px;
         }
 
+        /* ===== НИЖНЯЯ НАВИГАЦИЯ ===== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 26, 0.92);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0 12px;
+            max-width: 480px;
+            margin: 0 auto;
+            z-index: 100;
+        }
+        .bottom-nav .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 9px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: 0.3s;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px 16px;
+        }
+        .bottom-nav .nav-item .icon {
+            font-size: 22px;
+            transition: 0.3s;
+        }
+        .bottom-nav .nav-item.active {
+            color: #f7d44a;
+        }
+        .bottom-nav .nav-item.active .icon {
+            transform: translateY(-2px);
+            filter: drop-shadow(0 0 20px rgba(247, 212, 74, 0.2));
+        }
+        .bottom-nav .nav-item:active {
+            transform: scale(0.9);
+        }
+
+        /* ===== ОВЕРЛЕЙ ПОПОЛНЕНИЯ ===== */
+        .deposit-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(24px);
+            z-index: 300;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .deposit-overlay.show {
+            display: flex;
+            animation: fadeIn 0.3s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0;
+                transform: scale(0.95); }
+            to { opacity: 1;
+                transform: scale(1); }
+        }
+
+        .deposit-card {
+            max-width: 400px;
+            width: 100%;
+            background: linear-gradient(145deg, #1a1f35, #0d1225);
+            border-radius: 24px;
+            padding: 28px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        .deposit-card .title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #f7d44a;
+            text-shadow: 0 0 40px rgba(247, 212, 74, 0.1);
+            margin-bottom: 4px;
+        }
+        .deposit-card .sub {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.2);
+            margin-bottom: 20px;
+        }
+        .deposit-card .balance-show {
+            font-size: 40px;
+            font-weight: 800;
+            color: #f7d44a;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            text-shadow: 0 0 40px rgba(247, 212, 74, 0.1);
+        }
+
+        .deposit-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 16px 0;
+        }
+        .deposit-options .option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .deposit-options .option:active {
+            transform: scale(0.96);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .deposit-options .option .left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .deposit-options .option .left .icon {
+            font-size: 30px;
+        }
+        .deposit-options .option .left .info .name {
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .deposit-options .option .left .info .desc {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.2);
+        }
+        .deposit-options .option .right {
+            font-size: 16px;
+            font-weight: 700;
+            color: #f7d44a;
+        }
+
+        .deposit-close {
+            margin-top: 16px;
+            padding: 12px;
+            border: none;
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.04);
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: 0.3s;
+        }
+        .deposit-close:active {
+            transform: scale(0.94);
+        }
+
         @media (max-width: 400px) {
             .balance-block .amount {
-                font-size: 30px;
+                font-size: 34px;
             }
             .rabbit {
-                font-size: 76px;
+                font-size: 80px;
             }
             .inventory-grid {
                 grid-template-columns: repeat(4, 1fr);
@@ -597,12 +883,31 @@
             .deposit-btn .icon {
                 font-size: 14px;
             }
+            .profile-header .avatar {
+                font-size: 44px;
+            }
+            .profile-header .name {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="bg"></div>
+
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
 
     <div class="app-wrapper">
         <div class="app-slider" id="appSlider">
@@ -617,7 +922,6 @@
                     </div>
                 </div>
 
-                <!-- Баланс -->
                 <div class="balance-block">
                     <div class="amount" id="balanceDisplay">1000</div>
                     <div class="label">💰 Игровой баланс</div>
@@ -625,21 +929,18 @@
 
                 <!-- Пополнение -->
                 <div class="deposit-section">
-                    <div class="deposit-btn" onclick="showToast('💰 Пополнение TON (в разработке)')">
-                        <span class="icon">💎</span>
-                        TON
+                    <div class="deposit-btn" onclick="showToast('💎 Пополнение TON (в разработке)')">
+                        <span class="icon">💎</span>TON
                     </div>
                     <div class="deposit-btn" onclick="openDeposit()">
-                        <span class="icon">⭐</span>
-                        Stars
+                        <span class="icon">⭐</span>Stars
                     </div>
                     <div class="deposit-btn" onclick="showToast('🎁 Пополнение подарками (в разработке)')">
-                        <span class="icon">🎁</span>
-                        Подарки
+                        <span class="icon">🎁</span>Подарки
                     </div>
                 </div>
 
-                <!-- Rabbit (кликер) -->
+                <!-- Rabbit -->
                 <div class="rabbit-container" id="rabbitContainer">
                     <div class="rabbit" id="rabbit" onclick="tapRabbit()">🐰</div>
                     <div class="rabbit-stats">
@@ -654,106 +955,10 @@
                     </div>
                 </div>
 
-                <!-- Инвентарь -->
-                <div class="inventory-section">
-                    <div class="inventory-header">
-                        <div class="title">📦 Мой инвентарь</div>
-                        <div class="count" id="inventoryCount">0 шт. · 0</div>
-                    </div>
-                    <div class="inventory-grid" id="inventoryGrid">
-                        <div class="inventory-slot empty">❓</div>
-                        <div class="inventory-slot empty">❓</div>
-                        <div class="inventory-slot empty">❓</div>
-                        <div class="inventory-slot empty">❓</div>
-                    </div>
-                    <div class="inventory-empty" id="inventoryEmpty">
-                        <span class="icon">📭</span>
-                        Инвентарь пуст
-                    </div>
-                    <div class="inventory-actions">
-                        <button class="btn" onclick="showToast('🎁 Отправить грифинг (в разработке)')">🎁 Отправить гриф</button>
-                        <button class="btn primary" onclick="showToast('⚡ Открыть кейс (в разработке)')">⚡ Открыть</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ===== ЗАДАНИЯ ===== -->
-            <div class="page" id="pageTasks">
-                <div class="header">
-                    <div class="logo">🐰 Rabbits</div>
-                    <div class="coins">
-                        <span>⭐</span>
-                        <span id="headerStars2">0</span>
-                    </div>
-                </div>
-
-                <div class="balance-block" style="padding:8px 0 12px;">
-                    <div class="amount" style="font-size:28px;">📋 Задания</div>
-                    <div class="label">Выполняй и получай награды</div>
-                </div>
-
-                <div class="tasks-section">
-                    <div class="tasks-header">
-                        <div class="title">Ежедневные задания</div>
-                        <div class="progress" id="tasksProgress">0/3</div>
-                    </div>
-
-                    <div class="task-item">
-                        <div class="icon">🪙</div>
-                        <div class="info">
-                            <div class="name">Сыграть в монетку</div>
-                            <div class="desc">Сыграй 1 раз в монетку</div>
-                        </div>
-                        <div class="status done">✅</div>
-                    </div>
-                    <div class="task-item">
-                        <div class="icon">🎡</div>
-                        <div class="info">
-                            <div class="name">Крутануть рулетку</div>
-                            <div class="desc">Сыграй 1 раз в рулетку</div>
-                        </div>
-                        <div class="status done">✅</div>
-                    </div>
-                    <div class="task-item">
-                        <div class="icon">👥</div>
-                        <div class="info">
-                            <div class="name">Привести друга</div>
-                            <div class="desc">Приведи 1 друга по реферальной ссылке</div>
-                        </div>
-                        <div class="status pending">⏳</div>
-                    </div>
-                </div>
-
-                <!-- Промокод -->
-                <div class="promo-section">
-                    <div class="tasks-header">
-                        <div class="title">🔑 Ввести промокод</div>
-                    </div>
-                    <div class="promo-input">
-                        <input type="text" id="promoInput" placeholder="Введите промокод" maxlength="20">
-                        <button onclick="applyPromo()">Активировать</button>
-                    </div>
-                </div>
-
-                <!-- Рефералка -->
-                <div class="referral-block">
-                    <div class="title">👥 Пригласить друзей</div>
-                    <div class="sub">Получи 10% от дохода друзей!</div>
-                    <div class="referral-link">
-                        <div class="link" id="referralLink">https://t.me/My103CoinGameBot?start=ref_123</div>
-                        <button class="copy-btn" onclick="copyReferralLink()">📋</button>
-                    </div>
-                    <div class="referral-stats">
-                        <div class="item">
-                            <div class="num" id="refCount">0</div>
-                            <div class="lbl">Приглашено</div>
-                        </div>
-                        <div class="item">
-                            <div class="num" id="refEarned">0</div>
-                            <div class="lbl">Заработано</div>
-                        </div>
-                    </div>
-                </div>
+                <!-- Кнопка перехода в игры -->
+                <button class="games-btn" onclick="window.location.href='games.html'">
+                    🎮 Перейти в игры <span class="arrow">→</span>
+                </button>
             </div>
 
             <!-- ===== ПРОФИЛЬ ===== -->
@@ -762,7 +967,7 @@
                     <div class="logo">🐰 Rabbits</div>
                     <div class="coins">
                         <span>⭐</span>
-                        <span id="headerStars3">0</span>
+                        <span id="headerStars2">0</span>
                     </div>
                 </div>
 
@@ -787,26 +992,92 @@
                     </div>
                 </div>
 
+                <!-- ===== ИНВЕНТАРЬ ===== -->
+                <div class="inventory-section">
+                    <div class="inventory-header">
+                        <div class="title">📦 Мой инвентарь</div>
+                        <div class="count" id="inventoryCount">0 шт.</div>
+                    </div>
+                    <div class="inventory-grid" id="inventoryGrid">
+                        <div class="inventory-slot empty">❓</div>
+                        <div class="inventory-slot empty">❓</div>
+                        <div class="inventory-slot empty">❓</div>
+                        <div class="inventory-slot empty">❓</div>
+                    </div>
+                    <div class="inventory-empty" id="inventoryEmpty">
+                        <span class="icon">📭</span>
+                        Инвентарь пуст
+                    </div>
+                    <div class="inventory-actions">
+                        <button class="btn" onclick="showToast('🎁 Отправить подарок (в разработке)')">🎁 Отправить</button>
+                        <button class="btn primary" onclick="openCase()">⚡ Открыть</button>
+                    </div>
+                </div>
+
+                <!-- ===== ЗАДАНИЯ ===== -->
+                <div class="tasks-section">
+                    <div class="tasks-header">
+                        <div class="title">📋 Задания</div>
+                        <div class="progress" id="tasksProgress">0/3</div>
+                    </div>
+                    <div class="task-item">
+                        <div class="icon">🪙</div>
+                        <div class="info">
+                            <div class="name">Сыграть в монетку</div>
+                            <div class="desc">Сыграй 1 раз</div>
+                        </div>
+                        <div class="status done">✅</div>
+                    </div>
+                    <div class="task-item">
+                        <div class="icon">🎡</div>
+                        <div class="info">
+                            <div class="name">Крутануть рулетку</div>
+                            <div class="desc">Сыграй 1 раз</div>
+                        </div>
+                        <div class="status done">✅</div>
+                    </div>
+                    <div class="task-item">
+                        <div class="icon">👥</div>
+                        <div class="info">
+                            <div class="name">Привести друга</div>
+                            <div class="desc">Приведи 1 друга</div>
+                        </div>
+                        <div class="status pending">⏳</div>
+                    </div>
+                </div>
+
+                <!-- ===== ПРОМОКОД ===== -->
+                <div class="promo-section">
+                    <div class="tasks-header">
+                        <div class="title">🔑 Ввести промокод</div>
+                    </div>
+                    <div class="promo-input">
+                        <input type="text" id="promoInput" placeholder="Введите промокод" maxlength="20">
+                        <button onclick="applyPromo()">Активировать</button>
+                    </div>
+                </div>
+
+                <!-- ===== РЕФЕРАЛКА ===== -->
                 <div class="referral-block">
-                    <div class="title">👥 Мои рефералы</div>
-                    <div class="sub">Твоя реферальная ссылка</div>
+                    <div class="title">👥 Пригласить друзей</div>
+                    <div class="sub">Получи 10% от дохода друзей!</div>
                     <div class="referral-link">
-                        <div class="link" id="referralLink2">https://t.me/My103CoinGameBot?start=ref_123</div>
+                        <div class="link" id="referralLink">https://t.me/My103CoinGameBot?start=ref_123</div>
                         <button class="copy-btn" onclick="copyReferralLink()">📋</button>
                     </div>
                     <div class="referral-stats">
                         <div class="item">
-                            <div class="num" id="refCount2">0</div>
+                            <div class="num" id="refCount">0</div>
                             <div class="lbl">Приглашено</div>
                         </div>
                         <div class="item">
-                            <div class="num" id="refEarned2">0</div>
+                            <div class="num" id="refEarned">0</div>
                             <div class="lbl">Заработано</div>
                         </div>
                     </div>
                 </div>
 
-                <div style="text-align:center; padding:12px; color:rgba(255,255,255,0.08); font-size:10px; letter-spacing:2px;">
+                <div style="text-align:center; padding:8px; color:rgba(255,255,255,0.04); font-size:10px; letter-spacing:2px;">
                     Rabbits v2.0
                 </div>
             </div>
@@ -821,10 +1092,6 @@
             Главная
         </button>
         <button class="nav-item" data-index="1">
-            <span class="icon">📋</span>
-            Задания
-        </button>
-        <button class="nav-item" data-index="2">
             <span class="icon">👤</span>
             Профиль
         </button>
@@ -907,7 +1174,7 @@
         updateAllBalances();
 
         // ============================
-        // 2. RABBIT (КЛИКЕР)
+        // 2. RABBIT
         // ============================
         function tapRabbit() {
             const earned = Math.floor(Math.random() * 3) + 1;
@@ -916,23 +1183,36 @@
             tapEarned += earned;
             updateAllBalances();
 
-            // Эффект клика
             const rabbit = document.getElementById('rabbit');
-            rabbit.style.transform = 'scale(0.85)';
+            rabbit.style.transform = 'scale(0.8)';
             setTimeout(() => {
                 rabbit.style.transform = 'scale(1)';
             }, 150);
 
-            // Плавающий текст
             const container = document.getElementById('rabbitContainer');
             const rect = container.getBoundingClientRect();
             const el = document.createElement('div');
             el.className = 'click-effect';
             el.textContent = '+' + earned;
-            el.style.left = (rect.left + rect.width / 2 - 20 + (Math.random() - 0.5) * 60) + 'px';
-            el.style.top = (rect.top + rect.height / 2 - 20 + (Math.random() - 0.5) * 60) + 'px';
+            el.style.left = (rect.left + rect.width / 2 - 20 + (Math.random() - 0.5) * 80) + 'px';
+            el.style.top = (rect.top + rect.height / 2 - 20 + (Math.random() - 0.5) * 80) + 'px';
             document.body.appendChild(el);
             setTimeout(() => el.remove(), 1000);
+
+            // Звук
+            try {
+                const ctx = new(window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.frequency.value = 600 + Math.random() * 200;
+                osc.type = 'sine';
+                gain.gain.value = 0.04;
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + 0.06);
+            } catch (_) {}
         }
 
         // ============================
@@ -966,7 +1246,7 @@
             const empty = document.getElementById('inventoryEmpty');
             const count = document.getElementById('inventoryCount');
 
-            count.textContent = items.length + ' шт. · ' + items.length;
+            count.textContent = items.length + ' шт.';
 
             if (items.length === 0) {
                 empty.style.display = 'block';
@@ -991,7 +1271,6 @@
                 slot.onclick = () => showToast('📦 ' + item.name, true);
                 grid.appendChild(slot);
             });
-            // Заполняем пустые слоты
             for (let i = displayItems.length; i < 4; i++) {
                 const slot = document.createElement('div');
                 slot.className = 'inventory-slot empty';
@@ -1000,19 +1279,32 @@
             }
         }
 
-        // Добавляем предмет в инвентарь
         function addInventoryItem(emoji) {
             const items = getInventory();
             const found = inventoryItems.find(i => i.emoji === emoji);
             if (found) {
                 items.push(found);
                 saveInventory(items);
+                renderInventory();
                 showToast('🎉 +' + found.emoji + ' ' + found.name + ' в инвентарь!', true);
             }
         }
 
         // ============================
-        // 4. ПОПОЛНЕНИЕ
+        // 4. КЕЙС
+        // ============================
+        function openCase() {
+            const rewards = ['🥕', '🍀', '💎', '👑', '⭐', '🎁', '🔥', '🌈'];
+            const emoji = rewards[Math.floor(Math.random() * rewards.length)];
+            addInventoryItem(emoji);
+            const bonus = Math.floor(Math.random() * 50) + 10;
+            balance += bonus;
+            updateAllBalances();
+            showToast('🎁 Кейс открыт! +' + bonus + ' монет и ' + emoji, true);
+        }
+
+        // ============================
+        // 5. ПОПОЛНЕНИЕ
         // ============================
         function openDeposit() {
             document.getElementById('depositOverlay').classList.add('show');
@@ -1040,7 +1332,7 @@
         }
 
         // ============================
-        // 5. ПРОМОКОДЫ
+        // 6. ПРОМОКОДЫ
         // ============================
         const promoCodes = {
             'RABBIT10': 100,
@@ -1062,7 +1354,6 @@
                 updateAllBalances();
                 showToast('🎉 Промокод активирован! +' + reward + ' монет!', true);
                 input.value = '';
-                // Добавляем предмет в инвентарь за активацию
                 const emojis = ['🥕', '🍀', '💎', '👑'];
                 addInventoryItem(emojis[Math.floor(Math.random() * emojis.length)]);
             } else {
@@ -1071,7 +1362,7 @@
         }
 
         // ============================
-        // 6. РЕФЕРАЛКА
+        // 7. РЕФЕРАЛКА
         // ============================
         function getUserId() {
             if (window.Telegram && window.Telegram.WebApp) {
@@ -1099,10 +1390,7 @@
             }
         }
 
-        // Инициализация реферальной ссылки
-        const refLink = getReferralLink();
-        document.getElementById('referralLink').textContent = refLink;
-        document.getElementById('referralLink2').textContent = refLink;
+        document.getElementById('referralLink').textContent = getReferralLink();
 
         function loadReferralStats() {
             const refCount = parseInt(localStorage.getItem('refCount')) || 0;
@@ -1113,7 +1401,7 @@
         loadReferralStats();
 
         // ============================
-        // 7. ЗАДАНИЯ
+        // 8. ЗАДАНИЯ
         // ============================
         function updateTasks() {
             const done = document.querySelectorAll('.task-item .status.done').length;
@@ -1123,11 +1411,11 @@
         updateTasks();
 
         // ============================
-        // 8. СВАЙП + НАВИГАЦИЯ
+        // 9. СВАЙП
         // ============================
         const slider = document.getElementById('appSlider');
         const navItems = document.querySelectorAll('.nav-item');
-        const totalPages = 3;
+        const totalPages = 2;
         let currentIndex = 0;
         let startX = 0;
         let isDragging = false;
@@ -1169,17 +1457,16 @@
         });
 
         // ============================
-        // 9. TOAST
+        // 10. TOAST
         // ============================
         function showToast(msg, isWin = true) {
             const toast = document.createElement('div');
             toast.style.cssText = `
                     position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
-                    background: rgba(12,14,28,0.95); color: #f0eee0;
-                    padding: 12px 24px; border-radius: 60px; z-index: 9999;
-                    max-width: 90%; border: 1px solid ${isWin ? 'rgba(247,212,74,0.2)' : 'rgba(231,76,60,0.2)'};
-                    font-size: 15px; font-weight: 500;
-                    box-shadow: 0 16px 50px rgba(0,0,0,0.5);
+                    background: rgba(12,14,28,0.95); backdrop-filter: blur(16px);
+                    color: #f0eee0; padding: 12px 24px; border-radius: 60px; z-index: 9999;
+                    max-width: 90%; border: 1px solid ${isWin ? 'rgba(247,212,74,0.15)' : 'rgba(231,76,60,0.15)'};
+                    font-size: 15px; font-weight: 500; box-shadow: 0 16px 50px rgba(0,0,0,0.3);
                     animation: fadeIn 0.35s ease-out;
                 `;
             toast.textContent = msg;
@@ -1192,7 +1479,7 @@
         }
 
         // ============================
-        // 10. ПРОФИЛЬ
+        // 11. ПРОФИЛЬ
         // ============================
         document.getElementById('profileGames').textContent = localStorage.getItem('totalGames') || 0;
         document.getElementById('profileWins').textContent = localStorage.getItem('totalWins') || 0;
@@ -1207,16 +1494,16 @@
         }
 
         // ============================
-        // 11. ИНИЦИАЛИЗАЦИЯ
+        // 12. СТАРТ
         // ============================
         renderInventory();
         if (balance === 1000) {
             setTimeout(() => showToast('🐰 Добро пожаловать в Rabbits!'), 400);
         }
 
-        console.log('🐰 Rabbits загружен!');
+        console.log('🐰 Rabbits MAX VISUAL загружен!');
         console.log('💰 Баланс:', balance);
-        console.log('👆 Тапай по кролику, чтобы зарабатывать монеты!');
+        console.log('👆 Тапай по кролику!');
     </script>
 </body>
 </html>
