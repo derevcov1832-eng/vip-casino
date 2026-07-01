@@ -61,7 +61,7 @@
             backdrop-filter: blur(12px);
             border-radius: 20px;
             padding: 16px;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             border: 1px solid rgba(255, 255, 255, 0.04);
         }
         .stats-bar .item {
@@ -80,6 +80,56 @@
             margin-top: 2px;
         }
 
+        /* ===== ПОЛЕ ВВОДА АДРЕСА ===== */
+        .address-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .address-input input {
+            flex: 1;
+            padding: 14px 18px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(8px);
+            color: #f0e8d0;
+            font-size: 14px;
+            min-width: 200px;
+            transition: 0.3s;
+        }
+        .address-input input:focus {
+            outline: none;
+            border-color: rgba(247, 212, 74, 0.3);
+            background: rgba(255, 255, 255, 0.07);
+        }
+        .address-input input::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+        .address-input button {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 40px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            background: linear-gradient(145deg, #b388ff, #7c4dff);
+            color: #fff;
+            box-shadow: 0 6px 30px rgba(123, 77, 255, 0.3);
+            white-space: nowrap;
+        }
+        .address-input button:active {
+            transform: scale(0.94);
+        }
+        .address-input button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ===== СПИСОК NFT ===== */
         .nft-grid {
             display: flex;
             flex-direction: column;
@@ -101,30 +151,79 @@
         .nft-card:active {
             transform: scale(0.97);
         }
-        .nft-card .icon {
-            font-size: 40px;
+        .nft-card .preview {
             width: 60px;
-            text-align: center;
+            height: 60px;
+            border-radius: 12px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+        .nft-card .preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         .nft-card .info {
             flex: 1;
             text-align: left;
+            min-width: 0;
         }
         .nft-card .info .name {
             font-size: 17px;
             font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .nft-card .info .collection {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.35);
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .nft-card .info .rarity {
-            font-size: 12px;
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 40px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 2px;
-            opacity: 0.6;
+            margin-top: 4px;
         }
-        .nft-card .date {
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.25);
-            text-align: right;
+        .rarity-common {
+            background: rgba(176, 176, 176, 0.15);
+            color: #b0b0b0;
+        }
+        .rarity-rare {
+            background: rgba(76, 175, 80, 0.15);
+            color: #4CAF50;
+        }
+        .rarity-epic {
+            background: rgba(33, 150, 243, 0.15);
+            color: #2196F3;
+        }
+        .rarity-legendary {
+            background: rgba(156, 39, 176, 0.15);
+            color: #9C27B0;
+        }
+        .rarity-mythic {
+            background: rgba(255, 87, 34, 0.15);
+            color: #FF5722;
+        }
+
+        .nft-card .price {
+            font-size: 13px;
+            font-weight: 600;
+            color: #f7d44a;
+            flex-shrink: 0;
         }
 
         .empty-state {
@@ -146,50 +245,28 @@
             margin-top: 6px;
         }
 
-        .rarity-common {
-            border-left: 4px solid #b0b0b0;
+        .loading {
+            text-align: center;
+            padding: 30px;
+            color: rgba(255, 255, 255, 0.3);
         }
-        .rarity-rare {
-            border-left: 4px solid #4CAF50;
-        }
-        .rarity-epic {
-            border-left: 4px solid #2196F3;
-        }
-        .rarity-legendary {
-            border-left: 4px solid #9C27B0;
-        }
-        .rarity-mythic {
-            border-left: 4px solid #FF5722;
-        }
-
-        .rarity-label {
+        .loading .spinner {
             display: inline-block;
-            padding: 2px 12px;
-            border-radius: 40px;
-            font-size: 10px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.05);
+            border-top: 3px solid #b388ff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 12px;
         }
-        .rarity-common .rarity-label {
-            background: rgba(176, 176, 176, 0.15);
-            color: #b0b0b0;
-        }
-        .rarity-rare .rarity-label {
-            background: rgba(76, 175, 80, 0.15);
-            color: #4CAF50;
-        }
-        .rarity-epic .rarity-label {
-            background: rgba(33, 150, 243, 0.15);
-            color: #2196F3;
-        }
-        .rarity-legendary .rarity-label {
-            background: rgba(156, 39, 176, 0.15);
-            color: #9C27B0;
-        }
-        .rarity-mythic .rarity-label {
-            background: rgba(255, 87, 34, 0.15);
-            color: #FF5722;
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         .footer {
@@ -199,6 +276,62 @@
             color: rgba(255, 255, 255, 0.08);
             letter-spacing: 2px;
         }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(12, 14, 28, 0.92);
+            backdrop-filter: blur(16px);
+            color: #f0eee0;
+            padding: 14px 28px;
+            border-radius: 60px;
+            display: none;
+            z-index: 999;
+            max-width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 15px;
+            font-weight: 500;
+            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.5);
+        }
+        .toast.show {
+            display: block;
+            animation: slideDown 0.35s ease-out;
+        }
+        @keyframes slideDown {
+            from {
+                top: -60px;
+                opacity: 0;
+            }
+            to {
+                top: 20px;
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .address-input input {
+                font-size: 13px;
+                padding: 12px 14px;
+                min-width: 140px;
+            }
+            .address-input button {
+                font-size: 14px;
+                padding: 12px 20px;
+            }
+            .nft-card .preview {
+                width: 48px;
+                height: 48px;
+                font-size: 24px;
+            }
+            .nft-card .info .name {
+                font-size: 15px;
+            }
+            .header h1 {
+                font-size: 28px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -206,8 +339,8 @@
     <a href="index.html" class="back-btn">← Назад</a>
 
     <div class="header">
-        <h1>💎 Хранилище NFT</h1>
-        <div class="sub">Твои уникальные коллекционные карточки</div>
+        <h1>💎 Реальные NFT</h1>
+        <div class="sub">Подключи TON кошелёк и смотри свои NFT</div>
     </div>
 
     <div class="stats-bar">
@@ -216,110 +349,181 @@
             <div class="lbl">Всего NFT</div>
         </div>
         <div class="item">
-            <div class="num" id="rarestNFT">—</div>
-            <div class="lbl">Редчайший</div>
+            <div class="num" id="collectionsCount">0</div>
+            <div class="lbl">Коллекций</div>
         </div>
     </div>
 
-    <div class="nft-grid" id="nftGrid">
-        <!-- NFT будут вставляться сюда через JS -->
+    <!-- ===== ВВОД АДРЕСА ===== -->
+    <div class="address-input">
+        <input type="text" id="walletInput" placeholder="Введите TON адрес кошелька" value="EQDvXJ5KqPm...">
+        <button onclick="loadNFTs()" id="loadBtn">🔍 Показать NFT</button>
     </div>
 
-    <div class="footer">Сделано с ❤️ в Telegram Mini App</div>
+    <!-- ===== СПИСОК NFT ===== -->
+    <div class="nft-grid" id="nftGrid">
+        <div class="empty-state">
+            <div class="emoji">🔗</div>
+            <div class="text">Введите адрес TON кошелька</div>
+            <div class="sub">Например: EQDvXJ5KqPm...</div>
+        </div>
+    </div>
+
+    <div class="footer">Данные из TON Blockchain • Бесплатно</div>
+
+    <div class="toast" id="toast"></div>
 
     <script>
         // ============================
-        // 1. ПОЛУЧАЕМ NFT ИЗ ХРАНИЛИЩА
+        // 1. УТИЛИТЫ
         // ============================
-        function getUserNFTs() {
-            try {
-                return JSON.parse(localStorage.getItem('userNFTs')) || [];
-            } catch {
-                return [];
-            }
+        function showToast(msg, isWin = true) {
+            const t = document.getElementById('toast');
+            t.innerHTML = msg;
+            t.style.borderColor = isWin ? 'rgba(46,204,113,0.15)' : 'rgba(231,76,60,0.15)';
+            t.classList.add('show');
+            clearTimeout(t._timeout);
+            t._timeout = setTimeout(() => {
+                t.innerHTML = '';
+                t.classList.remove('show');
+            }, 3500);
+        }
+
+        function getRarityClass(rarity) {
+            const r = String(rarity).toLowerCase();
+            if (r.includes('mythic') || r.includes('мифический')) return 'rarity-mythic';
+            if (r.includes('legendary') || r.includes('легендарный')) return 'rarity-legendary';
+            if (r.includes('epic') || r.includes('эпический')) return 'rarity-epic';
+            if (r.includes('rare') || r.includes('редкий')) return 'rarity-rare';
+            return 'rarity-common';
         }
 
         // ============================
-        // 2. РЕДКОСТИ
+        // 2. ЗАГРУЗКА NFT ИЗ TON API
         // ============================
-        const rarityOrder = {
-            common: 0,
-            rare: 1,
-            epic: 2,
-            legendary: 3,
-            mythic: 4
-        };
-
-        const rarityNames = {
-            common: 'Обычный',
-            rare: 'Редкий',
-            epic: 'Эпический',
-            legendary: 'Легендарный',
-            mythic: 'Мифический'
-        };
-
-        const rarityColors = {
-            common: '#b0b0b0',
-            rare: '#4CAF50',
-            epic: '#2196F3',
-            legendary: '#9C27B0',
-            mythic: '#FF5722'
-        };
-
-        // ============================
-        // 3. ОТОБРАЖЕНИЕ NFT
-        // ============================
-        function renderNFTs() {
-            const nfts = getUserNFTs();
+        async function loadNFTs() {
+            const input = document.getElementById('walletInput');
+            const address = input.value.trim();
             const grid = document.getElementById('nftGrid');
-            const totalEl = document.getElementById('totalNFT');
-            const rarestEl = document.getElementById('rarestNFT');
+            const loadBtn = document.getElementById('loadBtn');
 
-            totalEl.textContent = nfts.length;
-
-            if (nfts.length === 0) {
-                grid.innerHTML = `
-                    <div class="empty-state">
-                        <div class="emoji">📭</div>
-                        <div class="text">У тебя пока нет NFT</div>
-                        <div class="sub">Играй в монетку и выигрывай уникальные карточки!</div>
-                    </div>
-                `;
-                rarestEl.textContent = '—';
+            if (!address || address.length < 10) {
+                showToast('❌ Введите корректный TON адрес', false);
                 return;
             }
 
-            // Сортируем по редкости (от мифических к обычным)
-            const sorted = [...nfts].sort((a, b) => {
-                return rarityOrder[b.rarity] - rarityOrder[a.rarity];
-            });
+            loadBtn.disabled = true;
+            loadBtn.textContent = '⏳ Загрузка...';
 
-            // Самый редкий NFT
-            const rarest = sorted[0];
-            rarestEl.textContent = rarest.emoji + ' ' + rarest.name;
-
-            // Рендерим карточки
-            grid.innerHTML = sorted.map(nft => `
-                <div class="nft-card rarity-${nft.rarity}">
-                    <div class="icon">${nft.emoji}</div>
-                    <div class="info">
-                        <div class="name" style="color: ${rarityColors[nft.rarity]}">${nft.name}</div>
-                        <div class="rarity">
-                            <span class="rarity-label">${rarityNames[nft.rarity]}</span>
-                        </div>
-                    </div>
-                    <div class="date">${new Date(nft.obtained).toLocaleDateString()}</div>
+            grid.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <div>Загрузка NFT из TON...</div>
                 </div>
-            `).join('');
+            `;
+
+            try {
+                // Используем TON API (бесплатно, без ключа)
+                const response = await fetch(`https://tonapi.io/v2/accounts/${address}/nfts?limit=100`, {
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Ошибка ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+
+                if (!data.nft_items || data.nft_items.length === 0) {
+                    grid.innerHTML = `
+                        <div class="empty-state">
+                            <div class="emoji">📭</div>
+                            <div class="text">NFT не найдены</div>
+                            <div class="sub">На этом адресе нет NFT или они скрыты</div>
+                        </div>
+                    `;
+                    document.getElementById('totalNFT').textContent = 0;
+                    document.getElementById('collectionsCount').textContent = 0;
+                    loadBtn.disabled = false;
+                    loadBtn.textContent = '🔍 Показать NFT';
+                    return;
+                }
+
+                // Собираем уникальные коллекции
+                const collections = new Set();
+                data.nft_items.forEach(item => {
+                    if (item.collection && item.collection.name) {
+                        collections.add(item.collection.name);
+                    }
+                });
+
+                document.getElementById('totalNFT').textContent = data.nft_items.length;
+                document.getElementById('collectionsCount').textContent = collections.size;
+
+                // Рендерим NFT
+                let html = '';
+                data.nft_items.forEach(nft => {
+                    const name = nft.metadata?.name || nft.name || 'Без названия';
+                    const description = nft.metadata?.description || '';
+                    const image = nft.metadata?.image || nft.metadata?.thumbnail || '';
+                    const rarity = nft.metadata?.attributes?.find(a => a.trait_type === 'Rarity')?.value || 'common';
+                    const collectionName = nft.collection?.name || 'Без коллекции';
+
+                    // Определяем эмодзи для превью
+                    let emoji = '🖼️';
+                    if (rarity.toLowerCase().includes('mythic')) emoji = '⚡';
+                    else if (rarity.toLowerCase().includes('legendary')) emoji = '🌟';
+                    else if (rarity.toLowerCase().includes('epic')) emoji = '💫';
+                    else if (rarity.toLowerCase().includes('rare')) emoji = '✨';
+
+                    html += `
+                        <div class="nft-card">
+                            <div class="preview">
+                                ${image ? `<img src="${image}" alt="${name}" loading="lazy" onerror="this.style.display='none';this.parentElement.textContent='${emoji}'">` : emoji}
+                            </div>
+                            <div class="info">
+                                <div class="name">${name}</div>
+                                <div class="collection">${collectionName}</div>
+                                <div class="rarity ${getRarityClass(rarity)}">${rarity}</div>
+                            </div>
+                            <div class="price">${nft.sale?.price ? nft.sale.price + ' TON' : ''}</div>
+                        </div>
+                    `;
+                });
+
+                grid.innerHTML = html;
+                showToast('✅ Загружено ' + data.nft_items.length + ' NFT', true);
+
+            } catch (error) {
+                console.error('Ошибка:', error);
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="emoji">⚠️</div>
+                        <div class="text">Ошибка загрузки</div>
+                        <div class="sub">${error.message}</div>
+                    </div>
+                `;
+                showToast('❌ Ошибка: ' + error.message, false);
+            }
+
+            loadBtn.disabled = false;
+            loadBtn.textContent = '🔍 Показать NFT';
         }
 
         // ============================
-        // 4. ЗАПУСК
+        // 3. ПРИМЕР АДРЕСА ПРИ ЗАГРУЗКЕ
         // ============================
-        renderNFTs();
+        // Вставь свой TON адрес для теста
+        // Например: EQDvXJ5KqPm... (замени на реальный)
+        // Если нет кошелька — можно оставить поле пустым
 
-        // Обновляем при возврате на страницу
-        window.addEventListener('focus', renderNFTs);
+        // Автозагрузка примера (замени на свой адрес)
+        // loadNFTs();
+
+        console.log('💎 Хранилище реальных NFT из TON');
+        console.log('Введите адрес кошелька и нажмите "Показать NFT"');
     </script>
 </body>
 </html>
