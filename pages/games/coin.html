@@ -23,7 +23,6 @@
             overflow: hidden;
         }
 
-        /* ===== АНИМИРОВАННЫЙ НЕОНОВЫЙ ФОН ===== */
         .bg-glow {
             position: fixed;
             top: 0;
@@ -44,14 +43,14 @@
             height: 400px;
             top: -100px;
             right: -100px;
-            background: rgba(180, 80, 255, 0.12);
+            background: rgba(180, 80, 255, 0.15);
         }
         .bg-glow .orb:nth-child(2) {
             width: 300px;
             height: 300px;
             bottom: -50px;
             left: -50px;
-            background: rgba(247, 212, 74, 0.06);
+            background: rgba(247, 212, 74, 0.08);
             animation-delay: 2s;
         }
         .bg-glow .orb:nth-child(3) {
@@ -60,7 +59,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(255, 50, 100, 0.04);
+            background: rgba(255, 50, 100, 0.05);
             animation: orbPulse 6s ease-in-out infinite;
         }
         @keyframes orbFloat {
@@ -148,20 +147,20 @@
 
         .back-btn {
             display: inline-block;
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.5);
             text-decoration: none;
             font-size: 15px;
             padding: 8px 20px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 40px;
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(8px);
             transition: 0.25s;
             margin-bottom: 10px;
         }
         .back-btn:active {
             transform: scale(0.94);
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.08);
         }
 
         .header h2 {
@@ -197,7 +196,7 @@
             letter-spacing: 1px;
         }
 
-        /* ===== ВЫБОР ===== */
+        /* ===== ВЫБОР СТОРОНЫ — ЯРКИЙ ===== */
         .choice-buttons {
             display: flex;
             gap: 16px;
@@ -205,11 +204,11 @@
             margin: 12px 0;
         }
         .choice-btn {
-            padding: 12px 32px;
-            border: 2px solid rgba(255, 255, 255, 0.06);
+            padding: 14px 36px;
+            border: 2px solid rgba(255, 255, 255, 0.08);
             border-radius: 60px;
             background: rgba(255, 255, 255, 0.02);
-            color: rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.25);
             font-size: 20px;
             font-weight: 700;
             cursor: pointer;
@@ -224,16 +223,16 @@
         }
         .choice-btn.active-heads {
             border-color: #f7d44a;
-            background: rgba(247, 212, 74, 0.08);
+            background: rgba(247, 212, 74, 0.12);
             color: #f7d44a;
-            box-shadow: 0 0 60px rgba(247, 212, 74, 0.05);
+            box-shadow: 0 0 80px rgba(247, 212, 74, 0.1);
             transform: scale(1.02);
         }
         .choice-btn.active-tails {
             border-color: #bdc3c7;
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.06);
             color: #bdc3c7;
-            box-shadow: 0 0 60px rgba(255, 255, 255, 0.02);
+            box-shadow: 0 0 80px rgba(255, 255, 255, 0.04);
             transform: scale(1.02);
         }
 
@@ -305,7 +304,6 @@
             text-shadow: 0 0 60px rgba(231, 76, 60, 0.15);
         }
 
-        /* ===== МНОЖИТЕЛЬ ===== */
         .multiplier-display {
             display: flex;
             align-items: center;
@@ -609,12 +607,8 @@
         <!-- ===== МОНЕТКА ===== -->
         <div class="coin-container" onclick="playRound()">
             <div class="coin" id="coin3d">
-                <div class="coin-face coin-heads">🦅
-                    <div class="label">ОРЁЛ</div>
-                </div>
-                <div class="coin-face coin-tails">🪙
-                    <div class="label">РЕШКА</div>
-                </div>
+                <div class="coin-face coin-heads">🦅<div class="label">ОРЁЛ</div></div>
+                <div class="coin-face coin-tails">🪙<div class="label">РЕШКА</div></div>
             </div>
         </div>
 
@@ -817,9 +811,6 @@
                     playWinSound();
                     launchConfetti();
 
-                    // NFT при выигрыше
-                    tryGiveNFT();
-
                 } else {
                     document.getElementById('coinResult').className = 'result lose';
                     document.getElementById('coinResult').textContent = '❌ ' + resultText + '... Проигрыш';
@@ -965,21 +956,7 @@
         }
 
         // ============================
-        // 6. NFT (упрощённо)
-        // ============================
-        function tryGiveNFT() {
-            if (Math.random() < 0.12) {
-                const nfts = ['💎 Алмаз', '👑 Корона', '⭐ Звезда', '🔥 Огонь', '🌈 Радуга'];
-                const nft = nfts[Math.floor(Math.random() * nfts.length)];
-                showToast('💎 Ты получил NFT: ' + nft + '!', true);
-                const userNFTs = JSON.parse(localStorage.getItem('userNFTs')) || [];
-                userNFTs.push({ name: nft, date: new Date().toISOString() });
-                localStorage.setItem('userNFTs', JSON.stringify(userNFTs));
-            }
-        }
-
-        // ============================
-        // 7. TOAST
+        // 6. TOAST
         // ============================
         function showToast(msg, isWin = true) {
             const t = document.getElementById('toast');
@@ -994,7 +971,7 @@
         }
 
         // ============================
-        // 8. СТАРТ
+        // 7. СТАРТ
         // ============================
         updateUI();
         document.getElementById('coinResult').textContent = 'Выбери сторону';
@@ -1002,7 +979,7 @@
             setTimeout(() => showToast('💰 Добро пожаловать!', true), 400);
         }
 
-        console.log('🪙 Монетка MAX VISUAL загружена!');
+        console.log('🪙 Монетка загружена!');
         console.log('💰 Баланс:', balance);
     </script>
 </body>
