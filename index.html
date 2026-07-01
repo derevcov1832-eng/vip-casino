@@ -3,1030 +3,609 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🎰 VIP Casino</title>
+    <title>🪙 Монетка</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', system-ui, sans-serif;
-            background: #0a0a1a;
-            color: white;
             min-height: 100vh;
-            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: radial-gradient(ellipse at 50% 0%, #1a1a3e, #0a0a1a 70%);
             position: relative;
-            user-select: none;
+            overflow: hidden;
         }
-
-        .bg {
+        .stars {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: 0;
-            background:
-                radial-gradient(ellipse at 20% 30%, rgba(120, 80, 255, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 70%, rgba(255, 50, 50, 0.06) 0%, transparent 50%);
+            pointer-events: none;
         }
-
-        /* ===== КОНТЕЙНЕР ДЛЯ СВАЙПА ===== */
-        .app-wrapper {
+        .star {
+            position: absolute;
+            width: 2px; height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s ease-in-out infinite alternate;
+        }
+        .star:nth-child(1) { top: 10%; left: 20%; }
+        .star:nth-child(2) { top: 30%; left: 80%; animation-delay: 0.5s; width: 3px; height: 3px; }
+        .star:nth-child(3) { top: 60%; left: 10%; animation-delay: 1s; }
+        .star:nth-child(4) { top: 80%; left: 70%; animation-delay: 1.5s; width: 3px; height: 3px; }
+        .star:nth-child(5) { top: 20%; left: 50%; animation-delay: 0.8s; }
+        @keyframes twinkle {
+            0% { opacity: 0.2; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+        .container {
             position: relative;
             z-index: 1;
             max-width: 480px;
             width: 100%;
-            height: 100vh;
-            margin: 0 auto;
-            overflow: hidden;
-            touch-action: pan-y;
+            text-align: center;
         }
-
-        .app-slider {
-            display: flex;
-            height: 100vh;
-            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            will-change: transform;
+        .back-btn {
+            display: inline-block;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 15px;
+            padding: 8px 20px;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 40px;
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(8px);
+            transition: 0.25s;
+            margin-bottom: 10px;
         }
-
-        .page {
-            min-width: 100%;
-            height: 100vh;
-            padding: 12px 16px 80px;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-
-        /* ===== ХЕДЕР ===== */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            flex-shrink: 0;
-        }
-        .header .logo {
-            font-size: 22px;
+        .back-btn:active { transform: scale(0.94); background: rgba(255,255,255,0.08); }
+        .header h2 {
+            font-size: 32px;
             font-weight: 800;
-            background: linear-gradient(135deg, #f7d44a, #ff6b6b);
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #f7d44a, #f0a030);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-bottom: 2px;
+            text-shadow: 0 0 60px rgba(247,212,74,0.15);
+        }
+        .header .sub {
+            font-size: 13px;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .balance {
+            font-size: 24px;
+            font-weight: 600;
+            color: #f7e3a0;
+            background: rgba(255,255,255,0.04);
+            backdrop-filter: blur(12px);
+            padding: 12px 28px;
+            border-radius: 60px;
+            display: inline-block;
+            border: 1px solid rgba(255,255,255,0.06);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+        .coin-container {
+            perspective: 900px;
+            width: 220px;
+            height: 220px;
+            margin: 10px auto 6px;
+            cursor: pointer;
+            filter: drop-shadow(0 12px 50px rgba(247,212,74,0.1));
+        }
+        .coin {
+            width: 220px; height: 220px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.34, 1.2, 0.64, 1);
+            border-radius: 50%;
+        }
+        .coin.flipping { transition: transform 1.8s cubic-bezier(0.23, 1, 0.32, 1); }
+        .coin-face {
+            position: absolute;
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 72px;
+            border: 4px solid rgba(255,215,100,0.25);
+            box-shadow: inset 0 -20px 60px rgba(0,0,0,0.3);
+        }
+        .coin-heads {
+            background: radial-gradient(circle at 30% 30%, #ffe28a, #d4a017);
+            transform: rotateY(0deg);
+        }
+        .coin-tails {
+            background: radial-gradient(circle at 30% 30%, #e8e8e8, #8a8a8a);
+            transform: rotateY(180deg);
+        }
+        .coin-face .label {
+            font-size: 14px;
+            letter-spacing: 4px;
+            opacity: 0.5;
+            margin-top: 2px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.7);
+        }
+        .result {
+            font-size: 26px;
+            font-weight: 700;
+            margin: 10px 0 12px;
+            min-height: 48px;
+            transition: 0.2s;
             letter-spacing: 0.5px;
         }
-        .header .coins {
+        .result.win { color: #2ecc71; text-shadow: 0 0 40px rgba(46,204,113,0.2); }
+        .result.lose { color: #e74c3c; text-shadow: 0 0 40px rgba(231,76,60,0.15); }
+        .bet-settings {
             display: flex;
+            gap: 12px;
             align-items: center;
-            gap: 6px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 6px 14px;
-            border-radius: 40px;
-            font-size: 15px;
-            font-weight: 700;
-            color: #f7d44a;
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            justify-content: center;
+            margin: 12px 0 10px;
+            flex-wrap: wrap;
         }
-        .header .coins span {
-            font-size: 16px;
-        }
-
-        .balance-block {
-            text-align: center;
-            padding: 16px 0 8px;
-            flex-shrink: 0;
-        }
-        .balance-block .amount {
-            font-size: 44px;
-            font-weight: 800;
-            color: #f7d44a;
-            text-shadow: 0 0 40px rgba(247, 212, 74, 0.1);
-            letter-spacing: 1px;
-        }
-        .balance-block .label {
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.2);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-top: 2px;
-        }
-
-        .games-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin: 12px 0;
-            flex-shrink: 0;
-        }
-        .game-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            border-radius: 16px;
-            padding: 16px 12px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            text-decoration: none;
-            color: white;
-            text-align: center;
-            transition: transform 0.15s;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-        }
-        .game-card:active {
-            transform: scale(0.94);
-        }
-        .game-card .icon {
-            font-size: 32px;
-            margin-bottom: 6px;
-        }
-        .game-card .name {
-            font-size: 14px;
-            font-weight: 600;
-        }
-        .game-card .desc {
-            font-size: 10px;
-            color: rgba(255, 255, 255, 0.25);
-            margin-top: 2px;
-        }
-        .game-card .badge {
-            display: inline-block;
-            margin-top: 4px;
-            font-size: 9px;
-            background: rgba(247, 212, 74, 0.12);
-            color: #f7d44a;
-            padding: 2px 10px;
-            border-radius: 40px;
-            letter-spacing: 1px;
-        }
-
-        .shop-section {
-            margin: 10px 0 6px;
-            flex-shrink: 0;
-        }
-        .shop-section .title {
+        .bet-settings label {
             font-size: 13px;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.3);
-            margin-bottom: 8px;
+            color: rgba(255,255,255,0.4);
             letter-spacing: 2px;
             text-transform: uppercase;
         }
-        .shop-row {
-            display: flex;
-            gap: 8px;
-        }
-        .shop-btn {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 12px;
-            padding: 10px 8px;
-            color: white;
-            cursor: pointer;
-            transition: 0.2s;
-            text-align: center;
-        }
-        .shop-btn:active {
-            transform: scale(0.94);
-        }
-        .shop-btn .price {
-            font-size: 12px;
-            opacity: 0.5;
-        }
-        .shop-btn .value {
-            font-size: 16px;
-            font-weight: 700;
-            color: #f7d44a;
-        }
-        .shop-btn.best {
-            border-color: rgba(247, 212, 74, 0.2);
-            background: rgba(247, 212, 74, 0.04);
-        }
-
-        .offer {
-            margin: 10px 0 6px;
-            background: linear-gradient(145deg, rgba(247, 212, 74, 0.06), rgba(255, 107, 107, 0.04));
-            border-radius: 14px;
-            padding: 14px 16px;
-            border: 1px solid rgba(247, 212, 74, 0.08);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-shrink: 0;
-        }
-        .offer .left .title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #f7d44a;
-        }
-        .offer .left .desc {
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.3);
-        }
-        .offer .btn {
-            background: linear-gradient(145deg, #f7d44a, #dbb84a);
-            border: none;
-            padding: 8px 20px;
+        .bet-settings input {
+            width: 110px;
+            padding: 12px 8px;
             border-radius: 40px;
-            font-size: 13px;
+            border: 1px solid rgba(255,255,255,0.06);
+            font-size: 18px;
             font-weight: 700;
-            color: #1a1a2e;
-            cursor: pointer;
-        }
-        .offer .btn:active {
-            transform: scale(0.94);
-        }
-
-        /* ===== КЕЙСЫ ===== */
-        .case-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
-            margin: 12px 0;
-        }
-        .case-item {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 14px;
-            padding: 14px 8px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            cursor: pointer;
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(8px);
+            color: #f0e8d0;
             transition: 0.2s;
-            position: relative;
-            overflow: hidden;
         }
-        .case-item:active {
-            transform: scale(0.94);
+        .bet-settings input:focus {
+            outline: none;
+            border-color: rgba(247,212,74,0.3);
+            background: rgba(255,255,255,0.06);
         }
-        .case-item .icon {
-            font-size: 32px;
-        }
-        .case-item .name {
-            font-size: 12px;
-            font-weight: 600;
-            margin-top: 4px;
-        }
-        .case-item .price {
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.3);
-        }
-        .case-item .tag {
-            font-size: 9px;
-            background: rgba(231, 76, 60, 0.15);
-            color: #e74c3c;
-            padding: 2px 8px;
-            border-radius: 40px;
-            display: inline-block;
-            margin-top: 4px;
-        }
-        .case-item .tag.free {
-            background: rgba(46, 204, 113, 0.15);
-            color: #2ecc71;
-        }
-
-        .profile-header {
-            text-align: center;
-            padding: 20px 0;
-        }
-        .profile-header .avatar {
-            font-size: 56px;
-        }
-        .profile-header .name {
-            font-size: 20px;
-            font-weight: 700;
-            margin-top: 4px;
-        }
-        .profile-header .id {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.2);
-        }
-        .profile-stats {
-            display: flex;
-            gap: 12px;
-            margin: 12px 0;
-        }
-        .profile-stats .stat {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 12px;
-            padding: 12px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-        }
-        .profile-stats .stat .num {
-            font-size: 22px;
-            font-weight: 700;
-            color: #f7d44a;
-        }
-        .profile-stats .stat .lbl {
-            font-size: 9px;
-            color: rgba(255, 255, 255, 0.2);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 2px;
-        }
-
-        .top-list {
-            margin: 12px 0;
-        }
-        .top-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-        }
-        .top-item .place {
-            font-size: 16px;
-            font-weight: 700;
-            width: 30px;
-            color: rgba(255, 255, 255, 0.2);
-        }
-        .top-item .place.gold {
-            color: #f7d44a;
-        }
-        .top-item .place.silver {
-            color: #bdc3c7;
-        }
-        .top-item .place.bronze {
-            color: #cd7f32;
-        }
-        .top-item .info {
-            flex: 1;
-            text-align: left;
-        }
-        .top-item .info .name {
-            font-size: 15px;
-            font-weight: 600;
-        }
-        .top-item .info .score {
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.3);
-        }
-        .top-item .coins {
-            font-size: 16px;
-            font-weight: 700;
-            color: #f7d44a;
-        }
-
-        /* ===== НИЖНЯЯ НАВИГАЦИЯ ===== */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(10, 10, 26, 0.92);
-            backdrop-filter: blur(16px);
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        .game-stats {
+            background: rgba(255,255,255,0.02);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 16px 10px;
+            margin: 14px 0 16px;
+            border: 1px solid rgba(255,255,255,0.04);
             display: flex;
             justify-content: space-around;
-            padding: 8px 0 10px;
-            max-width: 480px;
-            margin: 0 auto;
-            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
-        .bottom-nav .nav-item {
+        .game-stats .stat-item { text-align: center; }
+        .game-stats .stat-item .num { font-size: 26px; font-weight: 700; color: #f0e0b0; letter-spacing: 1px; }
+        .game-stats .stat-item .lbl {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.2);
+            margin-top: 2px;
+        }
+        .buttons {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
-            text-decoration: none;
-            color: rgba(255, 255, 255, 0.2);
-            font-size: 10px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            transition: 0.2s;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 4px 16px;
-        }
-        .bottom-nav .nav-item .icon {
-            font-size: 22px;
-        }
-        .bottom-nav .nav-item.active {
-            color: #f7d44a;
-        }
-        .bottom-nav .nav-item:active {
-            transform: scale(0.9);
-        }
-
-        /* ===== АНИМАЦИЯ КЕЙСА ===== */
-        .case-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(20px);
-            z-index: 200;
+            gap: 10px;
             justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            animation: fadeIn 0.3s ease-out;
+            flex-wrap: wrap;
+            margin: 16px 0 8px;
         }
-        .case-overlay.show {
-            display: flex;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .case-animation {
-            font-size: 100px;
-            animation: caseSpin 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-            position: relative;
-        }
-        @keyframes caseSpin {
-            0% {
-                transform: scale(0) rotate(-180deg);
-                opacity: 0;
-            }
-            50% {
-                transform: scale(1.3) rotate(0deg);
-                opacity: 1;
-            }
-            70% {
-                transform: scale(0.9) rotate(5deg);
-            }
-            100% {
-                transform: scale(1) rotate(0deg);
-                opacity: 1;
-            }
-        }
-
-        .case-reward {
-            font-size: 48px;
-            font-weight: 800;
-            color: #f7d44a;
-            margin-top: 20px;
-            animation: rewardPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s both;
-            text-shadow: 0 0 60px rgba(247, 212, 74, 0.2);
-        }
-        @keyframes rewardPop {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .case-close-btn {
-            margin-top: 30px;
-            padding: 12px 40px;
+        button {
+            padding: 15px 24px;
             border: none;
-            border-radius: 40px;
-            background: rgba(255, 255, 255, 0.05);
-            color: rgba(255, 255, 255, 0.5);
+            border-radius: 60px;
             font-size: 16px;
+            font-weight: 700;
             cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: 0.2s;
+            transition: all 0.2s ease;
+            flex: 1;
+            min-width: 90px;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 6px 24px rgba(0,0,0,0.2);
         }
-        .case-close-btn:active {
-            transform: scale(0.94);
-        }
-
-        /* ===== КОНФЕТТИ ===== */
-        .confetti-container {
+        button:active { transform: scale(0.94); }
+        button:disabled { opacity: 0.3; transform: none !important; cursor: not-allowed; }
+        .btn-play { background: linear-gradient(145deg, #f7d44a, #d4a017); color: #1a1a2e; }
+        .btn-take { background: linear-gradient(145deg, #2ecc71, #27ae60); color: #fff; }
+        .btn-risk { background: linear-gradient(145deg, #f39c12, #d68910); color: #fff; }
+        .btn-nft { background: linear-gradient(145deg, #b388ff, #7c4dff); color: #fff; }
+        .btn-gift { background: linear-gradient(145deg, #ff6b6b, #e74c3c); color: #fff; }
+        .toast {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 199;
-            overflow: hidden;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(12,14,28,0.92);
+            backdrop-filter: blur(16px);
+            color: #f0eee0;
+            padding: 14px 28px;
+            border-radius: 60px;
+            display: none;
+            z-index: 999;
+            max-width: 90%;
+            border: 1px solid rgba(255,255,255,0.05);
+            font-size: 16px;
+            font-weight: 500;
+            box-shadow: 0 16px 50px rgba(0,0,0,0.5);
         }
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            opacity: 0;
-            animation: confettiFall linear forwards;
+        .toast.show { display: block; animation: slideDown 0.35s ease-out; }
+        @keyframes slideDown {
+            from { top: -60px; opacity: 0; }
+            to { top: 20px; opacity: 1; }
         }
-        @keyframes confettiFall {
-            0% {
-                transform: translateY(-20px) rotate(0deg) scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(720deg) scale(0.3);
-                opacity: 0;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .balance-block .amount {
-                font-size: 34px;
-            }
-            .game-card .icon {
-                font-size: 26px;
-            }
-            .game-card .name {
-                font-size: 12px;
-            }
-            .shop-btn .value {
-                font-size: 14px;
-            }
-            .case-grid {
-                grid-template-columns: 1fr 1fr 1fr;
-                gap: 6px;
-            }
-            .bottom-nav .nav-item {
-                padding: 4px 10px;
-                font-size: 9px;
-            }
-            .bottom-nav .nav-item .icon {
-                font-size: 18px;
-            }
-            .case-animation {
-                font-size: 70px;
-            }
-            .case-reward {
-                font-size: 34px;
-            }
+        .footer { margin-top: 16px; font-size: 11px; color: rgba(255,255,255,0.08); letter-spacing: 3px; }
+        @media (max-width: 450px) {
+            .coin-container { width: 170px; height: 170px; }
+            .coin { width: 170px; height: 170px; }
+            .coin-face { font-size: 52px; }
+            .game-stats .stat-item .num { font-size: 20px; }
+            button { font-size: 14px; padding: 12px 14px; min-width: 60px; }
+            .balance { font-size: 20px; padding: 10px 22px; }
         }
     </style>
 </head>
 <body>
-
-    <div class="bg"></div>
-
-    <!-- ===== КОНФЕТТИ КОНТЕЙНЕР ===== -->
-    <div class="confetti-container" id="confettiContainer"></div>
-
-    <!-- ===== ОВЕРЛЕЙ КЕЙСА ===== -->
-    <div class="case-overlay" id="caseOverlay">
-        <div class="case-animation" id="caseEmoji">🎁</div>
-        <div class="case-reward" id="caseReward">+0</div>
-        <button class="case-close-btn" onclick="closeCase()">✕ Закрыть</button>
+    <div class="stars">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
     </div>
-
-    <div class="app-wrapper">
-        <div class="app-slider" id="appSlider">
-
-            <!-- ===== ГЛАВНАЯ ===== -->
-            <div class="page" id="pageHome">
-                <div class="header">
-                    <div class="logo">♛ VIP CASINO</div>
-                    <div class="coins">
-                        <span>⭐</span>
-                        <span id="headerStars">0</span>
-                    </div>
-                </div>
-
-                <div class="balance-block">
-                    <div class="amount" id="balanceDisplay">1000</div>
-                    <div class="label">💰 Твой баланс</div>
-                </div>
-
-                <div class="games-grid">
-                    <a href="coin.html" class="game-card">
-                        <div class="icon">🪙</div>
-                        <div class="name">Монетка</div>
-                        <div class="desc">Орёл или решка</div>
-                        <div class="badge">x10</div>
-                    </a>
-                    <a href="roulette.html" class="game-card">
-                        <div class="icon">🎡</div>
-                        <div class="name">Рулетка</div>
-                        <div class="desc">Красное / Чёрное</div>
-                        <div class="badge">x2</div>
-                    </a>
-                    <a href="blackjack.html" class="game-card">
-                        <div class="icon">🃏</div>
-                        <div class="name">Блэкджек</div>
-                        <div class="desc">21 против дилера</div>
-                        <div class="badge">🔥</div>
-                    </a>
-                    <a href="nft.html" class="game-card">
-                        <div class="icon">💎</div>
-                        <div class="name">Хранилище</div>
-                        <div class="desc">Коллекционные NFT</div>
-                        <div class="badge" id="nftBadge">0</div>
-                    </a>
-                </div>
-
-                <div class="shop-section">
-                    <div class="title">⭐ Пополнить баланс</div>
-                    <div class="shop-row">
-                        <div class="shop-btn" onclick="buyCoins(10, 100)">
-                            <div class="price">⭐ 10</div>
-                            <div class="value">+100</div>
-                        </div>
-                        <div class="shop-btn" onclick="buyCoins(25, 300)">
-                            <div class="price">⭐ 25</div>
-                            <div class="value">+300</div>
-                        </div>
-                        <div class="shop-btn best" onclick="buyCoins(50, 700)">
-                            <div class="price">⭐ 50</div>
-                            <div class="value">+700</div>
-                        </div>
-                        <div class="shop-btn" onclick="buyCoins(100, 1500)">
-                            <div class="price">⭐ 100</div>
-                            <div class="value">+1500</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="offer">
-                    <div class="left">
-                        <div class="title">🎁 Кейс за депозит</div>
-                        <div class="desc">Пополни сегодня и получи бонус</div>
-                    </div>
-                    <button class="btn" onclick="openCase()">Открыть</button>
-                </div>
+    <div class="container">
+        <a href="index.html" class="back-btn">← Назад</a>
+        <div class="header">
+            <h2>🪙 Монетка</h2>
+            <div class="sub">Удваивай до 10 раз</div>
+        </div>
+        <div class="balance" id="balanceDisplay">💰 1000</div>
+        <div class="coin-container" onclick="playRound()">
+            <div class="coin" id="coin3d">
+                <div class="coin-face coin-heads">🦅<div class="label">ОРЁЛ</div></div>
+                <div class="coin-face coin-tails">🪙<div class="label">РЕШКА</div></div>
             </div>
-
-            <!-- ===== КЕЙСЫ ===== -->
-            <div class="page" id="pageCases">
-                <div class="header">
-                    <div class="logo">♛ VIP CASINO</div>
-                    <div class="coins">
-                        <span>⭐</span>
-                        <span id="headerStars2">0</span>
-                    </div>
-                </div>
-                <div class="balance-block">
-                    <div class="amount" style="font-size:28px;">🎁 Кейсы</div>
-                    <div class="label">Открой и получи награду</div>
-                </div>
-                <div class="case-grid">
-                    <div class="case-item" onclick="openCase()">
-                        <div class="icon">📦</div>
-                        <div class="name">Бесплатный</div>
-                        <div class="price">0 Stars</div>
-                        <div class="tag free">FREE</div>
-                    </div>
-                    <div class="case-item" onclick="openCase()">
-                        <div class="icon">🎁</div>
-                        <div class="name">Обычный</div>
-                        <div class="price">⭐ 25</div>
-                        <div class="tag">POPULAR</div>
-                    </div>
-                    <div class="case-item" onclick="openCase()">
-                        <div class="icon">👑</div>
-                        <div class="name">VIP кейс</div>
-                        <div class="price">⭐ 100</div>
-                        <div class="tag">LEGENDARY</div>
-                    </div>
-                </div>
-                <div style="text-align:center; padding:20px; color:rgba(255,255,255,0.1); font-size:12px;">
-                    🎯 Нажми на кейс, чтобы открыть
-                </div>
+        </div>
+        <div class="result" id="coinResult">Нажми «Играть»</div>
+        <div class="bet-settings">
+            <label>💰 Ставка</label>
+            <input type="number" id="betInput" value="10" min="5" step="5">
+        </div>
+        <div class="game-stats">
+            <div class="stat-item"><div class="num" id="roundNum">0</div><div class="lbl">Раунд</div></div>
+            <div class="stat-item"><div class="num" id="currentBet">0</div><div class="lbl">Ставка</div></div>
+            <div class="stat-item"><div class="num" id="potentialWin">0</div><div class="lbl">Выигрыш</div></div>
+        </div>
+        <div class="buttons">
+            <button class="btn-play" onclick="startGame()" id="playBtn">🎮 Играть</button>
+            <button class="btn-take" onclick="takeWin()" id="takeBtn" disabled>💰 Забрать</button>
+            <button class="btn-risk" onclick="playRound()" id="riskBtn" disabled>⚡ Рискнуть</button>
+        </div>
+        <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;">
+            <button class="btn-nft" onclick="showNFTCollection()" style="flex:1; min-width:80px;">💎 NFT</button>
+            <button class="btn-gift" onclick="openGiftDialog()" style="flex:1; min-width:80px;">🎁 Подарок</button>
+        </div>
+        <div class="footer">максимум x10</div>
+    </div>
+    <div class="toast" id="toast"></div>
+    <div id="giftOverlay" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(16px); z-index: 1000; align-items: center; justify-content: center; padding: 20px;">
+        <div style="max-width:400px; width:100%; background:linear-gradient(145deg,#1a1f35,#0d1225); border-radius:24px; padding:24px; border:1px solid rgba(255,255,255,0.06); box-shadow:0 20px 60px rgba(0,0,0,0.5);">
+            <div style="text-align:center; margin-bottom:20px;">
+                <div style="font-size:48px;">🎁</div>
+                <div style="font-size:22px; font-weight:700; margin-top:8px; color:#f7d44a;">Выбери подарок</div>
+                <div style="font-size:14px; color:rgba(255,255,255,0.4);">Реальные подарки Telegram за Stars</div>
             </div>
-
-            <!-- ===== ТОП ===== -->
-            <div class="page" id="pageTop">
-                <div class="header">
-                    <div class="logo">♛ VIP CASINO</div>
-                    <div class="coins">
-                        <span>⭐</span>
-                        <span id="headerStars3">0</span>
-                    </div>
-                </div>
-                <div class="balance-block">
-                    <div class="amount" style="font-size:28px;">🏆 Топ игроков</div>
-                    <div class="label">Самые удачливые</div>
-                </div>
-                <div class="top-list">
-                    <div class="top-item">
-                        <div class="place gold">👑</div>
-                        <div class="info">
-                            <div class="name">Игрок 1</div>
-                            <div class="score">1250 монет</div>
-                        </div>
-                        <div class="coins">+1250</div>
-                    </div>
-                    <div class="top-item">
-                        <div class="place silver">🥈</div>
-                        <div class="info">
-                            <div class="name">Игрок 2</div>
-                            <div class="score">980 монет</div>
-                        </div>
-                        <div class="coins">+980</div>
-                    </div>
-                    <div class="top-item">
-                        <div class="place bronze">🥉</div>
-                        <div class="info">
-                            <div class="name">Игрок 3</div>
-                            <div class="score">750 монет</div>
-                        </div>
-                        <div class="coins">+750</div>
-                    </div>
-                    <div class="top-item">
-                        <div class="place">4</div>
-                        <div class="info">
-                            <div class="name">Игрок 4</div>
-                            <div class="score">620 монет</div>
-                        </div>
-                        <div class="coins">+620</div>
-                    </div>
-                    <div class="top-item">
-                        <div class="place">5</div>
-                        <div class="info">
-                            <div class="name">Игрок 5</div>
-                            <div class="score">540 монет</div>
-                        </div>
-                        <div class="coins">+540</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ===== ПРОФИЛЬ ===== -->
-            <div class="page" id="pageProfile">
-                <div class="header">
-                    <div class="logo">♛ VIP CASINO</div>
-                    <div class="coins">
-                        <span>⭐</span>
-                        <span id="headerStars4">0</span>
-                    </div>
-                </div>
-                <div class="profile-header">
-                    <div class="avatar">👤</div>
-                    <div class="name" id="profileName">Игрок</div>
-                    <div class="id" id="profileId">ID: 123456</div>
-                </div>
-                <div class="profile-stats">
-                    <div class="stat">
-                        <div class="num" id="profileGames">0</div>
-                        <div class="lbl">Игр сыграно</div>
-                    </div>
-                    <div class="stat">
-                        <div class="num" id="profileWins">0</div>
-                        <div class="lbl">Побед</div>
-                    </div>
-                    <div class="stat">
-                        <div class="num" id="profileBest">0</div>
-                        <div class="lbl">Лучший выигрыш</div>
-                    </div>
-                </div>
-                <div style="text-align:center; padding:16px; color:rgba(255,255,255,0.08); font-size:11px; letter-spacing:2px;">
-                    Сделано с ❤️ в Telegram Mini App
-                </div>
-            </div>
-
+            <div id="giftList" style="display:flex; flex-direction:column; gap:10px; margin-bottom:16px;"></div>
+            <button onclick="closeGiftDialog()" style="width:100%; padding:12px; border:none; border-radius:40px; background:rgba(255,255,255,0.05); color:rgba(255,255,255,0.4); font-size:14px; cursor:pointer;">Закрыть</button>
         </div>
     </div>
-
-    <!-- ===== НИЖНЯЯ НАВИГАЦИЯ ===== -->
-    <div class="bottom-nav" id="bottomNav">
-        <button class="nav-item active" data-index="0">
-            <span class="icon">🏠</span>
-            Главная
-        </button>
-        <button class="nav-item" data-index="1">
-            <span class="icon">🎁</span>
-            Кейсы
-        </button>
-        <button class="nav-item" data-index="2">
-            <span class="icon">🏆</span>
-            Топ
-        </button>
-        <button class="nav-item" data-index="3">
-            <span class="icon">👤</span>
-            Профиль
-        </button>
-    </div>
-
     <script>
-        // ============================
-        // 1. БАЛАНС
-        // ============================
+        // ===== БАЛАНС =====
         let balance = parseInt(localStorage.getItem('casinoBalance')) || 1000;
-
-        function updateAllBalances() {
-            document.getElementById('balanceDisplay').textContent = balance;
-            document.querySelectorAll('[id^="headerStars"]').forEach(el => {
-                el.textContent = Math.floor(balance / 10);
-            });
+        updateBalanceDisplay();
+        window.addEventListener('load', function() { balance = parseInt(localStorage.getItem('casinoBalance')) || 1000; updateBalanceDisplay(); });
+        window.addEventListener('focus', function() { balance = parseInt(localStorage.getItem('casinoBalance')) || 1000; updateBalanceDisplay(); });
+        function updateBalanceDisplay() {
+            document.getElementById('balanceDisplay').textContent = '💰 ' + balance;
             localStorage.setItem('casinoBalance', balance);
         }
-        updateAllBalances();
-
-        // ============================
-        // 2. СВАЙП + НАВИГАЦИЯ
-        // ============================
-        const slider = document.getElementById('appSlider');
-        const navItems = document.querySelectorAll('.nav-item');
-        const totalPages = 4;
-        let currentIndex = 0;
-        let startX = 0;
-        let isDragging = false;
-
-        function goToPage(index) {
-            if (index < 0) index = 0;
-            if (index >= totalPages) index = totalPages - 1;
-            currentIndex = index;
-            slider.style.transform = `translateX(-${index * 100}%)`;
-            navItems.forEach((item, i) => {
-                item.classList.toggle('active', i === index);
-            });
+        function showToast(msg, isWin = true) {
+            const t = document.getElementById('toast');
+            t.innerHTML = msg;
+            t.style.borderColor = isWin ? 'rgba(46,204,113,0.15)' : 'rgba(231,76,60,0.15)';
+            t.classList.add('show');
+            clearTimeout(t._timeout);
+            t._timeout = setTimeout(() => { t.innerHTML = ''; t.classList.remove('show'); }, 3000);
         }
 
-        navItems.forEach((item, index) => {
-            item.addEventListener('click', () => goToPage(index));
-        });
-
-        // ===== ОБРАБОТКА СВАЙПА =====
-        slider.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-            isDragging = true;
-        });
-
-        slider.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            const diff = startX - e.touches[0].clientX;
-            if (Math.abs(diff) > 50) {
-                if (diff > 0 && currentIndex < totalPages - 1) {
-                    goToPage(currentIndex + 1);
-                } else if (diff < 0 && currentIndex > 0) {
-                    goToPage(currentIndex - 1);
-                }
-                isDragging = false;
-            }
-        });
-
-        slider.addEventListener('touchend', () => {
-            isDragging = false;
-        });
-
-        // ============================
-        // 3. ПОКУПКА МОНЕТ
-        // ============================
-        function buyCoins(starsCost, coinsAmount) {
-            if (window.Telegram && window.Telegram.WebApp) {
-                window.Telegram.WebApp.sendData(JSON.stringify({
-                    action: 'buy_coins',
-                    stars: starsCost,
-                    coins: coinsAmount
-                }));
-                showToast(`⏳ Запрос на ${coinsAmount} монет за ${starsCost} Stars...`);
-            } else {
-                balance += coinsAmount;
-                updateAllBalances();
-                showToast(`✅ +${coinsAmount} монет (демо)`);
-            }
-        }
-
-        // ============================
-        // 4. КЕЙСЫ С АНИМАЦИЕЙ
-        // ============================
-        let caseTimeout = null;
-
-        function openCase() {
-            const rewards = [10, 20, 50, 100, 200, 300, 500];
-            const reward = rewards[Math.floor(Math.random() * rewards.length)];
-
-            // Показываем оверлей
-            const overlay = document.getElementById('caseOverlay');
-            overlay.classList.add('show');
-
-            // Анимация
-            const emoji = document.getElementById('caseEmoji');
-            const rewardEl = document.getElementById('caseReward');
-
-            // Меняем эмодзи во время анимации
-            const emojis = ['🎁', '📦', '✨', '⭐', '🎉', '💎'];
-            let i = 0;
-            const interval = setInterval(() => {
-                emoji.textContent = emojis[i % emojis.length];
-                i++;
-            }, 150);
-
-            // Через 1.2 секунды показываем результат
-            setTimeout(() => {
-                clearInterval(interval);
-                emoji.textContent = '🎉';
-                rewardEl.textContent = `+${reward} 🪙`;
-                balance += reward;
-                updateAllBalances();
-
-                // Запускаем конфетти
-                launchConfetti();
-
-                // Звук (если доступен)
-                try {
-                    const ctx = new(window.AudioContext || window.webkitAudioContext)();
-                    const notes = [523, 659, 784, 1047];
-                    notes.forEach((freq, i) => {
-                        const osc = ctx.createOscillator();
-                        const gain = ctx.createGain();
-                        osc.connect(gain);
-                        gain.connect(ctx.destination);
-                        osc.frequency.value = freq;
-                        osc.type = 'sine';
-                        gain.gain.value = 0.08;
-                        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2 + i * 0.1);
-                        osc.start(ctx.currentTime + i * 0.1);
-                        osc.stop(ctx.currentTime + 0.3 + i * 0.1);
-                    });
-                } catch (_) {}
-
-            }, 1200);
-        }
-
-        function closeCase() {
-            document.getElementById('caseOverlay').classList.remove('show');
-            document.getElementById('caseReward').textContent = '+0';
-            document.getElementById('caseEmoji').textContent = '🎁';
-        }
-
-        // ============================
-        // 5. КОНФЕТТИ
-        // ============================
-        function launchConfetti() {
-            const container = document.getElementById('confettiContainer');
-            const colors = ['#f7d44a', '#ff6b6b', '#2ecc71', '#3498db', '#9b59b6', '#e74c3c', '#f39c12'];
-
-            for (let i = 0; i < 60; i++) {
-                const el = document.createElement('div');
-                el.className = 'confetti';
-                el.style.left = Math.random() * 100 + '%';
-                el.style.top = '-10px';
-                el.style.background = colors[Math.floor(Math.random() * colors.length)];
-                el.style.width = (Math.random() * 8 + 4) + 'px';
-                el.style.height = (Math.random() * 8 + 4) + 'px';
-                el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-                el.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
-                el.style.animationDelay = (Math.random() * 0.8) + 's';
-                container.appendChild(el);
-
-                setTimeout(() => el.remove(), 4000);
-            }
-        }
-
-        // ============================
-        // 6. TOAST
-        // ============================
-        function showToast(msg) {
-            const toast = document.createElement('div');
-            toast.style.cssText = `
-                    position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
-                    background: rgba(12,14,28,0.95); color: #f0eee0;
-                    padding: 12px 24px; border-radius: 60px; z-index: 9999;
-                    max-width: 90%; border: 1px solid rgba(247,212,74,0.2);
-                    font-size: 15px; font-weight: 500; box-shadow: 0 16px 50px rgba(0,0,0,0.5);
-                    animation: fadeIn 0.35s ease-out;
-                `;
-            toast.textContent = msg;
-            document.body.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.3s';
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-
-        // ============================
-        // 7. NFT БЕЙДЖ
-        // ============================
-        function updateNFTBadge() {
+        // ===== ЗВУКИ =====
+        function playWinSound() {
             try {
-                const nfts = JSON.parse(localStorage.getItem('userNFTs')) || [];
-                document.getElementById('nftBadge').textContent = nfts.length;
-            } catch {
-                document.getElementById('nftBadge').textContent = 0;
+                const ctx = new(window.AudioContext || window.webkitAudioContext)();
+                const notes = [523, 659, 784];
+                notes.forEach((freq, i) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.frequency.value = freq;
+                    osc.type = 'sine';
+                    gain.gain.value = 0.10;
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25 + i * 0.12);
+                    osc.start(ctx.currentTime + i * 0.12);
+                    osc.stop(ctx.currentTime + 0.3 + i * 0.12);
+                });
+            } catch (_) {}
+        }
+        function playLoseSound() {
+            try {
+                const ctx = new(window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.frequency.value = 340;
+                osc.type = 'sine';
+                gain.gain.value = 0.09;
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + 0.6);
+            } catch (_) {}
+        }
+        function playCoinFlipSound() {
+            try {
+                const ctx = new(window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.frequency.value = 1200;
+                osc.type = 'sine';
+                gain.gain.value = 0.04;
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + 0.06);
+            } catch (_) {}
+        }
+
+        // ===== NFT =====
+        const NFT_TYPES = [
+            { id: 'novice', name: '🍀 Удачливый новичок', rarity: 'common', color: '#b0b0b0', emoji: '🍀' },
+            { id: 'coin_king', name: '👑 Король монетки', rarity: 'rare', color: '#4CAF50', emoji: '👑' },
+            { id: 'bj_master', name: '🃏 Мастер блэкджека', rarity: 'epic', color: '#2196F3', emoji: '🃏' },
+            { id: 'roulette_lord', name: '🎡 Повелитель рулетки', rarity: 'legendary', color: '#9C27B0', emoji: '🎡' },
+            { id: 'casino_god', name: '⚡ Бог казино', rarity: 'mythic', color: '#FF5722', emoji: '⚡' }
+        ];
+        function getUserNFTs() { try { return JSON.parse(localStorage.getItem('userNFTs')) || []; } catch { return []; } }
+        function saveUserNFTs(nfts) { localStorage.setItem('userNFTs', JSON.stringify(nfts)); }
+        function addNFT(nftId) {
+            const nfts = getUserNFTs();
+            if (!nfts.find(n => n.id === nftId)) {
+                const nft = NFT_TYPES.find(n => n.id === nftId);
+                if (nft) { nfts.push({ id: nft.id, name: nft.name, rarity: nft.rarity, emoji: nft.emoji, color: nft.color, obtained: new Date().toISOString() }); saveUserNFTs(nfts); return true; }
+            }
+            return false;
+        }
+        function showNFTNotification(nft) {
+            const colors = { common: '#b0b0b0', rare: '#4CAF50', epic: '#2196F3', legendary: '#9C27B0', mythic: '#FF5722' };
+            const rarityNames = { common: 'Обычный', rare: 'Редкий', epic: 'Эпический', legendary: 'Легендарный', mythic: 'Мифический' };
+            const toast = document.getElementById('toast');
+            toast.innerHTML = `<div style="display:flex;align-items:center;gap:12px;background:${colors[nft.rarity]}22;padding:8px 16px;border-radius:40px;border:1px solid ${colors[nft.rarity]}44;">
+                <span style="font-size:32px;">${nft.emoji}</span>
+                <div style="text-align:left;"><div style="font-size:14px;font-weight:600;color:${colors[nft.rarity]};">🎉 НОВЫЙ NFT!</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.8);">${nft.name}</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.4);">${rarityNames[nft.rarity]}</div></div></div>`;
+            toast.style.borderColor = colors[nft.rarity] + '66';
+            toast.classList.add('show');
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => { toast.innerHTML = ''; toast.classList.remove('show'); }, 4000);
+        }
+        function tryGiveNFT() {
+            if (Math.random() < 0.15) {
+                const nft = NFT_TYPES[Math.floor(Math.random() * NFT_TYPES.length)];
+                const added = addNFT(nft.id);
+                if (added) { showNFTNotification(nft); return true; }
+            }
+            return false;
+        }
+        function showNFTCollection() {
+            const nfts = getUserNFTs();
+            if (nfts.length === 0) { showToast('📭 У тебя пока нет NFT. Играй и выигрывай!', false); return; }
+            const rarityNames = { common: 'Обычный', rare: 'Редкий', epic: 'Эпический', legendary: 'Легендарный', mythic: 'Мифический' };
+            let html = '<div style="max-height:400px;overflow-y:auto;padding:5px;">';
+            nfts.forEach(n => {
+                html += `<div style="display:flex;align-items:center;gap:12px;padding:10px;border-bottom:1px solid rgba(255,255,255,0.05);">
+                    <span style="font-size:28px;">${n.emoji}</span>
+                    <div style="flex:1;text-align:left;"><div style="font-size:16px;font-weight:600;color:${n.color};">${n.name}</div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.4);">${rarityNames[n.rarity]}</div></div>
+                    <span style="font-size:12px;color:rgba(255,255,255,0.2);">${new Date(n.obtained).toLocaleDateString()}</span></div>`;
+            });
+            html += '</div>';
+            const toast = document.getElementById('toast');
+            toast.innerHTML = html;
+            toast.style.borderColor = '#f7d44a66';
+            toast.style.maxWidth = '95%';
+            toast.style.borderRadius = '20px';
+            toast.style.padding = '16px';
+            toast.classList.add('show');
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => {
+                toast.innerHTML = '';
+                toast.classList.remove('show');
+                toast.style.maxWidth = '90%';
+                toast.style.borderRadius = '60px';
+                toast.style.padding = '14px 28px';
+            }, 6000);
+        }
+
+        // ===== ПОДАРКИ =====
+        const GIFTS = [
+            { id: 'star_1', name: '⭐ Золотая звезда', emoji: '⭐', cost: 10, color: '#f7d44a' },
+            { id: 'star_2', name: '🌟 Серебряная звезда', emoji: '🌟', cost: 25, color: '#bdc3c7' },
+            { id: 'heart', name: '❤️ Сердце', emoji: '❤️', cost: 15, color: '#e74c3c' },
+            { id: 'crown', name: '👑 Корона', emoji: '👑', cost: 50, color: '#f1c40f' },
+            { id: 'rocket', name: '🚀 Ракета', emoji: '🚀', cost: 30, color: '#3498db' },
+            { id: 'diamond', name: '💎 Алмаз', emoji: '💎', cost: 100, color: '#2ecc71' }
+        ];
+        function openGiftDialog() {
+            const overlay = document.getElementById('giftOverlay');
+            overlay.style.display = 'flex';
+            const list = document.getElementById('giftList');
+            list.innerHTML = GIFTS.map(gift => `<div onclick="sendGift('${gift.id}')" style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:rgba(255,255,255,0.02);border-radius:14px;border:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:0.2s;">
+                <div style="font-size:28px;">${gift.emoji}</div>
+                <div style="flex:1;text-align:left;"><div style="font-size:15px;font-weight:600;color:white;">${gift.name}</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.3);">⭐ ${gift.cost} Stars</div></div>
+                <div style="font-size:20px;color:rgba(255,255,255,0.1);">›</div></div>`).join('');
+        }
+        function closeGiftDialog() { document.getElementById('giftOverlay').style.display = 'none'; }
+        function sendGift(giftId) {
+            const gift = GIFTS.find(g => g.id === giftId);
+            if (!gift) return;
+            const list = document.getElementById('giftList');
+            list.innerHTML = `<div style="text-align:center;padding:20px;color:rgba(255,255,255,0.4);"><div style="font-size:32px;margin-bottom:10px;">⏳</div>Отправка подарка...</div>`;
+            if (window.Telegram && window.Telegram.WebApp) {
+                try {
+                    window.Telegram.WebApp.sendData(JSON.stringify({ action: 'send_gift', gift_id: giftId, user_id: window.Telegram.WebApp.initDataUnsafe.user.id }));
+                    setTimeout(() => {
+                        list.innerHTML = `<div style="text-align:center;padding:20px;"><div style="font-size:48px;">${gift.emoji}</div>
+                            <div style="font-size:18px;font-weight:600;color:#2ecc71;margin-top:8px;">✅ Подарок отправлен!</div>
+                            <div style="font-size:14px;color:rgba(255,255,255,0.4);">${gift.name} появится в твоём профиле</div></div>`;
+                    }, 1500);
+                } catch (e) {
+                    list.innerHTML = `<div style="text-align:center;padding:20px;color:#ff6b6b;"><div style="font-size:32px;">❌</div>
+                        <div style="font-size:16px;font-weight:600;margin-top:8px;">Не удалось отправить</div>
+                        <div style="font-size:14px;color:rgba(255,255,255,0.3);">Попробуй позже</div></div>`;
+                }
+            } else {
+                list.innerHTML = `<div style="text-align:center;padding:20px;"><div style="font-size:48px;">${gift.emoji}</div>
+                    <div style="font-size:18px;font-weight:600;color:#f7d44a;margin-top:8px;">🎁 ${gift.name}</div>
+                    <div style="font-size:14px;color:rgba(255,255,255,0.3);">(Демо-режим: подарок будет отправлен в Telegram)</div></div>`;
             }
         }
-        updateNFTBadge();
 
-        // ============================
-        // 8. ПРОФИЛЬ
-        // ============================
-        document.getElementById('profileGames').textContent = localStorage.getItem('totalGames') || 0;
-        document.getElementById('profileWins').textContent = localStorage.getItem('totalWins') || 0;
-        document.getElementById('profileBest').textContent = localStorage.getItem('bestWin') || 0;
-
-        if (window.Telegram && window.Telegram.WebApp) {
-            const user = window.Telegram.WebApp.initDataUnsafe.user;
-            if (user) {
-                document.getElementById('profileName').textContent = user.first_name || 'Игрок';
-                document.getElementById('profileId').textContent = 'ID: ' + user.id;
+        // ===== ИГРА =====
+        let game = { active: false, round: 0, baseBet: 0, currentBet: 0, maxRounds: 10, isFlipping: false, winAmount: 0 };
+        function updateUI() {
+            document.getElementById('roundNum').textContent = game.round;
+            document.getElementById('currentBet').textContent = game.currentBet;
+            document.getElementById('potentialWin').textContent = game.winAmount;
+            const playBtn = document.getElementById('playBtn');
+            const takeBtn = document.getElementById('takeBtn');
+            const riskBtn = document.getElementById('riskBtn');
+            if (game.active) {
+                playBtn.disabled = true;
+                takeBtn.disabled = false;
+                riskBtn.disabled = (game.round >= game.maxRounds);
+            } else {
+                playBtn.disabled = false;
+                takeBtn.disabled = true;
+                riskBtn.disabled = true;
+            }
+            if (game.round >= game.maxRounds) { riskBtn.textContent = '🔥 MAX'; } else { riskBtn.textContent = '⚡ Рискнуть'; }
+        }
+        function startGame() {
+            if (game.active) return;
+            const betInput = document.getElementById('betInput');
+            let bet = parseInt(betInput.value);
+            if (isNaN(bet) || bet < 5) { showToast('❌ Минимум 5 монет', false); return; }
+            if (bet > balance) { showToast('❌ Не хватает монет', false); return; }
+            balance -= bet;
+            updateBalanceDisplay();
+            game.active = true;
+            game.round = 0;
+            game.baseBet = bet;
+            game.currentBet = bet;
+            game.winAmount = bet * 2;
+            document.getElementById('coinResult').textContent = '🎯 Игра началась!';
+            document.getElementById('coinResult').className = 'result';
+            updateUI();
+            showToast('🎮 Ставка ' + bet + ' монет', true);
+            setTimeout(() => playRound(), 450);
+        }
+        function playRound() {
+            if (!game.active || game.isFlipping) return;
+            if (game.round >= game.maxRounds) { showToast('🔥 Максимум! Забери выигрыш', false); return; }
+            game.isFlipping = true;
+            playCoinFlipSound();
+            const coin = document.getElementById('coin3d');
+            const result = Math.random() < 0.5 ? 'heads' : 'tails';
+            const isWin = result === 'heads';
+            const flips = 4 + Math.floor(Math.random() * 4);
+            const finalAngle = isWin ? 0 : 180;
+            const totalRotation = flips * 360 + finalAngle;
+            coin.classList.add('flipping');
+            coin.style.transform = `rotateY(${totalRotation}deg)`;
+            document.getElementById('coinResult').textContent = '...';
+            setTimeout(() => {
+                coin.classList.remove('flipping');
+                coin.style.transform = `rotateY(${finalAngle}deg)`;
+                if (isWin) {
+                    game.round++;
+                    game.currentBet = game.baseBet * Math.pow(2, game.round);
+                    game.winAmount = game.currentBet * 2;
+                    document.getElementById('coinResult').className = 'result win';
+                    document.getElementById('coinResult').textContent = '✅ Орёл! +' + game.winAmount + ' монет';
+                    showToast('🎉 Раунд ' + game.round + '! +' + game.winAmount + ' монет', true);
+                    playWinSound();
+                    tryGiveNFT();
+                } else {
+                    document.getElementById('coinResult').className = 'result lose';
+                    document.getElementById('coinResult').textContent = '❌ Решка... Проигрыш';
+                    showToast('😢 Проиграл ' + game.currentBet + ' монет', false);
+                    playLoseSound();
+                    endGame(false);
+                    return;
+                }
+                game.isFlipping = false;
+                if (game.round >= game.maxRounds) {
+                    document.getElementById('coinResult').textContent = '🏆 MAX! Забери ' + game.winAmount + ' монет';
+                    updateUI();
+                    setTimeout(() => takeWin(), 700);
+                    return;
+                }
+                updateUI();
+            }, 1800);
+        }
+        function takeWin() {
+            if (!game.active || game.winAmount <= 0) return;
+            balance += game.winAmount;
+            updateBalanceDisplay();
+            showToast('💰 Забрал ' + game.winAmount + ' монет!', true);
+            document.getElementById('coinResult').className = 'result win';
+            document.getElementById('coinResult').textContent = '💰 Забрано ' + game.winAmount + ' монет';
+            playWinSound();
+            endGame(true);
+        }
+        function endGame(wasWin) {
+            game.active = false;
+            game.isFlipping = false;
+            updateUI();
+            if (!wasWin) {
+                document.getElementById('coinResult').className = 'result lose';
+                document.getElementById('coinResult').textContent = '💔 Игра окончена';
             }
         }
 
-        // ============================
-        // 9. ПРИВЕТСТВИЕ
-        // ============================
-        if (balance === 1000) {
-            setTimeout(() => showToast('💰 Добро пожаловать в VIP Casino!'), 400);
-        }
-
-        console.log('🎰 VIP Casino загружен!');
-        console.log('💰 Баланс:', balance);
-        console.log('👆 Свайпай влево/вправо для переключения вкладок');
+        // ===== СТАРТ =====
+        updateUI();
+        document.getElementById('coinResult').textContent = 'Нажми «Играть»';
+        if (balance === 1000) { setTimeout(() => showToast('💰 Добро пожаловать!', true), 400); }
     </script>
 </body>
 </html>
