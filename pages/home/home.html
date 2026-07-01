@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>🐰 Rabbits</title>
     
-    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
     <style>
@@ -18,7 +17,7 @@
 
         body {
             font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
-            background: #0f0f1a;
+            background: #0a0a12;
             color: #fff;
             min-height: 100vh;
             overflow: hidden;
@@ -30,7 +29,7 @@
             width: 100%;
             height: 100vh;
             margin: 0 auto;
-            background: radial-gradient(ellipse at 50% 0%, #1a1a2e 0%, #0f0f1a 70%);
+            background: radial-gradient(ellipse at 50% 0%, #141428 0%, #0a0a12 70%);
             display: flex;
             flex-direction: column;
             position: relative;
@@ -38,7 +37,7 @@
         }
 
         .header {
-            padding: 16px 20px 12px;
+            padding: 16px 20px 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -48,302 +47,177 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 800;
             color: #fff;
             text-decoration: none;
-            cursor: pointer;
         }
         .header .logo img {
-            width: 36px;
-            height: 36px;
-            object-fit: contain;
+            width: 32px;
+            height: 32px;
         }
         .header .logo span {
             background: linear-gradient(135deg, #f7971e, #ffd200);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .header .actions {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
         .header .coins {
             display: flex;
             align-items: center;
             gap: 6px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            padding: 6px 14px 6px 10px;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 4px 12px 4px 8px;
             border-radius: 40px;
             border: 1px solid rgba(255, 255, 255, 0.04);
             cursor: pointer;
-            transition: 0.2s;
-        }
-        .header .coins:active {
-            transform: scale(0.94);
         }
         .header .coins img {
-            width: 18px;
-            height: 18px;
-            object-fit: contain;
+            width: 16px;
+            height: 16px;
         }
         .header .coins .value {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
             color: #ffd700;
         }
 
         .content {
             flex: 1;
-            overflow-y: auto;
-            padding: 0 20px 80px;
-            scroll-behavior: smooth;
-        }
-        .content::-webkit-scrollbar {
-            width: 0;
-        }
-
-        .referral-card {
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
-            border-radius: 20px;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            margin: 8px 0 16px;
-            backdrop-filter: blur(12px);
-        }
-        .referral-card .title {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 16px;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 4px;
-        }
-        .referral-card .title .percent {
-            color: #4caf50;
-            font-weight: 800;
-            font-size: 18px;
-        }
-        .referral-card .title .percent i {
-            margin-right: 4px;
-        }
-        .referral-card .sub {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.3);
-            margin-bottom: 16px;
-        }
-        .referral-card .invite-btn {
-            display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-            gap: 10px;
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 14px;
-            background: linear-gradient(135deg, #f7971e, #ffd200);
-            color: #1a1a2e;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: transform 0.15s;
-            margin-bottom: 16px;
-        }
-        .referral-card .invite-btn:active {
-            transform: scale(0.96);
-        }
-        .referral-card .invite-btn img {
-            width: 20px;
-            height: 20px;
-            object-fit: contain;
+            align-items: center;
+            padding: 0 20px 80px;
         }
 
-        .stats-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
+        .balance-big {
+            text-align: center;
+            margin-bottom: 30px;
         }
-        .stats-row .stat {
+        .balance-big .label {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.15);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+        }
+        .balance-big .amount {
+            font-size: 52px;
+            font-weight: 800;
+            color: #ffd700;
+            text-shadow: 0 0 60px rgba(255, 215, 0, 0.08);
+        }
+        .balance-big .currency {
+            font-size: 22px;
+            color: rgba(255, 215, 0, 0.3);
+        }
+
+        .live-free-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+            width: 100%;
+            max-width: 300px;
+        }
+        .live-free-row .item {
+            flex: 1;
             background: rgba(255, 255, 255, 0.02);
-            border-radius: 12px;
-            padding: 12px 8px;
+            border-radius: 16px;
+            padding: 14px 10px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.03);
         }
-        .stats-row .stat .num {
-            font-size: 18px;
-            font-weight: 700;
-            color: #ffd700;
-        }
-        .stats-row .stat .num.green {
-            color: #4caf50;
-        }
-        .stats-row .stat .lbl {
-            font-size: 9px;
-            color: rgba(255, 255, 255, 0.2);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 2px;
-        }
-        .stats-row .stat .lbl i {
-            margin-right: 3px;
-        }
-
-        .withdraw-btn {
+        .live-free-row .item .top {
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 8px;
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 12px;
-            background: rgba(76, 175, 80, 0.15);
-            color: #4caf50;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-top: 12px;
-            border: 1px solid rgba(76, 175, 80, 0.15);
-        }
-        .withdraw-btn:active {
-            transform: scale(0.96);
-            background: rgba(76, 175, 80, 0.25);
-        }
-        .withdraw-btn img {
-            width: 18px;
-            height: 18px;
-            object-fit: contain;
-        }
-
-        .tasks-section {
-            margin: 16px 0 12px;
-        }
-        .tasks-section .tasks-header {
-            display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 0 0 8px;
-        }
-        .tasks-section .tasks-header .title {
-            font-size: 16px;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.9);
-        }
-        .tasks-section .tasks-header .title i {
-            margin-right: 8px;
-            color: #ffd700;
-        }
-        .tasks-section .tasks-header .count {
+            gap: 6px;
             font-size: 13px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 4px;
+        }
+        .live-free-row .item .top .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
+        .live-free-row .item .top .dot.green {
+            background: #4caf50;
+        }
+        .live-free-row .item .top .dot.red {
+            background: #ff4444;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .live-free-row .item .number {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+        }
+        .live-free-row .item .number .small {
+            font-size: 14px;
             color: rgba(255, 255, 255, 0.2);
         }
-        .tasks-section .tasks-header .count span {
-            color: #4caf50;
-            font-weight: 700;
+        .live-free-row .item .sub {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
         }
 
-        .task-item {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 14px;
-            padding: 14px 16px;
+        .case-box {
+            width: 100%;
+            max-width: 300px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+            border-radius: 16px;
+            padding: 16px;
             border: 1px solid rgba(255, 255, 255, 0.03);
-            margin-bottom: 8px;
-            transition: 0.2s;
+            text-align: center;
+            margin-bottom: 16px;
             cursor: pointer;
+            transition: 0.2s;
         }
-        .task-item:active {
-            transform: scale(0.98);
+        .case-box:active {
+            transform: scale(0.97);
         }
-        .task-item .icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            background: rgba(255, 255, 255, 0.04);
+        .case-box .icon {
+            font-size: 32px;
+            margin-bottom: 4px;
         }
-        .task-item .icon img {
-            width: 24px;
-            height: 24px;
-            object-fit: contain;
-        }
-        .task-item .info {
-            flex: 1;
-        }
-        .task-item .info .name {
-            font-size: 14px;
+        .case-box .title {
+            font-size: 15px;
             font-weight: 600;
             color: rgba(255, 255, 255, 0.9);
         }
-        .task-item .info .desc {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.2);
+        .case-box .desc {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.15);
             margin-top: 2px;
         }
-        .task-item .status {
-            font-size: 12px;
-            font-weight: 600;
-            padding: 4px 12px;
-            border-radius: 40px;
-            background: rgba(76, 175, 80, 0.15);
-            color: #4caf50;
-            flex-shrink: 0;
-        }
-        .task-item .status.done {
-            background: rgba(76, 175, 80, 0.08);
-            color: rgba(76, 175, 80, 0.4);
-        }
 
-        .promo-section {
-            margin: 12px 0 16px;
-        }
-        .promo-input {
-            display: flex;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 14px;
-            padding: 4px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-        .promo-input input {
-            flex: 1;
-            padding: 12px 16px;
+        .play-btn {
+            width: 100%;
+            max-width: 300px;
+            padding: 16px;
             border: none;
-            background: transparent;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 14px;
-            outline: none;
-        }
-        .promo-input input::placeholder {
-            color: rgba(255, 255, 255, 0.15);
-        }
-        .promo-input button {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 12px;
+            border-radius: 16px;
             background: linear-gradient(135deg, #f7971e, #ffd200);
             color: #1a1a2e;
-            font-size: 14px;
-            font-weight: 700;
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 3px;
             cursor: pointer;
             transition: 0.2s;
-            white-space: nowrap;
+            box-shadow: 0 8px 40px rgba(247, 212, 74, 0.15);
         }
-        .promo-input button:active {
-            transform: scale(0.94);
-        }
-        .promo-input button i {
-            margin-right: 6px;
+        .play-btn:active {
+            transform: scale(0.96);
         }
 
         .nav {
@@ -351,12 +225,12 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(15, 15, 26, 0.95);
+            background: rgba(10, 10, 18, 0.96);
             backdrop-filter: blur(16px);
             border-top: 1px solid rgba(255, 255, 255, 0.03);
             display: flex;
             justify-content: space-around;
-            padding: 8px 0 12px;
+            padding: 6px 0 10px;
             max-width: 430px;
             margin: 0 auto;
             z-index: 100;
@@ -365,32 +239,30 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2px;
-            color: rgba(255, 255, 255, 0.15);
-            font-size: 9px;
+            gap: 1px;
+            color: rgba(255, 255, 255, 0.12);
+            font-size: 8px;
             font-weight: 500;
             letter-spacing: 0.5px;
             background: none;
             border: none;
             cursor: pointer;
-            padding: 4px 16px;
-            text-decoration: none;
+            padding: 4px 12px;
             transition: 0.3s;
             position: relative;
         }
         .nav-item img {
-            width: 28px;
-            height: 28px;
+            width: 24px;
+            height: 24px;
             object-fit: contain;
-            opacity: 0.4;
+            opacity: 0.35;
             transition: 0.3s;
         }
         .nav-item.active img {
             opacity: 1;
         }
         .nav-item .label {
-            font-size: 9px;
-            color: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.12);
             transition: 0.3s;
         }
         .nav-item.active .label {
@@ -399,28 +271,15 @@
         .nav-item:active {
             transform: scale(0.9);
         }
-        .nav-item .badge {
-            position: absolute;
-            top: -2px;
-            right: 6px;
-            background: #ff4444;
-            color: #fff;
-            font-size: 8px;
-            font-weight: 700;
-            padding: 1px 6px;
-            border-radius: 40px;
-            min-width: 16px;
-            text-align: center;
-        }
         .nav-item.rabbit img {
-            width: 44px;
-            height: 44px;
-            margin-top: -12px;
+            width: 40px;
+            height: 40px;
+            margin-top: -10px;
             opacity: 1;
-            filter: drop-shadow(0 4px 20px rgba(247, 212, 74, 0.2));
+            filter: drop-shadow(0 4px 20px rgba(247, 212, 74, 0.15));
         }
         .nav-item.rabbit.active img {
-            filter: drop-shadow(0 4px 30px rgba(247, 212, 74, 0.4));
+            filter: drop-shadow(0 4px 30px rgba(247, 212, 74, 0.3));
         }
 
         .toast {
@@ -457,283 +316,105 @@
                 top: 20px;
             }
         }
-
-        ::-webkit-scrollbar {
-            width: 0;
-        }
-
-        .game-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin: 12px 0;
-        }
-        .game-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            padding: 16px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            cursor: pointer;
-            transition: 0.2s;
-            text-decoration: none;
-            color: #fff;
-        }
-        .game-card:active {
-            transform: scale(0.95);
-        }
-        .game-card img {
-            width: 48px;
-            height: 48px;
-            object-fit: contain;
-            margin-bottom: 8px;
-        }
-        .game-card .name {
-            font-size: 13px;
-            font-weight: 600;
-        }
-        .game-card .desc {
-            font-size: 10px;
-            color: rgba(255, 255, 255, 0.2);
-            margin-top: 2px;
-        }
     </style>
 </head>
 <body>
 
-    <div class="app">
-        <!-- HEADER -->
-        <div class="header">
-            <a class="logo" href="#">
-                <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Логотип">
-                <span>Rabbits</span>
-            </a>
-            <div class="actions">
-                <div class="coins" onclick="showToast('💰 Баланс: 0.00 ₽')">
-                    <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Монеты">
-                    <span class="value">0</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- CONTENT -->
-        <div class="content">
-
-            <!-- ИГРЫ -->
-            <div style="margin: 8px 0 12px;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-                    <div style="font-size:16px;font-weight:600;color:rgba(255,255,255,0.9);">
-                        <i class="fas fa-gamepad" style="color:#ffd700;margin-right:8px;"></i>Игры
-                    </div>
-                </div>
-                <div class="game-grid">
-                    <a href="pages/games/coin.html" class="game-card">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Монетка">
-                        <div class="name">🎯 Монетка</div>
-                        <div class="desc">Орёл или решка</div>
-                    </a>
-                    <a href="pages/games/roulette.html" class="game-card">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1045/1045516.png" alt="Рулетка">
-                        <div class="name">🎡 Рулетка</div>
-                        <div class="desc">Крути колесо</div>
-                    </a>
-                    <a href="pages/games/blackjack.html" class="game-card">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1045/1045485.png" alt="Блэкджек">
-                        <div class="name">🃏 Блэкджек</div>
-                        <div class="desc">21 очко</div>
-                    </a>
-                    <a href="pages/games/games.html" class="game-card" style="border-color:rgba(247,212,74,0.1);background:rgba(247,212,74,0.03);">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1045/1045534.png" alt="Все игры">
-                        <div class="name" style="color:#ffd700;">🎮 Все игры</div>
-                        <div class="desc">Смотреть всё</div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- REFERRAL CARD -->
-            <div class="referral-card">
-                <div class="title">
-                    <span><i class="fas fa-users" style="color:#ffd700;margin-right:8px;"></i>Пригласить друзей</span>
-                    <span class="percent"><i class="fas fa-percent"></i>10%</span>
-                </div>
-                <div class="sub">
-                    <i class="fas fa-gift" style="color:rgba(255,255,255,0.15);margin-right:6px;"></i>
-                    Приглашай рефералов и получай 10% от их депозитов
-                </div>
-                <button class="invite-btn" onclick="copyReferralLink()">
-                    <img src="https://cdn-icons-png.flaticon.com/512/722/722174.png" alt="Пригласить">
-                    Пригласить друзей
-                </button>
-
-                <div class="stats-row">
-                    <div class="stat">
-                        <div class="num">0.00 ₽</div>
-                        <div class="lbl"><i class="fas fa-arrow-up"></i>Доступно к выводу</div>
-                    </div>
-                    <div class="stat">
-                        <div class="num">0</div>
-                        <div class="lbl"><i class="fas fa-user-plus"></i>Приглашено</div>
-                    </div>
-                    <div class="stat">
-                        <div class="num green">0.00 ₽</div>
-                        <div class="lbl"><i class="fas fa-arrow-down"></i>Всего выведено</div>
-                    </div>
-                </div>
-
-                <button class="withdraw-btn" onclick="showToast('💸 Вывод средств (в разработке)')">
-                    <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Вывод">
-                    Забрать
-                </button>
-            </div>
-
-            <!-- TASKS -->
-            <div class="tasks-section">
-                <div class="tasks-header">
-                    <div class="title">
-                        <i class="fas fa-tasks"></i>Задания
-                    </div>
-                    <div class="count"><span>3</span>/3</div>
-                </div>
-
-                <div class="task-item" onclick="showToast('✅ Задание выполнено!')">
-                    <div class="icon">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2541/2541987.png" alt="Telegram">
-                    </div>
-                    <div class="info">
-                        <div class="name">Подписаться на канал</div>
-                        <div class="desc">+50 монет</div>
-                    </div>
-                    <div class="status"><i class="fas fa-check"></i> Выполнено</div>
-                </div>
-
-                <div class="task-item" onclick="showToast('✅ Задание выполнено!')">
-                    <div class="icon">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="Друзья">
-                    </div>
-                    <div class="info">
-                        <div class="name">Пригласить 5 друзей</div>
-                        <div class="desc">+200 монет</div>
-                    </div>
-                    <div class="status"><i class="fas fa-check"></i> Выполнено</div>
-                </div>
-
-                <div class="task-item" onclick="showToast('✅ Задание выполнено!')">
-                    <div class="icon">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2645/2645877.png" alt="Игра">
-                    </div>
-                    <div class="info">
-                        <div class="name">Сыграть 10 игр</div>
-                        <div class="desc">+100 монет</div>
-                    </div>
-                    <div class="status"><i class="fas fa-check"></i> Выполнено</div>
-                </div>
-            </div>
-
-            <!-- PROMO -->
-            <div class="promo-section">
-                <div class="promo-input">
-                    <input type="text" placeholder="Ввести промокод" id="promoInput">
-                    <button onclick="applyPromo()">
-                        <i class="fas fa-ticket-alt"></i> Активировать
-                    </button>
-                </div>
-            </div>
-
-            <div style="text-align:center;padding:8px 0 16px;font-size:10px;color:rgba(255,255,255,0.03);letter-spacing:2px;">
-                Rabbits v2.0
-            </div>
-        </div>
-
-        <!-- BOTTOM NAV -->
-        <div class="nav">
-            <button class="nav-item" onclick="showToast('🏆 Топ игроков')">
-                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Топ">
-                <span class="label">Топ</span>
-            </button>
-            <button class="nav-item active" onclick="showToast('🏠 Главная')">
-                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828793.png" alt="Главная">
-                <span class="label">Главная</span>
-            </button>
-            <button class="nav-item rabbit" onclick="showToast('🐰 Rabbit')">
-                <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Rabbit">
-                <span class="label">Rabbit</span>
-                <span class="badge">3</span>
-            </button>
-            <button class="nav-item" onclick="window.location.href='pages/profile/profile.html'">
-                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828478.png" alt="Профиль">
-                <span class="label">Профиль</span>
-            </button>
+<div class="app">
+    <!-- HEADER -->
+    <div class="header">
+        <a class="logo" href="#">
+            <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Логотип">
+            <span>Rabbits</span>
+        </a>
+        <div class="coins" onclick="showToast('💰 Баланс: 0.00 ₽')">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Монеты">
+            <span class="value">0</span>
         </div>
     </div>
 
-    <!-- TOAST -->
-    <div class="toast" id="toast"></div>
+    <!-- CONTENT -->
+    <div class="content">
+        <!-- BALANCE -->
+        <div class="balance-big">
+            <div class="label">💰 Баланс</div>
+            <div class="amount">0 <span class="currency">₽</span></div>
+        </div>
 
-    <script>
-        // ===== TOAST =====
-        let toastTimer = null;
+        <!-- LIVE + FREE -->
+        <div class="live-free-row">
+            <div class="item">
+                <div class="top">
+                    <span class="dot green"></span> LIVE
+                </div>
+                <div class="number">2 <span class="small">/ 4</span></div>
+                <div class="sub">Игроков</div>
+            </div>
+            <div class="item">
+                <div class="top">
+                    <span class="dot red"></span> FREE
+                </div>
+                <div class="number">0.2 <span class="small">₽</span></div>
+                <div class="sub">Бесплатный кейс</div>
+            </div>
+        </div>
 
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            toast.textContent = msg;
-            toast.classList.add('show');
-            clearTimeout(toastTimer);
-            toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
-        }
+        <!-- CASE -->
+        <div class="case-box" onclick="showToast('📦 Кейс за депозит (скоро)')">
+            <div class="icon">📦</div>
+            <div class="title">Кейс за депозит</div>
+            <div class="desc">Пополни баланс и получи бонус</div>
+        </div>
 
-        // ===== РЕФЕРАЛКА =====
-        function getUserId() {
-            try {
-                if (window.Telegram && window.Telegram.WebApp) {
-                    const user = Telegram.WebApp.initDataUnsafe.user;
-                    if (user) return user.id;
-                }
-            } catch {}
-            return Math.floor(Math.random() * 1000000);
-        }
+        <!-- PLAY BUTTON -->
+        <button class="play-btn" onclick="window.location.href='../games/games.html'">
+            ИГРАТЬ!
+        </button>
+    </div>
 
-        function copyReferralLink() {
-            const link = `https://t.me/MyRabbitsBot?start=ref_${getUserId()}`;
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(link).then(() => {
-                    showToast('📋 Ссылка скопирована!');
-                }).catch(() => {
-                    showToast('📋 Ссылка: ' + link);
-                });
-            } else {
-                showToast('📋 Ссылка: ' + link);
-            }
-        }
+    <!-- NAV -->
+    <div class="nav">
+        <button class="nav-item" onclick="showToast('🏆 Топ игроков')">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Топ">
+            <span class="label">Топ</span>
+        </button>
+        <button class="nav-item active" onclick="showToast('🏠 Главная')">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828793.png" alt="Главная">
+            <span class="label">Главная</span>
+        </button>
+        <button class="nav-item rabbit" onclick="showToast('🐰 Rabbit')">
+            <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Rabbit">
+            <span class="label">Rabbit</span>
+        </button>
+        <button class="nav-item" onclick="window.location.href='../profile/profile.html'">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828478.png" alt="Профиль">
+            <span class="label">Профиль</span>
+        </button>
+    </div>
+</div>
 
-        // ===== ПРОМОКОД =====
-        function applyPromo() {
-            const input = document.getElementById('promoInput');
-            const code = input.value.trim();
-            if (!code) {
-                showToast('⚠️ Введите промокод');
-                return;
-            }
-            showToast(`🎉 Промокод "${code}" активирован!`);
-            input.value = '';
-        }
+<div class="toast" id="toast"></div>
 
-        // ===== НАВИГАЦИЯ =====
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function() {
-                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-                this.classList.add('active');
-            });
+<script>
+    let toastTimer = null;
+
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
+    }
+
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', function() {
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
         });
+    });
 
-        // ===== СТАРТ =====
-        setTimeout(() => showToast('🐰 Добро пожаловать в Rabbits!'), 400);
-
-        console.log('🐰 Rabbits загружен!');
-        console.log('📁 Структура:', {
-            games: 'pages/games/',
-            profile: 'pages/profile/profile.html'
-        });
-    </script>
+    setTimeout(() => showToast('🐰 Добро пожаловать в Rabbits!'), 400);
+</script>
 
 </body>
 </html>
