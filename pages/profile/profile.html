@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>👤 Профиль — VIP Casino</title>
+    <title>🎰 VIP Casino</title>
     <style>
         * {
             margin: 0;
@@ -75,6 +74,7 @@
             background: linear-gradient(135deg, #f7d44a, #ff6b6b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            cursor: pointer;
         }
         .header .right {
             display: flex;
@@ -458,7 +458,7 @@
             <!-- ===== СТРАНИЦА 1: ГЛАВНАЯ ===== -->
             <div class="page" id="pageHome">
                 <div class="header">
-                    <div class="logo">🎰 VIP CASINO</div>
+                    <div class="logo" onclick="goToPage(0)">🎰 VIP CASINO</div>
                     <div class="right">
                         <div class="coins" onclick="openDeposit()">
                             <span>⭐</span>
@@ -469,6 +469,316 @@
 
                 <div class="balance-wrap">
                     <div class="balance" id="balanceDisplay1">💰 1000</div>
+                </div>
+
+                <div style="text-align:center; padding:20px 0;">
+                    <div style="font-size:28px; font-weight:700; color:#f7d44a;">🏠 Главная</div>
+                    <div style="font-size:13px; color:rgba(255,255,255,0.15); margin-top:4px; letter-spacing:2px; text-transform:uppercase;">Добро пожаловать в VIP Casino!</div>
+                </div>
+
+                <div style="display:flex; gap:12px; margin:12px 0;">
+                    <button onclick="goToPage(1)" style="flex:1; padding:16px; border:none; border-radius:16px; background:linear-gradient(145deg, #f7d44a, #dbb84a); color:#1a1a2e; font-size:18px; font-weight:800; letter-spacing:2px; cursor:pointer; box-shadow:0 6px 30px rgba(247,212,74,0.08);">
+                        🎮 ИГРАТЬ! →
+                    </button>
+                </div>
+
+                <div style="display:flex; gap:12px; margin:8px 0;">
+                    <button onclick="goToPage(2)" style="flex:1; padding:16px; border:none; border-radius:16px; background:rgba(255,255,255,0.03); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.04); color:white; font-size:18px; font-weight:800; letter-spacing:2px; cursor:pointer;">
+                        💎 ХРАНИЛИЩЕ →
+                    </button>
+                </div>
+
+                <div style="display:flex; gap:12px; margin:8px 0;">
+                    <button onclick="goToPage(3)" style="flex:1; padding:16px; border:none; border-radius:16px; background:rgba(255,255,255,0.03); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.04); color:white; font-size:18px; font-weight:800; letter-spacing:2px; cursor:pointer;">
+                        👤 ПРОФИЛЬ →
+                    </button>
+                </div>
+
+                <div style="text-align:center; margin-top:16px; font-size:11px; color:rgba(255,255,255,0.04); letter-spacing:2px;">
+                    VIP Casino v2.0
+                </div>
+            </div>
+
+            <!-- ===== СТРАНИЦА 2: ИГРЫ (С КАРТИНКАМИ) ===== -->
+            <div class="page" id="pageGames">
+                <div class="header">
+                    <div class="logo" onclick="goToPage(0)">🎰 VIP CASINO</div>
+                    <div class="right">
+                        <div class="coins" onclick="openDeposit()">
+                            <span>⭐</span>
+                            <span id="headerStars2">100</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="balance-wrap">
+                    <div class="balance" id="balanceDisplay2">💰 1000</div>
+                </div>
+
+                <div style="text-align:center; padding:12px 0;">
+                    <div style="font-size:24px; font-weight:700; color:#f7d44a;">🎮 Игры</div>
+                    <div style="font-size:12px; color:rgba(255,255,255,0.15); letter-spacing:2px; text-transform:uppercase; margin-top:2px;">Выбери игру и выигрывай!</div>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:12px; margin-top:8px;">
+
+                    <!-- ===== МОНЕТКА (С КАРТИНКОЙ) ===== -->
+                    <a href="../games/coin.html" style="
+                        display: block;
+                        background: rgba(255,255,255,0.02);
+                        backdrop-filter: blur(12px);
+                        border-radius: 18px;
+                        border: 1px solid rgba(255,255,255,0.03);
+                        text-decoration: none;
+                        color: white;
+                        overflow: hidden;
+                        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+                        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                        cursor: pointer;
+                    ">
+                        <div style="
+                            width: 100%;
+                            height: 150px;
+                            background-image: url('https://rabbits.gift/assets/coin.webp');
+                            background-size: cover;
+                            background-position: center;
+                            position: relative;
+                        ">
+                            <div style="
+                                position: absolute;
+                                bottom: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 60%;
+                                background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+                            "></div>
+                            <div style="
+                                position: absolute;
+                                bottom: 10px;
+                                right: 12px;
+                                background: linear-gradient(145deg, #f7d44a, #dbb84a);
+                                color: #1a1a2e;
+                                padding: 4px 14px;
+                                border-radius: 40px;
+                                font-size: 13px;
+                                font-weight: 700;
+                                letter-spacing: 1px;
+                                box-shadow: 0 4px 15px rgba(247,212,74,0.3);
+                            ">
+                                ▶ ИГРАТЬ
+                            </div>
+                        </div>
+                        <div style="padding: 14px 18px 18px; display: flex; align-items: center; gap: 12px;">
+                            <div style="
+                                width: 44px;
+                                height: 44px;
+                                background: rgba(247,212,74,0.08);
+                                border-radius: 12px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-size: 24px;
+                            ">🪙</div>
+                            <div style="flex: 1; text-align: left;">
+                                <div style="font-size: 17px; font-weight: 700;">Монетка</div>
+                                <div style="font-size: 12px; color: rgba(255,255,255,0.3);">Орёл или решка до x100</div>
+                            </div>
+                            <div style="font-size: 20px; color: rgba(255,255,255,0.05);">›</div>
+                        </div>
+                    </a>
+
+                    <!-- ===== РУЛЕТКА ===== -->
+                    <a href="../games/roulette.html" style="
+                        display: block;
+                        background: rgba(255,255,255,0.02);
+                        backdrop-filter: blur(12px);
+                        border-radius: 18px;
+                        border: 1px solid rgba(255,255,255,0.03);
+                        text-decoration: none;
+                        color: white;
+                        overflow: hidden;
+                        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+                        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                        cursor: pointer;
+                    ">
+                        <div style="
+                            width: 100%;
+                            height: 150px;
+                            background-image: url('https://images.unsplash.com/photo-1606167668584-78701c57f13d?w=400&h=200&fit=crop');
+                            background-size: cover;
+                            background-position: center;
+                            position: relative;
+                        ">
+                            <div style="
+                                position: absolute;
+                                bottom: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 60%;
+                                background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+                            "></div>
+                            <div style="
+                                position: absolute;
+                                bottom: 10px;
+                                right: 12px;
+                                background: linear-gradient(145deg, #f7d44a, #dbb84a);
+                                color: #1a1a2e;
+                                padding: 4px 14px;
+                                border-radius: 40px;
+                                font-size: 13px;
+                                font-weight: 700;
+                                letter-spacing: 1px;
+                                box-shadow: 0 4px 15px rgba(247,212,74,0.3);
+                            ">
+                                ▶ ИГРАТЬ
+                            </div>
+                        </div>
+                        <div style="padding: 14px 18px 18px; display: flex; align-items: center; gap: 12px;">
+                            <div style="
+                                width: 44px;
+                                height: 44px;
+                                background: rgba(231,76,60,0.08);
+                                border-radius: 12px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-size: 24px;
+                            ">🎡</div>
+                            <div style="flex: 1; text-align: left;">
+                                <div style="font-size: 17px; font-weight: 700;">Рулетка</div>
+                                <div style="font-size: 12px; color: rgba(255,255,255,0.3);">Красное / Чёрное</div>
+                            </div>
+                            <div style="font-size: 20px; color: rgba(255,255,255,0.05);">›</div>
+                        </div>
+                    </a>
+
+                    <!-- ===== БЛЭКДЖЕК ===== -->
+                    <a href="../games/blackjack.html" style="
+                        display: block;
+                        background: rgba(255,255,255,0.02);
+                        backdrop-filter: blur(12px);
+                        border-radius: 18px;
+                        border: 1px solid rgba(255,255,255,0.03);
+                        text-decoration: none;
+                        color: white;
+                        overflow: hidden;
+                        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+                        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                        cursor: pointer;
+                    ">
+                        <div style="
+                            width: 100%;
+                            height: 150px;
+                            background-image: url('https://images.unsplash.com/photo-1541278107930-e5d7a3d5e4b8?w=400&h=200&fit=crop');
+                            background-size: cover;
+                            background-position: center;
+                            position: relative;
+                        ">
+                            <div style="
+                                position: absolute;
+                                bottom: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 60%;
+                                background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+                            "></div>
+                            <div style="
+                                position: absolute;
+                                bottom: 10px;
+                                right: 12px;
+                                background: linear-gradient(145deg, #f7d44a, #dbb84a);
+                                color: #1a1a2e;
+                                padding: 4px 14px;
+                                border-radius: 40px;
+                                font-size: 13px;
+                                font-weight: 700;
+                                letter-spacing: 1px;
+                                box-shadow: 0 4px 15px rgba(247,212,74,0.3);
+                            ">
+                                ▶ ИГРАТЬ
+                            </div>
+                        </div>
+                        <div style="padding: 14px 18px 18px; display: flex; align-items: center; gap: 12px;">
+                            <div style="
+                                width: 44px;
+                                height: 44px;
+                                background: rgba(46,204,113,0.08);
+                                border-radius: 12px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-size: 24px;
+                            ">🃏</div>
+                            <div style="flex: 1; text-align: left;">
+                                <div style="font-size: 17px; font-weight: 700;">Блэкджек</div>
+                                <div style="font-size: 12px; color: rgba(255,255,255,0.3);">21 против дилера</div>
+                            </div>
+                            <div style="font-size: 20px; color: rgba(255,255,255,0.05);">›</div>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- ===== СТРАНИЦА 3: ХРАНИЛИЩЕ ===== -->
+            <div class="page" id="pageNFT">
+                <div class="header">
+                    <div class="logo" onclick="goToPage(0)">🎰 VIP CASINO</div>
+                    <div class="right">
+                        <div class="coins" onclick="openDeposit()">
+                            <span>⭐</span>
+                            <span id="headerStars3">100</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="balance-wrap">
+                    <div class="balance" id="balanceDisplay3">💰 1000</div>
+                </div>
+
+                <div style="text-align:center; padding:12px 0;">
+                    <div style="font-size:24px; font-weight:700; background:linear-gradient(135deg, #b388ff, #7c4dff); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">💎 Хранилище</div>
+                    <div style="font-size:12px; color:rgba(255,255,255,0.15); letter-spacing:2px; text-transform:uppercase; margin-top:2px;">Твои коллекционные карточки</div>
+                </div>
+
+                <div style="display:flex; gap:10px; margin:8px 0 14px;">
+                    <div style="flex:1; background:rgba(255,255,255,0.02); border-radius:14px; padding:12px 8px; text-align:center; border:1px solid rgba(255,255,255,0.03);">
+                        <div style="font-size:24px; font-weight:700; color:#b388ff;" id="totalNFT">0</div>
+                        <div style="font-size:10px; color:rgba(255,255,255,0.15); text-transform:uppercase; letter-spacing:1px; margin-top:2px;">Всего NFT</div>
+                    </div>
+                    <div style="flex:1; background:rgba(255,255,255,0.02); border-radius:14px; padding:12px 8px; text-align:center; border:1px solid rgba(255,255,255,0.03);">
+                        <div style="font-size:24px; font-weight:700; color:#b388ff;" id="rarestNFT">—</div>
+                        <div style="font-size:10px; color:rgba(255,255,255,0.15); text-transform:uppercase; letter-spacing:1px; margin-top:2px;">Редчайший</div>
+                    </div>
+                </div>
+
+                <div id="nftList">
+                    <div style="text-align:center; padding:40px 20px; color:rgba(255,255,255,0.08);">
+                        <span style="font-size:56px; display:block; margin-bottom:8px; opacity:0.3;">📭</span>
+                        <div style="font-size:16px; color:rgba(255,255,255,0.15);">У тебя пока нет NFT</div>
+                        <div style="font-size:12px; margin-top:4px; color:rgba(255,255,255,0.06);">Играй в монетку, чтобы получить NFT!</div>
+                    </div>
+                </div>
+
+                <div style="text-align:center; margin-top:16px; font-size:11px; color:rgba(255,255,255,0.04); letter-spacing:2px;">
+                    NFT выпадают при победе в монетке
+                </div>
+            </div>
+
+            <!-- ===== СТРАНИЦА 4: ПРОФИЛЬ ===== -->
+            <div class="page" id="pageProfile">
+                <div class="header">
+                    <div class="logo" onclick="goToPage(0)">🎰 VIP CASINO</div>
+                    <div class="right">
+                        <div class="coins" onclick="openDeposit()">
+                            <span>⭐</span>
+                            <span id="headerStars4">100</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="balance-wrap">
+                    <div class="balance" id="balanceDisplay4">💰 1000</div>
                 </div>
 
                 <div class="profile-header">
@@ -517,175 +827,6 @@
                         </div>
                         <div class="item">
                             <div class="num" id="refEarned">0</div>
-                            <div class="lbl">Заработано</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="text-align:center; padding:12px; color:rgba(255,255,255,0.04); font-size:10px; letter-spacing:2px;">
-                    VIP Casino v2.0
-                </div>
-            </div>
-
-            <!-- ===== СТРАНИЦА 2: ИГРЫ ===== -->
-            <div class="page" id="pageGames">
-                <div class="header">
-                    <div class="logo">🎰 VIP CASINO</div>
-                    <div class="right">
-                        <div class="coins" onclick="openDeposit()">
-                            <span>⭐</span>
-                            <span id="headerStars2">100</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="balance-wrap">
-                    <div class="balance" id="balanceDisplay2">💰 1000</div>
-                </div>
-
-                <div style="text-align:center; padding:12px 0;">
-                    <div style="font-size:24px; font-weight:700; color:#f7d44a;">🎮 Игры</div>
-                    <div style="font-size:12px; color:rgba(255,255,255,0.15); letter-spacing:2px; text-transform:uppercase; margin-top:2px;">Выбери игру и выигрывай!</div>
-                </div>
-
-                <div style="display:flex; flex-direction:column; gap:12px; margin-top:8px;">
-                    <a href="../games/coin.html" style="background:rgba(255,255,255,0.02); backdrop-filter:blur(12px); border-radius:18px; padding:18px 20px; border:1px solid rgba(255,255,255,0.03); text-decoration:none; color:white; display:flex; align-items:center; gap:14px; transition:all 0.3s;">
-                        <div style="font-size:32px; width:50px; height:50px; display:flex; align-items:center; justify-content:center; background:rgba(247,212,74,0.05); border-radius:14px;">🪙</div>
-                        <div style="flex:1; text-align:left;">
-                            <div style="font-size:17px; font-weight:700;">Монетка</div>
-                            <div style="font-size:12px; color:rgba(255,255,255,0.2);">Орёл или решка до x100</div>
-                        </div>
-                        <div style="font-size:9px; padding:2px 10px; border-radius:40px; background:rgba(247,212,74,0.08); color:#f7d44a; border:1px solid rgba(247,212,74,0.05);">🔥</div>
-                        <div style="font-size:20px; color:rgba(255,255,255,0.05);">›</div>
-                    </a>
-                    <a href="../games/roulette.html" style="background:rgba(255,255,255,0.02); backdrop-filter:blur(12px); border-radius:18px; padding:18px 20px; border:1px solid rgba(255,255,255,0.03); text-decoration:none; color:white; display:flex; align-items:center; gap:14px; transition:all 0.3s;">
-                        <div style="font-size:32px; width:50px; height:50px; display:flex; align-items:center; justify-content:center; background:rgba(231,76,60,0.05); border-radius:14px;">🎡</div>
-                        <div style="flex:1; text-align:left;">
-                            <div style="font-size:17px; font-weight:700;">Рулетка</div>
-                            <div style="font-size:12px; color:rgba(255,255,255,0.2);">Красное / Чёрное</div>
-                        </div>
-                        <div style="font-size:9px; padding:2px 10px; border-radius:40px; background:rgba(247,212,74,0.08); color:#f7d44a; border:1px solid rgba(247,212,74,0.05);">🎯</div>
-                        <div style="font-size:20px; color:rgba(255,255,255,0.05);">›</div>
-                    </a>
-                    <a href="../games/blackjack.html" style="background:rgba(255,255,255,0.02); backdrop-filter:blur(12px); border-radius:18px; padding:18px 20px; border:1px solid rgba(255,255,255,0.03); text-decoration:none; color:white; display:flex; align-items:center; gap:14px; transition:all 0.3s;">
-                        <div style="font-size:32px; width:50px; height:50px; display:flex; align-items:center; justify-content:center; background:rgba(46,204,113,0.05); border-radius:14px;">🃏</div>
-                        <div style="flex:1; text-align:left;">
-                            <div style="font-size:17px; font-weight:700;">Блэкджек</div>
-                            <div style="font-size:12px; color:rgba(255,255,255,0.2);">21 против дилера</div>
-                        </div>
-                        <div style="font-size:9px; padding:2px 10px; border-radius:40px; background:rgba(247,212,74,0.08); color:#f7d44a; border:1px solid rgba(247,212,74,0.05);">♠</div>
-                        <div style="font-size:20px; color:rgba(255,255,255,0.05);">›</div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- ===== СТРАНИЦА 3: ХРАНИЛИЩЕ ===== -->
-            <div class="page" id="pageNFT">
-                <div class="header">
-                    <div class="logo">🎰 VIP CASINO</div>
-                    <div class="right">
-                        <div class="coins" onclick="openDeposit()">
-                            <span>⭐</span>
-                            <span id="headerStars3">100</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="balance-wrap">
-                    <div class="balance" id="balanceDisplay3">💰 1000</div>
-                </div>
-
-                <div style="text-align:center; padding:12px 0;">
-                    <div style="font-size:24px; font-weight:700; background:linear-gradient(135deg, #b388ff, #7c4dff); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">💎 Хранилище</div>
-                    <div style="font-size:12px; color:rgba(255,255,255,0.15); letter-spacing:2px; text-transform:uppercase; margin-top:2px;">Твои коллекционные карточки</div>
-                </div>
-
-                <div style="display:flex; gap:10px; margin:8px 0 14px;">
-                    <div style="flex:1; background:rgba(255,255,255,0.02); border-radius:14px; padding:12px 8px; text-align:center; border:1px solid rgba(255,255,255,0.03);">
-                        <div style="font-size:24px; font-weight:700; color:#b388ff;" id="totalNFT">0</div>
-                        <div style="font-size:10px; color:rgba(255,255,255,0.15); text-transform:uppercase; letter-spacing:1px; margin-top:2px;">Всего NFT</div>
-                    </div>
-                    <div style="flex:1; background:rgba(255,255,255,0.02); border-radius:14px; padding:12px 8px; text-align:center; border:1px solid rgba(255,255,255,0.03);">
-                        <div style="font-size:24px; font-weight:700; color:#b388ff;" id="rarestNFT">—</div>
-                        <div style="font-size:10px; color:rgba(255,255,255,0.15); text-transform:uppercase; letter-spacing:1px; margin-top:2px;">Редчайший</div>
-                    </div>
-                </div>
-
-                <div id="nftList">
-                    <div style="text-align:center; padding:40px 20px; color:rgba(255,255,255,0.08);">
-                        <span style="font-size:56px; display:block; margin-bottom:8px; opacity:0.3;">📭</span>
-                        <div style="font-size:16px; color:rgba(255,255,255,0.15);">У тебя пока нет NFT</div>
-                        <div style="font-size:12px; margin-top:4px; color:rgba(255,255,255,0.06);">Играй в монетку, чтобы получить NFT!</div>
-                    </div>
-                </div>
-
-                <div style="text-align:center; margin-top:16px; font-size:11px; color:rgba(255,255,255,0.04); letter-spacing:2px;">
-                    NFT выпадают при победе в монетке
-                </div>
-            </div>
-
-            <!-- ===== СТРАНИЦА 4: ПРОФИЛЬ ===== -->
-            <div class="page" id="pageProfile">
-                <div class="header">
-                    <div class="logo">🎰 VIP CASINO</div>
-                    <div class="right">
-                        <div class="coins" onclick="openDeposit()">
-                            <span>⭐</span>
-                            <span id="headerStars4">100</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="balance-wrap">
-                    <div class="balance" id="balanceDisplay4">💰 1000</div>
-                </div>
-
-                <div class="profile-header">
-                    <div class="avatar">👤</div>
-                    <div class="name" id="profileName2">Игрок</div>
-                    <div class="id" id="profileId2">ID: 123456</div>
-                </div>
-
-                <div class="stats">
-                    <div class="stat">
-                        <div class="num" id="profileGames2">0</div>
-                        <div class="lbl">Игр</div>
-                    </div>
-                    <div class="stat">
-                        <div class="num" id="profileWins2">0</div>
-                        <div class="lbl">Побед</div>
-                    </div>
-                    <div class="stat">
-                        <div class="num" id="profileBest2">0</div>
-                        <div class="lbl">Лучший</div>
-                    </div>
-                </div>
-
-                <div class="deposit-section">
-                    <div class="deposit-btn" onclick="showToast('💎 Пополнение TON (в разработке)')">
-                        <span class="icon">💎</span>TON
-                    </div>
-                    <div class="deposit-btn" onclick="openDeposit()">
-                        <span class="icon">⭐</span>Stars
-                    </div>
-                    <div class="deposit-btn" onclick="showToast('🎁 Пополнение подарками (в разработке)')">
-                        <span class="icon">🎁</span>Подарки
-                    </div>
-                </div>
-
-                <div class="referral-block">
-                    <div class="title">👥 Пригласить друзей</div>
-                    <div class="referral-link">
-                        <div class="link" id="referralLink2">https://t.me/My103CoinGameBot?start=ref_123</div>
-                        <button class="copy-btn" onclick="copyReferralLink2()">📋</button>
-                    </div>
-                    <div class="referral-stats">
-                        <div class="item">
-                            <div class="num" id="refCount2">0</div>
-                            <div class="lbl">Приглашено</div>
-                        </div>
-                        <div class="item">
-                            <div class="num" id="refEarned2">0</div>
                             <div class="lbl">Заработано</div>
                         </div>
                     </div>
@@ -865,27 +1006,13 @@
             }
         }
 
-        function copyReferralLink2() {
-            const link = document.getElementById('referralLink2').textContent;
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(link).then(() => {
-                    showToast('📋 Ссылка скопирована!', true);
-                }).catch(() => {
-                    showToast('📋 Ссылка: ' + link, true);
-                });
-            } else {
-                showToast('📋 Ссылка: ' + link, true);
-            }
-        }
-
         document.getElementById('referralLink').textContent = getReferralLink();
-        document.getElementById('referralLink2').textContent = getReferralLink();
 
         function loadReferralStats() {
             const refCount = parseInt(localStorage.getItem('refCount')) || 0;
             const refEarned = parseInt(localStorage.getItem('refEarned')) || 0;
-            document.querySelectorAll('#refCount, #refCount2').forEach(el => el.textContent = refCount);
-            document.querySelectorAll('#refEarned, #refEarned2').forEach(el => el.textContent = refEarned);
+            document.getElementById('refCount').textContent = refCount;
+            document.getElementById('refEarned').textContent = refEarned;
         }
         loadReferralStats();
 
@@ -945,15 +1072,15 @@
         // ============================================================
         // 6. ПРОФИЛЬ
         // ============================================================
-        document.querySelectorAll('#profileGames, #profileGames2').forEach(el => el.textContent = localStorage.getItem('totalGames') || 0);
-        document.querySelectorAll('#profileWins, #profileWins2').forEach(el => el.textContent = localStorage.getItem('totalWins') || 0);
-        document.querySelectorAll('#profileBest, #profileBest2').forEach(el => el.textContent = localStorage.getItem('bestWin') || 0);
+        document.getElementById('profileGames').textContent = localStorage.getItem('totalGames') || 0;
+        document.getElementById('profileWins').textContent = localStorage.getItem('totalWins') || 0;
+        document.getElementById('profileBest').textContent = localStorage.getItem('bestWin') || 0;
 
         if (window.Telegram && window.Telegram.WebApp) {
             const user = window.Telegram.WebApp.initDataUnsafe.user;
             if (user) {
-                document.querySelectorAll('#profileName, #profileName2').forEach(el => el.textContent = user.first_name || 'Игрок');
-                document.querySelectorAll('#profileId, #profileId2').forEach(el => el.textContent = 'ID: ' + user.id);
+                document.getElementById('profileName').textContent = user.first_name || 'Игрок';
+                document.getElementById('profileId').textContent = 'ID: ' + user.id;
             }
         }
 
@@ -984,12 +1111,13 @@
         // 8. СТАРТ
         // ============================================================
         if (balance === 1000) {
-            setTimeout(() => showToast('👤 Добро пожаловать в профиль!'), 400);
+            setTimeout(() => showToast('💰 Добро пожаловать в VIP Casino!'), 400);
         }
 
-        console.log('👤 Профиль со свайпом загружен!');
+        console.log('🏠 Главная страница со свайпом загружена!');
         console.log('💰 Баланс:', balance);
         console.log('👆 Свайпай влево/вправо для переключения разделов');
+        console.log('🖱️ Нажми на логотип "🎰 VIP CASINO" чтобы вернуться на главную');
     </script>
 </body>
 </html>
