@@ -476,7 +476,6 @@
                     <div style="font-size:13px; color:rgba(255,255,255,0.15); margin-top:4px; letter-spacing:2px; text-transform:uppercase;">Добро пожаловать в VIP Casino!</div>
                 </div>
 
-                <!-- ===== КНОПКА "ИГРАТЬ!" — ВЕДЁТ НА games2.html ===== -->
                 <div style="display:flex; gap:12px; margin:12px 0;">
                     <button onclick="window.location.href='../games/games2.html'" style="flex:1; padding:16px; border:none; border-radius:16px; background:linear-gradient(145deg, #f7d44a, #dbb84a); color:#1a1a2e; font-size:18px; font-weight:800; letter-spacing:2px; cursor:pointer; box-shadow:0 6px 30px rgba(247,212,74,0.08);">
                         🎮 ИГРАТЬ! →
@@ -484,13 +483,13 @@
                 </div>
 
                 <div style="display:flex; gap:12px; margin:8px 0;">
-                    <button onclick="goToPage(2)" style="flex:1; padding:16px; border:none; border-radius:16px; background:rgba(255,255,255,0.03); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.04); color:white; font-size:18px; font-weight:800; letter-spacing:2px; cursor:pointer;">
+                    <button onclick="window.location.href='../nft/nft.html'" style="flex:1; padding:16px; border:none; border-radius:16px; background:rgba(255,255,255,0.03); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.04); color:white; font-size:18px; font-weight:800; letter-spacing:2px; cursor:pointer;">
                         💎 ХРАНИЛИЩЕ →
                     </button>
                 </div>
 
                 <div style="display:flex; gap:12px; margin:8px 0;">
-                    <button onclick="goToPage(3)" style="flex:1; padding:16px; border:none; border-radius:16px; background:rgba(255,255,255,0.03); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.04); color:white; font-size:18px; font-weight:800; letter-spacing:2px; cursor:pointer;">
+                    <button onclick="window.location.href='../profile/profile.html'" style="flex:1; padding:16px; border:none; border-radius:16px; background:rgba(255,255,255,0.03); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.04); color:white; font-size:18px; font-weight:800; letter-spacing:2px; cursor:pointer;">
                         👤 ПРОФИЛЬ →
                     </button>
                 </div>
@@ -500,7 +499,7 @@
                 </div>
             </div>
 
-            <!-- ===== СТРАНИЦА 2: ИГРЫ (ОСТАВЛЯЕМ СТАРУЮ ДЛЯ КЕША, НО НЕ ИСПОЛЬЗУЕМ) ===== -->
+            <!-- ===== СТРАНИЦА 2: ИГРЫ ===== -->
             <div class="page" id="pageGames">
                 <div class="header">
                     <div class="logo" onclick="goToPage(0)">🎰 VIP CASINO</div>
@@ -672,18 +671,18 @@
         </div>
     </div>
 
-    <!-- ===== НИЖНЯЯ НАВИГАЦИЯ ===== -->
+    <!-- ===== НИЖНЯЯ НАВИГАЦИЯ (С ПРАВИЛЬНЫМИ ССЫЛКАМИ) ===== -->
     <div class="bottom-nav" id="bottomNav">
-        <button class="nav-item active" data-index="0">
+        <button class="nav-item active" data-index="0" onclick="goToPage(0)">
             <span class="icon">🏠</span> Главная
         </button>
         <button class="nav-item" data-index="1" onclick="window.location.href='../games/games2.html'">
             <span class="icon">🎮</span> Игры
         </button>
-        <button class="nav-item" data-index="2">
+        <button class="nav-item" data-index="2" onclick="window.location.href='../nft/nft.html'">
             <span class="icon">💎</span> Хранилище
         </button>
-        <button class="nav-item" data-index="3">
+        <button class="nav-item" data-index="3" onclick="window.location.href='../profile/profile.html'">
             <span class="icon">👤</span> Профиль
         </button>
     </div>
