@@ -102,29 +102,13 @@
             height: 300px;
             bottom: -50px;
             left: -50px;
-            background: rgba(46, 204, 113, 0.10);
+            background: rgba(44, 62, 80, 0.10);
             animation: orbFloat 10s ease-in-out infinite alternate-reverse;
-        }
-        .glow-orb.g3 {
-            width: 250px;
-            height: 250px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(247, 212, 74, 0.05);
-            animation: orbPulse 6s ease-in-out infinite;
         }
 
         @keyframes orbFloat {
             0% { transform: translate(0, 0); }
             100% { transform: translate(30px, -30px); }
-        }
-        @keyframes orbPulse {
-            0%,
-            100% { transform: translate(-50%, -50%) scale(1);
-                opacity: 0.3; }
-            50% { transform: translate(-50%, -50%) scale(1.5);
-                opacity: 0.6; }
         }
 
         .container {
@@ -147,10 +131,6 @@
             backdrop-filter: blur(8px);
             transition: all 0.3s ease;
             margin-bottom: 10px;
-        }
-        .back-btn:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.15);
         }
         .back-btn:active {
             transform: scale(0.94);
@@ -194,24 +174,6 @@
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
             margin-bottom: 16px;
             letter-spacing: 1px;
-            position: relative;
-        }
-        .balance::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            border-radius: 60px;
-            background: linear-gradient(135deg, rgba(247, 212, 74, 0.1), transparent, rgba(247, 212, 74, 0.1));
-            z-index: -1;
-            animation: borderGlow 3s ease-in-out infinite;
-        }
-        @keyframes borderGlow {
-            0%,
-            100% { opacity: 0.3; }
-            50% { opacity: 0.8; }
         }
 
         /* ===== КОЛЕСО ===== */
@@ -248,10 +210,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: filter 0.3s ease;
-        }
-        .wheel-segment:hover {
-            filter: brightness(1.2);
         }
 
         .wheel-segment .dot {
@@ -261,7 +219,6 @@
             background: rgba(255, 255, 255, 0.3);
             margin-left: 25px;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
         }
         .wheel-segment.red .dot {
             background: rgba(255, 255, 255, 0.5);
@@ -270,10 +227,6 @@
         .wheel-segment.black .dot {
             background: rgba(255, 255, 255, 0.15);
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
-        }
-        .wheel-segment.green .dot {
-            background: rgba(255, 255, 255, 0.7);
-            box-shadow: 0 0 30px rgba(46, 204, 113, 0.3);
         }
 
         .wheel-center {
@@ -288,7 +241,6 @@
             border: 4px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 0 60px rgba(247, 212, 74, 0.2), inset 0 0 30px rgba(0, 0, 0, 0.2);
             z-index: 10;
-            transition: all 0.3s ease;
         }
         .wheel-center::after {
             content: '★';
@@ -298,7 +250,6 @@
             transform: translate(-50%, -50%);
             font-size: 24px;
             color: #1a1a2e;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
         }
         .wheel-center.spinning {
             animation: centerSpin 1s linear infinite;
@@ -328,43 +279,29 @@
         /* ===== РЕЗУЛЬТАТ ===== */
         .result {
             margin: 16px 0 12px;
-            min-height: 80px;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-        }
-        .result .number {
-            font-size: 56px;
-            font-weight: 800;
-            animation: popResult 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            text-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
+            min-height: 60px;
         }
         .result .color-text {
-            font-size: 22px;
+            font-size: 32px;
             font-weight: 700;
             margin-top: 4px;
             letter-spacing: 3px;
             text-transform: uppercase;
+            animation: popResult 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         .result .color-text.red {
             color: #ff6b6b;
-            text-shadow: 0 0 30px rgba(255, 50, 50, 0.2);
+            text-shadow: 0 0 40px rgba(255, 50, 50, 0.3);
         }
         .result .color-text.black {
             color: #bdc3c7;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
-        }
-        .result .color-text.green {
-            color: #2ecc71;
-            text-shadow: 0 0 30px rgba(46, 204, 113, 0.2);
+            text-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
         }
         .result .win-amount {
             font-size: 20px;
             color: #f7d44a;
-            margin-top: 6px;
+            margin-top: 4px;
             font-weight: 600;
-            text-shadow: 0 0 30px rgba(247, 212, 74, 0.15);
         }
         .result .win-amount.lose {
             color: #ff6b6b;
@@ -415,31 +352,31 @@
             outline: none;
             border-color: rgba(247, 212, 74, 0.3);
             background: rgba(255, 255, 255, 0.06);
-            box-shadow: 0 0 30px rgba(247, 212, 74, 0.05);
         }
 
         .buttons {
             display: flex;
-            gap: 10px;
+            gap: 16px;
             justify-content: center;
             flex-wrap: wrap;
             margin: 16px 0 8px;
         }
         button {
-            padding: 16px 22px;
+            padding: 18px 40px;
             border: none;
             border-radius: 60px;
-            font-size: 15px;
+            font-size: 20px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             flex: 1;
-            min-width: 80px;
-            letter-spacing: 1px;
+            min-width: 120px;
+            letter-spacing: 2px;
             backdrop-filter: blur(8px);
             box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
+            text-transform: uppercase;
         }
         button::after {
             content: '';
@@ -462,22 +399,12 @@
         .btn-red {
             background: linear-gradient(145deg, #e74c3c, #c0392b);
             color: #fff;
-            box-shadow: 0 6px 30px rgba(231, 76, 60, 0.3);
+            box-shadow: 0 6px 30px rgba(231, 76, 60, 0.4);
         }
         .btn-black {
             background: linear-gradient(145deg, #2c3e50, #1a252f);
             color: #fff;
-            box-shadow: 0 6px 30px rgba(44, 62, 80, 0.3);
-        }
-        .btn-green {
-            background: linear-gradient(145deg, #27ae60, #1e8449);
-            color: #fff;
-            box-shadow: 0 6px 30px rgba(46, 204, 113, 0.3);
-        }
-        .btn-number {
-            background: linear-gradient(145deg, #8e44ad, #6c3483);
-            color: #fff;
-            box-shadow: 0 6px 30px rgba(142, 68, 173, 0.3);
+            box-shadow: 0 6px 30px rgba(44, 62, 80, 0.4);
         }
 
         .toast {
@@ -497,7 +424,6 @@
             font-size: 16px;
             font-weight: 500;
             box-shadow: 0 16px 60px rgba(0, 0, 0, 0.5);
-            letter-spacing: 0.3px;
         }
         .toast.show {
             display: block;
@@ -535,13 +461,10 @@
             .wheel-center::after {
                 font-size: 18px;
             }
-            .result .number {
-                font-size: 44px;
-            }
             button {
-                font-size: 13px;
-                padding: 12px 14px;
-                min-width: 60px;
+                font-size: 16px;
+                padding: 14px 20px;
+                min-width: 80px;
             }
             .balance {
                 font-size: 20px;
@@ -552,11 +475,8 @@
                 height: 10px;
                 margin-left: 18px;
             }
-            .result {
-                min-height: 70px;
-            }
-            .header h2 {
-                font-size: 28px;
+            .result .color-text {
+                font-size: 26px;
             }
         }
     </style>
@@ -578,7 +498,6 @@
     <!-- ===== НЕОНОВЫЕ ОРЕОЛЫ ===== -->
     <div class="glow-orb g1"></div>
     <div class="glow-orb g2"></div>
-    <div class="glow-orb g3"></div>
 
     <div class="container">
         <a href="index.html" class="back-btn">← Назад</a>
@@ -595,7 +514,6 @@
         </div>
 
         <div class="result" id="rouletteResult">
-            <div class="number">🎯</div>
             <div class="color-text">Сделай ставку</div>
         </div>
 
@@ -607,11 +525,9 @@
         <div class="buttons">
             <button class="btn-red" onclick="spinRoulette('red')" id="btnRed">🔴 Красное</button>
             <button class="btn-black" onclick="spinRoulette('black')" id="btnBlack">⚫ Чёрное</button>
-            <button class="btn-green" onclick="spinRoulette('green')" id="btnGreen">🟢 Зеро</button>
-            <button class="btn-number" onclick="spinRoulette('number')" id="btnNumber">🎯 Число</button>
         </div>
 
-        <div class="footer">Красное/Чёрное = x2 | Зеро/Число = x35</div>
+        <div class="footer">Красное = x2 | Чёрное = x2</div>
     </div>
 
     <div class="toast" id="toast"></div>
@@ -641,7 +557,7 @@
         }
 
         // ============================
-        // 2. ЗВУКИ (усиленные)
+        // 2. ЗВУКИ
         // ============================
         function playWinSound() {
             try {
@@ -675,17 +591,6 @@
                 gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.8);
                 osc.start(ctx.currentTime);
                 osc.stop(ctx.currentTime + 0.8);
-
-                const osc2 = ctx.createOscillator();
-                const gain2 = ctx.createGain();
-                osc2.connect(gain2);
-                gain2.connect(ctx.destination);
-                osc2.frequency.value = 200;
-                osc2.type = 'sawtooth';
-                gain2.gain.value = 0.06;
-                gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
-                osc2.start(ctx.currentTime + 0.15);
-                osc2.stop(ctx.currentTime + 0.6);
             } catch (_) {}
         }
 
@@ -702,28 +607,17 @@
                 gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
                 osc.start(ctx.currentTime);
                 osc.stop(ctx.currentTime + 0.06);
-
-                const osc2 = ctx.createOscillator();
-                const gain2 = ctx.createGain();
-                osc2.connect(gain2);
-                gain2.connect(ctx.destination);
-                osc2.frequency.value = 700;
-                osc2.type = 'sine';
-                gain2.gain.value = 0.03;
-                gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
-                osc2.start(ctx.currentTime + 0.04);
-                osc2.stop(ctx.currentTime + 0.08);
             } catch (_) {}
         }
 
         // ============================
-        // 3. СОЗДАНИЕ КОЛЕСА
+        // 3. СОЗДАНИЕ КОЛЕСА (только красное и чёрное)
         // ============================
         const segmentColors = [
-            'green', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red',
-            'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red',
-            'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red',
-            'black', 'red', 'black', 'red', 'black', 'red', 'black'
+            'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black',
+            'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black',
+            'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black',
+            'red', 'black', 'red', 'black', 'red', 'black', 'red'
         ];
 
         const wheel = document.getElementById('wheel');
@@ -733,8 +627,8 @@
         segmentColors.forEach((color, i) => {
             const seg = document.createElement('div');
             seg.className = `wheel-segment ${color}`;
-            const colorHex = color === 'red' ? '#e74c3c' : color === 'black' ? '#1a1a2e' : '#2ecc71';
-            const colorLight = color === 'red' ? '#ff6b6b' : color === 'black' ? '#2c3e50' : '#3ddc84';
+            const colorHex = color === 'red' ? '#e74c3c' : '#1a1a2e';
+            const colorLight = color === 'red' ? '#ff6b6b' : '#2c3e50';
             seg.style.background = `linear-gradient(145deg, ${colorLight}, ${colorHex})`;
             seg.style.transform = `rotate(${i * angleStep}deg)`;
 
@@ -751,12 +645,11 @@
         let isSpinning = false;
         let currentRotation = 0;
 
-        const numbers = [0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31,
-            9, 22, 18, 29, 7, 28, 12, 35, 3, 26
-        ];
-        const colors = ['green', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red',
-            'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black',
-            'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black'
+        // Только красное и чёрное
+        const colors = ['red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black',
+            'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black',
+            'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black',
+            'red', 'black', 'red', 'black', 'red', 'black', 'red'
         ];
 
         function spinRoulette(betType) {
@@ -770,19 +663,18 @@
             isSpinning = true;
             document.getElementById('btnRed').disabled = true;
             document.getElementById('btnBlack').disabled = true;
-            document.getElementById('btnGreen').disabled = true;
-            document.getElementById('btnNumber').disabled = true;
             document.getElementById('wheelCenter').classList.add('spinning');
 
             balance -= bet;
             updateBalanceDisplay();
             playSpinSound();
 
-            const num = Math.floor(Math.random() * 37);
-            const color = num === 0 ? 'зелёный' : (num % 2 === 0 ? 'красный' : 'чёрный');
+            const randomIndex = Math.floor(Math.random() * colors.length);
+            const color = colors[randomIndex];
+            const isWin = (betType === color);
 
-            const winIndex = numbers.indexOf(num);
-            const winAngle = winIndex * angleStep + angleStep / 2;
+            // Вычисляем угол для остановки
+            const winAngle = randomIndex * angleStep + angleStep / 2;
             const extraSpins = 5 + Math.floor(Math.random() * 5);
             const targetRotation = 360 * extraSpins + (360 - winAngle);
 
@@ -794,36 +686,17 @@
                 wheel.classList.remove('spinning');
                 document.getElementById('wheelCenter').classList.remove('spinning');
 
-                let isWin = false;
                 let winAmount = 0;
+                const colorEmoji = color === 'red' ? '🔴' : '⚫';
+                const colorName = color === 'red' ? 'КРАСНОЕ' : 'ЧЁРНОЕ';
 
-                if (betType === 'red' && color === 'красный') {
-                    isWin = true;
-                    winAmount = bet * 2;
-                } else if (betType === 'black' && color === 'чёрный') {
-                    isWin = true;
-                    winAmount = bet * 2;
-                } else if (betType === 'green' && num === 0) {
-                    isWin = true;
-                    winAmount = bet * 35;
-                } else if (betType === 'number') {
-                    const guess = prompt('Введи число от 0 до 36:', '7');
-                    if (guess !== null && parseInt(guess) === num) {
-                        isWin = true;
-                        winAmount = bet * 35;
-                    }
-                }
-
-                const colorClass = color === 'красный' ? 'red' : (color === 'чёрный' ? 'black' : 'green');
-                const colorEmoji = color === 'красный' ? '🔴' : (color === 'чёрный' ? '⚫' : '🟢');
-
-                let resultHTML = `<div class="number">${num}</div>`;
-                resultHTML += `<div class="color-text ${colorClass}">${colorEmoji} ${color.toUpperCase()}</div>`;
+                let resultHTML = `<div class="color-text ${color}">${colorEmoji} ${colorName}</div>`;
 
                 if (isWin) {
-                    resultHTML += `<div class="win-amount">+${winAmount} 🪙</div>`;
+                    winAmount = bet * 2;
                     balance += winAmount;
                     updateBalanceDisplay();
+                    resultHTML += `<div class="win-amount">+${winAmount} 🪙</div>`;
                     showToast('🎉 Выиграл ' + winAmount + ' монет!', true);
                     playWinSound();
                 } else {
@@ -837,8 +710,6 @@
                 isSpinning = false;
                 document.getElementById('btnRed').disabled = false;
                 document.getElementById('btnBlack').disabled = false;
-                document.getElementById('btnGreen').disabled = false;
-                document.getElementById('btnNumber').disabled = false;
             }, 4200);
         }
 
@@ -846,7 +717,6 @@
         // 5. СТАРТ
         // ============================
         document.getElementById('rouletteResult').innerHTML = `
-            <div class="number">🎯</div>
             <div class="color-text">Сделай ставку</div>
         `;
         if (balance === 1000) {
