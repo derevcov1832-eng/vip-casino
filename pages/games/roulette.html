@@ -18,8 +18,8 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
-            padding: 20px;
+            align-items: flex-start;
+            padding: 16px;
             position: relative;
         }
 
@@ -31,8 +31,8 @@
             height: 100%;
             z-index: 0;
             background:
-                radial-gradient(ellipse at 20% 30%, rgba(255, 50, 50, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 70%, rgba(247, 212, 74, 0.04) 0%, transparent 50%);
+                radial-gradient(ellipse at 20% 30%, rgba(255, 50, 50, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(247, 212, 74, 0.03) 0%, transparent 50%);
         }
 
         .container {
@@ -40,11 +40,11 @@
             z-index: 1;
             max-width: 480px;
             width: 100%;
-            text-align: center;
+            padding-bottom: 30px;
         }
 
         .back-btn {
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.3);
             text-decoration: none;
             font-size: 14px;
             padding: 6px 16px;
@@ -52,47 +52,58 @@
             border-radius: 40px;
             background: rgba(255, 255, 255, 0.02);
             display: inline-block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .back-btn:active {
             transform: scale(0.94);
         }
 
         .header h2 {
-            font-size: 32px;
+            font-size: 30px;
             font-weight: 800;
             background: linear-gradient(135deg, #ff6b6b, #ffd93d);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 2px;
+            text-align: center;
         }
         .header .sub {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.2);
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.15);
             letter-spacing: 3px;
             text-transform: uppercase;
-            margin-bottom: 12px;
+            text-align: center;
+            margin-bottom: 8px;
         }
 
         .balance {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 600;
             color: #f7e3a0;
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(12px);
-            padding: 10px 28px;
+            padding: 8px 24px;
             border-radius: 60px;
             display: inline-block;
             border: 1px solid rgba(255, 255, 255, 0.04);
-            margin-bottom: 16px;
+            margin: 0 auto 12px;
+            text-align: center;
+            width: auto;
+        }
+        .balance-wrap {
+            text-align: center;
         }
 
         /* ===== КОЛЕСО ===== */
+        .wheel-wrap {
+            display: flex;
+            justify-content: center;
+            margin: 6px 0 10px;
+        }
         .wheel-container {
             position: relative;
-            width: 280px;
-            height: 280px;
-            margin: 10px auto;
+            width: 260px;
+            height: 260px;
         }
 
         .wheel {
@@ -100,10 +111,10 @@
             height: 100%;
             border-radius: 50%;
             position: relative;
-            border: 4px solid rgba(255, 215, 100, 0.15);
+            border: 3px solid rgba(255, 215, 100, 0.12);
             overflow: hidden;
             transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
-            box-shadow: 0 0 60px rgba(255, 50, 50, 0.05);
+            box-shadow: 0 0 40px rgba(255, 50, 50, 0.03);
         }
         .wheel.spinning {
             transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
@@ -122,18 +133,20 @@
             justify-content: center;
         }
         .wheel-segment .dot {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.15);
-            margin-left: 22px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.12);
+            margin-left: 18px;
         }
         .wheel-segment.red .dot {
-            background: rgba(255, 255, 255, 0.35);
+            background: rgba(255, 255, 255, 0.25);
         }
         .wheel-segment.black .dot {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.06);
+        }
+        .wheel-segment.green .dot {
+            background: rgba(255, 255, 255, 0.4);
         }
 
         .wheel-center {
@@ -141,13 +154,13 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 55px;
-            height: 55px;
+            width: 46px;
+            height: 46px;
             background: radial-gradient(circle, #f7d44a, #b8860b);
             border-radius: 50%;
-            border: 3px solid rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.06);
             z-index: 10;
-            box-shadow: 0 0 40px rgba(247, 212, 74, 0.1);
+            box-shadow: 0 0 30px rgba(247, 212, 74, 0.06);
         }
         .wheel-center::after {
             content: '★';
@@ -155,19 +168,19 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 22px;
+            font-size: 18px;
             color: #1a1a2e;
         }
 
         .wheel-arrow {
             position: absolute;
-            top: -18px;
+            top: -14px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 40px;
+            font-size: 34px;
             color: #f7d44a;
             z-index: 20;
-            filter: drop-shadow(0 0 30px rgba(247, 212, 74, 0.15));
+            filter: drop-shadow(0 0 20px rgba(247, 212, 74, 0.1));
             animation: arrowPulse 2s ease-in-out infinite;
         }
         @keyframes arrowPulse {
@@ -176,75 +189,82 @@
                 transform: translateX(-50%) scale(1);
             }
             50% {
-                transform: translateX(-50%) scale(1.05);
+                transform: translateX(-50%) scale(1.06);
             }
         }
 
         /* ===== РЕЗУЛЬТАТ ===== */
         .result {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 700;
-            margin: 12px 0;
-            min-height: 50px;
+            text-align: center;
+            margin: 8px 0 10px;
+            min-height: 44px;
         }
         .result .color-text.red {
             color: #e74c3c;
-            text-shadow: 0 0 40px rgba(231, 76, 60, 0.15);
         }
         .result .color-text.black {
             color: #bdc3c7;
-            text-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
+        }
+        .result .color-text.green {
+            color: #2ecc71;
         }
         .result .win-amount {
-            font-size: 18px;
+            font-size: 17px;
             color: #f7d44a;
-            margin-top: 4px;
+            margin-top: 2px;
         }
 
-        .bet-settings {
+        /* ===== СТАВКА ===== */
+        .bet-wrap {
             display: flex;
-            gap: 12px;
-            align-items: center;
             justify-content: center;
-            margin: 10px 0;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            margin: 8px 0 12px;
         }
-        .bet-settings label {
+        .bet-wrap label {
             font-size: 13px;
-            color: rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.25);
             letter-spacing: 2px;
             text-transform: uppercase;
         }
-        .bet-settings input {
-            width: 120px;
-            padding: 10px 8px;
+        .bet-wrap input {
+            width: 110px;
+            padding: 8px 6px;
             border-radius: 40px;
             border: 1px solid rgba(255, 255, 255, 0.04);
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 700;
             text-align: center;
             background: rgba(255, 255, 255, 0.02);
             color: #f0e8d0;
         }
+        .bet-wrap input:focus {
+            outline: none;
+            border-color: rgba(247, 212, 74, 0.12);
+        }
 
+        /* ===== КНОПКИ ===== */
         .buttons {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             justify-content: center;
-            flex-wrap: wrap;
-            margin: 12px 0;
+            margin: 8px 0 4px;
         }
         button {
-            padding: 14px 24px;
+            padding: 14px 20px;
             border: none;
             border-radius: 60px;
             font-size: 16px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.2s ease;
             flex: 1;
-            min-width: 80px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            min-width: 70px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            letter-spacing: 1px;
         }
         button:active {
             transform: scale(0.94);
@@ -262,6 +282,14 @@
             color: #fff;
         }
 
+        .footer {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.04);
+            letter-spacing: 2px;
+        }
+
         .toast {
             position: fixed;
             top: 20px;
@@ -270,38 +298,31 @@
             background: rgba(12, 14, 28, 0.92);
             backdrop-filter: blur(16px);
             color: #f0eee0;
-            padding: 12px 24px;
+            padding: 10px 22px;
             border-radius: 60px;
             display: none;
             z-index: 999;
             max-width: 90%;
             border: 1px solid rgba(255, 255, 255, 0.03);
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 500;
-            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.2);
         }
         .toast.show {
             display: block;
-            animation: slideDown 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: slideDown 0.3s ease;
         }
         @keyframes slideDown {
             from {
                 opacity: 0;
-                transform: translateX(-50%) scale(0.8);
-                top: -60px;
+                transform: translateX(-50%) scale(0.9);
+                top: -40px;
             }
             to {
                 opacity: 1;
                 transform: translateX(-50%) scale(1);
                 top: 20px;
             }
-        }
-
-        .footer {
-            margin-top: 12px;
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.04);
-            letter-spacing: 2px;
         }
 
         .confetti-container {
@@ -316,8 +337,8 @@
         }
         .confetti {
             position: absolute;
-            width: 8px;
-            height: 8px;
+            width: 7px;
+            height: 7px;
             opacity: 0;
             animation: confettiFall linear forwards;
         }
@@ -334,29 +355,40 @@
 
         @media (max-width: 450px) {
             .wheel-container {
-                width: 220px;
-                height: 220px;
+                width: 210px;
+                height: 210px;
             }
             .wheel-center {
-                width: 45px;
-                height: 45px;
+                width: 38px;
+                height: 38px;
             }
             .wheel-center::after {
-                font-size: 18px;
+                font-size: 14px;
             }
             button {
                 font-size: 14px;
-                padding: 12px 16px;
+                padding: 12px 14px;
                 min-width: 60px;
             }
             .wheel-arrow {
-                font-size: 32px;
-                top: -14px;
+                font-size: 28px;
+                top: -12px;
             }
             .wheel-segment .dot {
-                width: 8px;
-                height: 8px;
-                margin-left: 16px;
+                width: 6px;
+                height: 6px;
+                margin-left: 14px;
+            }
+            .result {
+                font-size: 20px;
+            }
+            .balance {
+                font-size: 19px;
+                padding: 6px 20px;
+            }
+            .bet-wrap input {
+                width: 90px;
+                font-size: 15px;
             }
         }
     </style>
@@ -374,19 +406,23 @@
             <div class="sub">Красное или Чёрное</div>
         </div>
 
-        <div class="balance" id="balanceDisplay">💰 1000</div>
+        <div class="balance-wrap">
+            <div class="balance" id="balanceDisplay">💰 1000</div>
+        </div>
 
-        <div class="wheel-container">
-            <div class="wheel-arrow">▼</div>
-            <div class="wheel" id="wheel"></div>
-            <div class="wheel-center"></div>
+        <div class="wheel-wrap">
+            <div class="wheel-container">
+                <div class="wheel-arrow">▼</div>
+                <div class="wheel" id="wheel"></div>
+                <div class="wheel-center"></div>
+            </div>
         </div>
 
         <div class="result" id="rouletteResult">
             <div class="color-text">Сделай ставку</div>
         </div>
 
-        <div class="bet-settings">
+        <div class="bet-wrap">
             <label>💰 Ставка</label>
             <input type="number" id="betInput" value="50" min="10" step="10">
         </div>
@@ -418,7 +454,7 @@
             t.textContent = msg;
             t.classList.add('show');
             clearTimeout(t._timeout);
-            t._timeout = setTimeout(() => t.classList.remove('show'), 2500);
+            t._timeout = setTimeout(() => t.classList.remove('show'), 2400);
         }
 
         // ============================
@@ -434,10 +470,10 @@
                     gain.connect(ctx.destination);
                     osc.frequency.value = freq;
                     osc.type = 'sine';
-                    gain.gain.value = 0.08;
-                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2 + i * 0.1);
+                    gain.gain.value = 0.07;
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18 + i * 0.1);
                     osc.start(ctx.currentTime + i * 0.1);
-                    osc.stop(ctx.currentTime + 0.35 + i * 0.1);
+                    osc.stop(ctx.currentTime + 0.3 + i * 0.1);
                 });
             } catch (_) {}
         }
@@ -451,20 +487,10 @@
                 gain.connect(ctx.destination);
                 osc.frequency.value = 340;
                 osc.type = 'sine';
-                gain.gain.value = 0.08;
-                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
+                gain.gain.value = 0.07;
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
                 osc.start(ctx.currentTime);
-                osc.stop(ctx.currentTime + 0.6);
-                const osc2 = ctx.createOscillator();
-                const gain2 = ctx.createGain();
-                osc2.connect(gain2);
-                gain2.connect(ctx.destination);
-                osc2.frequency.value = 240;
-                osc2.type = 'sine';
-                gain2.gain.value = 0.06;
-                gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.7);
-                osc2.start(ctx.currentTime + 0.15);
-                osc2.stop(ctx.currentTime + 0.7);
+                osc.stop(ctx.currentTime + 0.5);
             } catch (_) {}
         }
 
@@ -474,60 +500,49 @@
         function launchConfetti() {
             const container = document.getElementById('confettiContainer');
             const colors = ['#f7d44a', '#ff6b6b', '#2ecc71', '#3498db', '#9b59b6', '#e74c3c', '#f39c12'];
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < 40; i++) {
                 const el = document.createElement('div');
                 el.className = 'confetti';
                 el.style.left = Math.random() * 100 + '%';
                 el.style.top = '-10px';
                 el.style.background = colors[Math.floor(Math.random() * colors.length)];
-                el.style.width = (Math.random() * 6 + 4) + 'px';
-                el.style.height = (Math.random() * 6 + 4) + 'px';
+                el.style.width = (Math.random() * 6 + 3) + 'px';
+                el.style.height = (Math.random() * 6 + 3) + 'px';
                 el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
                 el.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
                 el.style.animationDelay = (Math.random() * 0.6) + 's';
-                el.style.boxShadow = '0 0 15px ' + colors[Math.floor(Math.random() * colors.length)] + '33';
                 container.appendChild(el);
                 setTimeout(() => el.remove(), 4000);
             }
         }
 
         // ============================
-        // 4. КОЛЕСО (ЧЕРЕДОВАНИЕ КРАСНЫЙ/ЧЁРНЫЙ)
+        // 4. КОЛЕСО (ИДЕАЛЬНОЕ ЧЕРЕДОВАНИЕ)
         // ============================
-        const colors = [];
+        const segmentColors = [];
         const segments = 37;
         for (let i = 0; i < segments; i++) {
             if (i === 0) {
-                colors.push('green'); // Зеро (можно добавить, но пока просто зелёный)
+                segmentColors.push('green');
             } else {
-                colors.push(i % 2 === 0 ? 'red' : 'black');
+                segmentColors.push(i % 2 === 0 ? 'red' : 'black');
             }
         }
 
         const wheel = document.getElementById('wheel');
-        const segmentCount = colors.length;
+        const segmentCount = segmentColors.length;
         const angleStep = 360 / segmentCount;
 
-        colors.forEach((color, i) => {
+        segmentColors.forEach((color, i) => {
             const seg = document.createElement('div');
             seg.className = `wheel-segment ${color}`;
-            if (color === 'red') {
-                seg.style.background = '#e74c3c';
-            } else if (color === 'black') {
-                seg.style.background = '#1a1a2e';
-            } else {
-                seg.style.background = '#2ecc71';
-            }
+            seg.style.background = color === 'red' ? '#d63031' : color === 'black' ? '#111827' : '#27ae60';
             seg.style.transform = `rotate(${i * angleStep}deg)`;
             const dot = document.createElement('div');
             dot.className = 'dot';
-            if (color === 'red') {
-                dot.style.background = 'rgba(255,255,255,0.3)';
-            } else if (color === 'black') {
-                dot.style.background = 'rgba(255,255,255,0.08)';
-            } else {
-                dot.style.background = 'rgba(255,255,255,0.5)';
-            }
+            if (color === 'red') dot.style.background = 'rgba(255,255,255,0.25)';
+            else if (color === 'black') dot.style.background = 'rgba(255,255,255,0.06)';
+            else dot.style.background = 'rgba(255,255,255,0.4)';
             seg.appendChild(dot);
             wheel.appendChild(seg);
         });
@@ -553,9 +568,8 @@
             balance -= bet;
             updateBalanceDisplay();
 
-            // Выбираем случайный цвет (красный или чёрный)
             const colorIndex = Math.floor(Math.random() * (segmentCount - 1)) + 1;
-            const color = colors[colorIndex];
+            const color = segmentColors[colorIndex];
 
             const isWin = (betType === color);
 
@@ -570,9 +584,9 @@
             setTimeout(() => {
                 wheel.classList.remove('spinning');
 
-                const colorName = color === 'red' ? 'КРАСНОЕ' : (color === 'black' ? 'ЧЁРНОЕ' : 'ЗЕЛЁНОЕ');
-                const colorEmoji = color === 'red' ? '🔴' : (color === 'black' ? '⚫' : '🟢');
-                const colorClass = color === 'red' ? 'red' : (color === 'black' ? 'black' : 'green');
+                const colorName = color === 'red' ? 'КРАСНОЕ' : color === 'black' ? 'ЧЁРНОЕ' : 'ЗЕЛЁНОЕ';
+                const colorEmoji = color === 'red' ? '🔴' : color === 'black' ? '⚫' : '🟢';
+                const colorClass = color === 'red' ? 'red' : color === 'black' ? 'black' : 'green';
 
                 let resultHTML = `<div class="color-text ${colorClass}">${colorEmoji} ${colorName}</div>`;
 
