@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🐰 Rabbits — Главная</title>
+    <title>🎰 VIP Casino</title>
     <style>
         * {
             margin: 0;
@@ -12,7 +12,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background: #0a0a1a;
             color: white;
             min-height: 100vh;
@@ -24,7 +24,6 @@
             overflow-x: hidden;
         }
 
-        /* ===== НЕОНОВЫЙ ФОН ===== */
         .bg {
             position: fixed;
             top: 0;
@@ -33,24 +32,16 @@
             height: 100%;
             z-index: 0;
             background:
-                radial-gradient(ellipse at 20% 30%, rgba(180, 80, 255, 0.10) 0%, transparent 55%),
-                radial-gradient(ellipse at 80% 70%, rgba(255, 50, 50, 0.07) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 100%, rgba(247, 212, 74, 0.03) 0%, transparent 45%);
+                radial-gradient(ellipse at 20% 30%, rgba(180, 80, 255, 0.08) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 70%, rgba(255, 50, 50, 0.05) 0%, transparent 50%);
             animation: bgPulse 6s ease-in-out infinite alternate;
         }
 
         @keyframes bgPulse {
-            0% {
-                opacity: 0.7;
-                transform: scale(1);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1.02);
-            }
+            0% { opacity: 0.7; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.02); }
         }
 
-        /* ===== ПАРЯЩИЕ ЧАСТИЦЫ ===== */
         .particles {
             position: fixed;
             top: 0;
@@ -65,50 +56,24 @@
             position: absolute;
             width: 3px;
             height: 3px;
-            background: rgba(247, 212, 74, 0.2);
+            background: rgba(247, 212, 74, 0.15);
             border-radius: 50%;
             animation: floatParticle linear infinite;
-            box-shadow: 0 0 10px rgba(247, 212, 74, 0.05);
         }
-        .particle:nth-child(1) { left: 10%;
-            animation-duration: 14s; }
-        .particle:nth-child(2) { left: 25%;
-            animation-duration: 18s;
-            animation-delay: 2s; }
-        .particle:nth-child(3) { left: 40%;
-            animation-duration: 12s;
-            animation-delay: 4s; }
-        .particle:nth-child(4) { left: 55%;
-            animation-duration: 16s;
-            animation-delay: 1s; }
-        .particle:nth-child(5) { left: 70%;
-            animation-duration: 13s;
-            animation-delay: 3s; }
-        .particle:nth-child(6) { left: 85%;
-            animation-duration: 19s;
-            animation-delay: 5s; }
-        .particle:nth-child(7) { left: 50%;
-            animation-duration: 15s;
-            animation-delay: 2.5s; }
-        .particle:nth-child(8) { left: 15%;
-            animation-duration: 20s;
-            animation-delay: 1.5s; }
+        .particle:nth-child(1) { left: 10%; animation-duration: 14s; }
+        .particle:nth-child(2) { left: 25%; animation-duration: 18s; animation-delay: 2s; }
+        .particle:nth-child(3) { left: 40%; animation-duration: 12s; animation-delay: 4s; }
+        .particle:nth-child(4) { left: 55%; animation-duration: 16s; animation-delay: 1s; }
+        .particle:nth-child(5) { left: 70%; animation-duration: 13s; animation-delay: 3s; }
+        .particle:nth-child(6) { left: 85%; animation-duration: 19s; animation-delay: 5s; }
+        .particle:nth-child(7) { left: 50%; animation-duration: 15s; animation-delay: 2.5s; }
+        .particle:nth-child(8) { left: 15%; animation-duration: 20s; animation-delay: 1.5s; }
 
         @keyframes floatParticle {
-            0% {
-                transform: translateY(100vh) scale(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-10vh) scale(1);
-                opacity: 0;
-            }
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
         }
 
         .container {
@@ -135,46 +100,49 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: 0.5px;
-            text-shadow: 0 0 40px rgba(247, 212, 74, 0.1);
+        }
+        .header .right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .header .coins {
             display: flex;
             align-items: center;
-            gap: 6px;
-            background: rgba(255, 255, 255, 0.03);
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(12px);
-            padding: 4px 14px;
+            padding: 4px 12px;
             border-radius: 40px;
             font-size: 14px;
             font-weight: 700;
             color: #f7d44a;
             border: 1px solid rgba(255, 255, 255, 0.04);
-            box-shadow: 0 0 30px rgba(247, 212, 74, 0.02);
-        }
-
-        /* ===== БАЛАНС ===== */
-        .balance-block {
-            text-align: center;
-            padding: 8px 0 6px;
             cursor: pointer;
+            transition: 0.2s;
         }
-        .balance-block .amount {
-            font-size: 44px;
-            font-weight: 800;
+        .header .coins:active {
+            transform: scale(0.94);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .header .coins span {
+            font-size: 14px;
+        }
+        .header .deposit-btn {
+            background: rgba(247, 212, 74, 0.08);
+            border: 1px solid rgba(247, 212, 74, 0.1);
+            border-radius: 40px;
+            padding: 4px 12px;
+            font-size: 14px;
+            font-weight: 700;
             color: #f7d44a;
-            text-shadow: 0 0 60px rgba(247, 212, 74, 0.12);
-            letter-spacing: 1px;
-            transition: 0.3s;
+            cursor: pointer;
+            transition: 0.2s;
+            backdrop-filter: blur(12px);
         }
-        .balance-block .amount:active {
-            transform: scale(0.95);
-        }
-        .balance-block .label {
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.12);
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-top: 2px;
+        .header .deposit-btn:active {
+            transform: scale(0.94);
+            background: rgba(247, 212, 74, 0.15);
         }
 
         /* ===== LIVE ===== */
@@ -183,12 +151,12 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            margin: 4px 0 10px;
+            margin: 4px 0 16px;
             padding: 6px 18px;
             background: rgba(231, 76, 60, 0.06);
             border-radius: 40px;
             border: 1px solid rgba(231, 76, 60, 0.08);
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 600;
             color: #e74c3c;
             letter-spacing: 2px;
@@ -203,152 +171,64 @@
             box-shadow: 0 0 20px rgba(231, 76, 60, 0.2);
         }
         @keyframes livePulse {
-            0%,
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.2;
-                transform: scale(0.5);
-            }
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.2; transform: scale(0.5); }
         }
         .live-badge .num {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 700;
             color: #f7d44a;
             min-width: 30px;
         }
 
-        /* ===== КЕЙСЫ ===== */
-        .cases-grid {
+        /* ===== КНОПКИ В РЯД ===== */
+        .row-buttons {
+            display: flex;
+            gap: 12px;
+            margin: 8px 0 4px;
+        }
+
+        .big-btn {
+            flex: 1;
+            aspect-ratio: 1/1;
+            border: none;
+            border-radius: 20px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin: 8px 0 10px;
-        }
-        .case-card {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(12px);
-            border-radius: 18px;
-            padding: 16px 18px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
-        }
-        .case-card:active {
-            transform: scale(0.96);
-            background: rgba(255, 255, 255, 0.05);
-        }
-        .case-card .icon {
-            font-size: 34px;
-            width: 52px;
-            height: 52px;
-            display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 14px;
-            flex-shrink: 0;
-        }
-        .case-card .info {
-            flex: 1;
-            text-align: left;
-        }
-        .case-card .info .name {
-            font-size: 16px;
-            font-weight: 700;
-            color: rgba(255, 255, 255, 0.9);
-        }
-        .case-card .info .desc {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.2);
-            margin-top: 1px;
-        }
-        .case-card .badge {
-            padding: 2px 12px;
-            border-radius: 40px;
-            font-size: 10px;
-            font-weight: 600;
-            background: rgba(247, 212, 74, 0.08);
-            color: #f7d44a;
-            border: 1px solid rgba(247, 212, 74, 0.05);
-        }
-        .case-card .arrow {
-            font-size: 20px;
-            color: rgba(255, 255, 255, 0.05);
-            transition: 0.3s;
-        }
-        .case-card:active .arrow {
-            transform: translateX(6px);
-            color: rgba(255, 255, 255, 0.15);
-        }
-
-        /* ===== СТРОКА С ПОДАРКАМИ ===== */
-        .case-reward {
-            display: none;
-            text-align: center;
-            padding: 14px;
-            margin: 6px 0 10px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            animation: rewardSlide 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .case-reward.show {
-            display: block;
-        }
-        .case-reward .emoji {
-            font-size: 36px;
-            display: block;
-        }
-        .case-reward .text {
-            font-size: 18px;
-            font-weight: 700;
-            color: #f7d44a;
-            margin-top: 4px;
-        }
-        .case-reward .sub {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.2);
-            margin-top: 2px;
-        }
-
-        @keyframes rewardSlide {
-            0% {
-                opacity: 0;
-                transform: translateY(-30px) scale(0.8);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        /* ===== КНОПКА ИГРАТЬ ===== */
-        .play-btn {
-            width: 100%;
-            padding: 16px;
-            border: none;
-            border-radius: 18px;
-            background: linear-gradient(145deg, #f7d44a, #dbb84a);
-            color: #1a1a2e;
+            gap: 6px;
             font-size: 18px;
             font-weight: 800;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 6px 40px rgba(247, 212, 74, 0.08);
-            margin: 4px 0 8px;
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
         }
-        .play-btn::after {
+        .big-btn:active {
+            transform: scale(0.94);
+        }
+        .big-btn .icon {
+            font-size: 36px;
+        }
+        .big-btn .arrow {
+            font-size: 20px;
+            opacity: 0.3;
+            transition: 0.3s;
+        }
+        .big-btn:active .arrow {
+            transform: translateX(6px);
+            opacity: 0.6;
+        }
+
+        .big-btn.play {
+            background: linear-gradient(145deg, #f7d44a, #dbb84a);
+            color: #1a1a2e;
+            box-shadow: 0 6px 40px rgba(247, 212, 74, 0.08);
+        }
+        .big-btn.play::after {
             content: '';
             position: absolute;
             top: 0;
@@ -358,143 +238,61 @@
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
             pointer-events: none;
         }
-        .play-btn:active {
-            transform: scale(0.95);
-            box-shadow: 0 6px 50px rgba(247, 212, 74, 0.15);
+
+        .big-btn.cases {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            color: white;
         }
-        .play-btn .arrow {
-            display: inline-block;
+
+        /* ===== НИЖНЯЯ НАВИГАЦИЯ ===== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 26, 0.92);
+            backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0 12px;
+            max-width: 480px;
+            margin: 0 auto;
+            z-index: 100;
+        }
+        .bottom-nav .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 9px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: 0.3s;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px 16px;
+        }
+        .bottom-nav .nav-item .icon {
+            font-size: 22px;
             transition: 0.3s;
         }
-        .play-btn:active .arrow {
-            transform: translateX(8px);
+        .bottom-nav .nav-item.active {
+            color: #f7d44a;
+        }
+        .bottom-nav .nav-item.active .icon {
+            transform: translateY(-2px);
+        }
+        .bottom-nav .nav-item:active {
+            transform: scale(0.9);
         }
 
-        .footer {
-            text-align: center;
-            margin-top: 14px;
-            font-size: 10px;
-            color: rgba(255, 255, 255, 0.04);
-            letter-spacing: 3px;
-        }
-
-        @media (max-width: 400px) {
-            .balance-block .amount {
-                font-size: 34px;
-            }
-            .case-card {
-                padding: 14px 14px;
-            }
-            .case-card .icon {
-                font-size: 28px;
-                width: 44px;
-                height: 44px;
-            }
-            .play-btn {
-                font-size: 16px;
-                padding: 14px;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- ===== ФОН ===== -->
-    <div class="bg"></div>
-
-    <!-- ===== ЧАСТИЦЫ ===== -->
-    <div class="particles">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-    </div>
-
-    <div class="container">
-
-        <!-- ===== ХЕДЕР ===== -->
-        <div class="header">
-            <div class="logo">🐰 Rabbits</div>
-            <div class="coins">
-                <span>⭐</span>
-                <span id="headerStars">0</span>
-            </div>
-        </div>
-
-        <!-- ===== БАЛАНС ===== -->
-        <div class="balance-block" onclick="openDeposit()">
-            <div class="amount" id="balanceDisplay">1000</div>
-            <div class="label">💰 Игровой баланс</div>
-        </div>
-
-        <!-- ===== LIVE ===== -->
-        <div class="live-badge">
-            <span class="dot"></span>
-            LIVE <span class="num" id="liveCount">0.5</span>
-        </div>
-
-        <!-- ===== КЕЙСЫ ===== -->
-        <div class="cases-grid">
-            <div class="case-card" onclick="openCase()">
-                <div class="icon">💎</div>
-                <div class="info">
-                    <div class="name">Кейс за депозит</div>
-                    <div class="desc">Пополни баланс и открой кейс</div>
-                </div>
-                <div class="badge">⭐</div>
-                <div class="arrow">›</div>
-            </div>
-        </div>
-
-        <!-- ===== СТРОКА С ПОДАРКАМИ ===== -->
-        <div class="case-reward" id="caseReward">
-            <span class="emoji" id="rewardEmoji">🎉</span>
-            <div class="text" id="rewardText">+0 монет</div>
-            <div class="sub" id="rewardSub">Подарок получен!</div>
-        </div>
-
-        <!-- ===== КНОПКА ИГРАТЬ ===== -->
-        <button class="play-btn" onclick="window.location.href='../../games.html'">
-            🎮 ИГРАТЬ! <span class="arrow">→</span>
-        </button>
-
-        <div class="footer">Сделано с ❤️ в Telegram Mini App</div>
-
-    </div>
-
-    <!-- ===== ОВЕРЛЕЙ ПОПОЛНЕНИЯ ===== -->
-    <div class="deposit-overlay" id="depositOverlay">
-        <div class="deposit-card">
-            <div class="title">⭐ Пополнить баланс</div>
-            <div class="sub">Купи монеты за Telegram Stars</div>
-            <div class="balance-show"><span>💰</span> <span id="depositBalance">1000</span></div>
-            <div class="deposit-options">
-                <div class="option" onclick="buyCoins(10, 100)">
-                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">10 Stars</div><div class="desc">+100 монет</div></div></div>
-                    <div class="right">+100</div>
-                </div>
-                <div class="option" onclick="buyCoins(25, 300)">
-                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">25 Stars</div><div class="desc">+300 монет</div></div></div>
-                    <div class="right">+300</div>
-                </div>
-                <div class="option" onclick="buyCoins(50, 700)" style="border-color: rgba(247,212,74,0.15); background: rgba(247,212,74,0.04);">
-                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">50 Stars</div><div class="desc">+700 монет</div></div></div>
-                    <div class="right" style="color:#f7d44a;">🔥 +700</div>
-                </div>
-                <div class="option" onclick="buyCoins(100, 1500)">
-                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">100 Stars</div><div class="desc">+1500 монет</div></div></div>
-                    <div class="right">+1500</div>
-                </div>
-            </div>
-            <button class="deposit-close" onclick="closeDeposit()">✕ Закрыть</button>
-        </div>
-    </div>
-
-    <style>
+        /* ===== ОВЕРЛЕЙ ПОПОЛНЕНИЯ ===== */
         .deposit-overlay {
             display: none;
             position: fixed;
@@ -515,14 +313,8 @@
             animation: fadeIn 0.3s ease-out;
         }
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .deposit-card {
@@ -616,7 +408,150 @@
         .deposit-close:active {
             transform: scale(0.94);
         }
+
+        @media (max-width: 400px) {
+            .big-btn {
+                font-size: 15px;
+                border-radius: 16px;
+            }
+            .big-btn .icon {
+                font-size: 28px;
+            }
+            .header .logo {
+                font-size: 18px;
+            }
+            .live-badge {
+                font-size: 12px;
+                padding: 4px 14px;
+            }
+            .live-badge .num {
+                font-size: 15px;
+            }
+        }
     </style>
+</head>
+<body>
+
+    <div class="bg"></div>
+
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="container">
+
+        <!-- ===== ХЕДЕР ===== -->
+        <div class="header">
+            <div class="logo">🎰 VIP CASINO</div>
+            <div class="right">
+                <div class="coins" onclick="openDeposit()">
+                    <span>⭐</span>
+                    <span id="headerStars">100</span>
+                </div>
+                <div class="deposit-btn" onclick="openDeposit()">➕</div>
+            </div>
+        </div>
+
+        <!-- ===== LIVE ===== -->
+        <div class="live-badge">
+            <span class="dot"></span>
+            LIVE <span class="num" id="liveCount">0.5</span>
+        </div>
+
+        <!-- ===== КНОПКИ ===== -->
+        <div class="row-buttons">
+            <button class="big-btn play" onclick="window.location.href='../../games.html'">
+                <span class="icon">🎮</span>
+                ИГРАТЬ!
+                <span class="arrow">→</span>
+            </button>
+            <button class="big-btn cases" onclick="window.location.href='../../pages/cases/cases.html'">
+                <span class="icon">📦</span>
+                КЕЙСЫ
+                <span class="arrow">→</span>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- ===== НИЖНЯЯ НАВИГАЦИЯ ===== -->
+    <div class="bottom-nav" id="bottomNav">
+        <button class="nav-item active" onclick="window.location.href='../../index.html'">
+            <span class="icon">🏠</span>
+            Главная
+        </button>
+        <button class="nav-item" onclick="window.location.href='../../games.html'">
+            <span class="icon">🎮</span>
+            Игры
+        </button>
+        <button class="nav-item" onclick="window.location.href='../../nft.html'">
+            <span class="icon">💎</span>
+            Хранилище
+        </button>
+        <button class="nav-item" onclick="window.location.href='../../profile.html'">
+            <span class="icon">👤</span>
+            Профиль
+        </button>
+    </div>
+
+    <!-- ===== ОВЕРЛЕЙ ПОПОЛНЕНИЯ ===== -->
+    <div class="deposit-overlay" id="depositOverlay">
+        <div class="deposit-card">
+            <div class="title">⭐ Пополнить баланс</div>
+            <div class="sub">Купи монеты за Telegram Stars</div>
+            <div class="balance-show"><span>💰</span> <span id="depositBalance">1000</span></div>
+            <div class="deposit-options">
+                <div class="option" onclick="buyCoins(10, 100)">
+                    <div class="left">
+                        <div class="icon">⭐</div>
+                        <div class="info">
+                            <div class="name">10 Stars</div>
+                            <div class="desc">+100 монет</div>
+                        </div>
+                    </div>
+                    <div class="right">+100</div>
+                </div>
+                <div class="option" onclick="buyCoins(25, 300)">
+                    <div class="left">
+                        <div class="icon">⭐</div>
+                        <div class="info">
+                            <div class="name">25 Stars</div>
+                            <div class="desc">+300 монет</div>
+                        </div>
+                    </div>
+                    <div class="right">+300</div>
+                </div>
+                <div class="option" onclick="buyCoins(50, 700)" style="border-color: rgba(247,212,74,0.15); background: rgba(247,212,74,0.04);">
+                    <div class="left">
+                        <div class="icon">⭐</div>
+                        <div class="info">
+                            <div class="name">50 Stars</div>
+                            <div class="desc">+700 монет</div>
+                        </div>
+                    </div>
+                    <div class="right" style="color:#f7d44a;">🔥 +700</div>
+                </div>
+                <div class="option" onclick="buyCoins(100, 1500)">
+                    <div class="left">
+                        <div class="icon">⭐</div>
+                        <div class="info">
+                            <div class="name">100 Stars</div>
+                            <div class="desc">+1500 монет</div>
+                        </div>
+                    </div>
+                    <div class="right">+1500</div>
+                </div>
+            </div>
+            <button class="deposit-close" onclick="closeDeposit()">✕ Закрыть</button>
+        </div>
+    </div>
 
     <script>
         // ============================================================
@@ -625,13 +560,8 @@
         let balance = parseInt(localStorage.getItem('casinoBalance')) || 1000;
 
         function updateAllBalances() {
-            const display = document.getElementById('balanceDisplay');
-            if (display) display.textContent = balance;
-            document.querySelectorAll('[id^="headerStars"]').forEach(el => {
-                el.textContent = Math.floor(balance / 10);
-            });
-            const depositBalance = document.getElementById('depositBalance');
-            if (depositBalance) depositBalance.textContent = balance;
+            document.getElementById('headerStars').textContent = Math.floor(balance / 10);
+            document.getElementById('depositBalance').textContent = balance;
             localStorage.setItem('casinoBalance', balance);
         }
         updateAllBalances();
@@ -641,36 +571,12 @@
         // ============================================================
         function updateLive() {
             const live = (Math.random() * 2 + 0.1).toFixed(1);
-            const el = document.getElementById('liveCount');
-            if (el) el.textContent = live;
+            document.getElementById('liveCount').textContent = live;
         }
         setInterval(updateLive, 3000);
 
         // ============================================================
-        // 3. КЕЙСЫ
-        // ============================================================
-        function openCase() {
-            const reward = Math.floor(Math.random() * 150) + 50;
-
-            const rewardEl = document.getElementById('caseReward');
-            document.getElementById('rewardEmoji').textContent = '💎';
-            document.getElementById('rewardText').textContent = '+' + reward + ' монет';
-            document.getElementById('rewardSub').textContent = 'Кейс за депозит открыт!';
-            rewardEl.classList.add('show');
-
-            balance += reward;
-            updateAllBalances();
-
-            clearTimeout(window.rewardTimeout);
-            window.rewardTimeout = setTimeout(() => {
-                rewardEl.classList.remove('show');
-            }, 3000);
-
-            showToast('💎 Кейс за депозит +' + reward + ' монет!', true);
-        }
-
-        // ============================================================
-        // 4. ПОПОЛНЕНИЕ
+        // 3. ПОПОЛНЕНИЕ
         // ============================================================
         function openDeposit() {
             document.getElementById('depositOverlay').classList.add('show');
@@ -698,7 +604,7 @@
         }
 
         // ============================================================
-        // 5. TOAST
+        // 4. TOAST
         // ============================================================
         function showToast(msg, isWin = true) {
             const toast = document.createElement('div');
@@ -721,15 +627,14 @@
         }
 
         // ============================================================
-        // 6. СТАРТ
+        // 5. СТАРТ
         // ============================================================
         if (balance === 1000) {
-            setTimeout(() => showToast('🐰 Добро пожаловать в Rabbits!'), 400);
+            setTimeout(() => showToast('🎰 Добро пожаловать в VIP Casino!'), 400);
         }
 
-        console.log('🐰 Главная страница улучшена!');
+        console.log('🎰 VIP Casino загружена!');
         console.log('💰 Баланс:', balance);
-        console.log('✨ LIVE обновляется каждые 3 секунды');
     </script>
 </body>
 </html>
