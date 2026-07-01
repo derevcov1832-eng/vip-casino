@@ -21,6 +21,7 @@
             align-items: flex-start;
             padding: 16px;
             position: relative;
+            user-select: none;
         }
 
         .bg {
@@ -40,11 +41,11 @@
             z-index: 1;
             max-width: 480px;
             width: 100%;
-            padding-bottom: 30px;
+            padding-bottom: 80px;
         }
 
         .back-btn {
-            color: rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.4);
             text-decoration: none;
             font-size: 14px;
             padding: 6px 16px;
@@ -58,39 +59,30 @@
             transform: scale(0.94);
         }
 
-        .header h2 {
-            font-size: 30px;
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 0 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 10px;
+        }
+        .header .title {
+            font-size: 22px;
             font-weight: 800;
             background: linear-gradient(135deg, #2ecc71, #f7d44a, #e74c3c);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 2px;
-            text-align: center;
+            letter-spacing: 2px;
         }
-        .header .sub {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.15);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            text-align: center;
-            margin-bottom: 8px;
-        }
-
-        .balance {
-            font-size: 22px;
+        .header .balance {
+            font-size: 16px;
             font-weight: 600;
             color: #f7e3a0;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            padding: 8px 24px;
-            border-radius: 60px;
-            display: inline-block;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px 14px;
+            border-radius: 40px;
             border: 1px solid rgba(255, 255, 255, 0.04);
-            margin: 0 auto 12px;
-            text-align: center;
-        }
-        .balance-wrap {
-            text-align: center;
         }
 
         /* ===== КАРТЫ ===== */
@@ -226,12 +218,50 @@
             color: #fff;
         }
 
-        .footer {
-            text-align: center;
-            margin-top: 14px;
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.04);
-            letter-spacing: 2px;
+        /* ===== НИЖНЯЯ НАВИГАЦИЯ ===== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 26, 0.92);
+            backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0 12px;
+            max-width: 480px;
+            margin: 0 auto;
+            z-index: 100;
+        }
+        .bottom-nav .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 9px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: 0.3s;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px 16px;
+        }
+        .bottom-nav .nav-item .icon {
+            font-size: 22px;
+            transition: 0.3s;
+        }
+        .bottom-nav .nav-item.active {
+            color: #f7d44a;
+        }
+        .bottom-nav .nav-item.active .icon {
+            transform: translateY(-2px);
+        }
+        .bottom-nav .nav-item:active {
+            transform: scale(0.9);
         }
 
         .toast {
@@ -311,9 +341,8 @@
             .result {
                 font-size: 19px;
             }
-            .balance {
-                font-size: 19px;
-                padding: 6px 20px;
+            .header .title {
+                font-size: 18px;
             }
         }
     </style>
@@ -324,14 +353,10 @@
     <div class="confetti-container" id="confettiContainer"></div>
 
     <div class="container">
-        <a href="games.html" class="back-btn">← Назад</a>
+        <a href="games2.html" class="back-btn">← Назад</a>
 
         <div class="header">
-            <h2>🃏 Блэкджек 21</h2>
-            <div class="sub">Набери 21 и победи дилера!</div>
-        </div>
-
-        <div class="balance-wrap">
+            <div class="title">🃏 БЛЭКДЖЕК 21</div>
             <div class="balance" id="balanceDisplay">💰 1000</div>
         </div>
 
@@ -355,34 +380,52 @@
             <button class="btn-stand" onclick="standCard()" id="standBtn" disabled>✋ Стоп</button>
         </div>
 
-        <div class="footer">Ставка: 50 монет • Блэкджек = x1.5</div>
+        <div style="text-align:center; margin-top:6px; font-size:12px; color:rgba(255,255,255,0.1); letter-spacing:2px;">
+            Ставка: 50 монет • Блэкджек = x1.5
+        </div>
+
+        <!-- ===== НИЖНЯЯ НАВИГАЦИЯ ===== -->
+        <div class="bottom-nav" id="bottomNav">
+            <button class="nav-item" onclick="window.location.href='../home/home.html'">
+                <span class="icon">🏠</span> Главная
+            </button>
+            <button class="nav-item active" onclick="window.location.href='../games/games2.html'">
+                <span class="icon">🎮</span> Игры
+            </button>
+            <button class="nav-item" onclick="window.location.href='../nft/nft.html'">
+                <span class="icon">💎</span> Хранилище
+            </button>
+            <button class="nav-item" onclick="window.location.href='../profile/profile.html'">
+                <span class="icon">👤</span> Профиль
+            </button>
+        </div>
     </div>
 
     <div class="toast" id="toast"></div>
 
     <script>
-        // ============================
-        // 1. БАЛАНС
-        // ============================
-        let balance = parseInt(localStorage.getItem('casinoBalance')) || 1000;
-        updateBalanceDisplay();
+        // ============================================================
+        // 1. ОБРАБОТКА КНОПКИ "НАЗАД" НА ТЕЛЕФОНЕ (ВЫХОД В МЕНЮ)
+        // ============================================================
+        window.addEventListener('popstate', function(event) {
+            window.location.href = '../home/home.html';
+        });
+        window.history.pushState({ page: 'blackjack' }, '', window.location.href);
 
-        function updateBalanceDisplay() {
+        // ============================================================
+        // 2. БАЛАНС
+        // ============================================================
+        let balance = parseInt(localStorage.getItem('casinoBalance')) || 1000;
+        document.getElementById('balanceDisplay').textContent = '💰 ' + balance;
+
+        function updateBalance() {
             document.getElementById('balanceDisplay').textContent = '💰 ' + balance;
             localStorage.setItem('casinoBalance', balance);
         }
 
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            t.textContent = msg;
-            t.classList.add('show');
-            clearTimeout(t._timeout);
-            t._timeout = setTimeout(() => t.classList.remove('show'), 2400);
-        }
-
-        // ============================
-        // 2. ЗВУКИ
-        // ============================
+        // ============================================================
+        // 3. ЗВУКИ
+        // ============================================================
         function playWinSound() {
             try {
                 const ctx = new(window.AudioContext || window.webkitAudioContext)();
@@ -433,9 +476,9 @@
             } catch (_) {}
         }
 
-        // ============================
-        // 3. КОНФЕТТИ
-        // ============================
+        // ============================================================
+        // 4. КОНФЕТТИ
+        // ============================================================
         function launchConfetti() {
             const container = document.getElementById('confettiContainer');
             const colors = ['#f7d44a', '#ff6b6b', '#2ecc71', '#3498db', '#9b59b6', '#e74c3c', '#f39c12'];
@@ -455,9 +498,9 @@
             }
         }
 
-        // ============================
-        // 4. КОЛОДА И ЛОГИКА
-        // ============================
+        // ============================================================
+        // 5. КОЛОДА И ЛОГИКА
+        // ============================================================
         let deck = [],
             playerCards = [],
             dealerCards = [];
@@ -524,9 +567,9 @@
             document.getElementById('dealerPoints').textContent = dPoints + ' очков';
         }
 
-        // ============================
-        // 5. ИГРА
-        // ============================
+        // ============================================================
+        // 6. ИГРА
+        // ============================================================
         function startBlackjack() {
             if (balance < BET) {
                 showToast('❌ Недостаточно монет!');
@@ -540,7 +583,7 @@
             document.getElementById('bjResult').className = 'result';
 
             balance -= BET;
-            updateBalanceDisplay();
+            updateBalance();
 
             deck = shuffle(createDeck());
             playerCards = [deck.pop(), deck.pop()];
@@ -553,7 +596,7 @@
                 setTimeout(() => {
                     const win = Math.floor(BET * 1.5);
                     balance += win;
-                    updateBalanceDisplay();
+                    updateBalance();
                     document.getElementById('bjResult').className = 'result win';
                     document.getElementById('bjResult').textContent = '🎉 Блэкджек! +' + win + ' монет!';
                     playWinSound();
@@ -603,14 +646,14 @@
             if (d > 21 || p > d) {
                 const win = 100;
                 balance += win;
-                updateBalanceDisplay();
+                updateBalance();
                 document.getElementById('bjResult').className = 'result win';
                 document.getElementById('bjResult').textContent = '🎉 Выиграл ' + win + ' монет!';
                 playWinSound();
                 launchConfetti();
             } else if (p === d) {
                 balance += BET;
-                updateBalanceDisplay();
+                updateBalance();
                 document.getElementById('bjResult').className = 'result draw';
                 document.getElementById('bjResult').textContent = '🤝 Ничья! Возврат ставки';
             } else {
@@ -622,17 +665,29 @@
             document.getElementById('newBtn').disabled = false;
         }
 
-        // ============================
-        // 6. СТАРТ
-        // ============================
+        // ============================================================
+        // 7. TOAST
+        // ============================================================
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            clearTimeout(t._timeout);
+            t._timeout = setTimeout(() => t.classList.remove('show'), 2400);
+        }
+
+        // ============================================================
+        // 8. СТАРТ
+        // ============================================================
         renderBJ();
         document.getElementById('bjResult').textContent = 'Нажми «Новая игра»';
         if (balance === 1000) {
             setTimeout(() => showToast('🃏 Добро пожаловать в Блэкджек 21!'), 400);
         }
 
-        console.log('🃏 Блэкджек загружен!');
+        console.log('🃏 БЛЭКДЖЕК загружен!');
         console.log('💰 Баланс:', balance);
+        console.log('👆 Нажми "Новая игра" для начала!');
     </script>
 </body>
 </html>
