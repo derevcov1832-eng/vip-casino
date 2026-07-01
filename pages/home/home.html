@@ -38,8 +38,14 @@
         }
 
         @keyframes bgPulse {
-            0% { opacity: 0.7; transform: scale(1); }
-            100% { opacity: 1; transform: scale(1.02); }
+            0% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1.02);
+            }
         }
 
         .particles {
@@ -60,20 +66,45 @@
             border-radius: 50%;
             animation: floatParticle linear infinite;
         }
-        .particle:nth-child(1) { left: 10%; animation-duration: 14s; }
-        .particle:nth-child(2) { left: 25%; animation-duration: 18s; animation-delay: 2s; }
-        .particle:nth-child(3) { left: 40%; animation-duration: 12s; animation-delay: 4s; }
-        .particle:nth-child(4) { left: 55%; animation-duration: 16s; animation-delay: 1s; }
-        .particle:nth-child(5) { left: 70%; animation-duration: 13s; animation-delay: 3s; }
-        .particle:nth-child(6) { left: 85%; animation-duration: 19s; animation-delay: 5s; }
-        .particle:nth-child(7) { left: 50%; animation-duration: 15s; animation-delay: 2.5s; }
-        .particle:nth-child(8) { left: 15%; animation-duration: 20s; animation-delay: 1.5s; }
+        .particle:nth-child(1) { left: 10%;
+            animation-duration: 14s; }
+        .particle:nth-child(2) { left: 25%;
+            animation-duration: 18s;
+            animation-delay: 2s; }
+        .particle:nth-child(3) { left: 40%;
+            animation-duration: 12s;
+            animation-delay: 4s; }
+        .particle:nth-child(4) { left: 55%;
+            animation-duration: 16s;
+            animation-delay: 1s; }
+        .particle:nth-child(5) { left: 70%;
+            animation-duration: 13s;
+            animation-delay: 3s; }
+        .particle:nth-child(6) { left: 85%;
+            animation-duration: 19s;
+            animation-delay: 5s; }
+        .particle:nth-child(7) { left: 50%;
+            animation-duration: 15s;
+            animation-delay: 2.5s; }
+        .particle:nth-child(8) { left: 15%;
+            animation-duration: 20s;
+            animation-delay: 1.5s; }
 
         @keyframes floatParticle {
-            0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0;
+            }
         }
 
         .container {
@@ -171,8 +202,15 @@
             box-shadow: 0 0 20px rgba(231, 76, 60, 0.2);
         }
         @keyframes livePulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.2; transform: scale(0.5); }
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.2;
+                transform: scale(0.5);
+            }
         }
         .live-badge .num {
             font-size: 18px;
@@ -313,8 +351,14 @@
             animation: fadeIn 0.3s ease-out;
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .deposit-card {
@@ -467,14 +511,14 @@
 
         <!-- ===== КНОПКИ ===== -->
         <div class="row-buttons">
-            <button class="big-btn play" onclick="window.location.href='../../games.html'">
+            <button class="big-btn play" onclick="window.location.href='../games/games.html'">
                 <span class="icon">🎮</span>
                 ИГРАТЬ!
                 <span class="arrow">→</span>
             </button>
-            <button class="big-btn cases" onclick="window.location.href='../../pages/cases/cases.html'">
-                <span class="icon">📦</span>
-                КЕЙСЫ
+            <button class="big-btn cases" onclick="window.location.href='../nft/nft.html'">
+                <span class="icon">💎</span>
+                ХРАНИЛИЩЕ
                 <span class="arrow">→</span>
             </button>
         </div>
@@ -483,19 +527,19 @@
 
     <!-- ===== НИЖНЯЯ НАВИГАЦИЯ ===== -->
     <div class="bottom-nav" id="bottomNav">
-        <button class="nav-item active" onclick="window.location.href='../../index.html'">
+        <button class="nav-item active" onclick="window.location.href='../home/home.html'">
             <span class="icon">🏠</span>
             Главная
         </button>
-        <button class="nav-item" onclick="window.location.href='../../games.html'">
+        <button class="nav-item" onclick="window.location.href='../games/games.html'">
             <span class="icon">🎮</span>
             Игры
         </button>
-        <button class="nav-item" onclick="window.location.href='../../nft.html'">
+        <button class="nav-item" onclick="window.location.href='../nft/nft.html'">
             <span class="icon">💎</span>
             Хранилище
         </button>
-        <button class="nav-item" onclick="window.location.href='../../profile.html'">
+        <button class="nav-item" onclick="window.location.href='../profile/profile.html'">
             <span class="icon">👤</span>
             Профиль
         </button>
