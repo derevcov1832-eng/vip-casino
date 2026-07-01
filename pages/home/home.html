@@ -75,10 +75,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             cursor: pointer;
-            transition: 0.2s;
-        }
-        .header .logo:active {
-            transform: scale(0.95);
         }
         .header .right {
             display: flex;
@@ -98,9 +94,6 @@
             color: #f7d44a;
             border: 1px solid rgba(255, 255, 255, 0.04);
             cursor: pointer;
-        }
-        .header .coins:active {
-            transform: scale(0.95);
         }
 
         .balance {
@@ -483,8 +476,9 @@
                     <div style="font-size:13px; color:rgba(255,255,255,0.15); margin-top:4px; letter-spacing:2px; text-transform:uppercase;">Добро пожаловать в VIP Casino!</div>
                 </div>
 
+                <!-- ===== КНОПКА "ИГРАТЬ!" — ВЕДЁТ НА games2.html ===== -->
                 <div style="display:flex; gap:12px; margin:12px 0;">
-                    <button onclick="goToPage(1)" style="flex:1; padding:16px; border:none; border-radius:16px; background:linear-gradient(145deg, #f7d44a, #dbb84a); color:#1a1a2e; font-size:18px; font-weight:800; letter-spacing:2px; cursor:pointer; box-shadow:0 6px 30px rgba(247,212,74,0.08);">
+                    <button onclick="window.location.href='../games/games2.html'" style="flex:1; padding:16px; border:none; border-radius:16px; background:linear-gradient(145deg, #f7d44a, #dbb84a); color:#1a1a2e; font-size:18px; font-weight:800; letter-spacing:2px; cursor:pointer; box-shadow:0 6px 30px rgba(247,212,74,0.08);">
                         🎮 ИГРАТЬ! →
                     </button>
                 </div>
@@ -506,7 +500,7 @@
                 </div>
             </div>
 
-            <!-- ===== СТРАНИЦА 2: ИГРЫ ===== -->
+            <!-- ===== СТРАНИЦА 2: ИГРЫ (ОСТАВЛЯЕМ СТАРУЮ ДЛЯ КЕША, НО НЕ ИСПОЛЬЗУЕМ) ===== -->
             <div class="page" id="pageGames">
                 <div class="header">
                     <div class="logo" onclick="goToPage(0)">🎰 VIP CASINO</div>
@@ -723,7 +717,8 @@
 
     <script>
         // ============================================================
-        // 1. СВАЙП И НАВИГАЦИЯ        // ============================================================
+        // 1. СВАЙП И НАВИГАЦИЯ
+        // ============================================================
         const slider = document.getElementById('slider');
         const navItems = document.querySelectorAll('.nav-item');
         const totalPages = 4;
