@@ -17,23 +17,116 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
-            background: linear-gradient(145deg, #1a0a0a, #3a1a1a, #1a0a0a);
+            background: #0a0a1a;
             color: white;
             position: relative;
             overflow: hidden;
         }
-        body::before {
-            content: '';
+
+        /* ===== ЗВЁЗДНЫЙ ФОН ===== */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .star {
             position: absolute;
-            top: -30%;
-            left: -20%;
-            width: 140%;
-            height: 140%;
-            background: radial-gradient(ellipse at 30% 40%, rgba(255, 50, 50, 0.08) 0%, transparent 60%),
-                radial-gradient(ellipse at 70% 60%, rgba(255, 180, 50, 0.06) 0%, transparent 50%);
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s ease-in-out infinite alternate;
+        }
+        .star:nth-child(1) { top: 10%;
+            left: 20%;
+            animation-delay: 0s; }
+        .star:nth-child(2) { top: 30%;
+            left: 80%;
+            animation-delay: 0.5s;
+            width: 3px;
+            height: 3px; }
+        .star:nth-child(3) { top: 60%;
+            left: 10%;
+            animation-delay: 1s; }
+        .star:nth-child(4) { top: 80%;
+            left: 70%;
+            animation-delay: 1.5s;
+            width: 3px;
+            height: 3px; }
+        .star:nth-child(5) { top: 20%;
+            left: 50%;
+            animation-delay: 0.8s; }
+        .star:nth-child(6) { top: 70%;
+            left: 40%;
+            animation-delay: 0.3s;
+            width: 3px;
+            height: 3px; }
+        .star:nth-child(7) { top: 50%;
+            left: 90%;
+            animation-delay: 1.2s; }
+        .star:nth-child(8) { top: 90%;
+            left: 20%;
+            animation-delay: 0.7s;
+            width: 3px;
+            height: 3px; }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2;
+                transform: scale(0.8); }
+            100% { opacity: 1;
+                transform: scale(1.2); }
+        }
+
+        /* ===== НЕОНОВЫЙ ОРЕОЛ ===== */
+        .glow-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
             pointer-events: none;
             z-index: 0;
         }
+        .glow-orb.g1 {
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            right: -100px;
+            background: rgba(231, 76, 60, 0.15);
+            animation: orbFloat 8s ease-in-out infinite alternate;
+        }
+        .glow-orb.g2 {
+            width: 300px;
+            height: 300px;
+            bottom: -50px;
+            left: -50px;
+            background: rgba(46, 204, 113, 0.10);
+            animation: orbFloat 10s ease-in-out infinite alternate-reverse;
+        }
+        .glow-orb.g3 {
+            width: 250px;
+            height: 250px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(247, 212, 74, 0.05);
+            animation: orbPulse 6s ease-in-out infinite;
+        }
+
+        @keyframes orbFloat {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(30px, -30px); }
+        }
+        @keyframes orbPulse {
+            0%,
+            100% { transform: translate(-50%, -50%) scale(1);
+                opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0.6; }
+        }
+
         .container {
             position: relative;
             z-index: 1;
@@ -41,6 +134,7 @@
             width: 100%;
             text-align: center;
         }
+
         .back-btn {
             display: inline-block;
             color: rgba(255, 255, 255, 0.5);
@@ -51,29 +145,42 @@
             border-radius: 40px;
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(8px);
-            transition: 0.25s;
+            transition: all 0.3s ease;
             margin-bottom: 10px;
+        }
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
         }
         .back-btn:active {
             transform: scale(0.94);
-            background: rgba(255, 255, 255, 0.08);
         }
+
         .header h2 {
-            font-size: 30px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            background: linear-gradient(135deg, #ff6b6b, #ff4757);
+            font-size: 34px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #ff6b6b, #ffd93d, #ff6b6b);
+            background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: gradientMove 3s ease-in-out infinite;
             margin-bottom: 2px;
         }
+        @keyframes gradientMove {
+            0%,
+            100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
         .header .sub {
             font-size: 14px;
-            color: rgba(255, 255, 255, 0.35);
-            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 4px;
             text-transform: uppercase;
             margin-bottom: 12px;
         }
+
         .balance {
             font-size: 24px;
             font-weight: 600;
@@ -87,27 +194,49 @@
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
             margin-bottom: 16px;
             letter-spacing: 1px;
+            position: relative;
+        }
+        .balance::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 60px;
+            background: linear-gradient(135deg, rgba(247, 212, 74, 0.1), transparent, rgba(247, 212, 74, 0.1));
+            z-index: -1;
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+        @keyframes borderGlow {
+            0%,
+            100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
         }
 
-        /* ===== КОЛЕСО РУЛЕТКИ ===== */
+        /* ===== КОЛЕСО ===== */
         .wheel-container {
             position: relative;
-            width: 280px;
-            height: 280px;
+            width: 300px;
+            height: 300px;
             margin: 10px auto;
         }
+
         .wheel {
             width: 100%;
             height: 100%;
             border-radius: 50%;
             position: relative;
             transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
-            box-shadow: 0 0 60px rgba(255, 50, 50, 0.15), 0 0 120px rgba(255, 50, 50, 0.05);
-            border: 4px solid rgba(255, 215, 100, 0.3);
+            box-shadow: 0 0 80px rgba(255, 50, 50, 0.15), 0 0 160px rgba(255, 50, 50, 0.05),
+                inset 0 0 60px rgba(0, 0, 0, 0.2);
+            border: 6px solid rgba(255, 215, 100, 0.3);
+            overflow: hidden;
         }
         .wheel.spinning {
             transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
         }
+
         .wheel-segment {
             position: absolute;
             width: 50%;
@@ -119,23 +248,47 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
-            font-weight: bold;
-            color: white;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            transition: filter 0.3s ease;
         }
+        .wheel-segment:hover {
+            filter: brightness(1.2);
+        }
+
+        .wheel-segment .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            margin-left: 25px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .wheel-segment.red .dot {
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 20px rgba(255, 100, 100, 0.2);
+        }
+        .wheel-segment.black .dot {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+        }
+        .wheel-segment.green .dot {
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 0 30px rgba(46, 204, 113, 0.3);
+        }
+
         .wheel-center {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             background: radial-gradient(circle, #f7d44a, #b8860b);
             border-radius: 50%;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 0 30px rgba(247, 212, 74, 0.2);
+            border: 4px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 60px rgba(247, 212, 74, 0.2), inset 0 0 30px rgba(0, 0, 0, 0.2);
             z-index: 10;
+            transition: all 0.3s ease;
         }
         .wheel-center::after {
             content: '★';
@@ -143,47 +296,94 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 20px;
+            font-size: 24px;
             color: #1a1a2e;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
         }
+        .wheel-center.spinning {
+            animation: centerSpin 1s linear infinite;
+        }
+        @keyframes centerSpin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
         .wheel-arrow {
             position: absolute;
-            top: -15px;
+            top: -18px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 40px;
+            font-size: 48px;
             color: #f7d44a;
             z-index: 20;
-            filter: drop-shadow(0 0 20px rgba(247, 212, 74, 0.3));
+            filter: drop-shadow(0 0 30px rgba(247, 212, 74, 0.3));
+            animation: arrowPulse 2s ease-in-out infinite;
+        }
+        @keyframes arrowPulse {
+            0%,
+            100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.1); }
         }
 
         /* ===== РЕЗУЛЬТАТ ===== */
         .result {
-            font-size: 26px;
-            font-weight: 600;
-            margin: 12px 0;
-            min-height: 48px;
-            letter-spacing: 0.5px;
+            margin: 16px 0 12px;
+            min-height: 80px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
         }
         .result .number {
-            font-size: 48px;
+            font-size: 56px;
             font-weight: 800;
+            animation: popResult 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
         }
         .result .color-text {
-            font-size: 20px;
+            font-size: 22px;
+            font-weight: 700;
             margin-top: 4px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
         .result .color-text.red {
-            color: #e74c3c;
+            color: #ff6b6b;
+            text-shadow: 0 0 30px rgba(255, 50, 50, 0.2);
         }
         .result .color-text.black {
             color: #bdc3c7;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
         }
         .result .color-text.green {
             color: #2ecc71;
+            text-shadow: 0 0 30px rgba(46, 204, 113, 0.2);
+        }
+        .result .win-amount {
+            font-size: 20px;
+            color: #f7d44a;
+            margin-top: 6px;
+            font-weight: 600;
+            text-shadow: 0 0 30px rgba(247, 212, 74, 0.15);
+        }
+        .result .win-amount.lose {
+            color: #ff6b6b;
         }
 
-        /* ===== СТАВКА ===== */
+        @keyframes popResult {
+            0% {
+                transform: scale(0) rotate(-10deg);
+                opacity: 0;
+            }
+            60% {
+                transform: scale(1.2) rotate(3deg);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
         .bet-settings {
             display: flex;
             gap: 12px;
@@ -194,48 +394,62 @@
         }
         .bet-settings label {
             font-size: 14px;
-            color: rgba(255, 255, 255, 0.5);
-            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
         .bet-settings input {
-            width: 110px;
+            width: 120px;
             padding: 12px 8px;
             border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            font-size: 17px;
-            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 18px;
+            font-weight: 700;
             text-align: center;
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(8px);
             color: #f0e8d0;
-            transition: 0.2s;
+            transition: all 0.3s ease;
         }
         .bet-settings input:focus {
             outline: none;
-            border-color: rgba(255, 215, 100, 0.25);
-            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(247, 212, 74, 0.3);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 0 30px rgba(247, 212, 74, 0.05);
         }
 
         .buttons {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             justify-content: center;
             flex-wrap: wrap;
             margin: 16px 0 8px;
         }
         button {
-            padding: 15px 28px;
+            padding: 16px 22px;
             border: none;
             border-radius: 60px;
-            font-size: 17px;
-            font-weight: 600;
+            font-size: 15px;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             flex: 1;
-            min-width: 100px;
-            letter-spacing: 0.5px;
+            min-width: 80px;
+            letter-spacing: 1px;
             backdrop-filter: blur(8px);
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
         }
         button:active {
             transform: scale(0.94);
@@ -248,18 +462,22 @@
         .btn-red {
             background: linear-gradient(145deg, #e74c3c, #c0392b);
             color: #fff;
+            box-shadow: 0 6px 30px rgba(231, 76, 60, 0.3);
         }
         .btn-black {
             background: linear-gradient(145deg, #2c3e50, #1a252f);
             color: #fff;
+            box-shadow: 0 6px 30px rgba(44, 62, 80, 0.3);
         }
         .btn-green {
-            background: linear-gradient(145deg, #2ecc71, #27ae60);
+            background: linear-gradient(145deg, #27ae60, #1e8449);
             color: #fff;
+            box-shadow: 0 6px 30px rgba(46, 204, 113, 0.3);
         }
         .btn-number {
-            background: linear-gradient(145deg, #9b59b6, #8e44ad);
+            background: linear-gradient(145deg, #8e44ad, #6c3483);
             color: #fff;
+            box-shadow: 0 6px 30px rgba(142, 68, 173, 0.3);
         }
 
         .toast {
@@ -270,7 +488,7 @@
             background: rgba(12, 14, 28, 0.92);
             backdrop-filter: blur(16px);
             color: #f0eee0;
-            padding: 14px 28px;
+            padding: 16px 32px;
             border-radius: 60px;
             display: none;
             z-index: 999;
@@ -278,71 +496,102 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
             font-size: 16px;
             font-weight: 500;
-            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 16px 60px rgba(0, 0, 0, 0.5);
             letter-spacing: 0.3px;
         }
         .toast.show {
             display: block;
-            animation: slideDown 0.35s ease-out;
+            animation: slideDown 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         @keyframes slideDown {
             from {
-                top: -60px;
+                top: -80px;
                 opacity: 0;
+                transform: translateX(-50%) scale(0.8);
             }
             to {
                 top: 20px;
                 opacity: 1;
+                transform: translateX(-50%) scale(1);
             }
         }
 
         .footer {
             margin-top: 16px;
             font-size: 12px;
-            color: rgba(255, 255, 255, 0.12);
-            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.08);
+            letter-spacing: 3px;
         }
 
         @media (max-width: 450px) {
             .wheel-container {
-                width: 220px;
-                height: 220px;
+                width: 240px;
+                height: 240px;
             }
             .wheel-center {
-                width: 40px;
-                height: 40px;
+                width: 48px;
+                height: 48px;
             }
             .wheel-center::after {
-                font-size: 16px;
+                font-size: 18px;
             }
             .result .number {
-                font-size: 38px;
+                font-size: 44px;
             }
             button {
-                font-size: 15px;
-                padding: 13px 16px;
-                min-width: 70px;
+                font-size: 13px;
+                padding: 12px 14px;
+                min-width: 60px;
             }
             .balance {
                 font-size: 20px;
                 padding: 10px 22px;
             }
+            .wheel-segment .dot {
+                width: 10px;
+                height: 10px;
+                margin-left: 18px;
+            }
+            .result {
+                min-height: 70px;
+            }
+            .header h2 {
+                font-size: 28px;
+            }
         }
     </style>
 </head>
 <body>
+
+    <!-- ===== ЗВЁЗДЫ ===== -->
+    <div class="stars">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+    </div>
+
+    <!-- ===== НЕОНОВЫЕ ОРЕОЛЫ ===== -->
+    <div class="glow-orb g1"></div>
+    <div class="glow-orb g2"></div>
+    <div class="glow-orb g3"></div>
+
     <div class="container">
         <a href="index.html" class="back-btn">← Назад</a>
         <div class="header">
             <h2>🎡 Рулетка</h2>
-            <div class="sub">Крути колесо и выигрывай!</div>
+            <div class="sub">✦ Испытай удачу ✦</div>
         </div>
         <div class="balance" id="balanceDisplay">💰 1000</div>
 
         <div class="wheel-container">
             <div class="wheel-arrow">▼</div>
             <div class="wheel" id="wheel"></div>
-            <div class="wheel-center"></div>
+            <div class="wheel-center" id="wheelCenter"></div>
         </div>
 
         <div class="result" id="rouletteResult">
@@ -356,10 +605,10 @@
         </div>
 
         <div class="buttons">
-            <button class="btn-red" onclick="spinRoulette('red')" id="btnRed">🔴 Красное (x2)</button>
-            <button class="btn-black" onclick="spinRoulette('black')" id="btnBlack">⚫ Чёрное (x2)</button>
-            <button class="btn-green" onclick="spinRoulette('green')" id="btnGreen">🟢 Зеро (x35)</button>
-            <button class="btn-number" onclick="spinRoulette('number')" id="btnNumber">🎯 Число (x35)</button>
+            <button class="btn-red" onclick="spinRoulette('red')" id="btnRed">🔴 Красное</button>
+            <button class="btn-black" onclick="spinRoulette('black')" id="btnBlack">⚫ Чёрное</button>
+            <button class="btn-green" onclick="spinRoulette('green')" id="btnGreen">🟢 Зеро</button>
+            <button class="btn-number" onclick="spinRoulette('number')" id="btnNumber">🎯 Число</button>
         </div>
 
         <div class="footer">Красное/Чёрное = x2 | Зеро/Число = x35</div>
@@ -382,7 +631,7 @@
         function showToast(msg, isWin = true) {
             const t = document.getElementById('toast');
             t.innerHTML = msg;
-            t.style.borderColor = isWin ? 'rgba(46,204,113,0.2)' : 'rgba(231,76,60,0.2)';
+            t.style.borderColor = isWin ? 'rgba(46,204,113,0.15)' : 'rgba(231,76,60,0.15)';
             t.classList.add('show');
             clearTimeout(t._timeout);
             t._timeout = setTimeout(() => {
@@ -392,12 +641,12 @@
         }
 
         // ============================
-        // 2. ЗВУКИ
+        // 2. ЗВУКИ (усиленные)
         // ============================
         function playWinSound() {
             try {
                 const ctx = new(window.AudioContext || window.webkitAudioContext)();
-                const notes = [523, 659, 784];
+                const notes = [523, 659, 784, 1047];
                 notes.forEach((freq, i) => {
                     const osc = ctx.createOscillator();
                     const gain = ctx.createGain();
@@ -405,10 +654,10 @@
                     gain.connect(ctx.destination);
                     osc.frequency.value = freq;
                     osc.type = 'sine';
-                    gain.gain.value = 0.10;
-                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25 + i * 0.12);
-                    osc.start(ctx.currentTime + i * 0.12);
-                    osc.stop(ctx.currentTime + 0.3 + i * 0.12);
+                    gain.gain.value = 0.12;
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3 + i * 0.1);
+                    osc.start(ctx.currentTime + i * 0.1);
+                    osc.stop(ctx.currentTime + 0.35 + i * 0.1);
                 });
             } catch (_) {}
         }
@@ -420,12 +669,23 @@
                 const gain = ctx.createGain();
                 osc.connect(gain);
                 gain.connect(ctx.destination);
-                osc.frequency.value = 340;
-                osc.type = 'sine';
-                gain.gain.value = 0.09;
-                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
+                osc.frequency.value = 300;
+                osc.type = 'sawtooth';
+                gain.gain.value = 0.08;
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.8);
                 osc.start(ctx.currentTime);
-                osc.stop(ctx.currentTime + 0.6);
+                osc.stop(ctx.currentTime + 0.8);
+
+                const osc2 = ctx.createOscillator();
+                const gain2 = ctx.createGain();
+                osc2.connect(gain2);
+                gain2.connect(ctx.destination);
+                osc2.frequency.value = 200;
+                osc2.type = 'sawtooth';
+                gain2.gain.value = 0.06;
+                gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
+                osc2.start(ctx.currentTime + 0.15);
+                osc2.stop(ctx.currentTime + 0.6);
             } catch (_) {}
         }
 
@@ -436,37 +696,52 @@
                 const gain = ctx.createGain();
                 osc.connect(gain);
                 gain.connect(ctx.destination);
-                osc.frequency.value = 800;
+                osc.frequency.value = 900;
                 osc.type = 'sine';
-                gain.gain.value = 0.05;
-                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+                gain.gain.value = 0.04;
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
                 osc.start(ctx.currentTime);
-                osc.stop(ctx.currentTime + 0.08);
+                osc.stop(ctx.currentTime + 0.06);
+
+                const osc2 = ctx.createOscillator();
+                const gain2 = ctx.createGain();
+                osc2.connect(gain2);
+                gain2.connect(ctx.destination);
+                osc2.frequency.value = 700;
+                osc2.type = 'sine';
+                gain2.gain.value = 0.03;
+                gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+                osc2.start(ctx.currentTime + 0.04);
+                osc2.stop(ctx.currentTime + 0.08);
             } catch (_) {}
         }
 
         // ============================
         // 3. СОЗДАНИЕ КОЛЕСА
         // ============================
-        const numbers = [0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31,
-            9, 22, 18, 29, 7, 28, 12, 35, 3, 26
-        ];
-        const colors = ['green', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red',
-            'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black',
-            'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black'
+        const segmentColors = [
+            'green', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red',
+            'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red',
+            'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red',
+            'black', 'red', 'black', 'red', 'black', 'red', 'black'
         ];
 
         const wheel = document.getElementById('wheel');
-        const segmentCount = numbers.length;
+        const segmentCount = segmentColors.length;
         const angleStep = 360 / segmentCount;
 
-        numbers.forEach((num, i) => {
+        segmentColors.forEach((color, i) => {
             const seg = document.createElement('div');
-            seg.className = 'wheel-segment';
-            const color = colors[i];
-            seg.style.backgroundColor = color === 'red' ? '#e74c3c' : color === 'black' ? '#2c3e50' : '#2ecc71';
+            seg.className = `wheel-segment ${color}`;
+            const colorHex = color === 'red' ? '#e74c3c' : color === 'black' ? '#1a1a2e' : '#2ecc71';
+            const colorLight = color === 'red' ? '#ff6b6b' : color === 'black' ? '#2c3e50' : '#3ddc84';
+            seg.style.background = `linear-gradient(145deg, ${colorLight}, ${colorHex})`;
             seg.style.transform = `rotate(${i * angleStep}deg)`;
-            seg.innerHTML = `<span style="transform: rotate(90deg); font-size: 11px; margin-left: 20px;">${num}</span>`;
+
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            seg.appendChild(dot);
+
             wheel.appendChild(seg);
         });
 
@@ -475,6 +750,14 @@
         // ============================
         let isSpinning = false;
         let currentRotation = 0;
+
+        const numbers = [0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31,
+            9, 22, 18, 29, 7, 28, 12, 35, 3, 26
+        ];
+        const colors = ['green', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red',
+            'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black',
+            'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black', 'red', 'black'
+        ];
 
         function spinRoulette(betType) {
             if (isSpinning) return;
@@ -489,6 +772,7 @@
             document.getElementById('btnBlack').disabled = true;
             document.getElementById('btnGreen').disabled = true;
             document.getElementById('btnNumber').disabled = true;
+            document.getElementById('wheelCenter').classList.add('spinning');
 
             balance -= bet;
             updateBalanceDisplay();
@@ -508,6 +792,7 @@
 
             setTimeout(() => {
                 wheel.classList.remove('spinning');
+                document.getElementById('wheelCenter').classList.remove('spinning');
 
                 let isWin = false;
                 let winAmount = 0;
@@ -532,20 +817,22 @@
                 const colorClass = color === 'красный' ? 'red' : (color === 'чёрный' ? 'black' : 'green');
                 const colorEmoji = color === 'красный' ? '🔴' : (color === 'чёрный' ? '⚫' : '🟢');
 
-                document.getElementById('rouletteResult').innerHTML = `
-                    <div class="number">${num}</div>
-                    <div class="color-text ${colorClass}">${colorEmoji} ${color.toUpperCase()}</div>
-                `;
+                let resultHTML = `<div class="number">${num}</div>`;
+                resultHTML += `<div class="color-text ${colorClass}">${colorEmoji} ${color.toUpperCase()}</div>`;
 
                 if (isWin) {
+                    resultHTML += `<div class="win-amount">+${winAmount} 🪙</div>`;
                     balance += winAmount;
                     updateBalanceDisplay();
                     showToast('🎉 Выиграл ' + winAmount + ' монет!', true);
                     playWinSound();
                 } else {
+                    resultHTML += `<div class="win-amount lose">-${bet} 🪙</div>`;
                     showToast('😢 Проиграл ' + bet + ' монет', false);
                     playLoseSound();
                 }
+
+                document.getElementById('rouletteResult').innerHTML = resultHTML;
 
                 isSpinning = false;
                 document.getElementById('btnRed').disabled = false;
