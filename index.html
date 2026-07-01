@@ -145,7 +145,6 @@
             line-height: 1.1;
         }
 
-        /* ===== ГРУППЫ ===== */
         .section-label {
             font-size: 10px;
             text-transform: uppercase;
@@ -186,10 +185,15 @@
             transform: scale(0.94);
         }
         .menu-item .icon {
-            font-size: 26px;
-            width: 40px;
-            text-align: center;
+            font-size: 22px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
             flex-shrink: 0;
+            font-weight: 700;
         }
         .menu-item .info {
             flex: 1;
@@ -219,26 +223,22 @@
             flex-shrink: 0;
         }
 
-        /* Цвета групп */
+        /* ===== НОВЫЕ СТИЛЬНЫЕ ИКОНКИ ===== */
         .menu-item.coin .icon {
-            background: rgba(247, 212, 74, 0.1);
-            border-radius: 10px;
-            padding: 4px;
+            background: rgba(247, 212, 74, 0.12);
+            color: #f7d44a;
         }
         .menu-item.roulette .icon {
-            background: rgba(231, 76, 60, 0.1);
-            border-radius: 10px;
-            padding: 4px;
+            background: rgba(231, 76, 60, 0.12);
+            color: #ff6b6b;
         }
         .menu-item.blackjack .icon {
-            background: rgba(46, 204, 113, 0.1);
-            border-radius: 10px;
-            padding: 4px;
+            background: rgba(46, 204, 113, 0.12);
+            color: #2ecc71;
         }
         .menu-item.nft .icon {
-            background: rgba(123, 77, 255, 0.1);
-            border-radius: 10px;
-            padding: 4px;
+            background: rgba(123, 77, 255, 0.12);
+            color: #b388ff;
         }
 
         .stats {
@@ -290,8 +290,9 @@
                 padding: 10px 10px;
             }
             .menu-item .icon {
-                font-size: 20px;
-                width: 32px;
+                font-size: 18px;
+                width: 30px;
+                height: 30px;
             }
             .menu-item .info .name {
                 font-size: 12px;
@@ -338,7 +339,7 @@
         <div class="menu-group">
             <div class="menu-row">
                 <a href="coin.html" class="menu-item coin">
-                    <div class="icon">🪙</div>
+                    <div class="icon">◈</div>
                     <div class="info">
                         <div class="name">Монетка</div>
                         <div class="desc">Орёл или решка</div>
@@ -346,7 +347,7 @@
                     <div class="arrow">›</div>
                 </a>
                 <a href="roulette.html" class="menu-item roulette">
-                    <div class="icon">🎡</div>
+                    <div class="icon">◎</div>
                     <div class="info">
                         <div class="name">Рулетка</div>
                         <div class="desc">Красное / Чёрное</div>
@@ -356,7 +357,7 @@
             </div>
             <div class="menu-row">
                 <a href="blackjack.html" class="menu-item blackjack">
-                    <div class="icon">🃏</div>
+                    <div class="icon">♤</div>
                     <div class="info">
                         <div class="name">Блэкджек</div>
                         <div class="desc">21 против дилера</div>
@@ -371,7 +372,7 @@
         <div class="menu-group">
             <div class="menu-row">
                 <a href="nft.html" class="menu-item nft">
-                    <div class="icon">💎</div>
+                    <div class="icon">✦</div>
                     <div class="info">
                         <div class="name">Мои NFT</div>
                         <div class="desc">Коллекционные карточки</div>
