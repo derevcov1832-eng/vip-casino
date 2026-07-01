@@ -3,24 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🎮 Игры — VIP Casino</title>
+    <title>🎰 VIP Casino</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             font-family: 'Segoe UI', system-ui, sans-serif;
             background: #0a0a1a;
             color: white;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 16px;
+            overflow: hidden;
             position: relative;
+            user-select: none;
+            touch-action: pan-y;
         }
+
         .bg {
             position: fixed;
             top: 0;
@@ -29,86 +30,235 @@
             height: 100%;
             z-index: 0;
             background:
-                radial-gradient(ellipse at 20% 30%, rgba(180, 80, 255, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 70%, rgba(255, 50, 50, 0.05) 0%, transparent 50%);
+                radial-gradient(ellipse at 20% 30%, rgba(247, 212, 74, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(180, 80, 255, 0.04) 0%, transparent 50%);
         }
-        .container {
+
+        .app-wrapper {
             position: relative;
             z-index: 1;
             max-width: 480px;
             width: 100%;
-            padding-bottom: 80px;
+            height: 100vh;
+            margin: 0 auto;
+            overflow: hidden;
+            touch-action: pan-y;
         }
+
+        .slider {
+            display: flex;
+            height: 100vh;
+            transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            will-change: transform;
+        }
+
+        .page {
+            min-width: 100%;
+            height: 100vh;
+            padding: 16px 16px 80px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 12px;
+            padding-bottom: 10px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-            margin-bottom: 16px;
+            margin-bottom: 6px;
         }
         .header .logo {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 800;
             background: linear-gradient(135deg, #f7d44a, #ff6b6b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             cursor: pointer;
         }
-        .header .back {
-            color: rgba(255, 255, 255, 0.4);
-            text-decoration: none;
-            font-size: 14px;
-            padding: 6px 16px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 40px;
-            background: rgba(255, 255, 255, 0.02);
+        .header .right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
-        .header .back:active {
-            transform: scale(0.94);
+        .header .coins {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #f7d44a;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            cursor: pointer;
         }
 
-        .games-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: rgba(255, 255, 255, 0.4);
-            letter-spacing: 2px;
-            margin-bottom: 16px;
-            text-transform: uppercase;
+        .balance {
+            font-size: 22px;
+            font-weight: 600;
+            color: #f7e3a0;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            padding: 8px 24px;
+            border-radius: 60px;
+            display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            margin: 0 auto 12px;
+            text-align: center;
+        }
+        .balance-wrap {
             text-align: center;
         }
 
-        .games-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 12px;
+        .profile-header {
+            text-align: center;
+            padding: 8px 0 12px;
+        }
+        .profile-header .avatar {
+            font-size: 56px;
+        }
+        .profile-header .name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-top: 4px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        .profile-header .id {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.15);
+            margin-top: 2px;
+            font-family: monospace;
         }
 
-        .game-card {
-            aspect-ratio: 1 / 1;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            cursor: pointer;
+        .stats {
+            display: flex;
+            gap: 10px;
+            margin: 8px 0 14px;
+        }
+        .stats .stat {
+            flex: 1;
             background: rgba(255, 255, 255, 0.02);
+            border-radius: 14px;
+            padding: 12px 8px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .stats .stat .num {
+            font-size: 24px;
+            font-weight: 700;
+            color: #f7d44a;
+        }
+        .stats .stat .lbl {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.15);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+
+        .deposit-section {
+            display: flex;
+            gap: 8px;
+            margin: 10px 0 12px;
+            flex-wrap: wrap;
+        }
+        .deposit-btn {
+            flex: 1;
+            padding: 12px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.02);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.3s;
+            min-width: 60px;
+        }
+        .deposit-btn:active {
+            transform: scale(0.94);
+            background: rgba(255, 255, 255, 0.04);
+        }
+        .deposit-btn .icon {
+            font-size: 18px;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .referral-block {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 14px;
+            padding: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            margin: 8px 0 10px;
+        }
+        .referral-block .title {
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.3);
+            text-align: center;
+            margin-bottom: 4px;
+        }
+        .referral-link {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            padding: 8px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
         }
-        .game-card:active {
+        .referral-link .link {
+            flex: 1;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.2);
+            font-family: monospace;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .referral-link .copy-btn {
+            padding: 4px 14px;
+            border: none;
+            border-radius: 40px;
+            background: linear-gradient(145deg, #f7d44a, #dbb84a);
+            color: #1a1a2e;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .referral-link .copy-btn:active {
             transform: scale(0.94);
         }
-        .game-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: 0.3s;
+
+        .referral-stats {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
         }
-        .game-card:active img {
-            transform: scale(1.05);
+        .referral-stats .item {
+            flex: 1;
+            text-align: center;
+            padding: 6px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .referral-stats .item .num {
+            font-size: 18px;
+            font-weight: 700;
+            color: #f7d44a;
+        }
+        .referral-stats .item .lbl {
+            font-size: 8px;
+            color: rgba(255, 255, 255, 0.15);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
         }
 
         .bottom-nav {
@@ -131,7 +281,6 @@
             flex-direction: column;
             align-items: center;
             gap: 2px;
-            text-decoration: none;
             color: rgba(255, 255, 255, 0.15);
             font-size: 9px;
             font-weight: 500;
@@ -155,54 +304,600 @@
         .bottom-nav .nav-item:active {
             transform: scale(0.9);
         }
+
+        .deposit-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(20px);
+            z-index: 300;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .deposit-overlay.show {
+            display: flex;
+            animation: fadeIn 0.3s ease-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .deposit-card {
+            max-width: 400px;
+            width: 100%;
+            background: linear-gradient(145deg, #1a1f35, #0d1225);
+            border-radius: 24px;
+            padding: 28px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        .deposit-card .title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #f7d44a;
+            margin-bottom: 4px;
+        }
+        .deposit-card .sub {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.2);
+            margin-bottom: 20px;
+        }
+        .deposit-card .balance-show {
+            font-size: 36px;
+            font-weight: 800;
+            color: #f7d44a;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .deposit-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 16px 0;
+        }
+        .deposit-options .option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .deposit-options .option:active {
+            transform: scale(0.96);
+            background: rgba(255, 255, 255, 0.04);
+        }
+        .deposit-options .option .left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .deposit-options .option .left .icon {
+            font-size: 28px;
+        }
+        .deposit-options .option .left .info .name {
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .deposit-options .option .left .info .desc {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.2);
+        }
+        .deposit-options .option .right {
+            font-size: 16px;
+            font-weight: 700;
+            color: #f7d44a;
+        }
+
+        .deposit-close {
+            margin-top: 16px;
+            padding: 12px;
+            border: none;
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: 0.3s;
+        }
+        .deposit-close:active {
+            transform: scale(0.94);
+        }
+
+        @media (max-width: 450px) {
+            .profile-header .avatar {
+                font-size: 44px;
+            }
+            .profile-header .name {
+                font-size: 18px;
+            }
+            .stats .stat .num {
+                font-size: 20px;
+            }
+            .deposit-btn {
+                font-size: 11px;
+                padding: 10px 8px;
+            }
+            .balance {
+                font-size: 19px;
+                padding: 6px 20px;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="bg"></div>
 
-    <div class="container">
-        <div class="header">
-            <div class="logo" onclick="window.location.href='../home/home.html'">🎰 VIP CASINO</div>
-            <a href="../home/home.html" class="back">← Назад</a>
-        </div>
+    <div class="app-wrapper">
+        <div class="slider" id="slider">
 
-        <div class="games-title">🎮 МИНИ ИГРЫ</div>
+            <!-- ===== СТРАНИЦА 1: ГЛАВНАЯ ===== -->
+            <div class="page" id="pageHome">
+                <div class="header">
+                    <div class="logo" onclick="goToPage(0)">🎰 VIP CASINO</div>
+                    <div class="right">
+                        <div class="coins" onclick="openDeposit()">
+                            <span>⭐</span>
+                            <span id="headerStars1">100</span>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="games-grid">
+                <div class="balance-wrap">
+                    <div class="balance" id="balanceDisplay1">💰 1000</div>
+                </div>
 
-            <!-- КОИН ФЛИП -->
-            <a href="coin.html" class="game-card">
-                <img src="https://avatars.mds.yandex.net/i?id=06daadc307f0104047d2cbf89d26590c_sr-10414649-images-thumbs&ref=rim&n=13&w=610&h=610" alt="КОИН ФЛИП" loading="lazy">
-            </a>
+                <div style="text-align:center; padding:20px 0;">
+                    <div style="font-size:28px; font-weight:700; color:#f7d44a;">🏠 Главная</div>
+                    <div style="font-size:13px; color:rgba(255,255,255,0.15); margin-top:4px; letter-spacing:2px; text-transform:uppercase;">Добро пожаловать в VIP Casino!</div>
+                </div>
 
-            <!-- РУЛЕТКА -->
-            <a href="roulette.html" class="game-card">
-                <img src="https://media.istockphoto.com/id/2150019479/ru/%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D0%B0%D1%8F/%D0%BA%D0%BE%D0%BB%D0%B5%D1%81%D0%BE-%D1%80%D1%83%D0%BB%D0%B5%D1%82%D0%BA%D0%B8-%D0%BA%D0%BE%D0%BB%D0%B5%D1%81%D0%BE-%D1%80%D1%83%D0%BB%D0%B5%D1%82%D0%BA%D0%B8-%D0%BA%D0%B0%D0%B7%D0%B8%D0%BD%D0%BE-%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D1%8B%D0%B9-%D0%BA%D0%BB%D0%B8%D0%BF%D0%B0%D1%80%D1%82-%D0%B8%D0%B7%D0%BE%D0%BB%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD-%D0%BD%D0%B0-%D1%82%D0%B5%D0%BC%D0%BD%D0%BE%D0%BC-%D1%84%D0%BE%D0%BD%D0%B5.jpg?s=612x612&w=0&k=20&c=5yvDRPYRi1bZvJX0O-481UFx72FTwiUu460LR9vEolE=" alt="РУЛЕТКА" loading="lazy">
-            </a>
+                <div style="display:flex; gap:12px; margin:12px 0;">
+                    <button onclick="window.location.href='../games/games2.html'" style="flex:1; padding:16px; border:none; border-radius:16px; background:linear-gradient(145deg, #f7d44a, #dbb84a); color:#1a1a2e; font-size:18px; font-weight:800; letter-spacing:2px; cursor:pointer; box-shadow:0 6px 30px rgba(247,212,74,0.08);">
+                        🎮 ИГРАТЬ! →
+                    </button>
+                </div>
 
-            <!-- БЛЭКДЖЕК -->
-            <a href="blackjack.html" class="game-card">
-                <img src="https://avatars.mds.yandex.net/i?id=7e6043580ae7c3b02624d4116e7b27c7_l-5876942-images-thumbs&n=13" alt="БЛЭКДЖЕК" loading="lazy">
-            </a>
+                <div style="display:flex; gap:12px; margin:8px 0;">
+                    <button onclick="window.location.href='../nft/nft.html'" style="flex:1; padding:16px; border:none; border-radius:16px; background:rgba(255,255,255,0.03); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.04); color:white; font-size:18px; font-weight:800; letter-spacing:2px; cursor:pointer;">
+                        💎 ХРАНИЛИЩЕ →
+                    </button>
+                </div>
+
+                <div style="display:flex; gap:12px; margin:8px 0;">
+                    <button onclick="window.location.href='../profile/profile.html'" style="flex:1; padding:16px; border:none; border-radius:16px; background:rgba(255,255,255,0.03); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.04); color:white; font-size:18px; font-weight:800; letter-spacing:2px; cursor:pointer;">
+                        👤 ПРОФИЛЬ →
+                    </button>
+                </div>
+
+                <div style="text-align:center; margin-top:16px; font-size:11px; color:rgba(255,255,255,0.04); letter-spacing:2px;">
+                    VIP Casino v2.0
+                </div>
+            </div>
+
+            <!-- ===== СТРАНИЦА 2: ХРАНИЛИЩЕ ===== -->
+            <div class="page" id="pageNFT">
+                <div class="header">
+                    <div class="logo" onclick="goToPage(0)">🎰 VIP CASINO</div>
+                    <div class="right">
+                        <div class="coins" onclick="openDeposit()">
+                            <span>⭐</span>
+                            <span id="headerStars2">100</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="balance-wrap">
+                    <div class="balance" id="balanceDisplay2">💰 1000</div>
+                </div>
+
+                <div style="text-align:center; padding:12px 0;">
+                    <div style="font-size:24px; font-weight:700; background:linear-gradient(135deg, #b388ff, #7c4dff); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">💎 Хранилище</div>
+                    <div style="font-size:12px; color:rgba(255,255,255,0.15); letter-spacing:2px; text-transform:uppercase; margin-top:2px;">Твои коллекционные карточки</div>
+                </div>
+
+                <div style="display:flex; gap:10px; margin:8px 0 14px;">
+                    <div style="flex:1; background:rgba(255,255,255,0.02); border-radius:14px; padding:12px 8px; text-align:center; border:1px solid rgba(255,255,255,0.03);">
+                        <div style="font-size:24px; font-weight:700; color:#b388ff;" id="totalNFT">0</div>
+                        <div style="font-size:10px; color:rgba(255,255,255,0.15); text-transform:uppercase; letter-spacing:1px; margin-top:2px;">Всего NFT</div>
+                    </div>
+                    <div style="flex:1; background:rgba(255,255,255,0.02); border-radius:14px; padding:12px 8px; text-align:center; border:1px solid rgba(255,255,255,0.03);">
+                        <div style="font-size:24px; font-weight:700; color:#b388ff;" id="rarestNFT">—</div>
+                        <div style="font-size:10px; color:rgba(255,255,255,0.15); text-transform:uppercase; letter-spacing:1px; margin-top:2px;">Редчайший</div>
+                    </div>
+                </div>
+
+                <div id="nftList">
+                    <div style="text-align:center; padding:40px 20px; color:rgba(255,255,255,0.08);">
+                        <span style="font-size:56px; display:block; margin-bottom:8px; opacity:0.3;">📭</span>
+                        <div style="font-size:16px; color:rgba(255,255,255,0.15);">У тебя пока нет NFT</div>
+                        <div style="font-size:12px; margin-top:4px; color:rgba(255,255,255,0.06);">Играй в монетку, чтобы получить NFT!</div>
+                    </div>
+                </div>
+
+                <div style="text-align:center; margin-top:16px; font-size:11px; color:rgba(255,255,255,0.04); letter-spacing:2px;">
+                    NFT выпадают при победе в монетке
+                </div>
+            </div>
+
+            <!-- ===== СТРАНИЦА 3: ПРОФИЛЬ ===== -->
+            <div class="page" id="pageProfile">
+                <div class="header">
+                    <div class="logo" onclick="goToPage(0)">🎰 VIP CASINO</div>
+                    <div class="right">
+                        <div class="coins" onclick="openDeposit()">
+                            <span>⭐</span>
+                            <span id="headerStars3">100</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="balance-wrap">
+                    <div class="balance" id="balanceDisplay3">💰 1000</div>
+                </div>
+
+                <div class="profile-header">
+                    <div class="avatar">👤</div>
+                    <div class="name" id="profileName">Игрок</div>
+                    <div class="id" id="profileId">ID: 123456</div>
+                </div>
+
+                <div class="stats">
+                    <div class="stat">
+                        <div class="num" id="profileGames">0</div>
+                        <div class="lbl">Игр</div>
+                    </div>
+                    <div class="stat">
+                        <div class="num" id="profileWins">0</div>
+                        <div class="lbl">Побед</div>
+                    </div>
+                    <div class="stat">
+                        <div class="num" id="profileBest">0</div>
+                        <div class="lbl">Лучший</div>
+                    </div>
+                </div>
+
+                <div class="deposit-section">
+                    <div class="deposit-btn" onclick="showToast('💎 Пополнение TON (в разработке)')">
+                        <span class="icon">💎</span>TON
+                    </div>
+                    <div class="deposit-btn" onclick="openDeposit()">
+                        <span class="icon">⭐</span>Stars
+                    </div>
+                    <div class="deposit-btn" onclick="showToast('🎁 Пополнение подарками (в разработке)')">
+                        <span class="icon">🎁</span>Подарки
+                    </div>
+                </div>
+
+                <div class="referral-block">
+                    <div class="title">👥 Пригласить друзей</div>
+                    <div class="referral-link">
+                        <div class="link" id="referralLink">https://t.me/My103CoinGameBot?start=ref_123</div>
+                        <button class="copy-btn" onclick="copyReferralLink()">📋</button>
+                    </div>
+                    <div class="referral-stats">
+                        <div class="item">
+                            <div class="num" id="refCount">0</div>
+                            <div class="lbl">Приглашено</div>
+                        </div>
+                        <div class="item">
+                            <div class="num" id="refEarned">0</div>
+                            <div class="lbl">Заработано</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align:center; padding:12px; color:rgba(255,255,255,0.04); font-size:10px; letter-spacing:2px;">
+                    VIP Casino v2.0
+                </div>
+            </div>
 
         </div>
     </div>
 
+    <!-- ===== НИЖНЯЯ НАВИГАЦИЯ (ПРАВИЛЬНАЯ) ===== -->
     <div class="bottom-nav" id="bottomNav">
-        <button class="nav-item" onclick="window.location.href='../home/home.html'">
+        <button class="nav-item active" data-index="0" onclick="goToPage(0)">
             <span class="icon">🏠</span> Главная
         </button>
-        <button class="nav-item active" onclick="window.location.href='../games/games2.html'">
+        <button class="nav-item" data-index="1" onclick="window.location.href='../games/games2.html'">
             <span class="icon">🎮</span> Игры
         </button>
-        <button class="nav-item" onclick="window.location.href='../nft/nft.html'">
+        <button class="nav-item" data-index="2" onclick="goToPage(2)">
             <span class="icon">💎</span> Хранилище
         </button>
-        <button class="nav-item" onclick="window.location.href='../profile/profile.html'">
+        <button class="nav-item" data-index="3" onclick="goToPage(3)">
             <span class="icon">👤</span> Профиль
         </button>
     </div>
 
+    <div class="deposit-overlay" id="depositOverlay">
+        <div class="deposit-card">
+            <div class="title">⭐ Пополнить баланс</div>
+            <div class="sub">Купи монеты за Telegram Stars</div>
+            <div class="balance-show"><span>💰</span> <span id="depositBalance">1000</span></div>
+            <div class="deposit-options">
+                <div class="option" onclick="buyCoins(10, 100)">
+                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">10 Stars</div><div class="desc">+100 монет</div></div></div>
+                    <div class="right">+100</div>
+                </div>
+                <div class="option" onclick="buyCoins(25, 300)">
+                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">25 Stars</div><div class="desc">+300 монет</div></div></div>
+                    <div class="right">+300</div>
+                </div>
+                <div class="option" onclick="buyCoins(50, 700)" style="border-color: rgba(247,212,74,0.15); background: rgba(247,212,74,0.04);">
+                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">50 Stars</div><div class="desc">+700 монет</div></div></div>
+                    <div class="right" style="color:#f7d44a;">🔥 +700</div>
+                </div>
+                <div class="option" onclick="buyCoins(100, 1500)">
+                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">100 Stars</div><div class="desc">+1500 монет</div></div></div>
+                    <div class="right">+1500</div>
+                </div>
+            </div>
+            <button class="deposit-close" onclick="closeDeposit()">✕ Закрыть</button>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // 1. СВАЙП И НАВИГАЦИЯ
+        // ============================================================
+        const slider = document.getElementById('slider');
+        const navItems = document.querySelectorAll('.nav-item');
+        const totalPages = 3; // ТОЛЬКО 3 СТРАНИЦЫ!
+
+        let currentIndex = 0;
+        let startX = 0;
+        let isDragging = false;
+
+        function goToPage(index) {
+            if (index < 0) index = 0;
+            if (index >= totalPages) index = totalPages - 1;
+            currentIndex = index;
+            slider.style.transform = `translateX(-${index * 100}%)`;
+            navItems.forEach((item, i) => {
+                item.classList.toggle('active', i === index);
+            });
+            updateAllBalances();
+            renderNFTs();
+        }
+
+        navItems.forEach((item, index) => {
+            item.addEventListener('click', () => goToPage(index));
+        });
+
+        slider.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+        });
+
+        slider.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const diff = startX - e.touches[0].clientX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0 && currentIndex < totalPages - 1) {
+                    goToPage(currentIndex + 1);
+                } else if (diff < 0 && currentIndex > 0) {
+                    goToPage(currentIndex - 1);
+                }
+                isDragging = false;
+            }
+        });
+
+        slider.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        // ============================================================
+        // 2. БАЛАНС
+        // ============================================================
+        let balance = parseInt(localStorage.getItem('casinoBalance')) || 1000;
+
+        function updateAllBalances() {
+            document.querySelectorAll('[id^="balanceDisplay"]').forEach(el => {
+                el.textContent = '💰 ' + balance;
+            });
+            document.querySelectorAll('[id^="headerStars"]').forEach(el => {
+                el.textContent = Math.floor(balance / 10);
+            });
+            document.getElementById('depositBalance').textContent = balance;
+            localStorage.setItem('casinoBalance', balance);
+        }
+        updateAllBalances();
+
+        // ============================================================
+        // 3. ПОПОЛНЕНИЕ
+        // ============================================================
+        function openDeposit() {
+            document.getElementById('depositOverlay').classList.add('show');
+            document.getElementById('depositBalance').textContent = balance;
+        }
+
+        function closeDeposit() {
+            document.getElementById('depositOverlay').classList.remove('show');
+        }
+
+        function buyCoins(starsCost, coinsAmount) {
+            if (window.Telegram && window.Telegram.WebApp) {
+                window.Telegram.WebApp.sendData(JSON.stringify({
+                    action: 'buy_coins',
+                    stars: starsCost,
+                    coins: coinsAmount
+                }));
+                showToast(`⏳ Запрос на ${coinsAmount} монет за ${starsCost} Stars...`);
+            } else {
+                balance += coinsAmount;
+                updateAllBalances();
+                closeDeposit();
+                showToast(`✅ +${coinsAmount} монет (демо)`);
+            }
+        }
+
+        // ============================================================
+        // 4. РЕФЕРАЛКА
+        // ============================================================
+        function getUserId() {
+            if (window.Telegram && window.Telegram.WebApp) {
+                const user = window.Telegram.WebApp.initDataUnsafe.user;
+                if (user) return user.id;
+            }
+            return Math.floor(Math.random() * 1000000);
+        }
+
+        function getReferralLink() {
+            const userId = getUserId();
+            return `https://t.me/My103CoinGameBot?start=ref_${userId}`;
+        }
+
+        function copyReferralLink() {
+            const link = document.getElementById('referralLink').textContent;
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(link).then(() => {
+                    showToast('📋 Ссылка скопирована!', true);
+                }).catch(() => {
+                    showToast('📋 Ссылка: ' + link, true);
+                });
+            } else {
+                showToast('📋 Ссылка: ' + link, true);
+            }
+        }
+
+        document.getElementById('referralLink').textContent = getReferralLink();
+
+        function loadReferralStats() {
+            const refCount = parseInt(localStorage.getItem('refCount')) || 0;
+            const refEarned = parseInt(localStorage.getItem('refEarned')) || 0;
+            document.getElementById('refCount').textContent = refCount;
+            document.getElementById('refEarned').textContent = refEarned;
+        }
+        loadReferralStats();
+
+        // ============================================================
+        // 5. NFT
+        // ============================================================
+        function getUserNFTs() {
+            try {
+                return JSON.parse(localStorage.getItem('userNFTs')) || [];
+            } catch { return []; }
+        }
+
+        function renderNFTs() {
+            const nfts = getUserNFTs();
+            const list = document.getElementById('nftList');
+            const totalEl = document.getElementById('totalNFT');
+            const rarestEl = document.getElementById('rarestNFT');
+
+            totalEl.textContent = nfts.length;
+
+            if (nfts.length === 0) {
+                list.innerHTML = `
+                    <div style="text-align:center; padding:40px 20px; color:rgba(255,255,255,0.08);">
+                        <span style="font-size:56px; display:block; margin-bottom:8px; opacity:0.3;">📭</span>
+                        <div style="font-size:16px; color:rgba(255,255,255,0.15);">У тебя пока нет NFT</div>
+                        <div style="font-size:12px; margin-top:4px; color:rgba(255,255,255,0.06);">Играй в монетку, чтобы получить NFT!</div>
+                    </div>
+                `;
+                rarestEl.textContent = '—';
+                return;
+            }
+
+            const sorted = [...nfts].sort((a, b) => {
+                const order = { common: 0, rare: 1, epic: 2, legendary: 3, mythic: 4 };
+                return order[b.rarity] - order[a.rarity];
+            });
+
+            const rarest = sorted[0];
+            rarestEl.textContent = rarest.emoji + ' ' + rarest.name;
+
+            const colors = { common: '#b0b0b0', rare: '#4CAF50', epic: '#2196F3', legendary: '#9C27B0', mythic: '#FF5722' };
+            const names = { common: 'Обычный', rare: 'Редкий', epic: 'Эпический', legendary: 'Легендарный', mythic: 'Мифический' };
+
+            list.innerHTML = sorted.map(nft => `
+                <div style="background:rgba(255,255,255,0.02); backdrop-filter:blur(12px); border-radius:14px; padding:14px 16px; border:1px solid rgba(255,255,255,0.03); display:flex; align-items:center; gap:14px;">
+                    <div style="font-size:34px; width:50px; text-align:center; flex-shrink:0;">${nft.emoji}</div>
+                    <div style="flex:1; text-align:left;">
+                        <div style="font-size:16px; font-weight:600; color:${colors[nft.rarity]};">${nft.name}</div>
+                        <div style="font-size:11px; text-transform:uppercase; letter-spacing:1px; margin-top:1px; color:${colors[nft.rarity]};">${names[nft.rarity]}</div>
+                    </div>
+                    <div style="font-size:11px; color:rgba(255,255,255,0.12); flex-shrink:0;">${new Date(nft.obtained).toLocaleDateString()}</div>
+                </div>
+            `).join('');
+        }
+        renderNFTs();
+
+        // ============================================================
+        // 6. ПРОФИЛЬ
+        // ============================================================
+        document.getElementById('profileGames').textContent = localStorage.getItem('totalGames') || 0;
+        document.getElementById('profileWins').textContent = localStorage.getItem('totalWins') || 0;
+        document.getElementById('profileBest').textContent = localStorage.getItem('bestWin') || 0;
+
+        if (window.Telegram && window.Telegram.WebApp) {
+            const user = window.Telegram.WebApp.initDataUnsafe.user;
+            if (user) {
+                document.getElementById('profileName').textContent = user.first_name || 'Игрок';
+                document.getElementById('profileId').textContent = 'ID: ' + user.id;
+            }
+        }
+
+        // ============================================================
+        // 7. TOAST
+        // ============================================================
+        function showToast(msg, isWin = true) {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                    position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
+                    background: rgba(12,14,28,0.92); backdrop-filter: blur(16px);
+                    color: #f0eee0; padding: 12px 24px; border-radius: 60px; z-index: 9999;
+                    max-width: 90%; border: 1px solid ${isWin ? 'rgba(247,212,74,0.1)' : 'rgba(231,76,60,0.1)'};
+                    font-size: 15px; font-weight: 500;
+                    box-shadow: 0 16px 50px rgba(0,0,0,0.3);
+                    animation: fadeIn 0.35s ease-out;
+                `;
+            toast.textContent = msg;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // ============================================================
+        // 8. СТАРТ
+        // ============================================================
+        if (balance === 1000) {
+            setTimeout(() => showToast('💰 Добро пожаловать в VIP Casino!'), 400);
+        }
+
+        console.log('🏠 Главная страница загружена!');
+        console.log('💰 Баланс:', balance);
+        console.log('👆 Свайпай влево/вправо для переключения разделов');
+        console.log('🖱️ Нажми на логотип "🎰 VIP CASINO" чтобы вернуться на главную');
+    </script>
 </body>
 </html>
