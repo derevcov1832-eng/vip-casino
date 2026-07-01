@@ -3,280 +3,408 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>👤 Профиль — VIP Casino</title>
+    <title>👤 Профиль</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background: #0a0a1a;
-            color: white;
+            font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+            background: #0a0a12;
+            color: #fff;
             min-height: 100vh;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .app {
+            max-width: 430px;
+            width: 100%;
+            height: 100vh;
+            margin: 0 auto;
+            background: radial-gradient(ellipse at 50% 0%, #141428 0%, #0a0a12 70%);
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 16px;
+            flex-direction: column;
             position: relative;
-        }
-
-        .bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background:
-                radial-gradient(ellipse at 20% 30%, rgba(247, 212, 74, 0.04) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 70%, rgba(180, 80, 255, 0.04) 0%, transparent 50%);
-        }
-
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 480px;
-            width: 100%;
-            padding-bottom: 80px;
-        }
-
-        .back-btn {
-            color: rgba(255, 255, 255, 0.4);
-            text-decoration: none;
-            font-size: 14px;
-            padding: 6px 16px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 40px;
-            background: rgba(255, 255, 255, 0.02);
-            display: inline-block;
-            margin-bottom: 8px;
-        }
-        .back-btn:active {
-            transform: scale(0.94);
+            overflow: hidden;
         }
 
         .header {
+            padding: 16px 20px 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 4px 0 8px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            margin-bottom: 10px;
+            flex-shrink: 0;
         }
-        .header .title {
-            font-size: 22px;
+        .header .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
             font-weight: 800;
-            background: linear-gradient(135deg, #f7d44a, #ff6b6b);
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .header .logo img {
+            width: 32px;
+            height: 32px;
+        }
+        .header .logo span {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 2px;
         }
-        .header .balance {
-            font-size: 16px;
-            font-weight: 600;
-            color: #f7e3a0;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 4px 14px;
+        .header .coins {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 4px 12px 4px 8px;
             border-radius: 40px;
             border: 1px solid rgba(255, 255, 255, 0.04);
+            cursor: pointer;
+        }
+        .header .coins img {
+            width: 16px;
+            height: 16px;
+        }
+        .header .coins .value {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffd700;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 14px;
+            text-decoration: none;
+            padding: 8px 0;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        .back-btn:active {
+            opacity: 0.5;
+        }
+
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 20px 80px;
+        }
+        .content::-webkit-scrollbar {
+            width: 0;
         }
 
         .profile-header {
             text-align: center;
-            padding: 8px 0 12px;
+            padding: 8px 0 16px;
         }
         .profile-header .avatar {
             font-size: 56px;
-            filter: drop-shadow(0 0 30px rgba(247, 212, 74, 0.05));
         }
         .profile-header .name {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 700;
             margin-top: 4px;
             color: rgba(255, 255, 255, 0.9);
         }
         .profile-header .id {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.15);
-            margin-top: 2px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.1);
             font-family: monospace;
-        }
-
-        .stats {
-            display: flex;
-            gap: 10px;
-            margin: 8px 0 14px;
-        }
-        .stats .stat {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 14px;
-            padding: 12px 8px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-        }
-        .stats .stat .num {
-            font-size: 24px;
-            font-weight: 700;
-            color: #f7d44a;
-        }
-        .stats .stat .lbl {
-            font-size: 10px;
-            color: rgba(255, 255, 255, 0.15);
-            text-transform: uppercase;
-            letter-spacing: 1px;
             margin-top: 2px;
         }
 
-        .deposit-section {
+        .section-title {
             display: flex;
-            gap: 8px;
-            margin: 10px 0 12px;
-            flex-wrap: wrap;
-        }
-        .deposit-btn {
-            flex: 1;
-            padding: 12px 10px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.02);
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 13px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0 8px;
+            font-size: 15px;
             font-weight: 600;
-            cursor: pointer;
-            text-align: center;
-            transition: 0.3s;
-            min-width: 60px;
+            color: rgba(255, 255, 255, 0.9);
         }
-        .deposit-btn:active {
-            transform: scale(0.94);
-            background: rgba(255, 255, 255, 0.04);
-        }
-        .deposit-btn .icon {
-            font-size: 18px;
-            display: block;
-            margin-bottom: 2px;
+        .section-title i {
+            color: #ffd700;
+            margin-right: 8px;
         }
 
-        .referral-block {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 14px;
-            padding: 14px;
+        .referral-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+            border-radius: 16px;
+            padding: 16px;
             border: 1px solid rgba(255, 255, 255, 0.03);
-            margin: 8px 0 10px;
+            margin: 4px 0 12px;
         }
-        .referral-block .title {
-            font-size: 14px;
+        .referral-card .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 15px;
             font-weight: 600;
-            color: rgba(255, 255, 255, 0.3);
-            text-align: center;
-            margin-bottom: 4px;
+            color: rgba(255, 255, 255, 0.9);
         }
-        .referral-link {
+        .referral-card .title .percent {
+            color: #4caf50;
+            font-weight: 800;
+            font-size: 16px;
+        }
+        .referral-card .title .percent i {
+            margin-right: 4px;
+        }
+        .referral-card .sub {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.25);
+            margin: 4px 0 14px;
+        }
+        .referral-card .invite-btn {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 10px;
-            padding: 8px 12px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-        }
-        .referral-link .link {
-            flex: 1;
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.2);
-            font-family: monospace;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .referral-link .copy-btn {
-            padding: 4px 14px;
+            width: 100%;
+            padding: 12px;
             border: none;
-            border-radius: 40px;
-            background: linear-gradient(145deg, #f7d44a, #dbb84a);
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f7971e, #ffd200);
             color: #1a1a2e;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 700;
             cursor: pointer;
+            transition: 0.15s;
+            margin-bottom: 14px;
         }
-        .referral-link .copy-btn:active {
-            transform: scale(0.94);
+        .referral-card .invite-btn:active {
+            transform: scale(0.96);
+        }
+        .referral-card .invite-btn img {
+            width: 18px;
+            height: 18px;
         }
 
-        .referral-stats {
-            display: flex;
-            gap: 10px;
-            margin-top: 8px;
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
         }
-        .referral-stats .item {
-            flex: 1;
-            text-align: center;
-            padding: 6px;
+        .stats-row .stat {
             background: rgba(255, 255, 255, 0.02);
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            padding: 10px 6px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.02);
         }
-        .referral-stats .item .num {
-            font-size: 18px;
+        .stats-row .stat .num {
+            font-size: 16px;
             font-weight: 700;
-            color: #f7d44a;
+            color: #ffd700;
         }
-        .referral-stats .item .lbl {
+        .stats-row .stat .num.green {
+            color: #4caf50;
+        }
+        .stats-row .stat .lbl {
             font-size: 8px;
             color: rgba(255, 255, 255, 0.15);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.3px;
             margin-top: 2px;
         }
+        .stats-row .stat .lbl i {
+            margin-right: 2px;
+        }
 
-        /* ===== НИЖНЯЯ НАВИГАЦИЯ ===== */
-        .bottom-nav {
+        .withdraw-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: rgba(76, 175, 80, 0.15);
+            color: #4caf50;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 12px;
+            border: 1px solid rgba(76, 175, 80, 0.15);
+        }
+        .withdraw-btn:active {
+            transform: scale(0.96);
+            background: rgba(76, 175, 80, 0.25);
+        }
+        .withdraw-btn img {
+            width: 18px;
+            height: 18px;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 14px;
+            padding: 14px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            margin-bottom: 8px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .task-item:active {
+            transform: scale(0.98);
+        }
+        .task-item .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.04);
+        }
+        .task-item .icon img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+        .task-item .info {
+            flex: 1;
+        }
+        .task-item .info .name {
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        .task-item .info .desc {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.2);
+            margin-top: 2px;
+        }
+        .task-item .status {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 40px;
+            background: rgba(76, 175, 80, 0.15);
+            color: #4caf50;
+            flex-shrink: 0;
+        }
+
+        .promo-input {
+            display: flex;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 14px;
+            padding: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            margin-bottom: 12px;
+        }
+        .promo-input input {
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            outline: none;
+        }
+        .promo-input input::placeholder {
+            color: rgba(255, 255, 255, 0.15);
+        }
+        .promo-input button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            color: #1a1a2e;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+        .promo-input button:active {
+            transform: scale(0.94);
+        }
+        .promo-input button i {
+            margin-right: 6px;
+        }
+
+        .nav {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(10, 10, 26, 0.92);
+            background: rgba(10, 10, 18, 0.96);
             backdrop-filter: blur(16px);
             border-top: 1px solid rgba(255, 255, 255, 0.03);
             display: flex;
             justify-content: space-around;
-            padding: 8px 0 12px;
-            max-width: 480px;
+            padding: 6px 0 10px;
+            max-width: 430px;
             margin: 0 auto;
             z-index: 100;
         }
-        .bottom-nav .nav-item {
+        .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2px;
-            text-decoration: none;
-            color: rgba(255, 255, 255, 0.15);
-            font-size: 9px;
+            gap: 1px;
+            color: rgba(255, 255, 255, 0.12);
+            font-size: 8px;
             font-weight: 500;
             letter-spacing: 0.5px;
-            transition: 0.3s;
             background: none;
             border: none;
             cursor: pointer;
-            padding: 4px 16px;
+            padding: 4px 12px;
+            transition: 0.3s;
+            position: relative;
         }
-        .bottom-nav .nav-item .icon {
-            font-size: 22px;
+        .nav-item img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            opacity: 0.35;
             transition: 0.3s;
         }
-        .bottom-nav .nav-item.active {
-            color: #f7d44a;
+        .nav-item.active img {
+            opacity: 1;
         }
-        .bottom-nav .nav-item.active .icon {
-            transform: translateY(-2px);
+        .nav-item .label {
+            color: rgba(255, 255, 255, 0.12);
+            transition: 0.3s;
         }
-        .bottom-nav .nav-item:active {
+        .nav-item.active .label {
+            color: #ffd700;
+        }
+        .nav-item:active {
             transform: scale(0.9);
+        }
+        .nav-item.rabbit img {
+            width: 40px;
+            height: 40px;
+            margin-top: -10px;
+            opacity: 1;
+            filter: drop-shadow(0 4px 20px rgba(247, 212, 74, 0.15));
+        }
+        .nav-item.rabbit.active img {
+            filter: drop-shadow(0 4px 30px rgba(247, 212, 74, 0.3));
         }
 
         .toast {
@@ -313,403 +441,135 @@
                 top: 20px;
             }
         }
-
-        @media (max-width: 450px) {
-            .profile-header .avatar {
-                font-size: 44px;
-            }
-            .profile-header .name {
-                font-size: 18px;
-            }
-            .stats .stat .num {
-                font-size: 20px;
-            }
-            .deposit-btn {
-                font-size: 11px;
-                padding: 10px 8px;
-            }
-            .header .title {
-                font-size: 18px;
-            }
-        }
     </style>
 </head>
 <body>
 
-    <div class="bg"></div>
-
-    <div class="container">
-        <a href="../home/home.html" class="back-btn">← Назад</a>
-
-        <div class="header">
-            <div class="title">👤 ПРОФИЛЬ</div>
-            <div class="balance" id="balanceDisplay">💰 1000</div>
+<div class="app">
+    <!-- HEADER -->
+    <div class="header">
+        <a class="logo" onclick="window.location.href='../home/home.html'">
+            <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Логотип">
+            <span>Rabbits</span>
+        </a>
+        <div class="coins" onclick="showToast('💰 Баланс: 0.00 ₽')">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Монеты">
+            <span class="value">0</span>
         </div>
+    </div>
 
-        <!-- ===== АВАТАР ===== -->
+    <!-- CONTENT -->
+    <div class="content">
+        <!-- BACK -->
+        <button class="back-btn" onclick="window.location.href='../home/home.html'">
+            <i class="fas fa-arrow-left"></i> На главную
+        </button>
+
+        <!-- PROFILE -->
         <div class="profile-header">
             <div class="avatar">👤</div>
             <div class="name" id="profileName">Игрок</div>
             <div class="id" id="profileId">ID: 123456</div>
         </div>
 
-        <!-- ===== СТАТИСТИКА ===== -->
-        <div class="stats">
-            <div class="stat">
-                <div class="num" id="profileGames">0</div>
-                <div class="lbl">Игр</div>
-            </div>
-            <div class="stat">
-                <div class="num" id="profileWins">0</div>
-                <div class="lbl">Побед</div>
-            </div>
-            <div class="stat">
-                <div class="num" id="profileBest">0</div>
-                <div class="lbl">Лучший</div>
-            </div>
+        <!-- REFERRAL -->
+        <div class="section-title">
+            <span><i class="fas fa-users"></i>Пригласить друзей</span>
+            <span style="font-size:13px;color:#4caf50;"><i class="fas fa-percent"></i> 10%</span>
         </div>
 
-        <!-- ===== ПОПОЛНЕНИЕ ===== -->
-        <div class="deposit-section">
-            <div class="deposit-btn" onclick="showToast('💎 Пополнение TON (в разработке)')">
-                <span class="icon">💎</span>TON
+        <div class="referral-card">
+            <div class="sub"><i class="fas fa-gift" style="color:rgba(255,255,255,0.15);margin-right:4px;"></i>Приглашай рефералов и получай 10% от их депозитов</div>
+            <button class="invite-btn" onclick="copyReferralLink()">
+                <img src="https://cdn-icons-png.flaticon.com/512/722/722174.png" alt="Пригласить"> Пригласить друзей
+            </button>
+            <div class="stats-row">
+                <div class="stat"><div class="num">0.00 ₽</div><div class="lbl"><i class="fas fa-arrow-up"></i>Доступно к выводу</div></div>
+                <div class="stat"><div class="num">0</div><div class="lbl"><i class="fas fa-user-plus"></i>Приглашено</div></div>
+                <div class="stat"><div class="num green">0.00 ₽</div><div class="lbl"><i class="fas fa-arrow-down"></i>Всего выведено</div></div>
             </div>
-            <div class="deposit-btn" onclick="openDeposit()">
-                <span class="icon">⭐</span>Stars
-            </div>
-            <div class="deposit-btn" onclick="showToast('🎁 Пополнение подарками (в разработке)')">
-                <span class="icon">🎁</span>Подарки
-            </div>
+            <button class="withdraw-btn" onclick="showToast('💸 Вывод средств (в разработке)')">
+                <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Вывод"> Забрать
+            </button>
         </div>
 
-        <!-- ===== РЕФЕРАЛКА ===== -->
-        <div class="referral-block">
-            <div class="title">👥 Пригласить друзей</div>
-            <div class="referral-link">
-                <div class="link" id="referralLink">https://t.me/My103CoinGameBot?start=ref_123</div>
-                <button class="copy-btn" onclick="copyReferralLink()">📋</button>
-            </div>
-            <div class="referral-stats">
-                <div class="item">
-                    <div class="num" id="refCount">0</div>
-                    <div class="lbl">Приглашено</div>
-                </div>
-                <div class="item">
-                    <div class="num" id="refEarned">0</div>
-                    <div class="lbl">Заработано</div>
-                </div>
-            </div>
+        <!-- TASKS -->
+        <div class="section-title">
+            <span><i class="fas fa-tasks"></i>Задания</span>
+            <span style="font-size:13px;color:rgba(255,255,255,0.2);"><span style="color:#4caf50;">3</span>/3</span>
         </div>
 
-        <!-- ===== ВЕРСИЯ ===== -->
-        <div style="text-align:center; padding:12px; color:rgba(255,255,255,0.04); font-size:10px; letter-spacing:2px;">
-            VIP Casino v2.0
+        <div class="task-item" onclick="showToast('✅ Задание выполнено!')">
+            <div class="icon"><img src="https://cdn-icons-png.flaticon.com/512/2541/2541987.png" alt="Telegram"></div>
+            <div class="info"><div class="name">Подписаться на канал</div><div class="desc">+50 монет</div></div>
+            <div class="status"><i class="fas fa-check"></i> Выполнено</div>
         </div>
+
+        <div class="task-item" onclick="showToast('✅ Задание выполнено!')">
+            <div class="icon"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="Друзья"></div>
+            <div class="info"><div class="name">Пригласить 5 друзей</div><div class="desc">+200 монет</div></div>
+            <div class="status"><i class="fas fa-check"></i> Выполнено</div>
+        </div>
+
+        <div class="task-item" onclick="showToast('✅ Задание выполнено!')">
+            <div class="icon"><img src="https://cdn-icons-png.flaticon.com/512/2645/2645877.png" alt="Игра"></div>
+            <div class="info"><div class="name">Сыграть 10 игр</div><div class="desc">+100 монет</div></div>
+            <div class="status"><i class="fas fa-check"></i> Выполнено</div>
+        </div>
+
+        <!-- PROMO -->
+        <div class="section-title">
+            <span><i class="fas fa-ticket-alt"></i>Промокод</span>
+        </div>
+
+        <div class="promo-input">
+            <input type="text" placeholder="Ввести промокод" id="promoInput">
+            <button onclick="applyPromo()"><i class="fas fa-check"></i> Активировать</button>
+        </div>
+
+        <div style="text-align:center;padding:6px 0 10px;font-size:9px;color:rgba(255,255,255,0.02);letter-spacing:2px;">Rabbits v2.0</div>
     </div>
 
-    <!-- ===== НИЖНЯЯ НАВИГАЦИЯ (С ПРАВИЛЬНЫМИ ССЫЛКАМИ) ===== -->
-    <div class="bottom-nav" id="bottomNav">
+    <!-- NAV -->
+    <div class="nav">
+        <button class="nav-item" onclick="showToast('🏆 Топ игроков')">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Топ"><span class="label">Топ</span>
+        </button>
         <button class="nav-item" onclick="window.location.href='../home/home.html'">
-            <span class="icon">🏠</span> Главная
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828793.png" alt="Главная"><span class="label">Главная</span>
         </button>
-        <button class="nav-item" onclick="window.location.href='../games/games2.html'">
-            <span class="icon">🎮</span> Игры
+        <button class="nav-item rabbit active" onclick="showToast('🐰 Rabbit')">
+            <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Rabbit"><span class="label">Rabbit</span>
         </button>
-        <button class="nav-item" onclick="window.location.href='../nft/nft.html'">
-            <span class="icon">💎</span> Хранилище
-        </button>
-        <button class="nav-item active" onclick="window.location.href='../profile/profile.html'">
-            <span class="icon">👤</span> Профиль
+        <button class="nav-item" onclick="window.location.href='profile.html'">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828478.png" alt="Профиль"><span class="label">Профиль</span>
         </button>
     </div>
+</div>
 
-    <!-- ===== ОВЕРЛЕЙ ПОПОЛНЕНИЯ ===== -->
-    <div class="deposit-overlay" id="depositOverlay">
-        <div class="deposit-card">
-            <div class="title">⭐ Пополнить баланс</div>
-            <div class="sub">Купи монеты за Telegram Stars</div>
-            <div class="balance-show"><span>💰</span> <span id="depositBalance">1000</span></div>
-            <div class="deposit-options">
-                <div class="option" onclick="buyCoins(10, 100)">
-                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">10 Stars</div><div class="desc">+100 монет</div></div></div>
-                    <div class="right">+100</div>
-                </div>
-                <div class="option" onclick="buyCoins(25, 300)">
-                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">25 Stars</div><div class="desc">+300 монет</div></div></div>
-                    <div class="right">+300</div>
-                </div>
-                <div class="option" onclick="buyCoins(50, 700)" style="border-color: rgba(247,212,74,0.15); background: rgba(247,212,74,0.04);">
-                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">50 Stars</div><div class="desc">+700 монет</div></div></div>
-                    <div class="right" style="color:#f7d44a;">🔥 +700</div>
-                </div>
-                <div class="option" onclick="buyCoins(100, 1500)">
-                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">100 Stars</div><div class="desc">+1500 монет</div></div></div>
-                    <div class="right">+1500</div>
-                </div>
-            </div>
-            <button class="deposit-close" onclick="closeDeposit()">✕ Закрыть</button>
-        </div>
-    </div>
+<div class="toast" id="toast"></div>
 
-    <style>
-        .deposit-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(20px);
-            z-index: 300;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            padding: 20px;
-        }
-        .deposit-overlay.show {
-            display: flex;
-            animation: fadeIn 0.3s ease-out;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
+<script>
+    let toastTimer = null;
+    function showToast(msg) { const toast = document.getElementById('toast'); toast.textContent = msg; toast.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove('show'), 2400); }
 
-        .deposit-card {
-            max-width: 400px;
-            width: 100%;
-            background: linear-gradient(145deg, #1a1f35, #0d1225);
-            border-radius: 24px;
-            padding: 28px 24px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
-            text-align: center;
-        }
-        .deposit-card .title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #f7d44a;
-            margin-bottom: 4px;
-        }
-        .deposit-card .sub {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.2);
-            margin-bottom: 20px;
-        }
-        .deposit-card .balance-show {
-            font-size: 36px;
-            font-weight: 800;
-            color: #f7d44a;
-            margin-bottom: 16px;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-        }
+    function getUserId() { try { if (window.Telegram && Telegram.WebApp) { const user = Telegram.WebApp.initDataUnsafe.user; if (user) return user.id; } } catch {} return Math.floor(Math.random() * 1000000); }
 
-        .deposit-options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin: 16px 0;
-        }
-        .deposit-options .option {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 18px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .deposit-options .option:active {
-            transform: scale(0.96);
-            background: rgba(255, 255, 255, 0.04);
-        }
-        .deposit-options .option .left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .deposit-options .option .left .icon {
-            font-size: 28px;
-        }
-        .deposit-options .option .left .info .name {
-            font-size: 15px;
-            font-weight: 600;
-        }
-        .deposit-options .option .left .info .desc {
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.2);
-        }
-        .deposit-options .option .right {
-            font-size: 16px;
-            font-weight: 700;
-            color: #f7d44a;
-        }
+    function copyReferralLink() { const link = `https://t.me/MyRabbitsBot?start=ref_${getUserId()}`; if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(link).then(() => { showToast('📋 Ссылка скопирована!'); }).catch(() => { showToast('📋 Ссылка: ' + link); }); } else { showToast('📋 Ссылка: ' + link); } }
 
-        .deposit-close {
-            margin-top: 16px;
-            padding: 12px;
-            border: none;
-            border-radius: 40px;
-            background: rgba(255, 255, 255, 0.03);
-            color: rgba(255, 255, 255, 0.2);
-            font-size: 14px;
-            cursor: pointer;
-            width: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            transition: 0.3s;
-        }
-        .deposit-close:active {
-            transform: scale(0.94);
-        }
-    </style>
+    function applyPromo() { const input = document.getElementById('promoInput'); const code = input.value.trim(); if (!code) { showToast('⚠️ Введите промокод'); return; } showToast(`🎉 Промокод "${code}" активирован!`); input.value = ''; }
 
-    <script>
-        // ============================================================
-        // 1. ОБРАБОТКА КНОПКИ "НАЗАД" НА ТЕЛЕФОНЕ (ВЫХОД В МЕНЮ)
-        // ============================================================
-        window.addEventListener('popstate', function(event) {
-            window.location.href = '../home/home.html';
+    try { if (window.Telegram && Telegram.WebApp) { const user = Telegram.WebApp.initDataUnsafe.user; if (user) { document.getElementById('profileName').textContent = user.first_name || 'Игрок'; document.getElementById('profileId').textContent = 'ID: ' + user.id; } } } catch {}
+
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', function() {
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
         });
-        window.history.pushState({ page: 'profile' }, '', window.location.href);
+    });
 
-        // ============================================================
-        // 2. БАЛАНС
-        // ============================================================
-        let balance = parseInt(localStorage.getItem('casinoBalance')) || 1000;
-        document.getElementById('balanceDisplay').textContent = '💰 ' + balance;
+    setTimeout(() => showToast('👤 Добро пожаловать в профиль!'), 400);
+</script>
 
-        function updateBalance() {
-            document.getElementById('balanceDisplay').textContent = '💰 ' + balance;
-            localStorage.setItem('casinoBalance', balance);
-        }
-
-        // ============================================================
-        // 3. ПОПОЛНЕНИЕ
-        // ============================================================
-        function openDeposit() {
-            document.getElementById('depositOverlay').classList.add('show');
-            document.getElementById('depositBalance').textContent = balance;
-        }
-
-        function closeDeposit() {
-            document.getElementById('depositOverlay').classList.remove('show');
-        }
-
-        function buyCoins(starsCost, coinsAmount) {
-            if (window.Telegram && window.Telegram.WebApp) {
-                window.Telegram.WebApp.sendData(JSON.stringify({
-                    action: 'buy_coins',
-                    stars: starsCost,
-                    coins: coinsAmount
-                }));
-                showToast(`⏳ Запрос на ${coinsAmount} монет за ${starsCost} Stars...`);
-            } else {
-                balance += coinsAmount;
-                updateBalance();
-                closeDeposit();
-                showToast(`✅ +${coinsAmount} монет (демо)`);
-            }
-        }
-
-        // ============================================================
-        // 4. РЕФЕРАЛКА
-        // ============================================================
-        function getUserId() {
-            if (window.Telegram && window.Telegram.WebApp) {
-                const user = window.Telegram.WebApp.initDataUnsafe.user;
-                if (user) return user.id;
-            }
-            return Math.floor(Math.random() * 1000000);
-        }
-
-        function getReferralLink() {
-            const userId = getUserId();
-            return `https://t.me/My103CoinGameBot?start=ref_${userId}`;
-        }
-
-        function copyReferralLink() {
-            const link = document.getElementById('referralLink').textContent;
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(link).then(() => {
-                    showToast('📋 Ссылка скопирована!', true);
-                }).catch(() => {
-                    showToast('📋 Ссылка: ' + link, true);
-                });
-            } else {
-                showToast('📋 Ссылка: ' + link, true);
-            }
-        }
-
-        document.getElementById('referralLink').textContent = getReferralLink();
-
-        function loadReferralStats() {
-            const refCount = parseInt(localStorage.getItem('refCount')) || 0;
-            const refEarned = parseInt(localStorage.getItem('refEarned')) || 0;
-            document.getElementById('refCount').textContent = refCount;
-            document.getElementById('refEarned').textContent = refEarned;
-        }
-        loadReferralStats();
-
-        // ============================================================
-        // 5. ПРОФИЛЬ
-        // ============================================================
-        document.getElementById('profileGames').textContent = localStorage.getItem('totalGames') || 0;
-        document.getElementById('profileWins').textContent = localStorage.getItem('totalWins') || 0;
-        document.getElementById('profileBest').textContent = localStorage.getItem('bestWin') || 0;
-
-        if (window.Telegram && window.Telegram.WebApp) {
-            const user = window.Telegram.WebApp.initDataUnsafe.user;
-            if (user) {
-                document.getElementById('profileName').textContent = user.first_name || 'Игрок';
-                document.getElementById('profileId').textContent = 'ID: ' + user.id;
-            }
-        }
-
-        // ============================================================
-        // 6. TOAST
-        // ============================================================
-        function showToast(msg, isWin = true) {
-            const toast = document.createElement('div');
-            toast.style.cssText = `
-                    position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
-                    background: rgba(12,14,28,0.92); backdrop-filter: blur(16px);
-                    color: #f0eee0; padding: 12px 24px; border-radius: 60px; z-index: 9999;
-                    max-width: 90%; border: 1px solid ${isWin ? 'rgba(247,212,74,0.1)' : 'rgba(231,76,60,0.1)'};
-                    font-size: 15px; font-weight: 500;
-                    box-shadow: 0 16px 50px rgba(0,0,0,0.3);
-                    animation: fadeIn 0.35s ease-out;
-                `;
-            toast.textContent = msg;
-            document.body.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.3s';
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-
-        // ============================================================
-        // 7. СТАРТ
-        // ============================================================
-        if (balance === 1000) {
-            setTimeout(() => showToast('👤 Добро пожаловать в профиль!'), 400);
-        }
-
-        console.log('👤 Профиль загружен!');
-        console.log('💰 Баланс:', balance);
-        console.log('👆 Нажми кнопку "Назад" на телефоне, чтобы выйти в меню');
-    </script>
 </body>
 </html>
