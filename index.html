@@ -122,7 +122,7 @@
             backdrop-filter: blur(20px);
             border-radius: 24px;
             padding: 20px 25px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
@@ -139,6 +139,62 @@
             text-shadow: 0 0 40px rgba(247, 212, 74, 0.15);
             letter-spacing: 2px;
         }
+
+        /* ===== NFT КАРТОЧКА НА ГЛАВНОЙ ===== */
+        .nft-preview {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            border-radius: 18px;
+            padding: 14px 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .nft-preview:active {
+            transform: scale(0.96);
+        }
+        .nft-preview .left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .nft-preview .left .icon {
+            font-size: 28px;
+        }
+        .nft-preview .left .info {
+            text-align: left;
+        }
+        .nft-preview .left .info .title {
+            font-size: 15px;
+            font-weight: 600;
+            color: white;
+            -webkit-text-fill-color: white;
+            background: none;
+        }
+        .nft-preview .left .info .desc {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.35);
+        }
+        .nft-preview .count {
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #b388ff, #7c4dff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding: 4px 12px;
+            border-radius: 40px;
+            background-color: rgba(123, 77, 255, 0.1);
+        }
+        .nft-preview .arrow {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
         .menu {
             display: flex;
             flex-direction: column;
@@ -158,7 +214,9 @@
             transition: transform 0.2s;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
-        .menu-item:active { transform: scale(0.96); }
+        .menu-item:active {
+            transform: scale(0.96);
+        }
         .menu-item .icon-wrapper {
             width: 52px;
             height: 52px;
@@ -208,7 +266,9 @@
             border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.04);
         }
-        .stats-item { text-align: center; }
+        .stats-item {
+            text-align: center;
+        }
         .stats-item .number {
             font-size: 18px;
             font-weight: 700;
@@ -227,9 +287,15 @@
             letter-spacing: 2px;
         }
         @media (max-width: 400px) {
-            .title { font-size: 30px; }
-            .balance-card .amount { font-size: 40px; }
-            .menu-item { padding: 16px 18px; }
+            .title {
+                font-size: 30px;
+            }
+            .balance-card .amount {
+                font-size: 40px;
+            }
+            .menu-item {
+                padding: 16px 18px;
+            }
         }
     </style>
 </head>
@@ -255,6 +321,19 @@
         <div class="balance-card">
             <div class="label">💰 Твой баланс</div>
             <div class="amount" id="balanceDisplay">1000</div>
+        </div>
+
+        <!-- ===== NFT ПРЕВЬЮ НА ГЛАВНОЙ ===== -->
+        <div class="nft-preview" onclick="window.location.href='coin.html'">
+            <div class="left">
+                <div class="icon">💎</div>
+                <div class="info">
+                    <div class="title">Мои NFT</div>
+                    <div class="desc">Уникальные коллекционные карточки</div>
+                </div>
+            </div>
+            <div class="count" id="nftCountMain">0</div>
+            <div class="arrow">›</div>
         </div>
 
         <div class="menu">
@@ -303,20 +382,34 @@
     </div>
 
     <script>
+        // ===== БАЛАНС =====
         let balance = parseInt(localStorage.getItem('casinoBalance')) || 1000;
         document.getElementById('balanceDisplay').textContent = balance;
 
         window.addEventListener('focus', () => {
             balance = parseInt(localStorage.getItem('casinoBalance')) || 1000;
             document.getElementById('balanceDisplay').textContent = balance;
+            updateNFTcount();
         });
 
+        // ===== СТАТИСТИКА =====
         const games = parseInt(localStorage.getItem('totalGames')) || 0;
         const wins = parseInt(localStorage.getItem('totalWins')) || 0;
         const best = parseInt(localStorage.getItem('bestWin')) || 0;
         document.getElementById('gamesPlayed').textContent = games;
         document.getElementById('totalWins').textContent = wins;
         document.getElementById('bestWin').textContent = best;
+
+        // ===== NFT СЧЁТЧИК НА ГЛАВНОЙ =====
+        function updateNFTcount() {
+            try {
+                const nfts = JSON.parse(localStorage.getItem('userNFTs')) || [];
+                document.getElementById('nftCountMain').textContent = nfts.length;
+            } catch {
+                document.getElementById('nftCountMain').textContent = 0;
+            }
+        }
+        updateNFTcount();
     </script>
 </body>
 </html>
