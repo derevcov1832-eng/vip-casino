@@ -31,7 +31,6 @@
                 radial-gradient(ellipse at 80% 70%, rgba(255, 50, 50, 0.06) 0%, transparent 50%);
         }
 
-        /* ===== КОНТЕЙНЕР ДЛЯ СВАЙПА ===== */
         .app-wrapper {
             position: relative;
             z-index: 1;
@@ -58,7 +57,6 @@
             overflow-x: hidden;
         }
 
-        /* ===== ХЕДЕР ===== */
         .header {
             display: flex;
             justify-content: space-between;
@@ -91,7 +89,6 @@
             font-size: 16px;
         }
 
-        /* ===== БАЛАНС (кликабельный) ===== */
         .balance-block {
             text-align: center;
             padding: 16px 0 8px;
@@ -108,10 +105,6 @@
             color: #f7d44a;
             text-shadow: 0 0 40px rgba(247, 212, 74, 0.1);
             letter-spacing: 1px;
-            transition: 0.2s;
-        }
-        .balance-block .amount:hover {
-            text-shadow: 0 0 60px rgba(247, 212, 74, 0.2);
         }
         .balance-block .label {
             font-size: 11px;
@@ -141,7 +134,6 @@
             }
         }
 
-        /* ===== ИГРЫ ===== */
         .games-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -188,7 +180,6 @@
             letter-spacing: 1px;
         }
 
-        /* ===== МАГАЗИН ===== */
         .shop-section {
             margin: 10px 0 6px;
             flex-shrink: 0;
@@ -267,7 +258,6 @@
             transform: scale(0.94);
         }
 
-        /* ===== КЕЙСЫ ===== */
         .case-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -314,10 +304,9 @@
             color: #2ecc71;
         }
 
-        /* ===== ПРОФИЛЬ ===== */
         .profile-header {
             text-align: center;
-            padding: 20px 0;
+            padding: 12px 0 8px;
         }
         .profile-header .avatar {
             font-size: 56px;
@@ -331,25 +320,108 @@
             font-size: 12px;
             color: rgba(255, 255, 255, 0.2);
         }
+
         .profile-stats {
             display: flex;
-            gap: 12px;
-            margin: 12px 0;
+            gap: 10px;
+            margin: 10px 0;
         }
         .profile-stats .stat {
             flex: 1;
             background: rgba(255, 255, 255, 0.02);
             border-radius: 12px;
-            padding: 12px;
+            padding: 10px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.03);
         }
         .profile-stats .stat .num {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 700;
             color: #f7d44a;
         }
         .profile-stats .stat .lbl {
+            font-size: 8px;
+            color: rgba(255, 255, 255, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+
+        /* ===== РЕФЕРАЛЬНЫЙ БЛОК ===== */
+        .referral-block {
+            background: linear-gradient(145deg, rgba(247, 212, 74, 0.04), rgba(123, 77, 255, 0.04));
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid rgba(247, 212, 74, 0.06);
+            margin: 10px 0;
+        }
+        .referral-block .title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #f7d44a;
+            text-align: center;
+            margin-bottom: 4px;
+        }
+        .referral-block .sub {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.3);
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .referral-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            margin-bottom: 10px;
+        }
+        .referral-link .link {
+            flex: 1;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+            word-break: break-all;
+            font-family: monospace;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .referral-link .copy-btn {
+            padding: 6px 16px;
+            border: none;
+            border-radius: 40px;
+            background: linear-gradient(145deg, #f7d44a, #dbb84a);
+            color: #1a1a2e;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: 0.2s;
+        }
+        .referral-link .copy-btn:active {
+            transform: scale(0.94);
+        }
+
+        .referral-stats {
+            display: flex;
+            gap: 12px;
+        }
+        .referral-stats .item {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .referral-stats .item .num {
+            font-size: 22px;
+            font-weight: 700;
+            color: #f7d44a;
+        }
+        .referral-stats .item .lbl {
             font-size: 9px;
             color: rgba(255, 255, 255, 0.2);
             text-transform: uppercase;
@@ -357,7 +429,6 @@
             margin-top: 2px;
         }
 
-        /* ===== ТОП ===== */
         .top-list {
             margin: 12px 0;
         }
@@ -401,7 +472,6 @@
             color: #f7d44a;
         }
 
-        /* ===== НИЖНЯЯ НАВИГАЦИЯ ===== */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -443,7 +513,6 @@
             transform: scale(0.9);
         }
 
-        /* ===== ОВЕРЛЕЙ ПОПОЛНЕНИЯ ===== */
         .deposit-overlay {
             display: none;
             position: fixed;
@@ -503,10 +572,6 @@
             border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.04);
         }
-        .deposit-card .balance-show span {
-            font-size: 18px;
-            opacity: 0.5;
-        }
 
         .deposit-options {
             display: flex;
@@ -527,7 +592,6 @@
         }
         .deposit-options .option:active {
             transform: scale(0.96);
-            background: rgba(255, 255, 255, 0.05);
         }
         .deposit-options .option .left {
             display: flex;
@@ -540,7 +604,6 @@
         .deposit-options .option .left .info .name {
             font-size: 15px;
             font-weight: 600;
-            color: white;
         }
         .deposit-options .option .left .info .desc {
             font-size: 11px;
@@ -569,7 +632,6 @@
             transform: scale(0.94);
         }
 
-        /* ===== КЕЙС ОВЕРЛЕЙ ===== */
         .case-overlay {
             display: none;
             position: fixed;
@@ -592,7 +654,6 @@
         .case-animation {
             font-size: 100px;
             animation: caseSpin 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-            position: relative;
         }
         @keyframes caseSpin {
             0% {
@@ -706,6 +767,13 @@
             .deposit-card .balance-show {
                 font-size: 28px;
             }
+            .referral-link .link {
+                font-size: 11px;
+            }
+            .referral-link .copy-btn {
+                font-size: 11px;
+                padding: 4px 12px;
+            }
         }
     </style>
 </head>
@@ -713,26 +781,21 @@
 
     <div class="bg"></div>
 
-    <!-- ===== КОНФЕТТИ ===== -->
     <div class="confetti-container" id="confettiContainer"></div>
 
-    <!-- ===== ОВЕРЛЕЙ КЕЙСА ===== -->
     <div class="case-overlay" id="caseOverlay">
         <div class="case-animation" id="caseEmoji">🎁</div>
         <div class="case-reward" id="caseReward">+0</div>
         <button class="case-close-btn" onclick="closeCase()">✕ Закрыть</button>
     </div>
 
-    <!-- ===== ОВЕРЛЕЙ ПОПОЛНЕНИЯ ===== -->
     <div class="deposit-overlay" id="depositOverlay">
         <div class="deposit-card">
             <div class="title">⭐ Пополнить баланс</div>
             <div class="sub">Купи монеты за Telegram Stars</div>
-
             <div class="balance-show">
                 <span>💰</span> <span id="depositBalance">1000</span>
             </div>
-
             <div class="deposit-options">
                 <div class="option" onclick="buyCoins(10, 100)">
                     <div class="left">
@@ -775,12 +838,10 @@
                     <div class="right">+1500</div>
                 </div>
             </div>
-
             <button class="deposit-close" onclick="closeDeposit()">✕ Закрыть</button>
         </div>
     </div>
 
-    <!-- ===== ОСНОВНОЙ КОНТЕЙНЕР ===== -->
     <div class="app-wrapper">
         <div class="app-slider" id="appSlider">
 
@@ -794,7 +855,6 @@
                     </div>
                 </div>
 
-                <!-- ===== КЛИКАБЕЛЬНЫЙ БАЛАНС ===== -->
                 <div class="balance-block" onclick="openDeposit()">
                     <div class="amount" id="balanceDisplay">1000</div>
                     <div class="label">
@@ -808,7 +868,7 @@
                         <div class="icon">🪙</div>
                         <div class="name">Монетка</div>
                         <div class="desc">Орёл или решка</div>
-                        <div class="badge">x10</div>
+                        <div class="badge">x100</div>
                     </a>
                     <a href="roulette.html" class="game-card">
                         <div class="icon">🎡</div>
@@ -970,10 +1030,11 @@
                     <div class="name" id="profileName">Игрок</div>
                     <div class="id" id="profileId">ID: 123456</div>
                 </div>
+
                 <div class="profile-stats">
                     <div class="stat">
                         <div class="num" id="profileGames">0</div>
-                        <div class="lbl">Игр сыграно</div>
+                        <div class="lbl">Игр</div>
                     </div>
                     <div class="stat">
                         <div class="num" id="profileWins">0</div>
@@ -981,10 +1042,33 @@
                     </div>
                     <div class="stat">
                         <div class="num" id="profileBest">0</div>
-                        <div class="lbl">Лучший выигрыш</div>
+                        <div class="lbl">Лучший</div>
                     </div>
                 </div>
-                <div style="text-align:center; padding:16px; color:rgba(255,255,255,0.08); font-size:11px; letter-spacing:2px;">
+
+                <!-- ===== РЕФЕРАЛЬНАЯ СИСТЕМА ===== -->
+                <div class="referral-block">
+                    <div class="title">👥 Приведи друга</div>
+                    <div class="sub">Получи 50 монет за каждого приглашённого!</div>
+
+                    <div class="referral-link">
+                        <div class="link" id="referralLink">https://t.me/ТВОЙ_БОТ?start=ref_123456</div>
+                        <button class="copy-btn" onclick="copyReferralLink()">📋 Копировать</button>
+                    </div>
+
+                    <div class="referral-stats">
+                        <div class="item">
+                            <div class="num" id="refCount">0</div>
+                            <div class="lbl">Приглашено</div>
+                        </div>
+                        <div class="item">
+                            <div class="num" id="refEarned">0</div>
+                            <div class="lbl">Заработано</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align:center; padding:12px; color:rgba(255,255,255,0.08); font-size:11px; letter-spacing:2px;">
                     Сделано с ❤️ в Telegram Mini App
                 </div>
             </div>
@@ -1029,7 +1113,7 @@
         updateAllBalances();
 
         // ============================
-        // 2. ПОПОЛНЕНИЕ (ОВЕРЛЕЙ)
+        // 2. ПОПОЛНЕНИЕ
         // ============================
         function openDeposit() {
             document.getElementById('depositOverlay').classList.add('show');
@@ -1040,9 +1124,6 @@
             document.getElementById('depositOverlay').classList.remove('show');
         }
 
-        // ============================
-        // 3. ПОКУПКА МОНЕТ
-        // ============================
         function buyCoins(starsCost, coinsAmount) {
             if (window.Telegram && window.Telegram.WebApp) {
                 window.Telegram.WebApp.sendData(JSON.stringify({
@@ -1058,6 +1139,64 @@
                 showToast(`✅ +${coinsAmount} монет (демо)`);
             }
         }
+
+        // ============================
+        // 3. РЕФЕРАЛЬНАЯ СИСТЕМА
+        // ============================
+        function getUserId() {
+            if (window.Telegram && window.Telegram.WebApp) {
+                const user = window.Telegram.WebApp.initDataUnsafe.user;
+                if (user) return user.id;
+            }
+            return Math.floor(Math.random() * 1000000);
+        }
+
+        function getReferralLink() {
+            const userId = getUserId();
+            // Замени на ссылку на твоего бота
+            return `https://t.me/ТВОЙ_БОТ?start=ref_${userId}`;
+        }
+
+        function copyReferralLink() {
+            const link = document.getElementById('referralLink').textContent;
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(link).then(() => {
+                    showToast('📋 Ссылка скопирована!', true);
+                }).catch(() => {
+                    showToast('📋 Ссылка: ' + link, true);
+                });
+            } else {
+                showToast('📋 Ссылка: ' + link, true);
+            }
+        }
+
+        // Загружаем реферальную статистику
+        function loadReferralStats() {
+            const refCount = parseInt(localStorage.getItem('refCount')) || 0;
+            const refEarned = parseInt(localStorage.getItem('refEarned')) || 0;
+            document.getElementById('refCount').textContent = refCount;
+            document.getElementById('refEarned').textContent = refEarned;
+        }
+        loadReferralStats();
+
+        // Функция для начисления бонуса за реферала
+        function addReferralBonus() {
+            const refCount = parseInt(localStorage.getItem('refCount')) || 0;
+            const refEarned = parseInt(localStorage.getItem('refEarned')) || 0;
+
+            localStorage.setItem('refCount', refCount + 1);
+            localStorage.setItem('refEarned', refEarned + 50);
+
+            // Начисляем монеты
+            balance += 50;
+            updateAllBalances();
+            loadReferralStats();
+            showToast('🎉 Друг пришёл! +50 монет!', true);
+            launchConfetti();
+        }
+
+        // Инициализация реферальной ссылки
+        document.getElementById('referralLink').textContent = getReferralLink();
 
         // ============================
         // 4. СВАЙП + НАВИГАЦИЯ
@@ -1106,7 +1245,7 @@
         });
 
         // ============================
-        // 5. КЕЙСЫ С АНИМАЦИЕЙ
+        // 5. КЕЙСЫ
         // ============================
         function openCase() {
             const rewards = [10, 20, 50, 100, 200, 300, 500];
@@ -1158,14 +1297,10 @@
             document.getElementById('caseEmoji').textContent = '🎁';
         }
 
-        // ============================
-        // 6. КОНФЕТТИ
-        // ============================
         function launchConfetti() {
             const container = document.getElementById('confettiContainer');
             const colors = ['#f7d44a', '#ff6b6b', '#2ecc71', '#3498db', '#9b59b6', '#e74c3c', '#f39c12'];
-
-            for (let i = 0; i < 60; i++) {
+            for (let i = 0; i < 40; i++) {
                 const el = document.createElement('div');
                 el.className = 'confetti';
                 el.style.left = Math.random() * 100 + '%';
@@ -1175,22 +1310,22 @@
                 el.style.height = (Math.random() * 8 + 4) + 'px';
                 el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
                 el.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
-                el.style.animationDelay = (Math.random() * 0.8) + 's';
+                el.style.animationDelay = (Math.random() * 0.6) + 's';
                 container.appendChild(el);
                 setTimeout(() => el.remove(), 4000);
             }
         }
 
         // ============================
-        // 7. TOAST
+        // 6. TOAST
         // ============================
-        function showToast(msg) {
+        function showToast(msg, isWin = true) {
             const toast = document.createElement('div');
             toast.style.cssText = `
                     position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
                     background: rgba(12,14,28,0.95); color: #f0eee0;
                     padding: 12px 24px; border-radius: 60px; z-index: 9999;
-                    max-width: 90%; border: 1px solid rgba(247,212,74,0.2);
+                    max-width: 90%; border: 1px solid ${isWin ? 'rgba(247,212,74,0.2)' : 'rgba(231,76,60,0.2)'};
                     font-size: 15px; font-weight: 500;
                     box-shadow: 0 16px 50px rgba(0,0,0,0.5);
                     animation: fadeIn 0.35s ease-out;
@@ -1205,7 +1340,7 @@
         }
 
         // ============================
-        // 8. NFT БЕЙДЖ
+        // 7. NFT БЕЙДЖ
         // ============================
         function updateNFTBadge() {
             try {
@@ -1218,7 +1353,7 @@
         updateNFTBadge();
 
         // ============================
-        // 9. ПРОФИЛЬ
+        // 8. ПРОФИЛЬ
         // ============================
         document.getElementById('profileGames').textContent = localStorage.getItem('totalGames') || 0;
         document.getElementById('profileWins').textContent = localStorage.getItem('totalWins') || 0;
@@ -1233,15 +1368,14 @@
         }
 
         // ============================
-        // 10. ПРИВЕТСТВИЕ
+        // 9. ПРИВЕТСТВИЕ
         // ============================
         if (balance === 1000) {
             setTimeout(() => showToast('💰 Добро пожаловать в VIP Casino!'), 400);
         }
 
         console.log('🎰 VIP Casino загружен!');
-        console.log('💰 Баланс:', balance);
-        console.log('👆 Нажми на баланс, чтобы пополнить Stars');
+        console.log('👥 Реферальная система активна!');
     </script>
 </body>
 </html>
