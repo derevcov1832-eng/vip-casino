@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🪙 Монетка</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        .back-btn {
+            display: inline-block;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 16px;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 30px;
+        }
+        .back-btn:active { transform: scale(0.95); }
+        h2 { font-size: 28px; margin-bottom: 10px; }
+        .balance {
+            font-size: 24px;
+            color: #f7d44a;
+            margin-bottom: 20px;
+        }
+        .coin-container {
+            perspective: 800px;
+            width: 220px;
+            height: 220px;
+            margin: 20px auto;
+            cursor: pointer;
+        }
+        .coin {
+            width: 220px;
+            height: 220px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+            border-radius: 50%;
+        }
+        .coin.flipping {
+            transition: transform 1.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        .coin-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            border: 5px solid #f7d44a;
+            box-shadow: 0 0 60px rgba(247,212,74,0.2);
+        }
+        .coin-heads {
+            background: radial-gradient(circle at 30% 30%, #ffd700, #b8860b);
+            transform: rotateY(0deg);
+        }
+        .coin-tails {
+            background: radial-gradient(circle at 30% 30%, #c0c0c0, #696969);
+            transform: rotateY(180deg);
+        }
+        .coin-face .label {
+            font-size: 16px;
+            margin-top: 5px;
+            opacity: 0.7;
+            letter-spacing: 2px;
+        }
+        .result {
+            font-size: 28px;
+            margin: 20px 0;
+            min-height: 50px;
+        }
+        button {
+            background: #f7d44a;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #1a1a2e;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(247,212,74,0.3);
+            transition: transform 0.2s;
+        }
+        button:active { transform: scale(0.95); }
+        button:disabled { opacity: 0.4; cursor: not-allowed; }
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 15px;
+            display: none;
+            z-index: 999;
+            max-width: 90%;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .toast.show { display: block; animation: slideDown 0.3s ease-out; }
+        @keyframes slideDown {
+            from { top: -100px; opacity: 0; }
+            to { top: 20px; opacity: 1; }
+        }
+        .footer { margin-top: 30px; font-size: 12px; opacity: 0.3; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html" class="back-btn">← Назад</a>
+    <h2>🪙 Монетка</h2>
+    <div class="balance" id="balanceDisplay">💰 1000</div>
+    
+    <div class="coin-container" onclick="flipCoin()">
+        <div class="coin" id="coin3d">
+            <div class="coin-face coin-heads">🦅<div class="label">ОРЁЛ</div></div>
+            <div class="coin-face coin-tails">🪙<div class="label">РЕШКА</div></div>
+        </div>
+    </div>
+    
+    <div class="result" id="coinResult">Нажми на монетку</div>
+    <button onclick="flipCoin()" id="flipBtn">🔄 Подбросить</button>
+    <div class="footer">Ставка: 10 монет</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+    let balance = parseInt(localStorage.getItem('casinoBalance')) || 1000;
+    updateDisplay();
+    
+    function updateDisplay() {
+        document.getElementById('balanceDisplay').textContent = '💰 ' + balance;
+        localStorage.setItem('casinoBalance', balance);
+    }
+    
+    function showToast(msg, isWin) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.style.borderColor = isWin ? 'rgba(46,204,113,0.5)' : 'rgba(231,76,60,0.5)';
+        t.classList.add('show');
+        clearTimeout(t._timeout);
+        t._timeout = setTimeout(() => t.classList.remove('show'), 2500);
+    }
+    
+    let isFlipping = false;
+    
+    function flipCoin() {
+        if (isFlipping) return;
+        if (balance < 10) {
+            showToast('❌ Недостаточно монет!', false);
+            return;
+        }
+        
+        isFlipping = true;
+        document.getElementById('flipBtn').disabled = true;
+        balance -= 10;
+        updateDisplay();
+        
+        const coin = document.getElementById('coin3d');
+        const result = Math.random() < 0.5 ? 'heads' : 'tails';
+        const isWin = result === 'heads';
+        const resultText = result === 'heads' ? 'Орёл 🦅' : 'Решка 🪙';
+        
+        const flips = 3 + Math.floor(Math.random() * 3);
+        const finalAngle = result === 'heads' ? 0 : 180;
+        const totalRotation = flips * 360 + finalAngle;
+        
+        coin.classList.add('flipping');
+        coin.style.transform = `rotateY(${totalRotation}deg)`;
+        document.getElementById('coinResult').textContent = '...';
+        
+        setTimeout(() => {
+            coin.classList.remove('flipping');
+            coin.style.transform = `rotateY(${finalAngle}deg)`;
+            document.getElementById('coinResult').textContent = resultText;
+            
+            if (isWin) {
+                balance += 20;
+                updateDisplay();
+                showToast('🎉 Выиграл 20 монет!', true);
+            } else {
+                showToast('😢 Проиграл 10 монет', false);
+            }
+            
+            isFlipping = false;
+            document.getElementById('flipBtn').disabled = false;
+        }, 1800);
+    }
+</script>
+</body>
+</html>
