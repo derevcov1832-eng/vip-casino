@@ -110,53 +110,6 @@
             text-shadow: 0 0 40px rgba(247,212,74,0.15);
             letter-spacing: 2px;
         }
-        .nft-preview {
-            background: rgba(255,255,255,0.03);
-            backdrop-filter: blur(16px);
-            border-radius: 18px;
-            padding: 14px 20px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255,255,255,0.06);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .nft-preview:active { transform: scale(0.96); }
-        .nft-preview .left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .nft-preview .left .icon { font-size: 28px; }
-        .nft-preview .left .info { text-align: left; }
-        .nft-preview .left .info .title {
-            font-size: 15px;
-            font-weight: 600;
-            color: white;
-            -webkit-text-fill-color: white;
-            background: none;
-        }
-        .nft-preview .left .info .desc {
-            font-size: 12px;
-            color: rgba(255,255,255,0.35);
-        }
-        .nft-preview .count {
-            font-size: 22px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #b388ff, #7c4dff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            padding: 4px 12px;
-            border-radius: 40px;
-            background-color: rgba(123,77,255,0.1);
-        }
-        .nft-preview .arrow {
-            font-size: 20px;
-            color: rgba(255,255,255,0.2);
-        }
         .menu {
             display: flex;
             flex-direction: column;
@@ -198,6 +151,10 @@
             background: rgba(231,76,60,0.15);
             border: 1px solid rgba(231,76,60,0.15);
         }
+        .menu-item.nft .icon-wrapper {
+            background: rgba(123,77,255,0.15);
+            border: 1px solid rgba(123,77,255,0.15);
+        }
         .menu-item .info { flex: 1; text-align: left; }
         .menu-item .info .title {
             font-size: 18px;
@@ -211,6 +168,13 @@
         .menu-item .arrow {
             font-size: 22px;
             color: rgba(255,255,255,0.2);
+        }
+        .nft-badge {
+            background: linear-gradient(135deg, #b388ff, #7c4dff);
+            padding: 2px 12px;
+            border-radius: 40px;
+            font-size: 12px;
+            font-weight: 600;
         }
         .stats {
             display: flex;
@@ -267,17 +231,6 @@
             <div class="label">💰 Твой баланс</div>
             <div class="amount" id="balanceDisplay">1000</div>
         </div>
-        <div class="nft-preview" onclick="window.location.href='coin.html'">
-            <div class="left">
-                <div class="icon">💎</div>
-                <div class="info">
-                    <div class="title">Мои NFT</div>
-                    <div class="desc">Уникальные коллекционные карточки</div>
-                </div>
-            </div>
-            <div class="count" id="nftCountMain">0</div>
-            <div class="arrow">›</div>
-        </div>
         <div class="menu">
             <a href="coin.html" class="menu-item coin">
                 <div class="icon-wrapper">🪙</div>
@@ -303,6 +256,15 @@
                 </div>
                 <div class="arrow">›</div>
             </a>
+            <a href="nft.html" class="menu-item nft">
+                <div class="icon-wrapper">💎</div>
+                <div class="info">
+                    <div class="title">Хранилище NFT</div>
+                    <div class="desc">Твои коллекционные карточки</div>
+                </div>
+                <span class="nft-badge" id="nftBadge">0</span>
+                <div class="arrow">›</div>
+            </a>
         </div>
         <div class="stats">
             <div class="stats-item">
@@ -326,7 +288,7 @@
         window.addEventListener('focus', () => {
             balance = parseInt(localStorage.getItem('casinoBalance')) || 1000;
             document.getElementById('balanceDisplay').textContent = balance;
-            updateNFTcount();
+            updateNFTBadge();
         });
         const games = parseInt(localStorage.getItem('totalGames')) || 0;
         const wins = parseInt(localStorage.getItem('totalWins')) || 0;
@@ -334,15 +296,15 @@
         document.getElementById('gamesPlayed').textContent = games;
         document.getElementById('totalWins').textContent = wins;
         document.getElementById('bestWin').textContent = best;
-        function updateNFTcount() {
+        function updateNFTBadge() {
             try {
                 const nfts = JSON.parse(localStorage.getItem('userNFTs')) || [];
-                document.getElementById('nftCountMain').textContent = nfts.length;
+                document.getElementById('nftBadge').textContent = nfts.length;
             } catch {
-                document.getElementById('nftCountMain').textContent = 0;
+                document.getElementById('nftBadge').textContent = 0;
             }
         }
-        updateNFTcount();
+        updateNFTBadge();
     </script>
 </body>
 </html>
