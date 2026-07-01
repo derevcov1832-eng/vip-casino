@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🎰 VIP Casino</title>
+    <title>🐰 Rabbits</title>
     <style>
         * {
             margin: 0;
@@ -57,6 +57,7 @@
             overflow-x: hidden;
         }
 
+        /* ===== ХЕДЕР ===== */
         .header {
             display: flex;
             justify-content: space-between;
@@ -66,11 +67,9 @@
             flex-shrink: 0;
         }
         .header .logo {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 800;
-            background: linear-gradient(135deg, #f7d44a, #ff6b6b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #f7d44a;
             letter-spacing: 0.5px;
         }
         .header .coins {
@@ -78,29 +77,25 @@
             align-items: center;
             gap: 6px;
             background: rgba(255, 255, 255, 0.05);
-            padding: 6px 14px;
+            padding: 4px 12px;
             border-radius: 40px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
             color: #f7d44a;
             border: 1px solid rgba(255, 255, 255, 0.04);
         }
         .header .coins span {
-            font-size: 16px;
+            font-size: 14px;
         }
 
+        /* ===== БАЛАНС ===== */
         .balance-block {
             text-align: center;
-            padding: 16px 0 8px;
+            padding: 12px 0 8px;
             flex-shrink: 0;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .balance-block:active {
-            transform: scale(0.95);
         }
         .balance-block .amount {
-            font-size: 44px;
+            font-size: 38px;
             font-weight: 800;
             color: #f7d44a;
             text-shadow: 0 0 40px rgba(247, 212, 74, 0.1);
@@ -112,365 +107,304 @@
             text-transform: uppercase;
             letter-spacing: 3px;
             margin-top: 2px;
+        }
+
+        /* ===== RABBIT (КЛИКЕР) ===== */
+        .rabbit-container {
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+        }
+        .rabbit {
+            font-size: 100px;
+            display: inline-block;
+            cursor: pointer;
+            transition: transform 0.15s ease;
+            filter: drop-shadow(0 0 40px rgba(247, 212, 74, 0.1));
+            animation: rabbitFloat 3s ease-in-out infinite;
+            user-select: none;
+        }
+        .rabbit:active {
+            transform: scale(0.85);
+        }
+        @keyframes rabbitFloat {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .click-effect {
+            position: fixed;
+            pointer-events: none;
+            font-size: 24px;
+            font-weight: 700;
+            color: #f7d44a;
+            z-index: 50;
+            animation: floatUp 1s ease-out forwards;
+        }
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-80px) scale(1.3);
+            }
+        }
+
+        .rabbit-stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 4px 0 10px;
+        }
+        .rabbit-stats .stat {
+            text-align: center;
+        }
+        .rabbit-stats .stat .num {
+            font-size: 18px;
+            font-weight: 700;
+            color: #f7d44a;
+        }
+        .rabbit-stats .stat .lbl {
+            font-size: 9px;
+            color: rgba(255, 255, 255, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ===== ПОПОЛНЕНИЕ ===== */
+        .deposit-section {
+            display: flex;
+            gap: 8px;
+            margin: 6px 0 10px;
+            flex-wrap: wrap;
+        }
+        .deposit-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.2s;
+            min-width: 60px;
+        }
+        .deposit-btn:active {
+            transform: scale(0.94);
+            background: rgba(255, 255, 255, 0.06);
+        }
+        .deposit-btn .icon {
+            font-size: 16px;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        /* ===== ИНВЕНТАРЬ ===== */
+        .inventory-section {
+            margin: 8px 0 4px;
+        }
+        .inventory-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .inventory-header .title {
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        .inventory-header .count {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.2);
+        }
+        .inventory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+        .inventory-slot {
+            aspect-ratio: 1/1;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-        }
-        .balance-block .label .tap-icon {
-            font-size: 14px;
-            opacity: 0.5;
-            animation: tapPulse 2s ease-in-out infinite;
-        }
-        @keyframes tapPulse {
-            0%,
-            100% {
-                opacity: 0.3;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.1);
-            }
-        }
-
-        .games-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin: 12px 0;
-            flex-shrink: 0;
-        }
-        .game-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            border-radius: 16px;
-            padding: 16px 12px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            text-decoration: none;
-            color: white;
-            text-align: center;
-            transition: transform 0.15s;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-        }
-        .game-card:active {
-            transform: scale(0.94);
-        }
-        .game-card .icon {
-            font-size: 32px;
-            margin-bottom: 6px;
-        }
-        .game-card .name {
-            font-size: 14px;
-            font-weight: 600;
-        }
-        .game-card .desc {
-            font-size: 10px;
-            color: rgba(255, 255, 255, 0.25);
-            margin-top: 2px;
-        }
-        .game-card .badge {
-            display: inline-block;
-            margin-top: 4px;
-            font-size: 9px;
-            background: rgba(247, 212, 74, 0.12);
-            color: #f7d44a;
-            padding: 2px 10px;
-            border-radius: 40px;
-            letter-spacing: 1px;
-        }
-
-        .shop-section {
-            margin: 10px 0 6px;
-            flex-shrink: 0;
-        }
-        .shop-section .title {
-            font-size: 13px;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.3);
-            margin-bottom: 8px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-        .shop-row {
-            display: flex;
-            gap: 8px;
-        }
-        .shop-btn {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 12px;
-            padding: 10px 8px;
-            color: white;
-            cursor: pointer;
+            font-size: 28px;
             transition: 0.2s;
-            text-align: center;
-        }
-        .shop-btn:active {
-            transform: scale(0.94);
-        }
-        .shop-btn .price {
-            font-size: 12px;
-            opacity: 0.5;
-        }
-        .shop-btn .value {
-            font-size: 16px;
-            font-weight: 700;
-            color: #f7d44a;
-        }
-        .shop-btn.best {
-            border-color: rgba(247, 212, 74, 0.2);
-            background: rgba(247, 212, 74, 0.04);
-        }
-
-        .offer {
-            margin: 10px 0 6px;
-            background: linear-gradient(145deg, rgba(247, 212, 74, 0.06), rgba(255, 107, 107, 0.04));
-            border-radius: 14px;
-            padding: 14px 16px;
-            border: 1px solid rgba(247, 212, 74, 0.08);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-shrink: 0;
-        }
-        .offer .left .title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #f7d44a;
-        }
-        .offer .left .desc {
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.3);
-        }
-        .offer .btn {
-            background: linear-gradient(145deg, #f7d44a, #dbb84a);
-            border: none;
-            padding: 8px 20px;
-            border-radius: 40px;
-            font-size: 13px;
-            font-weight: 700;
-            color: #1a1a2e;
             cursor: pointer;
         }
-        .offer .btn:active {
+        .inventory-slot:active {
             transform: scale(0.94);
+            background: rgba(255, 255, 255, 0.06);
         }
-
-        .case-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
-            margin: 12px 0;
+        .inventory-slot.empty {
+            opacity: 0.2;
         }
-        .case-item {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 14px;
-            padding: 14px 8px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            cursor: pointer;
-            transition: 0.2s;
-            position: relative;
-            overflow: hidden;
-        }
-        .case-item:active {
-            transform: scale(0.94);
-        }
-        .case-item .icon {
-            font-size: 32px;
-        }
-        .case-item .name {
-            font-size: 12px;
-            font-weight: 600;
-            margin-top: 4px;
-        }
-        .case-item .price {
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.3);
-        }
-        .case-item .tag {
-            font-size: 9px;
-            background: rgba(231, 76, 60, 0.15);
-            color: #e74c3c;
-            padding: 2px 8px;
-            border-radius: 40px;
-            display: inline-block;
-            margin-top: 4px;
-        }
-        .case-item .tag.free {
-            background: rgba(46, 204, 113, 0.15);
-            color: #2ecc71;
-        }
-
-        .profile-header {
-            text-align: center;
-            padding: 12px 0 8px;
-        }
-        .profile-header .avatar {
-            font-size: 56px;
-        }
-        .profile-header .name {
-            font-size: 20px;
-            font-weight: 700;
-            margin-top: 4px;
-        }
-        .profile-header .id {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.2);
-        }
-
-        .profile-stats {
-            display: flex;
-            gap: 10px;
-            margin: 10px 0;
-        }
-        .profile-stats .stat {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 12px;
-            padding: 10px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-        }
-        .profile-stats .stat .num {
-            font-size: 20px;
-            font-weight: 700;
-            color: #f7d44a;
-        }
-        .profile-stats .stat .lbl {
+        .inventory-slot .label {
             font-size: 8px;
             color: rgba(255, 255, 255, 0.2);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 2px;
+            position: absolute;
+            bottom: 4px;
         }
 
-        .referral-block {
-            background: linear-gradient(145deg, rgba(247, 212, 74, 0.04), rgba(123, 77, 255, 0.04));
-            border-radius: 16px;
-            padding: 16px;
-            border: 1px solid rgba(247, 212, 74, 0.06);
-            margin: 10px 0;
-        }
-        .referral-block .title {
-            font-size: 16px;
-            font-weight: 700;
-            color: #f7d44a;
+        .inventory-empty {
             text-align: center;
+            padding: 16px;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 13px;
+        }
+        .inventory-empty .icon {
+            font-size: 32px;
+            display: block;
             margin-bottom: 4px;
         }
-        .referral-block .sub {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.3);
-            text-align: center;
-            margin-bottom: 12px;
-        }
-        .referral-link {
+
+        .inventory-actions {
             display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            padding: 10px 14px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            margin-bottom: 10px;
+            gap: 8px;
+            margin-top: 8px;
         }
-        .referral-link .link {
+        .inventory-actions .btn {
             flex: 1;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.5);
-            word-break: break-all;
-            font-family: monospace;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .referral-link .copy-btn {
-            padding: 6px 16px;
+            padding: 10px;
             border: none;
-            border-radius: 40px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .inventory-actions .btn:active {
+            transform: scale(0.94);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .inventory-actions .btn.primary {
             background: linear-gradient(145deg, #f7d44a, #dbb84a);
             color: #1a1a2e;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            flex-shrink: 0;
-            transition: 0.2s;
-        }
-        .referral-link .copy-btn:active {
-            transform: scale(0.94);
+            border: none;
         }
 
-        .referral-stats {
+        /* ===== ЗАДАНИЯ ===== */
+        .tasks-section {
+            margin: 10px 0 6px;
+        }
+        .tasks-header {
             display: flex;
-            gap: 12px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
         }
-        .referral-stats .item {
-            flex: 1;
-            text-align: center;
-            padding: 8px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
+        .tasks-header .title {
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.5);
         }
-        .referral-stats .item .num {
-            font-size: 22px;
-            font-weight: 700;
-            color: #f7d44a;
-        }
-        .referral-stats .item .lbl {
-            font-size: 9px;
+        .tasks-header .progress {
+            font-size: 12px;
             color: rgba(255, 255, 255, 0.2);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 2px;
         }
-
-        .top-list {
-            margin: 12px 0;
-        }
-        .top-item {
+        .task-item {
             display: flex;
             align-items: center;
             gap: 12px;
             padding: 10px 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            margin-bottom: 6px;
         }
-        .top-item .place {
-            font-size: 16px;
-            font-weight: 700;
-            width: 30px;
-            color: rgba(255, 255, 255, 0.2);
+        .task-item .icon {
+            font-size: 24px;
         }
-        .top-item .place.gold {
-            color: #f7d44a;
-        }
-        .top-item .place.silver {
-            color: #bdc3c7;
-        }
-        .top-item .place.bronze {
-            color: #cd7f32;
-        }
-        .top-item .info {
+        .task-item .info {
             flex: 1;
             text-align: left;
         }
-        .top-item .info .name {
-            font-size: 15px;
+        .task-item .info .name {
+            font-size: 13px;
             font-weight: 600;
         }
-        .top-item .info .score {
-            font-size: 11px;
+        .task-item .info .desc {
+            font-size: 10px;
             color: rgba(255, 255, 255, 0.3);
         }
-        .top-item .coins {
-            font-size: 16px;
+        .task-item .status {
+            font-size: 12px;
             font-weight: 700;
-            color: #f7d44a;
+            padding: 4px 12px;
+            border-radius: 40px;
+            background: rgba(46, 204, 113, 0.1);
+            color: #2ecc71;
+        }
+        .task-item .status.done {
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+        }
+        .task-item .status.pending {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
         }
 
+        /* ===== ПРОМОКОД ===== */
+        .promo-section {
+            margin: 8px 0 4px;
+        }
+        .promo-input {
+            display: flex;
+            gap: 8px;
+        }
+        .promo-input input {
+            flex: 1;
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.03);
+            color: white;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .promo-input input:focus {
+            border-color: rgba(247, 212, 74, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .promo-input input::placeholder {
+            color: rgba(255, 255, 255, 0.15);
+            letter-spacing: 1px;
+        }
+        .promo-input button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(145deg, #f7d44a, #dbb84a);
+            color: #1a1a2e;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .promo-input button:active {
+            transform: scale(0.94);
+        }
+
+        /* ===== НИЖНЯЯ НАВИГАЦИЯ ===== */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -493,7 +427,7 @@
             gap: 2px;
             text-decoration: none;
             color: rgba(255, 255, 255, 0.2);
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 500;
             letter-spacing: 0.5px;
             transition: 0.2s;
@@ -503,7 +437,7 @@
             padding: 4px 16px;
         }
         .bottom-nav .nav-item .icon {
-            font-size: 22px;
+            font-size: 20px;
         }
         .bottom-nav .nav-item.active {
             color: #f7d44a;
@@ -512,266 +446,156 @@
             transform: scale(0.9);
         }
 
-        .deposit-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(20px);
-            z-index: 300;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            padding: 20px;
+        /* ===== ПРОФИЛЬ ===== */
+        .profile-header {
+            text-align: center;
+            padding: 8px 0;
         }
-        .deposit-overlay.show {
-            display: flex;
-            animation: fadeIn 0.3s ease-out;
+        .profile-header .avatar {
+            font-size: 48px;
         }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+        .profile-header .name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+        .profile-header .id {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.2);
         }
 
-        .deposit-card {
-            max-width: 400px;
-            width: 100%;
-            background: linear-gradient(145deg, #1a1f35, #0d1225);
-            border-radius: 24px;
-            padding: 28px 24px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            text-align: center;
+        .profile-stats {
+            display: flex;
+            gap: 8px;
+            margin: 8px 0;
         }
-        .deposit-card .title {
-            font-size: 24px;
+        .profile-stats .stat {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            padding: 8px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .profile-stats .stat .num {
+            font-size: 18px;
             font-weight: 700;
             color: #f7d44a;
-            margin-bottom: 4px;
         }
-        .deposit-card .sub {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.3);
-            margin-bottom: 20px;
-        }
-        .deposit-card .balance-show {
-            font-size: 36px;
-            font-weight: 800;
-            color: #f7d44a;
-            margin-bottom: 16px;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
+        .profile-stats .stat .lbl {
+            font-size: 8px;
+            color: rgba(255, 255, 255, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
         }
 
-        .deposit-options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin: 16px 0;
+        /* ===== РЕФЕРАЛКА ===== */
+        .referral-block {
+            background: linear-gradient(145deg, rgba(247, 212, 74, 0.04), rgba(123, 77, 255, 0.04));
+            border-radius: 16px;
+            padding: 14px;
+            border: 1px solid rgba(247, 212, 74, 0.06);
+            margin: 8px 0;
         }
-        .deposit-options .option {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 18px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            cursor: pointer;
-            transition: 0.2s;
+        .referral-block .title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #f7d44a;
+            text-align: center;
+            margin-bottom: 2px;
         }
-        .deposit-options .option:active {
-            transform: scale(0.96);
-        }
-        .deposit-options .option .left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .deposit-options .option .left .icon {
-            font-size: 28px;
-        }
-        .deposit-options .option .left .info .name {
-            font-size: 15px;
-            font-weight: 600;
-        }
-        .deposit-options .option .left .info .desc {
+        .referral-block .sub {
             font-size: 11px;
             color: rgba(255, 255, 255, 0.3);
+            text-align: center;
+            margin-bottom: 8px;
         }
-        .deposit-options .option .right {
-            font-size: 16px;
+        .referral-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            padding: 8px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .referral-link .link {
+            flex: 1;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.4);
+            word-break: break-all;
+            font-family: monospace;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .referral-link .copy-btn {
+            padding: 4px 14px;
+            border: none;
+            border-radius: 40px;
+            background: linear-gradient(145deg, #f7d44a, #dbb84a);
+            color: #1a1a2e;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: 0.2s;
+        }
+        .referral-link .copy-btn:active {
+            transform: scale(0.94);
+        }
+
+        .referral-stats {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .referral-stats .item {
+            flex: 1;
+            text-align: center;
+            padding: 6px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .referral-stats .item .num {
+            font-size: 18px;
             font-weight: 700;
             color: #f7d44a;
         }
-
-        .deposit-close {
-            margin-top: 16px;
-            padding: 12px;
-            border: none;
-            border-radius: 40px;
-            background: rgba(255, 255, 255, 0.05);
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 14px;
-            cursor: pointer;
-            width: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            transition: 0.2s;
-        }
-        .deposit-close:active {
-            transform: scale(0.94);
-        }
-
-        .case-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(20px);
-            z-index: 200;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            animation: fadeIn 0.3s ease-out;
-        }
-        .case-overlay.show {
-            display: flex;
-        }
-
-        .case-animation {
-            font-size: 100px;
-            animation: caseSpin 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-        @keyframes caseSpin {
-            0% {
-                transform: scale(0) rotate(-180deg);
-                opacity: 0;
-            }
-            50% {
-                transform: scale(1.3) rotate(0deg);
-                opacity: 1;
-            }
-            70% {
-                transform: scale(0.9) rotate(5deg);
-            }
-            100% {
-                transform: scale(1) rotate(0deg);
-                opacity: 1;
-            }
-        }
-        .case-reward {
-            font-size: 48px;
-            font-weight: 800;
-            color: #f7d44a;
-            margin-top: 20px;
-            animation: rewardPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s both;
-            text-shadow: 0 0 60px rgba(247, 212, 74, 0.2);
-        }
-        @keyframes rewardPop {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-        .case-close-btn {
-            margin-top: 30px;
-            padding: 12px 40px;
-            border: none;
-            border-radius: 40px;
-            background: rgba(255, 255, 255, 0.05);
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 16px;
-            cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: 0.2s;
-        }
-        .case-close-btn:active {
-            transform: scale(0.94);
-        }
-
-        .confetti-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 199;
-            overflow: hidden;
-        }
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            opacity: 0;
-            animation: confettiFall linear forwards;
-        }
-        @keyframes confettiFall {
-            0% {
-                transform: translateY(-20px) rotate(0deg) scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(720deg) scale(0.3);
-                opacity: 0;
-            }
+        .referral-stats .item .lbl {
+            font-size: 8px;
+            color: rgba(255, 255, 255, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
         }
 
         @media (max-width: 400px) {
             .balance-block .amount {
-                font-size: 34px;
+                font-size: 30px;
             }
-            .game-card .icon {
-                font-size: 26px;
+            .rabbit {
+                font-size: 76px;
             }
-            .game-card .name {
-                font-size: 12px;
-            }
-            .shop-btn .value {
-                font-size: 14px;
-            }
-            .case-grid {
-                grid-template-columns: 1fr 1fr 1fr;
+            .inventory-grid {
+                grid-template-columns: repeat(4, 1fr);
                 gap: 6px;
             }
             .bottom-nav .nav-item {
                 padding: 4px 10px;
-                font-size: 9px;
+                font-size: 8px;
             }
             .bottom-nav .nav-item .icon {
                 font-size: 18px;
             }
-            .case-animation {
-                font-size: 70px;
+            .deposit-btn {
+                font-size: 10px;
+                padding: 6px 8px;
             }
-            .case-reward {
-                font-size: 34px;
-            }
-            .deposit-card .balance-show {
-                font-size: 28px;
-            }
-            .referral-link .link {
-                font-size: 11px;
-            }
-            .referral-link .copy-btn {
-                font-size: 11px;
-                padding: 4px 12px;
+            .deposit-btn .icon {
+                font-size: 14px;
             }
         }
     </style>
@@ -780,14 +604,233 @@
 
     <div class="bg"></div>
 
-    <div class="confetti-container" id="confettiContainer"></div>
+    <div class="app-wrapper">
+        <div class="app-slider" id="appSlider">
 
-    <div class="case-overlay" id="caseOverlay">
-        <div class="case-animation" id="caseEmoji">🎁</div>
-        <div class="case-reward" id="caseReward">+0</div>
-        <button class="case-close-btn" onclick="closeCase()">✕ Закрыть</button>
+            <!-- ===== ГЛАВНАЯ ===== -->
+            <div class="page" id="pageHome">
+                <div class="header">
+                    <div class="logo">🐰 Rabbits</div>
+                    <div class="coins">
+                        <span>⭐</span>
+                        <span id="headerStars">0</span>
+                    </div>
+                </div>
+
+                <!-- Баланс -->
+                <div class="balance-block">
+                    <div class="amount" id="balanceDisplay">1000</div>
+                    <div class="label">💰 Игровой баланс</div>
+                </div>
+
+                <!-- Пополнение -->
+                <div class="deposit-section">
+                    <div class="deposit-btn" onclick="showToast('💰 Пополнение TON (в разработке)')">
+                        <span class="icon">💎</span>
+                        TON
+                    </div>
+                    <div class="deposit-btn" onclick="openDeposit()">
+                        <span class="icon">⭐</span>
+                        Stars
+                    </div>
+                    <div class="deposit-btn" onclick="showToast('🎁 Пополнение подарками (в разработке)')">
+                        <span class="icon">🎁</span>
+                        Подарки
+                    </div>
+                </div>
+
+                <!-- Rabbit (кликер) -->
+                <div class="rabbit-container" id="rabbitContainer">
+                    <div class="rabbit" id="rabbit" onclick="tapRabbit()">🐰</div>
+                    <div class="rabbit-stats">
+                        <div class="stat">
+                            <div class="num" id="tapCount">0</div>
+                            <div class="lbl">Кликов</div>
+                        </div>
+                        <div class="stat">
+                            <div class="num" id="tapEarned">0</div>
+                            <div class="lbl">Заработано</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Инвентарь -->
+                <div class="inventory-section">
+                    <div class="inventory-header">
+                        <div class="title">📦 Мой инвентарь</div>
+                        <div class="count" id="inventoryCount">0 шт. · 0</div>
+                    </div>
+                    <div class="inventory-grid" id="inventoryGrid">
+                        <div class="inventory-slot empty">❓</div>
+                        <div class="inventory-slot empty">❓</div>
+                        <div class="inventory-slot empty">❓</div>
+                        <div class="inventory-slot empty">❓</div>
+                    </div>
+                    <div class="inventory-empty" id="inventoryEmpty">
+                        <span class="icon">📭</span>
+                        Инвентарь пуст
+                    </div>
+                    <div class="inventory-actions">
+                        <button class="btn" onclick="showToast('🎁 Отправить грифинг (в разработке)')">🎁 Отправить гриф</button>
+                        <button class="btn primary" onclick="showToast('⚡ Открыть кейс (в разработке)')">⚡ Открыть</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== ЗАДАНИЯ ===== -->
+            <div class="page" id="pageTasks">
+                <div class="header">
+                    <div class="logo">🐰 Rabbits</div>
+                    <div class="coins">
+                        <span>⭐</span>
+                        <span id="headerStars2">0</span>
+                    </div>
+                </div>
+
+                <div class="balance-block" style="padding:8px 0 12px;">
+                    <div class="amount" style="font-size:28px;">📋 Задания</div>
+                    <div class="label">Выполняй и получай награды</div>
+                </div>
+
+                <div class="tasks-section">
+                    <div class="tasks-header">
+                        <div class="title">Ежедневные задания</div>
+                        <div class="progress" id="tasksProgress">0/3</div>
+                    </div>
+
+                    <div class="task-item">
+                        <div class="icon">🪙</div>
+                        <div class="info">
+                            <div class="name">Сыграть в монетку</div>
+                            <div class="desc">Сыграй 1 раз в монетку</div>
+                        </div>
+                        <div class="status done">✅</div>
+                    </div>
+                    <div class="task-item">
+                        <div class="icon">🎡</div>
+                        <div class="info">
+                            <div class="name">Крутануть рулетку</div>
+                            <div class="desc">Сыграй 1 раз в рулетку</div>
+                        </div>
+                        <div class="status done">✅</div>
+                    </div>
+                    <div class="task-item">
+                        <div class="icon">👥</div>
+                        <div class="info">
+                            <div class="name">Привести друга</div>
+                            <div class="desc">Приведи 1 друга по реферальной ссылке</div>
+                        </div>
+                        <div class="status pending">⏳</div>
+                    </div>
+                </div>
+
+                <!-- Промокод -->
+                <div class="promo-section">
+                    <div class="tasks-header">
+                        <div class="title">🔑 Ввести промокод</div>
+                    </div>
+                    <div class="promo-input">
+                        <input type="text" id="promoInput" placeholder="Введите промокод" maxlength="20">
+                        <button onclick="applyPromo()">Активировать</button>
+                    </div>
+                </div>
+
+                <!-- Рефералка -->
+                <div class="referral-block">
+                    <div class="title">👥 Пригласить друзей</div>
+                    <div class="sub">Получи 10% от дохода друзей!</div>
+                    <div class="referral-link">
+                        <div class="link" id="referralLink">https://t.me/My103CoinGameBot?start=ref_123</div>
+                        <button class="copy-btn" onclick="copyReferralLink()">📋</button>
+                    </div>
+                    <div class="referral-stats">
+                        <div class="item">
+                            <div class="num" id="refCount">0</div>
+                            <div class="lbl">Приглашено</div>
+                        </div>
+                        <div class="item">
+                            <div class="num" id="refEarned">0</div>
+                            <div class="lbl">Заработано</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== ПРОФИЛЬ ===== -->
+            <div class="page" id="pageProfile">
+                <div class="header">
+                    <div class="logo">🐰 Rabbits</div>
+                    <div class="coins">
+                        <span>⭐</span>
+                        <span id="headerStars3">0</span>
+                    </div>
+                </div>
+
+                <div class="profile-header">
+                    <div class="avatar">👤</div>
+                    <div class="name" id="profileName">Никита</div>
+                    <div class="id" id="profileId">ID: 123456</div>
+                </div>
+
+                <div class="profile-stats">
+                    <div class="stat">
+                        <div class="num" id="profileGames">0</div>
+                        <div class="lbl">Игр</div>
+                    </div>
+                    <div class="stat">
+                        <div class="num" id="profileWins">0</div>
+                        <div class="lbl">Побед</div>
+                    </div>
+                    <div class="stat">
+                        <div class="num" id="profileBest">0</div>
+                        <div class="lbl">Лучший</div>
+                    </div>
+                </div>
+
+                <div class="referral-block">
+                    <div class="title">👥 Мои рефералы</div>
+                    <div class="sub">Твоя реферальная ссылка</div>
+                    <div class="referral-link">
+                        <div class="link" id="referralLink2">https://t.me/My103CoinGameBot?start=ref_123</div>
+                        <button class="copy-btn" onclick="copyReferralLink()">📋</button>
+                    </div>
+                    <div class="referral-stats">
+                        <div class="item">
+                            <div class="num" id="refCount2">0</div>
+                            <div class="lbl">Приглашено</div>
+                        </div>
+                        <div class="item">
+                            <div class="num" id="refEarned2">0</div>
+                            <div class="lbl">Заработано</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align:center; padding:12px; color:rgba(255,255,255,0.08); font-size:10px; letter-spacing:2px;">
+                    Rabbits v2.0
+                </div>
+            </div>
+
+        </div>
     </div>
 
+    <!-- ===== НИЖНЯЯ НАВИГАЦИЯ ===== -->
+    <div class="bottom-nav" id="bottomNav">
+        <button class="nav-item active" data-index="0">
+            <span class="icon">🏠</span>
+            Главная
+        </button>
+        <button class="nav-item" data-index="1">
+            <span class="icon">📋</span>
+            Задания
+        </button>
+        <button class="nav-item" data-index="2">
+            <span class="icon">👤</span>
+            Профиль
+        </button>
+    </div>
+
+    <!-- ===== ОВЕРЛЕЙ ПОПОЛНЕНИЯ ===== -->
     <div class="deposit-overlay" id="depositOverlay">
         <div class="deposit-card">
             <div class="title">⭐ Пополнить баланс</div>
@@ -841,265 +884,13 @@
         </div>
     </div>
 
-    <div class="app-wrapper">
-        <div class="app-slider" id="appSlider">
-
-            <!-- ===== ГЛАВНАЯ ===== -->
-            <div class="page" id="pageHome">
-                <div class="header">
-                    <div class="logo">♛ VIP CASINO</div>
-                    <div class="coins">
-                        <span>⭐</span>
-                        <span id="headerStars">0</span>
-                    </div>
-                </div>
-
-                <div class="balance-block" onclick="openDeposit()">
-                    <div class="amount" id="balanceDisplay">1000</div>
-                    <div class="label">
-                        💰 Твой баланс
-                        <span class="tap-icon">👆</span>
-                    </div>
-                </div>
-
-                <div class="games-grid">
-                    <a href="coin.html" class="game-card">
-                        <div class="icon">🪙</div>
-                        <div class="name">Монетка</div>
-                        <div class="desc">Орёл или решка</div>
-                        <div class="badge">x100</div>
-                    </a>
-                    <a href="roulette.html" class="game-card">
-                        <div class="icon">🎡</div>
-                        <div class="name">Рулетка</div>
-                        <div class="desc">Красное / Чёрное</div>
-                        <div class="badge">x2</div>
-                    </a>
-                    <a href="blackjack.html" class="game-card">
-                        <div class="icon">🃏</div>
-                        <div class="name">Блэкджек</div>
-                        <div class="desc">21 против дилера</div>
-                        <div class="badge">🔥</div>
-                    </a>
-                    <a href="nft.html" class="game-card">
-                        <div class="icon">💎</div>
-                        <div class="name">Хранилище</div>
-                        <div class="desc">Коллекционные NFT</div>
-                        <div class="badge" id="nftBadge">0</div>
-                    </a>
-                </div>
-
-                <div class="shop-section">
-                    <div class="title">⭐ Пополнить баланс</div>
-                    <div class="shop-row">
-                        <div class="shop-btn" onclick="openDeposit()">
-                            <div class="price">⭐ 10</div>
-                            <div class="value">+100</div>
-                        </div>
-                        <div class="shop-btn" onclick="openDeposit()">
-                            <div class="price">⭐ 25</div>
-                            <div class="value">+300</div>
-                        </div>
-                        <div class="shop-btn best" onclick="openDeposit()">
-                            <div class="price">⭐ 50</div>
-                            <div class="value">+700</div>
-                        </div>
-                        <div class="shop-btn" onclick="openDeposit()">
-                            <div class="price">⭐ 100</div>
-                            <div class="value">+1500</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="offer">
-                    <div class="left">
-                        <div class="title">🎁 Кейс за депозит</div>
-                        <div class="desc">Пополни сегодня и получи бонус</div>
-                    </div>
-                    <button class="btn" onclick="openCase()">Открыть</button>
-                </div>
-            </div>
-
-            <!-- ===== КЕЙСЫ ===== -->
-            <div class="page" id="pageCases">
-                <div class="header">
-                    <div class="logo">♛ VIP CASINO</div>
-                    <div class="coins">
-                        <span>⭐</span>
-                        <span id="headerStars2">0</span>
-                    </div>
-                </div>
-                <div class="balance-block" onclick="openDeposit()" style="padding:12px 0 4px;">
-                    <div class="amount" style="font-size:28px;">🎁 Кейсы</div>
-                    <div class="label">Открой и получи награду</div>
-                </div>
-                <div class="case-grid">
-                    <div class="case-item" onclick="openCase()">
-                        <div class="icon">📦</div>
-                        <div class="name">Бесплатный</div>
-                        <div class="price">0 Stars</div>
-                        <div class="tag free">FREE</div>
-                    </div>
-                    <div class="case-item" onclick="openCase()">
-                        <div class="icon">🎁</div>
-                        <div class="name">Обычный</div>
-                        <div class="price">⭐ 25</div>
-                        <div class="tag">POPULAR</div>
-                    </div>
-                    <div class="case-item" onclick="openCase()">
-                        <div class="icon">👑</div>
-                        <div class="name">VIP кейс</div>
-                        <div class="price">⭐ 100</div>
-                        <div class="tag">LEGENDARY</div>
-                    </div>
-                </div>
-                <div style="text-align:center; padding:20px; color:rgba(255,255,255,0.1); font-size:12px;">
-                    🎯 Нажми на кейс, чтобы открыть
-                </div>
-            </div>
-
-            <!-- ===== ТОП ===== -->
-            <div class="page" id="pageTop">
-                <div class="header">
-                    <div class="logo">♛ VIP CASINO</div>
-                    <div class="coins">
-                        <span>⭐</span>
-                        <span id="headerStars3">0</span>
-                    </div>
-                </div>
-                <div class="balance-block" onclick="openDeposit()" style="padding:12px 0 4px;">
-                    <div class="amount" style="font-size:28px;">🏆 Топ игроков</div>
-                    <div class="label">Самые удачливые</div>
-                </div>
-                <div class="top-list">
-                    <div class="top-item">
-                        <div class="place gold">👑</div>
-                        <div class="info">
-                            <div class="name">Игрок 1</div>
-                            <div class="score">1250 монет</div>
-                        </div>
-                        <div class="coins">+1250</div>
-                    </div>
-                    <div class="top-item">
-                        <div class="place silver">🥈</div>
-                        <div class="info">
-                            <div class="name">Игрок 2</div>
-                            <div class="score">980 монет</div>
-                        </div>
-                        <div class="coins">+980</div>
-                    </div>
-                    <div class="top-item">
-                        <div class="place bronze">🥉</div>
-                        <div class="info">
-                            <div class="name">Игрок 3</div>
-                            <div class="score">750 монет</div>
-                        </div>
-                        <div class="coins">+750</div>
-                    </div>
-                    <div class="top-item">
-                        <div class="place">4</div>
-                        <div class="info">
-                            <div class="name">Игрок 4</div>
-                            <div class="score">620 монет</div>
-                        </div>
-                        <div class="coins">+620</div>
-                    </div>
-                    <div class="top-item">
-                        <div class="place">5</div>
-                        <div class="info">
-                            <div class="name">Игрок 5</div>
-                            <div class="score">540 монет</div>
-                        </div>
-                        <div class="coins">+540</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ===== ПРОФИЛЬ ===== -->
-            <div class="page" id="pageProfile">
-                <div class="header">
-                    <div class="logo">♛ VIP CASINO</div>
-                    <div class="coins">
-                        <span>⭐</span>
-                        <span id="headerStars4">0</span>
-                    </div>
-                </div>
-                <div class="profile-header">
-                    <div class="avatar">👤</div>
-                    <div class="name" id="profileName">Игрок</div>
-                    <div class="id" id="profileId">ID: 123456</div>
-                </div>
-
-                <div class="profile-stats">
-                    <div class="stat">
-                        <div class="num" id="profileGames">0</div>
-                        <div class="lbl">Игр</div>
-                    </div>
-                    <div class="stat">
-                        <div class="num" id="profileWins">0</div>
-                        <div class="lbl">Побед</div>
-                    </div>
-                    <div class="stat">
-                        <div class="num" id="profileBest">0</div>
-                        <div class="lbl">Лучший</div>
-                    </div>
-                </div>
-
-                <!-- ===== РЕФЕРАЛЬНАЯ СИСТЕМА ===== -->
-                <div class="referral-block">
-                    <div class="title">👥 Приведи друга</div>
-                    <div class="sub">Получи 50 монет за каждого приглашённого!</div>
-
-                    <div class="referral-link">
-                        <div class="link" id="referralLink">https://t.me/My103CoinGameBot?start=ref_123456</div>
-                        <button class="copy-btn" onclick="copyReferralLink()">📋 Копировать</button>
-                    </div>
-
-                    <div class="referral-stats">
-                        <div class="item">
-                            <div class="num" id="refCount">0</div>
-                            <div class="lbl">Приглашено</div>
-                        </div>
-                        <div class="item">
-                            <div class="num" id="refEarned">0</div>
-                            <div class="lbl">Заработано</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="text-align:center; padding:12px; color:rgba(255,255,255,0.08); font-size:11px; letter-spacing:2px;">
-                    Сделано с ❤️ в Telegram Mini App
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- ===== НИЖНЯЯ НАВИГАЦИЯ ===== -->
-    <div class="bottom-nav" id="bottomNav">
-        <button class="nav-item active" data-index="0">
-            <span class="icon">🏠</span>
-            Главная
-        </button>
-        <button class="nav-item" data-index="1">
-            <span class="icon">🎁</span>
-            Кейсы
-        </button>
-        <button class="nav-item" data-index="2">
-            <span class="icon">🏆</span>
-            Топ
-        </button>
-        <button class="nav-item" data-index="3">
-            <span class="icon">👤</span>
-            Профиль
-        </button>
-    </div>
-
     <script>
         // ============================
         // 1. БАЛАНС
         // ============================
         let balance = parseInt(localStorage.getItem('casinoBalance')) || 1000;
+        let tapCount = parseInt(localStorage.getItem('tapCount')) || 0;
+        let tapEarned = parseInt(localStorage.getItem('tapEarned')) || 0;
 
         function updateAllBalances() {
             document.getElementById('balanceDisplay').textContent = balance;
@@ -1107,12 +898,121 @@
                 el.textContent = Math.floor(balance / 10);
             });
             document.getElementById('depositBalance').textContent = balance;
+            document.getElementById('tapCount').textContent = tapCount;
+            document.getElementById('tapEarned').textContent = tapEarned;
             localStorage.setItem('casinoBalance', balance);
+            localStorage.setItem('tapCount', tapCount);
+            localStorage.setItem('tapEarned', tapEarned);
         }
         updateAllBalances();
 
         // ============================
-        // 2. ПОПОЛНЕНИЕ
+        // 2. RABBIT (КЛИКЕР)
+        // ============================
+        function tapRabbit() {
+            const earned = Math.floor(Math.random() * 3) + 1;
+            balance += earned;
+            tapCount++;
+            tapEarned += earned;
+            updateAllBalances();
+
+            // Эффект клика
+            const rabbit = document.getElementById('rabbit');
+            rabbit.style.transform = 'scale(0.85)';
+            setTimeout(() => {
+                rabbit.style.transform = 'scale(1)';
+            }, 150);
+
+            // Плавающий текст
+            const container = document.getElementById('rabbitContainer');
+            const rect = container.getBoundingClientRect();
+            const el = document.createElement('div');
+            el.className = 'click-effect';
+            el.textContent = '+' + earned;
+            el.style.left = (rect.left + rect.width / 2 - 20 + (Math.random() - 0.5) * 60) + 'px';
+            el.style.top = (rect.top + rect.height / 2 - 20 + (Math.random() - 0.5) * 60) + 'px';
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 1000);
+        }
+
+        // ============================
+        // 3. ИНВЕНТАРЬ
+        // ============================
+        const inventoryItems = [
+            { emoji: '🥕', name: 'Морковка' },
+            { emoji: '🍀', name: 'Клевер' },
+            { emoji: '💎', name: 'Алмаз' },
+            { emoji: '👑', name: 'Корона' },
+            { emoji: '⭐', name: 'Звезда' },
+            { emoji: '🎁', name: 'Подарок' },
+            { emoji: '🔥', name: 'Огонь' },
+            { emoji: '🌈', name: 'Радуга' },
+        ];
+
+        function getInventory() {
+            try {
+                return JSON.parse(localStorage.getItem('inventory')) || [];
+            } catch { return []; }
+        }
+
+        function saveInventory(items) {
+            localStorage.setItem('inventory', JSON.stringify(items));
+            renderInventory();
+        }
+
+        function renderInventory() {
+            const items = getInventory();
+            const grid = document.getElementById('inventoryGrid');
+            const empty = document.getElementById('inventoryEmpty');
+            const count = document.getElementById('inventoryCount');
+
+            count.textContent = items.length + ' шт. · ' + items.length;
+
+            if (items.length === 0) {
+                empty.style.display = 'block';
+                grid.innerHTML = '';
+                for (let i = 0; i < 4; i++) {
+                    const slot = document.createElement('div');
+                    slot.className = 'inventory-slot empty';
+                    slot.textContent = '❓';
+                    grid.appendChild(slot);
+                }
+                return;
+            }
+
+            empty.style.display = 'none';
+            grid.innerHTML = '';
+            const displayItems = items.slice(0, 4);
+            displayItems.forEach(item => {
+                const slot = document.createElement('div');
+                slot.className = 'inventory-slot';
+                slot.textContent = item.emoji;
+                slot.title = item.name;
+                slot.onclick = () => showToast('📦 ' + item.name, true);
+                grid.appendChild(slot);
+            });
+            // Заполняем пустые слоты
+            for (let i = displayItems.length; i < 4; i++) {
+                const slot = document.createElement('div');
+                slot.className = 'inventory-slot empty';
+                slot.textContent = '❓';
+                grid.appendChild(slot);
+            }
+        }
+
+        // Добавляем предмет в инвентарь
+        function addInventoryItem(emoji) {
+            const items = getInventory();
+            const found = inventoryItems.find(i => i.emoji === emoji);
+            if (found) {
+                items.push(found);
+                saveInventory(items);
+                showToast('🎉 +' + found.emoji + ' ' + found.name + ' в инвентарь!', true);
+            }
+        }
+
+        // ============================
+        // 4. ПОПОЛНЕНИЕ
         // ============================
         function openDeposit() {
             document.getElementById('depositOverlay').classList.add('show');
@@ -1140,7 +1040,38 @@
         }
 
         // ============================
-        // 3. РЕФЕРАЛЬНАЯ СИСТЕМА (ДЛЯ БОТА @My103CoinGameBot)
+        // 5. ПРОМОКОДЫ
+        // ============================
+        const promoCodes = {
+            'RABBIT10': 100,
+            'VIP2024': 200,
+            'WELCOME': 50,
+            'GIFT50': 50,
+        };
+
+        function applyPromo() {
+            const input = document.getElementById('promoInput');
+            const code = input.value.toUpperCase().trim();
+            if (!code) {
+                showToast('❌ Введите промокод', false);
+                return;
+            }
+            if (promoCodes[code]) {
+                const reward = promoCodes[code];
+                balance += reward;
+                updateAllBalances();
+                showToast('🎉 Промокод активирован! +' + reward + ' монет!', true);
+                input.value = '';
+                // Добавляем предмет в инвентарь за активацию
+                const emojis = ['🥕', '🍀', '💎', '👑'];
+                addInventoryItem(emojis[Math.floor(Math.random() * emojis.length)]);
+            } else {
+                showToast('❌ Неверный промокод', false);
+            }
+        }
+
+        // ============================
+        // 6. РЕФЕРАЛКА
         // ============================
         function getUserId() {
             if (window.Telegram && window.Telegram.WebApp) {
@@ -1169,38 +1100,34 @@
         }
 
         // Инициализация реферальной ссылки
-        document.getElementById('referralLink').textContent = getReferralLink();
+        const refLink = getReferralLink();
+        document.getElementById('referralLink').textContent = refLink;
+        document.getElementById('referralLink2').textContent = refLink;
 
-        // Загружаем реферальную статистику
         function loadReferralStats() {
             const refCount = parseInt(localStorage.getItem('refCount')) || 0;
             const refEarned = parseInt(localStorage.getItem('refEarned')) || 0;
-            document.getElementById('refCount').textContent = refCount;
-            document.getElementById('refEarned').textContent = refEarned;
+            document.querySelectorAll('#refCount, #refCount2').forEach(el => el.textContent = refCount);
+            document.querySelectorAll('#refEarned, #refEarned2').forEach(el => el.textContent = refEarned);
         }
         loadReferralStats();
 
-        // Функция для начисления бонуса за реферала
-        function addReferralBonus() {
-            const refCount = parseInt(localStorage.getItem('refCount')) || 0;
-            const refEarned = parseInt(localStorage.getItem('refEarned')) || 0;
-
-            localStorage.setItem('refCount', refCount + 1);
-            localStorage.setItem('refEarned', refEarned + 50);
-
-            balance += 50;
-            updateAllBalances();
-            loadReferralStats();
-            showToast('🎉 Друг пришёл! +50 монет!', true);
-            launchConfetti();
+        // ============================
+        // 7. ЗАДАНИЯ
+        // ============================
+        function updateTasks() {
+            const done = document.querySelectorAll('.task-item .status.done').length;
+            const total = document.querySelectorAll('.task-item').length;
+            document.getElementById('tasksProgress').textContent = done + '/' + total;
         }
+        updateTasks();
 
         // ============================
-        // 4. СВАЙП + НАВИГАЦИЯ
+        // 8. СВАЙП + НАВИГАЦИЯ
         // ============================
         const slider = document.getElementById('appSlider');
         const navItems = document.querySelectorAll('.nav-item');
-        const totalPages = 4;
+        const totalPages = 3;
         let currentIndex = 0;
         let startX = 0;
         let isDragging = false;
@@ -1242,79 +1169,7 @@
         });
 
         // ============================
-        // 5. КЕЙСЫ
-        // ============================
-        function openCase() {
-            const rewards = [10, 20, 50, 100, 200, 300, 500];
-            const reward = rewards[Math.floor(Math.random() * rewards.length)];
-
-            const overlay = document.getElementById('caseOverlay');
-            overlay.classList.add('show');
-
-            const emoji = document.getElementById('caseEmoji');
-            const rewardEl = document.getElementById('caseReward');
-
-            const emojis = ['🎁', '📦', '✨', '⭐', '🎉', '💎'];
-            let i = 0;
-            const interval = setInterval(() => {
-                emoji.textContent = emojis[i % emojis.length];
-                i++;
-            }, 150);
-
-            setTimeout(() => {
-                clearInterval(interval);
-                emoji.textContent = '🎉';
-                rewardEl.textContent = `+${reward} 🪙`;
-                balance += reward;
-                updateAllBalances();
-                launchConfetti();
-                try {
-                    const ctx = new(window.AudioContext || window.webkitAudioContext)();
-                    const notes = [523, 659, 784, 1047];
-                    notes.forEach((freq, i) => {
-                        const osc = ctx.createOscillator();
-                        const gain = ctx.createGain();
-                        osc.connect(gain);
-                        gain.connect(ctx.destination);
-                        osc.frequency.value = freq;
-                        osc.type = 'sine';
-                        gain.gain.value = 0.08;
-                        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2 + i *
-                            0.1);
-                        osc.start(ctx.currentTime + i * 0.1);
-                        osc.stop(ctx.currentTime + 0.3 + i * 0.1);
-                    });
-                } catch (_) {}
-            }, 1200);
-        }
-
-        function closeCase() {
-            document.getElementById('caseOverlay').classList.remove('show');
-            document.getElementById('caseReward').textContent = '+0';
-            document.getElementById('caseEmoji').textContent = '🎁';
-        }
-
-        function launchConfetti() {
-            const container = document.getElementById('confettiContainer');
-            const colors = ['#f7d44a', '#ff6b6b', '#2ecc71', '#3498db', '#9b59b6', '#e74c3c', '#f39c12'];
-            for (let i = 0; i < 40; i++) {
-                const el = document.createElement('div');
-                el.className = 'confetti';
-                el.style.left = Math.random() * 100 + '%';
-                el.style.top = '-10px';
-                el.style.background = colors[Math.floor(Math.random() * colors.length)];
-                el.style.width = (Math.random() * 8 + 4) + 'px';
-                el.style.height = (Math.random() * 8 + 4) + 'px';
-                el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-                el.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
-                el.style.animationDelay = (Math.random() * 0.6) + 's';
-                container.appendChild(el);
-                setTimeout(() => el.remove(), 4000);
-            }
-        }
-
-        // ============================
-        // 6. TOAST
+        // 9. TOAST
         // ============================
         function showToast(msg, isWin = true) {
             const toast = document.createElement('div');
@@ -1337,20 +1192,7 @@
         }
 
         // ============================
-        // 7. NFT БЕЙДЖ
-        // ============================
-        function updateNFTBadge() {
-            try {
-                const nfts = JSON.parse(localStorage.getItem('userNFTs')) || [];
-                document.getElementById('nftBadge').textContent = nfts.length;
-            } catch {
-                document.getElementById('nftBadge').textContent = 0;
-            }
-        }
-        updateNFTBadge();
-
-        // ============================
-        // 8. ПРОФИЛЬ
+        // 10. ПРОФИЛЬ
         // ============================
         document.getElementById('profileGames').textContent = localStorage.getItem('totalGames') || 0;
         document.getElementById('profileWins').textContent = localStorage.getItem('totalWins') || 0;
@@ -1365,14 +1207,16 @@
         }
 
         // ============================
-        // 9. ПРИВЕТСТВИЕ
+        // 11. ИНИЦИАЛИЗАЦИЯ
         // ============================
+        renderInventory();
         if (balance === 1000) {
-            setTimeout(() => showToast('💰 Добро пожаловать в VIP Casino!'), 400);
+            setTimeout(() => showToast('🐰 Добро пожаловать в Rabbits!'), 400);
         }
 
-        console.log('🎰 VIP Casino загружен!');
-        console.log('🤖 Реферальная система для @My103CoinGameBot активна!');
+        console.log('🐰 Rabbits загружен!');
+        console.log('💰 Баланс:', balance);
+        console.log('👆 Тапай по кролику, чтобы зарабатывать монеты!');
     </script>
 </body>
 </html>
