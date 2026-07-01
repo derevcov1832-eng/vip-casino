@@ -29,8 +29,8 @@
             height: 100%;
             z-index: 0;
             background:
-                radial-gradient(ellipse at 20% 30%, rgba(120, 80, 255, 0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 70%, rgba(255, 50, 50, 0.04) 0%, transparent 50%);
+                radial-gradient(ellipse at 20% 30%, rgba(180, 80, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(255, 50, 50, 0.05) 0%, transparent 50%);
         }
 
         .app-wrapper {
@@ -99,25 +99,62 @@
             margin-top: 2px;
         }
 
-        /* ===== КЕЙСЫ С АНИМАЦИЕЙ ===== */
+        /* ===== LIVE ===== */
+        .live-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 6px 0 10px;
+            padding: 6px 16px;
+            background: rgba(231, 76, 60, 0.08);
+            border-radius: 40px;
+            border: 1px solid rgba(231, 76, 60, 0.1);
+            font-size: 13px;
+            font-weight: 600;
+            color: #e74c3c;
+            letter-spacing: 2px;
+        }
+        .live-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: #e74c3c;
+            border-radius: 50%;
+            animation: livePulse 1.2s ease-in-out infinite;
+        }
+        @keyframes livePulse {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.3;
+                transform: scale(0.6);
+            }
+        }
+        .live-badge .num {
+            font-size: 16px;
+            font-weight: 700;
+            color: #f7d44a;
+        }
+
+        /* ===== КЕЙСЫ ===== */
         .cases-row {
             display: flex;
             gap: 10px;
-            margin: 12px 0 8px;
-            flex-wrap: wrap;
+            margin: 8px 0 8px;
         }
         .case-card {
             flex: 1;
-            min-width: 80px;
             background: rgba(255, 255, 255, 0.02);
             border-radius: 14px;
-            padding: 14px 10px;
+            padding: 16px 10px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.03);
             transition: 0.3s;
             cursor: pointer;
             position: relative;
-            overflow: hidden;
         }
         .case-card:active {
             transform: scale(0.94);
@@ -129,13 +166,15 @@
             margin-bottom: 4px;
         }
         .case-card .title {
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 600;
             color: rgba(255, 255, 255, 0.7);
         }
         .case-card .badge {
             font-size: 10px;
             color: rgba(255, 255, 255, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .case-card .badge.free {
             color: #2ecc71;
@@ -144,7 +183,19 @@
             color: #f7d44a;
         }
 
-        /* Анимация открытия кейса */
+        .case-card .deposit-tag {
+            display: inline-block;
+            margin-top: 4px;
+            padding: 2px 10px;
+            background: rgba(247, 212, 74, 0.08);
+            border-radius: 40px;
+            font-size: 9px;
+            color: #f7d44a;
+            letter-spacing: 1px;
+            border: 1px solid rgba(247, 212, 74, 0.05);
+        }
+
+        /* ===== СТРОКА С ПОДАРКАМИ ===== */
         .case-reward {
             display: none;
             text-align: center;
@@ -194,7 +245,7 @@
             color: #1a1a2e;
             font-size: 18px;
             font-weight: 800;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             cursor: pointer;
             transition: 0.3s;
             box-shadow: 0 6px 30px rgba(247, 212, 74, 0.1);
@@ -210,81 +261,6 @@
         }
         .play-btn:active .arrow {
             transform: translateX(6px);
-        }
-
-        /* ===== ПРОФИЛЬ ===== */
-        .profile-header {
-            text-align: center;
-            padding: 8px 0 12px;
-        }
-        .profile-header .avatar {
-            font-size: 52px;
-        }
-        .profile-header .name {
-            font-size: 20px;
-            font-weight: 700;
-            margin-top: 2px;
-        }
-        .profile-header .id {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.15);
-        }
-
-        .profile-stats {
-            display: flex;
-            gap: 8px;
-            margin: 8px 0 12px;
-        }
-        .profile-stats .stat {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 12px;
-            padding: 10px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-        }
-        .profile-stats .stat .num {
-            font-size: 20px;
-            font-weight: 700;
-            color: #f7d44a;
-        }
-        .profile-stats .stat .lbl {
-            font-size: 8px;
-            color: rgba(255, 255, 255, 0.15);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 2px;
-        }
-
-        /* ===== ПОПОЛНЕНИЕ ===== */
-        .deposit-section {
-            display: flex;
-            gap: 8px;
-            margin: 10px 0 12px;
-            flex-wrap: wrap;
-        }
-        .deposit-btn {
-            flex: 1;
-            padding: 12px 10px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.02);
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: center;
-            transition: 0.3s;
-            min-width: 60px;
-        }
-        .deposit-btn:active {
-            transform: scale(0.94);
-            background: rgba(255, 255, 255, 0.04);
-        }
-        .deposit-btn .icon {
-            font-size: 18px;
-            display: block;
-            margin-bottom: 2px;
         }
 
         /* ===== НИЖНЯЯ НАВИГАЦИЯ ===== */
@@ -333,127 +309,78 @@
             transform: scale(0.9);
         }
 
-        /* ===== ОВЕРЛЕЙ ПОПОЛНЕНИЯ ===== */
-        .deposit-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(20px);
-            z-index: 300;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            padding: 20px;
+        /* ===== ПРОФИЛЬ ===== */
+        .profile-header {
+            text-align: center;
+            padding: 8px 0 12px;
         }
-        .deposit-overlay.show {
-            display: flex;
-            animation: fadeIn 0.3s ease-out;
+        .profile-header .avatar {
+            font-size: 52px;
         }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        .profile-header .name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+        .profile-header .id {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.15);
         }
 
-        .deposit-card {
-            max-width: 400px;
-            width: 100%;
-            background: linear-gradient(145deg, #1a1f35, #0d1225);
-            border-radius: 24px;
-            padding: 28px 24px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
-            text-align: center;
+        .profile-stats {
+            display: flex;
+            gap: 8px;
+            margin: 8px 0 12px;
         }
-        .deposit-card .title {
-            font-size: 24px;
+        .profile-stats .stat {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .profile-stats .stat .num {
+            font-size: 20px;
             font-weight: 700;
             color: #f7d44a;
-            margin-bottom: 4px;
         }
-        .deposit-card .sub {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.2);
-            margin-bottom: 20px;
-        }
-        .deposit-card .balance-show {
-            font-size: 36px;
-            font-weight: 800;
-            color: #f7d44a;
-            margin-bottom: 16px;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
+        .profile-stats .stat .lbl {
+            font-size: 8px;
+            color: rgba(255, 255, 255, 0.15);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
         }
 
-        .deposit-options {
+        .deposit-section {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin: 16px 0;
+            gap: 8px;
+            margin: 10px 0 12px;
+            flex-wrap: wrap;
         }
-        .deposit-options .option {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 18px;
-            background: rgba(255, 255, 255, 0.02);
+        .deposit-btn {
+            flex: 1;
+            padding: 12px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
             border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            font-weight: 600;
             cursor: pointer;
+            text-align: center;
             transition: 0.3s;
+            min-width: 60px;
         }
-        .deposit-options .option:active {
-            transform: scale(0.96);
+        .deposit-btn:active {
+            transform: scale(0.94);
             background: rgba(255, 255, 255, 0.04);
         }
-        .deposit-options .option .left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .deposit-options .option .left .icon {
-            font-size: 28px;
-        }
-        .deposit-options .option .left .info .name {
-            font-size: 15px;
-            font-weight: 600;
-        }
-        .deposit-options .option .left .info .desc {
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.2);
-        }
-        .deposit-options .option .right {
-            font-size: 16px;
-            font-weight: 700;
-            color: #f7d44a;
-        }
-
-        .deposit-close {
-            margin-top: 16px;
-            padding: 12px;
-            border: none;
-            border-radius: 40px;
-            background: rgba(255, 255, 255, 0.03);
-            color: rgba(255, 255, 255, 0.2);
-            font-size: 14px;
-            cursor: pointer;
-            width: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            transition: 0.3s;
-        }
-        .deposit-close:active {
-            transform: scale(0.94);
+        .deposit-btn .icon {
+            font-size: 18px;
+            display: block;
+            margin-bottom: 2px;
         }
 
         @media (max-width: 400px) {
@@ -468,8 +395,7 @@
                 font-size: 18px;
             }
             .case-card {
-                min-width: 60px;
-                padding: 10px 6px;
+                padding: 12px 6px;
             }
             .case-card .icon {
                 font-size: 22px;
@@ -502,6 +428,12 @@
                 <div class="label">💰 Игровой баланс</div>
             </div>
 
+            <!-- ===== LIVE ===== -->
+            <div class="live-badge">
+                <span class="dot"></span>
+                LIVE <span class="num" id="liveCount">0.5</span>
+            </div>
+
             <!-- ===== КЕЙСЫ ===== -->
             <div class="cases-row">
                 <div class="case-card" onclick="openCase('free')">
@@ -509,10 +441,10 @@
                     <div class="title">Free</div>
                     <div class="badge free">case</div>
                 </div>
-                <div class="case-card" onclick="openCase('birthday')">
-                    <span class="icon">🎂</span>
-                    <div class="title">HAPPY B-DAY</div>
-                    <div class="badge hot">🔥 2</div>
+                <div class="case-card" onclick="openCase('deposit')">
+                    <span class="icon">💎</span>
+                    <div class="title">Кейс за депозит</div>
+                    <span class="deposit-tag">⭐</span>
                 </div>
             </div>
 
@@ -533,42 +465,22 @@
 
     <!-- ===== НИЖНЯЯ НАВИГАЦИЯ ===== -->
     <div class="bottom-nav" id="bottomNav">
+        <button class="nav-item" data-page="pageTop" onclick="showToast('🏆 Топ игроков (в разработке)')">
+            <span class="icon">🏆</span>
+            Топ
+        </button>
         <button class="nav-item active" data-page="pageHome">
             <span class="icon">🏠</span>
             Главная
         </button>
-        <button class="nav-item" data-page="pageProfile" onclick="window.location.href='nft.html'">
-            <span class="icon">💎</span>
-            Хранилище
+        <button class="nav-item" data-page="pageRabbit" onclick="showToast('🐰 Зайчик (в разработке)')">
+            <span class="icon">🐰</span>
+            Rabbit
         </button>
-    </div>
-
-    <!-- ===== ОВЕРЛЕЙ ПОПОЛНЕНИЯ ===== -->
-    <div class="deposit-overlay" id="depositOverlay">
-        <div class="deposit-card">
-            <div class="title">⭐ Пополнить баланс</div>
-            <div class="sub">Купи монеты за Telegram Stars</div>
-            <div class="balance-show"><span>💰</span> <span id="depositBalance">1000</span></div>
-            <div class="deposit-options">
-                <div class="option" onclick="buyCoins(10, 100)">
-                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">10 Stars</div><div class="desc">+100 монет</div></div></div>
-                    <div class="right">+100</div>
-                </div>
-                <div class="option" onclick="buyCoins(25, 300)">
-                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">25 Stars</div><div class="desc">+300 монет</div></div></div>
-                    <div class="right">+300</div>
-                </div>
-                <div class="option" onclick="buyCoins(50, 700)" style="border-color: rgba(247,212,74,0.15); background: rgba(247,212,74,0.04);">
-                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">50 Stars</div><div class="desc">+700 монет</div></div></div>
-                    <div class="right" style="color:#f7d44a;">🔥 +700</div>
-                </div>
-                <div class="option" onclick="buyCoins(100, 1500)">
-                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">100 Stars</div><div class="desc">+1500 монет</div></div></div>
-                    <div class="right">+1500</div>
-                </div>
-            </div>
-            <button class="deposit-close" onclick="closeDeposit()">✕ Закрыть</button>
-        </div>
+        <button class="nav-item" data-page="pageProfile" onclick="window.location.href='nft.html'">
+            <span class="icon">👤</span>
+            Профиль
+        </button>
     </div>
 
     <script>
@@ -582,68 +494,45 @@
             document.querySelectorAll('[id^="headerStars"]').forEach(el => {
                 el.textContent = Math.floor(balance / 10);
             });
-            document.getElementById('depositBalance').textContent = balance;
             localStorage.setItem('casinoBalance', balance);
         }
         updateAllBalances();
 
         // ============================
-        // 2. КЕЙСЫ С АНИМАЦИЕЙ
+        // 2. LIVE
+        // ============================
+        function updateLive() {
+            const live = (Math.random() * 2 + 0.1).toFixed(1);
+            document.getElementById('liveCount').textContent = live;
+        }
+        setInterval(updateLive, 3000);
+
+        // ============================
+        // 3. КЕЙСЫ
         // ============================
         function openCase(type) {
             const rewards = {
                 'free': { min: 5, max: 25, emoji: '📦', name: 'Free Case' },
-                'birthday': { min: 20, max: 80, emoji: '🎂', name: 'HAPPY B-DAY' }
+                'deposit': { min: 50, max: 200, emoji: '💎', name: 'Кейс за депозит' }
             };
             const data = rewards[type] || rewards['free'];
             const reward = Math.floor(Math.random() * (data.max - data.min + 1)) + data.min;
 
-            // Показываем анимацию
             const rewardEl = document.getElementById('caseReward');
             document.getElementById('rewardEmoji').textContent = data.emoji;
             document.getElementById('rewardText').textContent = '+' + reward + ' монет';
             document.getElementById('rewardSub').textContent = data.name + ' открыт!';
             rewardEl.classList.add('show');
 
-            // Начисляем монеты
             balance += reward;
             updateAllBalances();
 
-            // Скрываем через 3 секунды
             clearTimeout(window.rewardTimeout);
             window.rewardTimeout = setTimeout(() => {
                 rewardEl.classList.remove('show');
             }, 3000);
 
             showToast('🎁 ' + data.emoji + ' ' + data.name + ' +' + reward + ' монет!', true);
-        }
-
-        // ============================
-        // 3. ПОПОЛНЕНИЕ
-        // ============================
-        function openDeposit() {
-            document.getElementById('depositOverlay').classList.add('show');
-            document.getElementById('depositBalance').textContent = balance;
-        }
-
-        function closeDeposit() {
-            document.getElementById('depositOverlay').classList.remove('show');
-        }
-
-        function buyCoins(starsCost, coinsAmount) {
-            if (window.Telegram && window.Telegram.WebApp) {
-                window.Telegram.WebApp.sendData(JSON.stringify({
-                    action: 'buy_coins',
-                    stars: starsCost,
-                    coins: coinsAmount
-                }));
-                showToast(`⏳ Запрос на ${coinsAmount} монет за ${starsCost} Stars...`);
-            } else {
-                balance += coinsAmount;
-                updateAllBalances();
-                closeDeposit();
-                showToast(`✅ +${coinsAmount} монет (демо)`);
-            }
         }
 
         // ============================
@@ -673,36 +562,16 @@
         // 5. НАВИГАЦИЯ
         // ============================
         const navItems = document.querySelectorAll('.nav-item');
-        const pages = {
-            pageHome: document.getElementById('pageHome'),
-            pageProfile: document.getElementById('pageProfile')
-        };
 
         navItems.forEach(item => {
             item.addEventListener('click', function() {
                 navItems.forEach(n => n.classList.remove('active'));
                 this.classList.add('active');
-
-                const pageId = this.dataset.page;
-                Object.keys(pages).forEach(key => {
-                    pages[key].style.display = key === pageId ? 'block' : 'none';
-                });
             });
         });
 
         // ============================
-        // 6. ПРОФИЛЬ
-        // ============================
-        if (window.Telegram && window.Telegram.WebApp) {
-            const user = window.Telegram.WebApp.initDataUnsafe.user;
-            if (user) {
-                document.getElementById('profileName').textContent = user.first_name || 'Игрок';
-                document.getElementById('profileId').textContent = 'ID: ' + user.id;
-            }
-        }
-
-        // ============================
-        // 7. СТАРТ
+        // 6. СТАРТ
         // ============================
         if (balance === 1000) {
             setTimeout(() => showToast('🐰 Добро пожаловать в Rabbits!'), 400);
@@ -710,7 +579,7 @@
 
         console.log('🐰 Rabbits загружен!');
         console.log('💰 Баланс:', balance);
-        console.log('🎁 Кейсы с анимацией готовы!');
+        console.log('🎁 Кейсы готовы!');
     </script>
 </body>
 </html>
