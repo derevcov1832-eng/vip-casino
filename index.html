@@ -28,12 +28,10 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            background:
-                radial-gradient(ellipse at 20% 50%, rgba(74, 71, 163, 0.4) 0%, transparent 60%),
+            background: radial-gradient(ellipse at 20% 50%, rgba(74, 71, 163, 0.4) 0%, transparent 60%),
                 radial-gradient(ellipse at 80% 50%, rgba(231, 76, 60, 0.3) 0%, transparent 60%),
                 radial-gradient(ellipse at 50% 100%, rgba(247, 212, 74, 0.15) 0%, transparent 50%);
         }
-
         .particles {
             position: fixed;
             top: 0;
@@ -75,7 +73,6 @@
         .particle:nth-child(8) { left: 15%;
             animation-duration: 18s;
             animation-delay: 1.5s; }
-
         @keyframes floatParticle {
             0% { transform: translateY(100vh) scale(0);
                 opacity: 0; }
@@ -84,7 +81,6 @@
             100% { transform: translateY(-10vh) scale(1);
                 opacity: 0; }
         }
-
         .container {
             position: relative;
             z-index: 1;
@@ -92,7 +88,6 @@
             width: 100%;
             text-align: center;
         }
-
         .logo {
             font-size: 56px;
             display: inline-block;
@@ -120,7 +115,6 @@
             letter-spacing: 3px;
             text-transform: uppercase;
         }
-
         .balance-card {
             background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(16px);
@@ -144,7 +138,6 @@
             letter-spacing: 2px;
             line-height: 1.1;
         }
-
         .section-label {
             font-size: 10px;
             text-transform: uppercase;
@@ -154,7 +147,6 @@
             text-align: left;
             padding-left: 4px;
         }
-
         .menu-group {
             display: flex;
             flex-direction: column;
@@ -165,7 +157,6 @@
             display: flex;
             gap: 8px;
         }
-
         .menu-item {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(12px);
@@ -222,8 +213,6 @@
             color: rgba(255, 255, 255, 0.15);
             flex-shrink: 0;
         }
-
-        /* ===== НОВЫЕ СТИЛЬНЫЕ ИКОНКИ ===== */
         .menu-item.coin .icon {
             background: rgba(247, 212, 74, 0.12);
             color: #f7d44a;
@@ -239,6 +228,63 @@
         .menu-item.nft .icon {
             background: rgba(123, 77, 255, 0.12);
             color: #b388ff;
+        }
+        .menu-item.gift .icon {
+            background: rgba(247, 212, 74, 0.12);
+            color: #f7d44a;
+        }
+
+        /* ===== КНОПКА ПОДАРКОВ В МЕНЮ ===== */
+        .gift-banner {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            border-radius: 14px;
+            padding: 12px 16px;
+            margin-top: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .gift-banner:active {
+            transform: scale(0.96);
+        }
+        .gift-banner .left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .gift-banner .left .icon {
+            font-size: 28px;
+        }
+        .gift-banner .left .info {
+            text-align: left;
+        }
+        .gift-banner .left .info .title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #f7d44a;
+            -webkit-text-fill-color: #f7d44a;
+            background: none;
+        }
+        .gift-banner .left .info .desc {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+        .gift-banner .btn-gift {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 40px;
+            background: linear-gradient(145deg, #f7d44a, #dbb84a);
+            color: #1a1a2e;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .gift-banner .btn-gift:active {
+            transform: scale(0.94);
         }
 
         .stats {
@@ -265,14 +311,12 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-
         .footer {
             margin-top: 12px;
             font-size: 9px;
             color: rgba(255, 255, 255, 0.06);
             letter-spacing: 2px;
         }
-
         @media (max-width: 400px) {
             .container {
                 max-width: 340px;
@@ -306,6 +350,13 @@
             }
             .stats-item .number {
                 font-size: 13px;
+            }
+            .gift-banner {
+                padding: 10px 12px;
+            }
+            .gift-banner .btn-gift {
+                font-size: 11px;
+                padding: 6px 14px;
             }
         }
     </style>
@@ -383,6 +434,19 @@
             </div>
         </div>
 
+        <!-- ===== ПОДАРКИ ===== -->
+        <div class="section-label">🎁 Подарки</div>
+        <div class="gift-banner" onclick="openGiftDialog()">
+            <div class="left">
+                <div class="icon">🎁</div>
+                <div class="info">
+                    <div class="title">Получить подарок</div>
+                    <div class="desc">Выиграй и получи реальный подарок Telegram</div>
+                </div>
+            </div>
+            <div class="btn-gift">Забрать</div>
+        </div>
+
         <div class="stats">
             <div class="stats-item">
                 <div class="number" id="gamesPlayed">0</div>
@@ -401,8 +465,29 @@
         <div class="footer">Сделано с ❤️ в Telegram Mini App</div>
     </div>
 
+    <!-- ===== ОКНО ПОДАРКОВ ===== -->
+    <div id="giftOverlay" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(16px); z-index: 1000; align-items: center; justify-content: center; padding: 20px;">
+        <div style="max-width: 400px; width: 100%; background: linear-gradient(145deg, #1a1f35, #0d1225); border-radius: 24px; padding: 24px; border: 1px solid rgba(255,255,255,0.06); box-shadow: 0 20px 60px rgba(0,0,0,0.5);">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div style="font-size: 48px;">🎁</div>
+                <div style="font-size: 22px; font-weight: 700; margin-top: 8px; color: #f7d44a;">Выбери подарок</div>
+                <div style="font-size: 14px; color: rgba(255,255,255,0.4);">Реальные подарки Telegram за Stars</div>
+            </div>
+
+            <div id="giftList" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
+                <!-- Подарки будут подгружаться сюда -->
+            </div>
+
+            <button onclick="closeGiftDialog()" style="width: 100%; padding: 12px; border: none; border-radius: 40px; background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.4); font-size: 14px; cursor: pointer;">
+                Закрыть
+            </button>
+        </div>
+    </div>
+
     <script>
-        // ===== БАЛАНС =====
+        // ============================
+        // 1. БАЛАНС
+        // ============================
         let balance = parseInt(localStorage.getItem('casinoBalance')) || 1000;
         document.getElementById('balanceDisplay').textContent = balance;
 
@@ -412,7 +497,9 @@
             updateNFTBadge();
         });
 
-        // ===== СТАТИСТИКА =====
+        // ============================
+        // 2. СТАТИСТИКА
+        // ============================
         const games = parseInt(localStorage.getItem('totalGames')) || 0;
         const wins = parseInt(localStorage.getItem('totalWins')) || 0;
         const best = parseInt(localStorage.getItem('bestWin')) || 0;
@@ -420,7 +507,9 @@
         document.getElementById('totalWins').textContent = wins;
         document.getElementById('bestWin').textContent = best;
 
-        // ===== NFT БЕЙДЖ =====
+        // ============================
+        // 3. NFT БЕЙДЖ
+        // ============================
         function updateNFTBadge() {
             try {
                 const nfts = JSON.parse(localStorage.getItem('userNFTs')) || [];
@@ -430,6 +519,93 @@
             }
         }
         updateNFTBadge();
+
+        // ============================
+        // 4. ПОДАРКИ TELEGRAM
+        // ============================
+        const GIFTS = [
+            { id: 'star_1', name: '⭐ Золотая звезда', emoji: '⭐', cost: 10, color: '#f7d44a' },
+            { id: 'star_2', name: '🌟 Серебряная звезда', emoji: '🌟', cost: 25, color: '#bdc3c7' },
+            { id: 'heart', name: '❤️ Сердце', emoji: '❤️', cost: 15, color: '#e74c3c' },
+            { id: 'crown', name: '👑 Корона', emoji: '👑', cost: 50, color: '#f1c40f' },
+            { id: 'rocket', name: '🚀 Ракета', emoji: '🚀', cost: 30, color: '#3498db' },
+            { id: 'diamond', name: '💎 Алмаз', emoji: '💎', cost: 100, color: '#2ecc71' },
+        ];
+
+        function openGiftDialog() {
+            const overlay = document.getElementById('giftOverlay');
+            overlay.style.display = 'flex';
+
+            const list = document.getElementById('giftList');
+            list.innerHTML = GIFTS.map(gift => `
+                    <div onclick="sendGift('${gift.id}')" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; background: rgba(255,255,255,0.02); border-radius: 14px; border: 1px solid rgba(255,255,255,0.04); cursor: pointer; transition: 0.2s;">
+                        <div style="font-size: 28px;">${gift.emoji}</div>
+                        <div style="flex: 1; text-align: left;">
+                            <div style="font-size: 15px; font-weight: 600; color: white;">${gift.name}</div>
+                            <div style="font-size: 11px; color: rgba(255,255,255,0.3);">⭐ ${gift.cost} Stars</div>
+                        </div>
+                        <div style="font-size: 20px; color: rgba(255,255,255,0.1);">›</div>
+                    </div>
+                `).join('');
+        }
+
+        function closeGiftDialog() {
+            document.getElementById('giftOverlay').style.display = 'none';
+        }
+
+        function sendGift(giftId) {
+            const gift = GIFTS.find(g => g.id === giftId);
+            if (!gift) return;
+
+            const list = document.getElementById('giftList');
+            list.innerHTML = `
+                    <div style="text-align: center; padding: 20px; color: rgba(255,255,255,0.4);">
+                        <div style="font-size: 32px; margin-bottom: 10px;">⏳</div>
+                        Отправка подарка...
+                    </div>
+                `;
+
+            if (window.Telegram && window.Telegram.WebApp) {
+                try {
+                    window.Telegram.WebApp.sendData(JSON.stringify({
+                        action: 'send_gift',
+                        gift_id: giftId,
+                        user_id: window.Telegram.WebApp.initDataUnsafe.user.id
+                    }));
+
+                    setTimeout(() => {
+                        list.innerHTML = `
+                                <div style="text-align: center; padding: 20px;">
+                                    <div style="font-size: 48px;">${gift.emoji}</div>
+                                    <div style="font-size: 18px; font-weight: 600; color: #2ecc71; margin-top: 8px;">✅ Подарок отправлен!</div>
+                                    <div style="font-size: 14px; color: rgba(255,255,255,0.4);">${gift.name} появится в твоём профиле</div>
+                                </div>
+                            `;
+                    }, 1500);
+
+                } catch (e) {
+                    console.error('Ошибка отправки подарка:', e);
+                    list.innerHTML = `
+                            <div style="text-align: center; padding: 20px; color: #ff6b6b;">
+                                <div style="font-size: 32px;">❌</div>
+                                <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">Не удалось отправить</div>
+                                <div style="font-size: 14px; color: rgba(255,255,255,0.3);">Попробуй позже</div>
+                            </div>
+                        `;
+                }
+            } else {
+                list.innerHTML = `
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="font-size: 48px;">${gift.emoji}</div>
+                            <div style="font-size: 18px; font-weight: 600; color: #f7d44a; margin-top: 8px;">🎁 ${gift.name}</div>
+                            <div style="font-size: 14px; color: rgba(255,255,255,0.3);">(Демо-режим: подарок будет отправлен в Telegram)</div>
+                        </div>
+                    `;
+            }
+        }
+
+        console.log('🎁 Система подарков Telegram загружена!');
+        console.log('Доступно подарков:', GIFTS.length);
     </script>
 </body>
 </html>
