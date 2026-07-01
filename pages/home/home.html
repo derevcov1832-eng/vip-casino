@@ -19,10 +19,12 @@
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            padding: 20px;
+            padding: 16px;
             position: relative;
+            overflow-x: hidden;
         }
 
+        /* ===== НЕОНОВЫЙ ФОН ===== */
         .bg {
             position: fixed;
             top: 0;
@@ -31,8 +33,82 @@
             height: 100%;
             z-index: 0;
             background:
-                radial-gradient(ellipse at 20% 30%, rgba(180, 80, 255, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 70%, rgba(255, 50, 50, 0.05) 0%, transparent 50%);
+                radial-gradient(ellipse at 20% 30%, rgba(180, 80, 255, 0.10) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 70%, rgba(255, 50, 50, 0.07) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(247, 212, 74, 0.03) 0%, transparent 45%);
+            animation: bgPulse 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes bgPulse {
+            0% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1.02);
+            }
+        }
+
+        /* ===== ПАРЯЩИЕ ЧАСТИЦЫ ===== */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(247, 212, 74, 0.2);
+            border-radius: 50%;
+            animation: floatParticle linear infinite;
+            box-shadow: 0 0 10px rgba(247, 212, 74, 0.05);
+        }
+        .particle:nth-child(1) { left: 10%;
+            animation-duration: 14s; }
+        .particle:nth-child(2) { left: 25%;
+            animation-duration: 18s;
+            animation-delay: 2s; }
+        .particle:nth-child(3) { left: 40%;
+            animation-duration: 12s;
+            animation-delay: 4s; }
+        .particle:nth-child(4) { left: 55%;
+            animation-duration: 16s;
+            animation-delay: 1s; }
+        .particle:nth-child(5) { left: 70%;
+            animation-duration: 13s;
+            animation-delay: 3s; }
+        .particle:nth-child(6) { left: 85%;
+            animation-duration: 19s;
+            animation-delay: 5s; }
+        .particle:nth-child(7) { left: 50%;
+            animation-duration: 15s;
+            animation-delay: 2.5s; }
+        .particle:nth-child(8) { left: 15%;
+            animation-duration: 20s;
+            animation-delay: 1.5s; }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0;
+            }
         }
 
         .container {
@@ -40,7 +116,7 @@
             z-index: 1;
             max-width: 480px;
             width: 100%;
-            padding-bottom: 80px;
+            padding-bottom: 30px;
         }
 
         /* ===== ХЕДЕР ===== */
@@ -50,43 +126,54 @@
             align-items: center;
             padding-bottom: 10px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            margin-bottom: 6px;
         }
         .header .logo {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 800;
-            color: #f7d44a;
+            background: linear-gradient(135deg, #f7d44a, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             letter-spacing: 0.5px;
+            text-shadow: 0 0 40px rgba(247, 212, 74, 0.1);
         }
         .header .coins {
             display: flex;
             align-items: center;
             gap: 6px;
             background: rgba(255, 255, 255, 0.03);
-            padding: 4px 12px;
+            backdrop-filter: blur(12px);
+            padding: 4px 14px;
             border-radius: 40px;
             font-size: 14px;
             font-weight: 700;
             color: #f7d44a;
             border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: 0 0 30px rgba(247, 212, 74, 0.02);
         }
 
         /* ===== БАЛАНС ===== */
         .balance-block {
             text-align: center;
-            padding: 12px 0 8px;
+            padding: 8px 0 6px;
+            cursor: pointer;
         }
         .balance-block .amount {
-            font-size: 38px;
+            font-size: 44px;
             font-weight: 800;
             color: #f7d44a;
-            text-shadow: 0 0 40px rgba(247, 212, 74, 0.1);
+            text-shadow: 0 0 60px rgba(247, 212, 74, 0.12);
             letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        .balance-block .amount:active {
+            transform: scale(0.95);
         }
         .balance-block .label {
             font-size: 11px;
-            color: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.12);
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             margin-top: 2px;
         }
 
@@ -96,15 +183,16 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            margin: 6px 0 10px;
-            padding: 6px 16px;
-            background: rgba(231, 76, 60, 0.08);
+            margin: 4px 0 10px;
+            padding: 6px 18px;
+            background: rgba(231, 76, 60, 0.06);
             border-radius: 40px;
-            border: 1px solid rgba(231, 76, 60, 0.1);
+            border: 1px solid rgba(231, 76, 60, 0.08);
             font-size: 13px;
             font-weight: 600;
             color: #e74c3c;
             letter-spacing: 2px;
+            backdrop-filter: blur(8px);
         }
         .live-badge .dot {
             width: 8px;
@@ -112,6 +200,7 @@
             background: #e74c3c;
             border-radius: 50%;
             animation: livePulse 1.2s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.2);
         }
         @keyframes livePulse {
             0%,
@@ -120,42 +209,45 @@
                 transform: scale(1);
             }
             50% {
-                opacity: 0.3;
-                transform: scale(0.6);
+                opacity: 0.2;
+                transform: scale(0.5);
             }
         }
         .live-badge .num {
             font-size: 16px;
             font-weight: 700;
             color: #f7d44a;
+            min-width: 30px;
         }
 
         /* ===== КЕЙСЫ ===== */
         .cases-grid {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin: 12px 0;
+            gap: 10px;
+            margin: 8px 0 10px;
         }
         .case-card {
             background: rgba(255, 255, 255, 0.02);
-            border-radius: 16px;
-            padding: 18px 20px;
+            backdrop-filter: blur(12px);
+            border-radius: 18px;
+            padding: 16px 18px;
             border: 1px solid rgba(255, 255, 255, 0.03);
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
         }
         .case-card:active {
             transform: scale(0.96);
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.05);
         }
         .case-card .icon {
-            font-size: 36px;
-            width: 56px;
-            height: 56px;
+            font-size: 34px;
+            width: 52px;
+            height: 52px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -170,10 +262,12 @@
         .case-card .info .name {
             font-size: 16px;
             font-weight: 700;
+            color: rgba(255, 255, 255, 0.9);
         }
         .case-card .info .desc {
             font-size: 12px;
             color: rgba(255, 255, 255, 0.2);
+            margin-top: 1px;
         }
         .case-card .badge {
             padding: 2px 12px;
@@ -187,41 +281,48 @@
         .case-card .arrow {
             font-size: 20px;
             color: rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
+        }
+        .case-card:active .arrow {
+            transform: translateX(6px);
+            color: rgba(255, 255, 255, 0.15);
         }
 
         /* ===== СТРОКА С ПОДАРКАМИ ===== */
         .case-reward {
             display: none;
             text-align: center;
-            padding: 12px;
-            margin: 10px 0;
+            padding: 14px;
+            margin: 6px 0 10px;
             background: rgba(255, 255, 255, 0.03);
-            border-radius: 14px;
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.04);
-            animation: rewardSlide 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: rewardSlide 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         .case-reward.show {
             display: block;
         }
         .case-reward .emoji {
-            font-size: 32px;
+            font-size: 36px;
             display: block;
         }
         .case-reward .text {
-            font-size: 16px;
-            font-weight: 600;
+            font-size: 18px;
+            font-weight: 700;
             color: #f7d44a;
             margin-top: 4px;
         }
         .case-reward .sub {
             font-size: 12px;
             color: rgba(255, 255, 255, 0.2);
+            margin-top: 2px;
         }
 
         @keyframes rewardSlide {
             0% {
                 opacity: 0;
-                transform: translateY(-20px) scale(0.8);
+                transform: translateY(-30px) scale(0.8);
             }
             100% {
                 opacity: 1;
@@ -234,25 +335,44 @@
             width: 100%;
             padding: 16px;
             border: none;
-            border-radius: 16px;
+            border-radius: 18px;
             background: linear-gradient(145deg, #f7d44a, #dbb84a);
             color: #1a1a2e;
             font-size: 18px;
             font-weight: 800;
             letter-spacing: 3px;
             cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 6px 30px rgba(247, 212, 74, 0.1);
-            margin: 6px 0 10px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 6px 40px rgba(247, 212, 74, 0.08);
+            margin: 4px 0 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        .play-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+            pointer-events: none;
         }
         .play-btn:active {
-            transform: scale(0.96);
-            box-shadow: 0 6px 40px rgba(247, 212, 74, 0.15);
+            transform: scale(0.95);
+            box-shadow: 0 6px 50px rgba(247, 212, 74, 0.15);
+        }
+        .play-btn .arrow {
+            display: inline-block;
+            transition: 0.3s;
+        }
+        .play-btn:active .arrow {
+            transform: translateX(8px);
         }
 
         .footer {
             text-align: center;
-            margin-top: 16px;
+            margin-top: 14px;
             font-size: 10px;
             color: rgba(255, 255, 255, 0.04);
             letter-spacing: 3px;
@@ -260,10 +380,10 @@
 
         @media (max-width: 400px) {
             .balance-block .amount {
-                font-size: 30px;
+                font-size: 34px;
             }
             .case-card {
-                padding: 14px 16px;
+                padding: 14px 14px;
             }
             .case-card .icon {
                 font-size: 28px;
@@ -279,7 +399,20 @@
 </head>
 <body>
 
+    <!-- ===== ФОН ===== -->
     <div class="bg"></div>
+
+    <!-- ===== ЧАСТИЦЫ ===== -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
 
     <div class="container">
 
@@ -293,7 +426,7 @@
         </div>
 
         <!-- ===== БАЛАНС ===== -->
-        <div class="balance-block">
+        <div class="balance-block" onclick="openDeposit()">
             <div class="amount" id="balanceDisplay">1000</div>
             <div class="label">💰 Игровой баланс</div>
         </div>
@@ -326,12 +459,164 @@
 
         <!-- ===== КНОПКА ИГРАТЬ ===== -->
         <button class="play-btn" onclick="window.location.href='../../games.html'">
-            🎮 ИГРАТЬ! <span style="display:inline-block;transition:0.3s;">→</span>
+            🎮 ИГРАТЬ! <span class="arrow">→</span>
         </button>
 
         <div class="footer">Сделано с ❤️ в Telegram Mini App</div>
 
     </div>
+
+    <!-- ===== ОВЕРЛЕЙ ПОПОЛНЕНИЯ ===== -->
+    <div class="deposit-overlay" id="depositOverlay">
+        <div class="deposit-card">
+            <div class="title">⭐ Пополнить баланс</div>
+            <div class="sub">Купи монеты за Telegram Stars</div>
+            <div class="balance-show"><span>💰</span> <span id="depositBalance">1000</span></div>
+            <div class="deposit-options">
+                <div class="option" onclick="buyCoins(10, 100)">
+                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">10 Stars</div><div class="desc">+100 монет</div></div></div>
+                    <div class="right">+100</div>
+                </div>
+                <div class="option" onclick="buyCoins(25, 300)">
+                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">25 Stars</div><div class="desc">+300 монет</div></div></div>
+                    <div class="right">+300</div>
+                </div>
+                <div class="option" onclick="buyCoins(50, 700)" style="border-color: rgba(247,212,74,0.15); background: rgba(247,212,74,0.04);">
+                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">50 Stars</div><div class="desc">+700 монет</div></div></div>
+                    <div class="right" style="color:#f7d44a;">🔥 +700</div>
+                </div>
+                <div class="option" onclick="buyCoins(100, 1500)">
+                    <div class="left"><div class="icon">⭐</div><div class="info"><div class="name">100 Stars</div><div class="desc">+1500 монет</div></div></div>
+                    <div class="right">+1500</div>
+                </div>
+            </div>
+            <button class="deposit-close" onclick="closeDeposit()">✕ Закрыть</button>
+        </div>
+    </div>
+
+    <style>
+        .deposit-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(20px);
+            z-index: 300;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .deposit-overlay.show {
+            display: flex;
+            animation: fadeIn 0.3s ease-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .deposit-card {
+            max-width: 400px;
+            width: 100%;
+            background: linear-gradient(145deg, #1a1f35, #0d1225);
+            border-radius: 24px;
+            padding: 28px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        .deposit-card .title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #f7d44a;
+            margin-bottom: 4px;
+        }
+        .deposit-card .sub {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.2);
+            margin-bottom: 20px;
+        }
+        .deposit-card .balance-show {
+            font-size: 36px;
+            font-weight: 800;
+            color: #f7d44a;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .deposit-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 16px 0;
+        }
+        .deposit-options .option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .deposit-options .option:active {
+            transform: scale(0.96);
+            background: rgba(255, 255, 255, 0.04);
+        }
+        .deposit-options .option .left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .deposit-options .option .left .icon {
+            font-size: 28px;
+        }
+        .deposit-options .option .left .info .name {
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .deposit-options .option .left .info .desc {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.2);
+        }
+        .deposit-options .option .right {
+            font-size: 16px;
+            font-weight: 700;
+            color: #f7d44a;
+        }
+
+        .deposit-close {
+            margin-top: 16px;
+            padding: 12px;
+            border: none;
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: 0.3s;
+        }
+        .deposit-close:active {
+            transform: scale(0.94);
+        }
+    </style>
 
     <script>
         // ============================================================
@@ -340,8 +625,13 @@
         let balance = parseInt(localStorage.getItem('casinoBalance')) || 1000;
 
         function updateAllBalances() {
-            document.getElementById('balanceDisplay').textContent = balance;
-            document.getElementById('headerStars').textContent = Math.floor(balance / 10);
+            const display = document.getElementById('balanceDisplay');
+            if (display) display.textContent = balance;
+            document.querySelectorAll('[id^="headerStars"]').forEach(el => {
+                el.textContent = Math.floor(balance / 10);
+            });
+            const depositBalance = document.getElementById('depositBalance');
+            if (depositBalance) depositBalance.textContent = balance;
             localStorage.setItem('casinoBalance', balance);
         }
         updateAllBalances();
@@ -351,7 +641,8 @@
         // ============================================================
         function updateLive() {
             const live = (Math.random() * 2 + 0.1).toFixed(1);
-            document.getElementById('liveCount').textContent = live;
+            const el = document.getElementById('liveCount');
+            if (el) el.textContent = live;
         }
         setInterval(updateLive, 3000);
 
@@ -379,7 +670,35 @@
         }
 
         // ============================================================
-        // 4. TOAST
+        // 4. ПОПОЛНЕНИЕ
+        // ============================================================
+        function openDeposit() {
+            document.getElementById('depositOverlay').classList.add('show');
+            document.getElementById('depositBalance').textContent = balance;
+        }
+
+        function closeDeposit() {
+            document.getElementById('depositOverlay').classList.remove('show');
+        }
+
+        function buyCoins(starsCost, coinsAmount) {
+            if (window.Telegram && window.Telegram.WebApp) {
+                window.Telegram.WebApp.sendData(JSON.stringify({
+                    action: 'buy_coins',
+                    stars: starsCost,
+                    coins: coinsAmount
+                }));
+                showToast(`⏳ Запрос на ${coinsAmount} монет за ${starsCost} Stars...`);
+            } else {
+                balance += coinsAmount;
+                updateAllBalances();
+                closeDeposit();
+                showToast(`✅ +${coinsAmount} монет (демо)`);
+            }
+        }
+
+        // ============================================================
+        // 5. TOAST
         // ============================================================
         function showToast(msg, isWin = true) {
             const toast = document.createElement('div');
@@ -402,14 +721,15 @@
         }
 
         // ============================================================
-        // 5. СТАРТ
+        // 6. СТАРТ
         // ============================================================
         if (balance === 1000) {
             setTimeout(() => showToast('🐰 Добро пожаловать в Rabbits!'), 400);
         }
 
-        console.log('🐰 Главная страница загружена!');
+        console.log('🐰 Главная страница улучшена!');
         console.log('💰 Баланс:', balance);
+        console.log('✨ LIVE обновляется каждые 3 секунды');
     </script>
 </body>
 </html>
