@@ -5,73 +5,110 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>🪙 Монетка</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: white;
+            font-family: 'Segoe UI', system-ui, sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            background: linear-gradient(145deg, #0b0e1a 0%, #1a1f35 50%, #0d1225 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: radial-gradient(ellipse at 30% 40%, rgba(120, 100, 255, 0.10) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 60%, rgba(255, 180, 100, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
         }
         .container {
-            max-width: 500px;
+            position: relative;
+            z-index: 1;
+            max-width: 480px;
             width: 100%;
             text-align: center;
         }
         .back-btn {
             display: inline-block;
-            color: rgba(255,255,255,0.5);
+            color: rgba(255, 255, 255, 0.5);
             text-decoration: none;
-            font-size: 16px;
-            margin-bottom: 15px;
-            padding: 8px 18px;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 30px;
+            font-size: 15px;
+            padding: 8px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(8px);
+            transition: 0.25s;
+            margin-bottom: 10px;
         }
-        .back-btn:active { transform: scale(0.95); }
-        
+        .back-btn:active {
+            transform: scale(0.94);
+            background: rgba(255, 255, 255, 0.08);
+        }
         .header h2 {
-            font-size: 28px;
-            margin-bottom: 5px;
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #f6e6b0, #f0d060);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2px;
         }
         .header .sub {
             font-size: 14px;
-            opacity: 0.6;
-            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.35);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
         }
         .balance {
-            font-size: 22px;
-            color: #f7d44a;
-            margin-bottom: 15px;
-            background: rgba(0,0,0,0.3);
-            padding: 10px;
-            border-radius: 15px;
+            font-size: 24px;
+            font-weight: 600;
+            color: #f7e3a0;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            padding: 12px 28px;
+            border-radius: 60px;
             display: inline-block;
-            padding-left: 25px;
-            padding-right: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
         }
-        
-        /* 3D Монетка */
+        .balance span {
+            opacity: 0.5;
+            margin-right: 6px;
+        }
         .coin-container {
-            perspective: 800px;
+            perspective: 900px;
             width: 200px;
             height: 200px;
-            margin: 10px auto;
+            margin: 10px auto 6px;
             cursor: pointer;
+            filter: drop-shadow(0 12px 40px rgba(210, 180, 60, 0.15));
         }
         .coin {
             width: 200px;
             height: 200px;
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+            transition: transform 0.8s cubic-bezier(0.34, 1.2, 0.64, 1);
             border-radius: 50%;
         }
         .coin.flipping {
-            transition: transform 1.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+            transition: transform 1.8s cubic-bezier(0.23, 1, 0.32, 1);
         }
         .coin-face {
             position: absolute;
@@ -83,504 +120,470 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 70px;
-            border: 4px solid #f7d44a;
-            box-shadow: 0 0 50px rgba(247,212,74,0.15);
+            font-size: 68px;
+            border: 3px solid rgba(255, 215, 100, 0.3);
+            box-shadow: inset 0 -10px 40px rgba(0, 0, 0, 0.2);
         }
         .coin-heads {
-            background: radial-gradient(circle at 30% 30%, #ffd700, #b8860b);
+            background: radial-gradient(circle at 30% 30%, #fceabb, #d4a017);
             transform: rotateY(0deg);
         }
         .coin-tails {
-            background: radial-gradient(circle at 30% 30%, #c0c0c0, #696969);
+            background: radial-gradient(circle at 30% 30%, #e8e8e8, #9a9a9a);
             transform: rotateY(180deg);
         }
         .coin-face .label {
-            font-size: 14px;
-            margin-top: 0px;
-            opacity: 0.8;
-            letter-spacing: 2px;
+            font-size: 13px;
+            letter-spacing: 3px;
+            opacity: 0.6;
+            margin-top: 2px;
+            font-weight: 600;
         }
-        
-        /* Статистика игры */
+        .result {
+            font-size: 26px;
+            font-weight: 600;
+            margin: 10px 0 12px;
+            min-height: 48px;
+            transition: 0.2s;
+            letter-spacing: 0.5px;
+        }
+        .result.win {
+            color: #a3e0b0;
+            text-shadow: 0 0 30px rgba(100, 220, 140, 0.2);
+        }
+        .result.lose {
+            color: #f7a0a0;
+            text-shadow: 0 0 30px rgba(240, 100, 100, 0.15);
+        }
+        .bet-settings {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: center;
+            margin: 12px 0 10px;
+            flex-wrap: wrap;
+        }
+        .bet-settings label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 1px;
+        }
+        .bet-settings input {
+            width: 110px;
+            padding: 12px 8px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 17px;
+            font-weight: 600;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(8px);
+            color: #f0e8d0;
+            transition: 0.2s;
+        }
+        .bet-settings input:focus {
+            outline: none;
+            border-color: rgba(255, 215, 100, 0.25);
+            background: rgba(255, 255, 255, 0.07);
+        }
         .game-stats {
-            background: rgba(255,255,255,0.05);
-            border-radius: 15px;
-            padding: 15px;
-            margin: 15px 0;
-            border: 1px solid rgba(255,255,255,0.06);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 16px 10px;
+            margin: 14px 0 16px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
             display: flex;
             justify-content: space-around;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
         }
         .game-stats .stat-item {
             text-align: center;
         }
         .game-stats .stat-item .num {
-            font-size: 24px;
-            font-weight: bold;
-            color: #f7d44a;
+            font-size: 26px;
+            font-weight: 700;
+            color: #f0e0b0;
+            letter-spacing: 1px;
         }
         .game-stats .stat-item .lbl {
-            font-size: 11px;
-            opacity: 0.4;
+            font-size: 10px;
             text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.25);
+            margin-top: 2px;
         }
-        
-        .result {
-            font-size: 26px;
-            margin: 10px 0;
-            min-height: 45px;
-            font-weight: bold;
-        }
-        .result.win { color: #2ecc71; }
-        .result.lose { color: #e74c3c; }
-        
-        /* Настройка ставки */
-        .bet-settings {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            justify-content: center;
-            margin: 10px 0;
-            flex-wrap: wrap;
-        }
-        .bet-settings label {
-            font-size: 14px;
-            opacity: 0.7;
-        }
-        .bet-settings input {
-            width: 100px;
-            padding: 10px;
-            border-radius: 10px;
-            border: none;
-            font-size: 16px;
-            text-align: center;
-            background: rgba(255,255,255,0.08);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .bet-settings input:focus {
-            outline: none;
-            border-color: #f7d44a;
-        }
-        
-        /* Кнопки */
         .buttons {
             display: flex;
             gap: 12px;
             justify-content: center;
             flex-wrap: wrap;
-            margin: 15px 0;
+            margin: 16px 0 8px;
         }
         button {
-            padding: 14px 30px;
+            padding: 15px 28px;
             border: none;
-            border-radius: 14px;
+            border-radius: 60px;
             font-size: 17px;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
-            transition: transform 0.15s, box-shadow 0.2s;
+            transition: all 0.2s ease;
             flex: 1;
             min-width: 100px;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
         }
-        button:active { transform: scale(0.94); }
-        button:disabled { opacity: 0.35; cursor: not-allowed; transform: none !important; }
-        
-        .btn-play { background: #f7d44a; color: #1a1a2e; box-shadow: 0 4px 20px rgba(247,212,74,0.25); }
-        .btn-take { background: #2ecc71; color: white; box-shadow: 0 4px 20px rgba(46,204,113,0.25); }
-        .btn-risk { background: #e67e22; color: white; box-shadow: 0 4px 20px rgba(230,126,34,0.25); }
-        .btn-reset { background: rgba(255,255,255,0.08); color: white; border: 1px solid rgba(255,255,255,0.1); }
-        
+        button:active {
+            transform: scale(0.94);
+        }
+        button:disabled {
+            opacity: 0.3;
+            transform: none !important;
+            cursor: not-allowed;
+        }
+        .btn-play {
+            background: linear-gradient(145deg, #f5e18a, #dbb84a);
+            color: #1a1a2e;
+        }
+        .btn-take {
+            background: linear-gradient(145deg, #7ddb9a, #3ba86a);
+            color: #fff;
+        }
+        .btn-risk {
+            background: linear-gradient(145deg, #f5b87a, #d48a3a);
+            color: #fff;
+        }
         .toast {
             position: fixed;
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0,0,0,0.92);
-            color: white;
+            background: rgba(12, 14, 28, 0.92);
+            backdrop-filter: blur(16px);
+            color: #f0eee0;
             padding: 14px 28px;
-            border-radius: 14px;
+            border-radius: 60px;
             display: none;
             z-index: 999;
             max-width: 90%;
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             font-size: 16px;
+            font-weight: 500;
+            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.5);
+            letter-spacing: 0.3px;
         }
-        .toast.show { display: block; animation: slideDown 0.3s ease-out; }
+        .toast.show {
+            display: block;
+            animation: slideDown 0.35s ease-out;
+        }
         @keyframes slideDown {
-            from { top: -80px; opacity: 0; }
-            to { top: 20px; opacity: 1; }
+            from {
+                top: -60px;
+                opacity: 0;
+            }
+            to {
+                top: 20px;
+                opacity: 1;
+            }
         }
-        
         .footer {
-            margin-top: 20px;
+            margin-top: 16px;
             font-size: 12px;
-            opacity: 0.25;
+            color: rgba(255, 255, 255, 0.12);
+            letter-spacing: 2px;
         }
-        
-        /* Мобильная адаптация */
         @media (max-width: 450px) {
-            .coin-container { width: 160px; height: 160px; }
-            .coin { width: 160px; height: 160px; }
-            .coin-face { font-size: 55px; }
-            .game-stats .stat-item .num { font-size: 20px; }
-            button { font-size: 15px; padding: 12px 18px; min-width: 80px; }
+            .coin-container {
+                width: 160px;
+                height: 160px;
+            }
+            .coin {
+                width: 160px;
+                height: 160px;
+            }
+            .coin-face {
+                font-size: 52px;
+            }
+            .game-stats .stat-item .num {
+                font-size: 22px;
+            }
+            button {
+                font-size: 15px;
+                padding: 13px 16px;
+                min-width: 70px;
+            }
+            .balance {
+                font-size: 20px;
+                padding: 10px 22px;
+            }
         }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <a href="index.html" class="back-btn">← Назад</a>
-    
-    <div class="header">
-        <h2>🪙 Монетка</h2>
-        <div class="sub">Удваивай ставку до 10 раз!</div>
-    </div>
-    
-    <div class="balance" id="balanceDisplay">💰 1000</div>
-    
-    <!-- 3D Монетка -->
-    <div class="coin-container" onclick="playRound()">
-        <div class="coin" id="coin3d">
-            <div class="coin-face coin-heads">🦅<div class="label">ОРЁЛ</div></div>
-            <div class="coin-face coin-tails">🪙<div class="label">РЕШКА</div></div>
+    <div class="container">
+        <a href="index.html" class="back-btn">← Назад</a>
+        <div class="header">
+            <h2>🪙 Монетка</h2>
+            <div class="sub">Удваивай до 10 раз</div>
         </div>
-    </div>
-    
-    <div class="result" id="coinResult">Нажми «Играть»</div>
-    
-    <!-- Настройка ставки -->
-    <div class="bet-settings">
-        <label>💰 Ставка:</label>
-        <input type="number" id="betInput" value="10" min="5" step="5">
-    </div>
-    
-    <!-- Статистика раунда -->
-    <div class="game-stats">
-        <div class="stat-item">
-            <div class="num" id="roundNum">0</div>
-            <div class="lbl">Раунд</div>
+        <div class="balance" id="balanceDisplay">💰 1000</div>
+        <div class="coin-container" onclick="playRound()">
+            <div class="coin" id="coin3d">
+                <div class="coin-face coin-heads">🦅
+                    <div class="label">ОРЁЛ</div>
+                </div>
+                <div class="coin-face coin-tails">🪙
+                    <div class="label">РЕШКА</div>
+                </div>
+            </div>
         </div>
-        <div class="stat-item">
-            <div class="num" id="currentBet">0</div>
-            <div class="lbl">Текущая ставка</div>
+        <div class="result" id="coinResult">Нажми «Играть»</div>
+        <div class="bet-settings">
+            <label>💰 Ставка</label>
+            <input type="number" id="betInput" value="10" min="5" step="5">
         </div>
-        <div class="stat-item">
-            <div class="num" id="potentialWin">0</div>
-            <div class="lbl">Потенциальный выигрыш</div>
+        <div class="game-stats">
+            <div class="stat-item">
+                <div class="num" id="roundNum">0</div>
+                <div class="lbl">Раунд</div>
+            </div>
+            <div class="stat-item">
+                <div class="num" id="currentBet">0</div>
+                <div class="lbl">Ставка</div>
+            </div>
+            <div class="stat-item">
+                <div class="num" id="potentialWin">0</div>
+                <div class="lbl">Выигрыш</div>
+            </div>
         </div>
+        <div class="buttons">
+            <button class="btn-play" onclick="startGame()" id="playBtn">🎮 Играть</button>
+            <button class="btn-take" onclick="takeWin()" id="takeBtn" disabled>💰 Забрать</button>
+            <button class="btn-risk" onclick="playRound()" id="riskBtn" disabled>⚡ Рискнуть</button>
+        </div>
+        <div class="footer">максимум x10</div>
     </div>
-    
-    <!-- Кнопки управления -->
-    <div class="buttons">
-        <button class="btn-play" onclick="startGame()" id="playBtn">🎮 Играть</button>
-        <button class="btn-take" onclick="takeWin()" id="takeBtn" disabled>💰 Забрать</button>
-        <button class="btn-risk" onclick="playRound()" id="riskBtn" disabled>⚡ Рискнуть (x2)</button>
-        <button class="btn-reset" onclick="resetGame()" id="resetBtn">🔄 Сброс</button>
-    </div>
-    
-    <div class="footer">Максимум x10 | Можно забрать в любой момент</div>
-</div>
+    <div class="toast" id="toast"></div>
 
-<div class="toast" id="toast"></div>
+    <script>
+        // ======================== БАЛАНС ========================
+        let balance = parseInt(localStorage.getItem('casinoBalance')) || 1000;
+        updateBalanceDisplay();
 
-<script>
-    // ============================================================
-    // 1. БАЛАНС
-    // ============================================================
-    let balance = parseInt(localStorage.getItem('casinoBalance')) || 1000;
-    updateBalanceDisplay();
+        function updateBalanceDisplay() {
+            document.getElementById('balanceDisplay').textContent = '💰 ' + balance;
+            localStorage.setItem('casinoBalance', balance);
+        }
 
-    function updateBalanceDisplay() {
-        document.getElementById('balanceDisplay').textContent = '💰 ' + balance;
-        localStorage.setItem('casinoBalance', balance);
-    }
+        function showToast(msg, isWin = true) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.style.borderColor = isWin ? 'rgba(120, 220, 160, 0.15)' : 'rgba(240, 120, 120, 0.15)';
+            t.classList.add('show');
+            clearTimeout(t._timeout);
+            t._timeout = setTimeout(() => t.classList.remove('show'), 2600);
+        }
 
-    function showToast(msg, isWin = true) {
-        const t = document.getElementById('toast');
-        t.textContent = msg;
-        t.style.borderColor = isWin ? 'rgba(46,204,113,0.4)' : 'rgba(231,76,60,0.4)';
-        t.classList.add('show');
-        clearTimeout(t._timeout);
-        t._timeout = setTimeout(() => t.classList.remove('show'), 2700);
-    }
+        // ======================== ПРИЯТНЫЕ ЗВУКИ ========================
+        function playWinSound() {
+            try {
+                const ctx = new(window.AudioContext || window.webkitAudioContext)();
+                const notes = [523, 659, 784];
+                notes.forEach((freq, i) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.frequency.value = freq;
+                    osc.type = 'sine';
+                    gain.gain.value = 0.10;
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25 + i * 0.12);
+                    osc.start(ctx.currentTime + i * 0.12);
+                    osc.stop(ctx.currentTime + 0.3 + i * 0.12);
+                });
+            } catch (_) {}
+        }
 
-    // ============================================================
-    // 2. ЗВУКИ (синтезированные)
-    // ============================================================
-    function playWinSound() {
-        try {
-            const ctx = new (window.AudioContext || window.webkitAudioContext)();
-            // Победный звук — восходящая гамма
-            const notes = [523, 659, 784, 1047];
-            notes.forEach((freq, i) => {
+        function playLoseSound() {
+            try {
+                const ctx = new(window.AudioContext || window.webkitAudioContext)();
                 const osc = ctx.createOscillator();
                 const gain = ctx.createGain();
                 osc.connect(gain);
                 gain.connect(ctx.destination);
-                osc.frequency.value = freq;
+                osc.frequency.value = 340;
                 osc.type = 'sine';
-                gain.gain.value = 0.15;
-                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2 + i * 0.12);
-                osc.start(ctx.currentTime + i * 0.12);
-                osc.stop(ctx.currentTime + 0.3 + i * 0.12);
-            });
-        } catch(e) { /* если звук не поддерживается — тихо */ }
-    }
-
-    function playLoseSound() {
-        try {
-            const ctx = new (window.AudioContext || window.webkitAudioContext)();
-            // Проигрыш — низкий печальный звук
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.frequency.value = 300;
-            osc.type = 'sawtooth';
-            gain.gain.value = 0.12;
-            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
-            osc.start(ctx.currentTime);
-            osc.stop(ctx.currentTime + 0.6);
-            
-            // Второй звук для эффекта
-            const osc2 = ctx.createOscillator();
-            const gain2 = ctx.createGain();
-            osc2.connect(gain2);
-            gain2.connect(ctx.destination);
-            osc2.frequency.value = 200;
-            osc2.type = 'sawtooth';
-            gain2.gain.value = 0.08;
-            gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.8);
-            osc2.start(ctx.currentTime + 0.15);
-            osc2.stop(ctx.currentTime + 0.8);
-        } catch(e) { /* если звук не поддерживается — тихо */ }
-    }
-
-    function playCoinFlipSound() {
-        try {
-            const ctx = new (window.AudioContext || window.webkitAudioContext)();
-            // Звук подбрасывания — короткий щелчок
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.frequency.value = 800;
-            osc.type = 'square';
-            gain.gain.value = 0.06;
-            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
-            osc.start(ctx.currentTime);
-            osc.stop(ctx.currentTime + 0.08);
-        } catch(e) { /* если звук не поддерживается — тихо */ }
-    }
-
-    // ============================================================
-    // 3. СОСТОЯНИЕ ИГРЫ
-    // ============================================================
-    let game = {
-        active: false,
-        round: 0,
-        baseBet: 0,
-        currentBet: 0,
-        maxRounds: 10,
-        isFlipping: false,
-        lastResult: null,
-        winAmount: 0
-    };
-
-    // ============================================================
-    // 4. ОБНОВЛЕНИЕ UI
-    // ============================================================
-    function updateUI() {
-        document.getElementById('roundNum').textContent = game.round;
-        document.getElementById('currentBet').textContent = game.currentBet;
-        document.getElementById('potentialWin').textContent = game.winAmount;
-        
-        const playBtn = document.getElementById('playBtn');
-        const takeBtn = document.getElementById('takeBtn');
-        const riskBtn = document.getElementById('riskBtn');
-        
-        if (game.active) {
-            playBtn.disabled = true;
-            takeBtn.disabled = false;
-            riskBtn.disabled = false;
-        } else {
-            playBtn.disabled = false;
-            takeBtn.disabled = true;
-            riskBtn.disabled = true;
+                gain.gain.value = 0.09;
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + 0.6);
+            } catch (_) {}
         }
-        
-        if (game.round >= game.maxRounds) {
-            riskBtn.disabled = true;
-            riskBtn.textContent = '🔥 MAX';
-        } else {
-            riskBtn.textContent = '⚡ Рискнуть (x2)';
-        }
-    }
 
-    // ============================================================
-    // 5. СТАРТ НОВОЙ ИГРЫ
-    // ============================================================
-    function startGame() {
-        if (game.active) return;
-        
-        const betInput = document.getElementById('betInput');
-        let bet = parseInt(betInput.value);
-        if (isNaN(bet) || bet < 5) {
-            showToast('❌ Минимальная ставка 5 монет', false);
-            return;
+        function playCoinFlipSound() {
+            try {
+                const ctx = new(window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.frequency.value = 1200;
+                osc.type = 'sine';
+                gain.gain.value = 0.04;
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + 0.06);
+            } catch (_) {}
         }
-        if (bet > balance) {
-            showToast('❌ Недостаточно монет!', false);
-            return;
-        }
-        
-        balance -= bet;
-        updateBalanceDisplay();
-        
-        game.active = true;
-        game.round = 0;
-        game.baseBet = bet;
-        game.currentBet = bet;
-        game.winAmount = bet * 2;
-        game.lastResult = null;
-        
-        document.getElementById('coinResult').textContent = '🎯 Игра началась!';
-        document.getElementById('coinResult').className = 'result';
-        
-        updateUI();
-        showToast('🎮 Игра началась! Ставка: ' + bet + ' монет', true);
-        
-        setTimeout(() => playRound(), 400);
-    }
 
-    // ============================================================
-    // 6. ОДИН РАУНД (РИСКНУТЬ)
-    // ============================================================
-    function playRound() {
-        if (!game.active) {
-            showToast('Сначала нажми «Играть»', false);
-            return;
-        }
-        if (game.isFlipping) return;
-        if (game.round >= game.maxRounds) {
-            showToast('🔥 Достигнут максимум x' + game.maxRounds + '! Забери выигрыш.', false);
-            return;
-        }
-        
-        game.isFlipping = true;
-        playCoinFlipSound();
-        
-        const coin = document.getElementById('coin3d');
-        const result = Math.random() < 0.5 ? 'heads' : 'tails';
-        const isWin = result === 'heads';
-        const resultText = isWin ? 'Орёл 🦅' : 'Решка 🪙';
-        
-        const flips = 4 + Math.floor(Math.random() * 4);
-        const finalAngle = isWin ? 0 : 180;
-        const totalRotation = flips * 360 + finalAngle;
-        
-        coin.classList.add('flipping');
-        coin.style.transform = `rotateY(${totalRotation}deg)`;
-        document.getElementById('coinResult').textContent = '...';
-        
-        setTimeout(() => {
-            coin.classList.remove('flipping');
-            coin.style.transform = `rotateY(${finalAngle}deg)`;
-            document.getElementById('coinResult').textContent = resultText;
-            
-            if (isWin) {
-                game.round++;
-                game.currentBet = game.baseBet * Math.pow(2, game.round);
-                game.winAmount = game.currentBet * 2;
-                document.getElementById('coinResult').className = 'result win';
-                document.getElementById('coinResult').textContent = '✅ ' + resultText + ' +' + game.currentBet + ' монет!';
-                showToast('🎉 Раунд ' + game.round + '! Выиграл ' + game.currentBet + ' монет', true);
-                playWinSound();
+        // ======================== ИГРА ========================
+        let game = {
+            active: false,
+            round: 0,
+            baseBet: 0,
+            currentBet: 0,
+            maxRounds: 10,
+            isFlipping: false,
+            winAmount: 0
+        };
+
+        function updateUI() {
+            document.getElementById('roundNum').textContent = game.round;
+            document.getElementById('currentBet').textContent = game.currentBet;
+            document.getElementById('potentialWin').textContent = game.winAmount;
+
+            const playBtn = document.getElementById('playBtn');
+            const takeBtn = document.getElementById('takeBtn');
+            const riskBtn = document.getElementById('riskBtn');
+
+            if (game.active) {
+                playBtn.disabled = true;
+                takeBtn.disabled = false;
+                riskBtn.disabled = (game.round >= game.maxRounds);
             } else {
-                document.getElementById('coinResult').className = 'result lose';
-                document.getElementById('coinResult').textContent = '❌ ' + resultText + ' Проиграл!';
-                showToast('😢 Проиграл ' + game.currentBet + ' монет', false);
-                playLoseSound();
-                endGame(false);
-                return;
+                playBtn.disabled = false;
+                takeBtn.disabled = true;
+                riskBtn.disabled = true;
             }
-            
-            game.isFlipping = false;
-            
             if (game.round >= game.maxRounds) {
-                document.getElementById('coinResult').textContent = '🏆 МАКСИМУМ x' + game.maxRounds + '! Забери ' + game.winAmount + ' монет!';
-                updateUI();
-                setTimeout(() => takeWin(), 800);
+                riskBtn.textContent = '🔥 MAX';
+            } else {
+                riskBtn.textContent = '⚡ Рискнуть';
+            }
+        }
+
+        function startGame() {
+            if (game.active) return;
+            const betInput = document.getElementById('betInput');
+            let bet = parseInt(betInput.value);
+            if (isNaN(bet) || bet < 5) {
+                showToast('❌ Минимум 5 монет', false);
                 return;
             }
-            
+            if (bet > balance) {
+                showToast('❌ Не хватает монет', false);
+                return;
+            }
+
+            balance -= bet;
+            updateBalanceDisplay();
+
+            game.active = true;
+            game.round = 0;
+            game.baseBet = bet;
+            game.currentBet = bet;
+            game.winAmount = bet * 2;
+
+            document.getElementById('coinResult').textContent = '🎯 Игра началась!';
+            document.getElementById('coinResult').className = 'result';
             updateUI();
-            
-        }, 1800);
-    }
-
-    // ============================================================
-    // 7. ЗАБРАТЬ ВЫИГРЫШ
-    // ============================================================
-    function takeWin() {
-        if (!game.active) return;
-        if (game.winAmount <= 0) {
-            showToast('❌ Нет выигрыша', false);
-            return;
+            showToast('🎮 Ставка ' + bet + ' монет', true);
+            setTimeout(() => playRound(), 450);
         }
-        
-        balance += game.winAmount;
-        updateBalanceDisplay();
-        showToast('💰 Забрал ' + game.winAmount + ' монет!', true);
-        document.getElementById('coinResult').className = 'result win';
-        document.getElementById('coinResult').textContent = '💰 Забрано ' + game.winAmount + ' монет!';
-        playWinSound();
-        
-        endGame(true);
-    }
 
-    // ============================================================
-    // 8. ЗАВЕРШЕНИЕ ИГРЫ
-    // ============================================================
-    function endGame(wasWin) {
-        game.active = false;
-        game.isFlipping = false;
+        function playRound() {
+            if (!game.active || game.isFlipping) return;
+            if (game.round >= game.maxRounds) {
+                showToast('🔥 Максимум! Забери выигрыш', false);
+                return;
+            }
+
+            game.isFlipping = true;
+            playCoinFlipSound();
+
+            const coin = document.getElementById('coin3d');
+            const result = Math.random() < 0.5 ? 'heads' : 'tails';
+            const isWin = result === 'heads';
+            const flips = 4 + Math.floor(Math.random() * 4);
+            const finalAngle = isWin ? 0 : 180;
+            const totalRotation = flips * 360 + finalAngle;
+
+            coin.classList.add('flipping');
+            coin.style.transform = `rotateY(${totalRotation}deg)`;
+            document.getElementById('coinResult').textContent = '...';
+
+            setTimeout(() => {
+                coin.classList.remove('flipping');
+                coin.style.transform = `rotateY(${finalAngle}deg)`;
+
+                if (isWin) {
+                    game.round++;
+                    game.currentBet = game.baseBet * Math.pow(2, game.round);
+                    game.winAmount = game.currentBet * 2;
+
+                    document.getElementById('coinResult').className = 'result win';
+                    document.getElementById('coinResult').textContent = '✅ Орёл! +' + game.currentBet + ' монет';
+                    showToast('🎉 Раунд ' + game.round + '! +' + game.currentBet + ' монет', true);
+                    playWinSound();
+                } else {
+                    document.getElementById('coinResult').className = 'result lose';
+                    document.getElementById('coinResult').textContent = '❌ Решка... Проигрыш';
+                    showToast('😢 Проиграл ' + game.currentBet + ' монет', false);
+                    playLoseSound();
+                    endGame(false);
+                    return;
+                }
+
+                game.isFlipping = false;
+
+                if (game.round >= game.maxRounds) {
+                    document.getElementById('coinResult').textContent = '🏆 MAX! Забери ' + game.winAmount + ' монет';
+                    updateUI();
+                    setTimeout(() => takeWin(), 700);
+                    return;
+                }
+                updateUI();
+            }, 1800);
+        }
+
+        function takeWin() {
+            if (!game.active || game.winAmount <= 0) return;
+            balance += game.winAmount;
+            updateBalanceDisplay();
+            showToast('💰 Забрал ' + game.winAmount + ' монет!', true);
+            document.getElementById('coinResult').className = 'result win';
+            document.getElementById('coinResult').textContent = '💰 Забрано ' + game.winAmount + ' монет';
+            playWinSound();
+            endGame(true);
+        }
+
+        function endGame(wasWin) {
+            game.active = false;
+            game.isFlipping = false;
+            updateUI();
+            if (!wasWin) {
+                document.getElementById('coinResult').className = 'result lose';
+                document.getElementById('coinResult').textContent = '💔 Игра окончена';
+            }
+        }
+
+        // ======================== СТАРТ ========================
         updateUI();
-        
-        if (!wasWin) {
-            document.getElementById('coinResult').className = 'result lose';
-            document.getElementById('coinResult').textContent = '💔 Игра окончена';
+        document.getElementById('coinResult').textContent = 'Нажми «Играть»';
+        if (balance === 1000) {
+            setTimeout(() => showToast('💰 Добро пожаловать!', true), 400);
         }
-    }
-
-    // ============================================================
-    // 9. СБРОС
-    // ============================================================
-    function resetGame() {
-        if (game.active) {
-            showToast('🔄 Игра сброшена', false);
-        }
-        game.active = false;
-        game.isFlipping = false;
-        game.round = 0;
-        game.currentBet = 0;
-        game.winAmount = 0;
-        document.getElementById('coinResult').className = 'result';
-        document.getElementById('coinResult').textContent = '🔄 Сброс';
-        updateUI();
-    }
-
-    // ============================================================
-    // 10. ИНИЦИАЛИЗАЦИЯ
-    // ============================================================
-    updateUI();
-    document.getElementById('coinResult').textContent = 'Нажми «Играть»';
-    
-    if (balance === 1000) {
-        setTimeout(() => showToast('💰 Добро пожаловать! Играй и выигрывай!', true), 400);
-    }
-</script>
+    </script>
 </body>
 </html>
